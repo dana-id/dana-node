@@ -1,0 +1,41 @@
+{
+  "name": "dana-node-api-client",
+  "version": "0.1.2",
+  "author": "dana-id",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dana-id/node_client.git"
+  },
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": ["dist/"]
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "dependencies": {
+    "date-fns-tz": "^3.2.0",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.15.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2",
+    "typescript": "^4.0 || ^5.0"
+  }
+}
