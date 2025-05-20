@@ -9,292 +9,159 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentGatewayApi = void 0;
 const runtime = require("../../../runtime");
 const index_1 = require("../models/index");
-const uuid_1 = require("uuid");
-const date_fns_tz_1 = require("date-fns-tz");
 /**
  *
  */
 class PaymentGatewayApi extends runtime.BaseAPI {
-    constructor({ partnerId, privateKey, env }) {
+    constructor({ partnerId, privateKey, origin, env }) {
+        const basePath = runtime.getBasePathByEnv(env);
         const configuration = new runtime.Configuration({
-            basePath: runtime.getBasePathByEnv(env),
+            basePath: basePath,
         });
         super(configuration);
         this.partnerId = "";
         this.privateKey = "";
+        this.origin = "";
+        this.env = "";
         this.partnerId = partnerId;
         this.privateKey = privateKey;
-    }
-    /**
-     * This API is used to cancel the order from merchant\'s platform to DANA
-     * Cancel Order API
-     */
-    async cancelOrderRaw(requestParameters, initOverrides) {
-        if (requestParameters['cancelOrderRequest'] == null) {
-            throw new runtime.RequiredError('cancelOrderRequest', 'Required parameter "cancelOrderRequest" was null or undefined when calling cancelOrder().');
-        }
-        const queryParameters = {};
-        const headerParameters = {};
-        headerParameters['Content-Type'] = 'application/json';
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["ORIGIN"] = await this.configuration.apiKey("ORIGIN"); // ORIGIN authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-PARTNER-ID"] = await this.configuration.apiKey("X-PARTNER-ID"); // X_PARTNER_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["CHANNEL-ID"] = await this.configuration.apiKey("CHANNEL-ID"); // CHANNEL_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekey"] = await this.configuration.apiKey("privatekey"); // PRIVATE_KEY authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekeypath"] = await this.configuration.apiKey("privatekeypath"); // PRIVATE_KEY_PATH authentication
-        }
-        const httpMethod = 'POST';
-        const endpointUrl = '/v1.0/debit/cancel.htm';
-        const requestBody = JSON.stringify((0, index_1.CancelOrderRequestToJSON)(requestParameters['cancelOrderRequest']));
-        const timeStamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
-        const signature = runtime.DanaSignatureUtil.generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, this.privateKey, timeStamp);
-        headerParameters['X-TIMESTAMP'] = timeStamp;
-        headerParameters['X-SIGNATURE'] = signature;
-        headerParameters['X-PARTNER-ID'] = this.partnerId;
-        headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
-        headerParameters['CHANNEL-ID'] = '95221';
-        const response = await this.request({
-            path: `/v1.0/debit/cancel.htm`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: (0, index_1.CancelOrderRequestToJSON)(requestParameters['cancelOrderRequest']),
-        }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.CancelOrderResponseFromJSON)(jsonValue));
+        this.origin = origin;
+        this.env = env;
     }
     /**
      * This API is used to cancel the order from merchant\'s platform to DANA
      * Cancel Order API
      */
     async cancelOrder(cancelOrderRequest, initOverrides) {
-        const response = await this.cancelOrderRaw({ cancelOrderRequest: cancelOrderRequest }, initOverrides);
-        return await response.value();
-    }
-    /**
-     * This API is used to consult the list of payment methods or payment channels that user has and used in certain transactions or orders
-     * Consult Pay API
-     */
-    async consultPayRaw(requestParameters, initOverrides) {
-        if (requestParameters['consultPayRequest'] == null) {
-            throw new runtime.RequiredError('consultPayRequest', 'Required parameter "consultPayRequest" was null or undefined when calling consultPay().');
+        if (cancelOrderRequest == null) {
+            throw new runtime.RequiredError('cancelOrderRequest', 'Required parameter "cancelOrderRequest" was null or undefined when calling cancelOrder().');
+        }
+        const validationErrorContexts = (0, index_1.validateCancelOrderRequest)(cancelOrderRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
         }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["ORIGIN"] = await this.configuration.apiKey("ORIGIN"); // ORIGIN authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-PARTNER-ID"] = await this.configuration.apiKey("X-PARTNER-ID"); // X_PARTNER_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["CHANNEL-ID"] = await this.configuration.apiKey("CHANNEL-ID"); // CHANNEL_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekey"] = await this.configuration.apiKey("privatekey"); // PRIVATE_KEY authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekeypath"] = await this.configuration.apiKey("privatekeypath"); // PRIVATE_KEY_PATH authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["env"] = await this.configuration.apiKey("env"); // ENV authentication
-        }
-        const httpMethod = 'POST';
-        const endpointUrl = '/v1.0/payment-gateway/consult-pay.htm';
-        const requestBody = JSON.stringify((0, index_1.ConsultPayRequestToJSON)(requestParameters['consultPayRequest']));
-        const timeStamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
-        const signature = runtime.DanaSignatureUtil.generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, this.privateKey, timeStamp);
-        headerParameters['X-TIMESTAMP'] = timeStamp;
-        headerParameters['X-SIGNATURE'] = signature;
-        headerParameters['X-PARTNER-ID'] = this.partnerId;
-        headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
-        headerParameters['CHANNEL-ID'] = '95221';
+        const endpointUrl = `/payment-gateway/v1.0/debit/cancel.htm`;
+        const requestBody = JSON.stringify((0, index_1.CancelOrderRequestToJSON)(cancelOrderRequest));
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
         const response = await this.request({
-            path: `/v1.0/payment-gateway/consult-pay.htm`,
+            path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: (0, index_1.ConsultPayRequestToJSON)(requestParameters['consultPayRequest']),
+            body: (0, index_1.CancelOrderRequestToJSON)(cancelOrderRequest),
         }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.ConsultPayResponseFromJSON)(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.CancelOrderResponseFromJSON)(jsonValue)).value();
     }
     /**
      * This API is used to consult the list of payment methods or payment channels that user has and used in certain transactions or orders
      * Consult Pay API
      */
     async consultPay(consultPayRequest, initOverrides) {
-        const response = await this.consultPayRaw({ consultPayRequest: consultPayRequest }, initOverrides);
-        return await response.value();
-    }
-    /**
-     * Create an order to process a payment through DANA Payment Gateway
-     * Create Payment Order
-     */
-    async createOrderRaw(requestParameters, initOverrides) {
-        if (requestParameters['createOrderRequest'] == null) {
-            throw new runtime.RequiredError('createOrderRequest', 'Required parameter "createOrderRequest" was null or undefined when calling createOrder().');
+        if (consultPayRequest == null) {
+            throw new runtime.RequiredError('consultPayRequest', 'Required parameter "consultPayRequest" was null or undefined when calling consultPay().');
+        }
+        const validationErrorContexts = (0, index_1.validateConsultPayRequest)(consultPayRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
         }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["ORIGIN"] = await this.configuration.apiKey("ORIGIN"); // ORIGIN authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-PARTNER-ID"] = await this.configuration.apiKey("X-PARTNER-ID"); // X_PARTNER_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["CHANNEL-ID"] = await this.configuration.apiKey("CHANNEL-ID"); // CHANNEL_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekey"] = await this.configuration.apiKey("privatekey"); // PRIVATE_KEY authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekeypath"] = await this.configuration.apiKey("privatekeypath"); // PRIVATE_KEY_PATH authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["env"] = await this.configuration.apiKey("env"); // ENV authentication
-        }
-        const httpMethod = 'POST';
-        const endpointUrl = '/v1.0/payment-gateway/payment.htm';
-        const requestBody = JSON.stringify((0, index_1.CreateOrderRequestToJSON)(requestParameters['createOrderRequest']));
-        const timeStamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
-        const signature = runtime.DanaSignatureUtil.generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, this.privateKey, timeStamp);
-        headerParameters['X-TIMESTAMP'] = timeStamp;
-        headerParameters['X-SIGNATURE'] = signature;
-        headerParameters['X-PARTNER-ID'] = this.partnerId;
-        headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
-        headerParameters['CHANNEL-ID'] = '95221';
+        const endpointUrl = `/v1.0/payment-gateway/consult-pay.htm`;
+        const requestBody = JSON.stringify((0, index_1.ConsultPayRequestToJSON)(consultPayRequest));
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
         const response = await this.request({
-            path: `/v1.0/payment-gateway/payment.htm`,
+            path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: (0, index_1.CreateOrderRequestToJSON)(requestParameters['createOrderRequest']),
+            body: (0, index_1.ConsultPayRequestToJSON)(consultPayRequest),
         }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.CreateOrderResponseFromJSON)(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.ConsultPayResponseFromJSON)(jsonValue)).value();
     }
     /**
-     * Create an order to process a payment through DANA Payment Gateway
+     * This API is used for merchant to create order in DANA side
      * Create Payment Order
      */
     async createOrder(createOrderRequest, initOverrides) {
-        const response = await this.createOrderRaw({ createOrderRequest: createOrderRequest }, initOverrides);
-        return await response.value();
-    }
-    /**
-     * Inquiry payment status and information from merchant’s platform to DANA
-     * Query Payment
-     */
-    async queryPaymentRaw(requestParameters, initOverrides) {
-        if (requestParameters['queryPaymentRequest'] == null) {
-            throw new runtime.RequiredError('queryPaymentRequest', 'Required parameter "queryPaymentRequest" was null or undefined when calling queryPayment().');
+        if (createOrderRequest == null) {
+            throw new runtime.RequiredError('createOrderRequest', 'Required parameter "createOrderRequest" was null or undefined when calling createOrder().');
+        }
+        const validationErrorContexts = (0, index_1.validateCreateOrderRequest)(createOrderRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
         }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["ORIGIN"] = await this.configuration.apiKey("ORIGIN"); // ORIGIN authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-PARTNER-ID"] = await this.configuration.apiKey("X-PARTNER-ID"); // X_PARTNER_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["CHANNEL-ID"] = await this.configuration.apiKey("CHANNEL-ID"); // CHANNEL_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekey"] = await this.configuration.apiKey("privatekey"); // PRIVATE_KEY authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekeypath"] = await this.configuration.apiKey("privatekeypath"); // PRIVATE_KEY_PATH authentication
-        }
-        const httpMethod = 'POST';
-        const endpointUrl = '/v1.0/debit/status.htm';
-        const requestBody = JSON.stringify((0, index_1.QueryPaymentRequestToJSON)(requestParameters['queryPaymentRequest']));
-        const timeStamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
-        const signature = runtime.DanaSignatureUtil.generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, this.privateKey, timeStamp);
-        headerParameters['X-TIMESTAMP'] = timeStamp;
-        headerParameters['X-SIGNATURE'] = signature;
-        headerParameters['X-PARTNER-ID'] = this.partnerId;
-        headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
-        headerParameters['CHANNEL-ID'] = '95221';
+        const endpointUrl = `/payment-gateway/v1.0/debit/payment-host-to-host.htm`;
+        const requestBody = JSON.stringify((0, index_1.CreateOrderRequestToJSON)(createOrderRequest));
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
         const response = await this.request({
-            path: `/v1.0/debit/status.htm`,
+            path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: (0, index_1.QueryPaymentRequestToJSON)(requestParameters['queryPaymentRequest']),
+            body: (0, index_1.CreateOrderRequestToJSON)(createOrderRequest),
         }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.QueryPaymentResponseFromJSON)(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.CreateOrderResponseFromJSON)(jsonValue)).value();
     }
     /**
-     * Inquiry payment status and information from merchant’s platform to DANA
+     * This API is used to inquiry payment status and information from merchant\'s platform to DANA
      * Query Payment
      */
     async queryPayment(queryPaymentRequest, initOverrides) {
-        const response = await this.queryPaymentRaw({ queryPaymentRequest: queryPaymentRequest }, initOverrides);
-        return await response.value();
-    }
-    /**
-     * This API is used to refund the order from merchant\'s platform to DANA
-     * Refund Order API
-     */
-    async refundOrderRaw(requestParameters, initOverrides) {
-        if (requestParameters['refundOrderRequest'] == null) {
-            throw new runtime.RequiredError('refundOrderRequest', 'Required parameter "refundOrderRequest" was null or undefined when calling refundOrder().');
+        if (queryPaymentRequest == null) {
+            throw new runtime.RequiredError('queryPaymentRequest', 'Required parameter "queryPaymentRequest" was null or undefined when calling queryPayment().');
+        }
+        const validationErrorContexts = (0, index_1.validateQueryPaymentRequest)(queryPaymentRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
         }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["ORIGIN"] = await this.configuration.apiKey("ORIGIN"); // ORIGIN authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-PARTNER-ID"] = await this.configuration.apiKey("X-PARTNER-ID"); // X_PARTNER_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["CHANNEL-ID"] = await this.configuration.apiKey("CHANNEL-ID"); // CHANNEL_ID authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekey"] = await this.configuration.apiKey("privatekey"); // PRIVATE_KEY authentication
-        }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["privatekeypath"] = await this.configuration.apiKey("privatekeypath"); // PRIVATE_KEY_PATH authentication
-        }
-        const httpMethod = 'POST';
-        const endpointUrl = '/v1.0/debit/refund.htm';
-        const requestBody = JSON.stringify((0, index_1.RefundOrderRequestToJSON)(requestParameters['refundOrderRequest']));
-        const timeStamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
-        const signature = runtime.DanaSignatureUtil.generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, this.privateKey, timeStamp);
-        headerParameters['X-TIMESTAMP'] = timeStamp;
-        headerParameters['X-SIGNATURE'] = signature;
-        headerParameters['X-PARTNER-ID'] = this.partnerId;
-        headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
-        headerParameters['CHANNEL-ID'] = '95221';
+        const endpointUrl = `/payment-gateway/v1.0/debit/status.htm`;
+        const requestBody = JSON.stringify((0, index_1.QueryPaymentRequestToJSON)(queryPaymentRequest));
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
         const response = await this.request({
-            path: `/v1.0/debit/refund.htm`,
+            path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: (0, index_1.RefundOrderRequestToJSON)(requestParameters['refundOrderRequest']),
+            body: (0, index_1.QueryPaymentRequestToJSON)(queryPaymentRequest),
         }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.RefundOrderResponseFromJSON)(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.QueryPaymentResponseFromJSON)(jsonValue)).value();
     }
     /**
      * This API is used to refund the order from merchant\'s platform to DANA
      * Refund Order API
      */
     async refundOrder(refundOrderRequest, initOverrides) {
-        const response = await this.refundOrderRaw({ refundOrderRequest: refundOrderRequest }, initOverrides);
-        return await response.value();
+        if (refundOrderRequest == null) {
+            throw new runtime.RequiredError('refundOrderRequest', 'Required parameter "refundOrderRequest" was null or undefined when calling refundOrder().');
+        }
+        const validationErrorContexts = (0, index_1.validateRefundOrderRequest)(refundOrderRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const endpointUrl = `/payment-gateway/v1.0/debit/refund.htm`;
+        const requestBody = JSON.stringify((0, index_1.RefundOrderRequestToJSON)(refundOrderRequest));
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        const response = await this.request({
+            path: endpointUrl,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, index_1.RefundOrderRequestToJSON)(refundOrderRequest),
+        }, initOverrides);
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.RefundOrderResponseFromJSON)(jsonValue)).value();
     }
 }
 exports.PaymentGatewayApi = PaymentGatewayApi;

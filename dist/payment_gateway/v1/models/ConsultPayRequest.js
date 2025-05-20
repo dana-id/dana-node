@@ -11,6 +11,8 @@ exports.ConsultPayRequestFromJSON = ConsultPayRequestFromJSON;
 exports.ConsultPayRequestFromJSONTyped = ConsultPayRequestFromJSONTyped;
 exports.ConsultPayRequestToJSON = ConsultPayRequestToJSON;
 exports.ConsultPayRequestToJSONTyped = ConsultPayRequestToJSONTyped;
+exports.validateConsultPayRequest = validateConsultPayRequest;
+const runtime_1 = require("../../../runtime");
 const Money_1 = require("./Money");
 const ConsultPayRequestAdditionalInfo_1 = require("./ConsultPayRequestAdditionalInfo");
 /**
@@ -50,4 +52,19 @@ function ConsultPayRequestToJSONTyped(value, ignoreDiscriminator = false) {
         'amount': (0, Money_1.MoneyToJSON)(value['amount']),
         'additionalInfo': (0, ConsultPayRequestAdditionalInfo_1.ConsultPayRequestAdditionalInfoToJSON)(value['additionalInfo']),
     };
+}
+const propertyValidationAttributesMap = {
+    merchantId: {
+        maxLength: 64,
+    },
+};
+function validateConsultPayRequest(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantId', value.merchantId, propertyValidationAttributesMap['merchantId']));
+    validationErrorContexts.push(...(0, Money_1.validateMoney)(value.amount));
+    validationErrorContexts.push(...(0, ConsultPayRequestAdditionalInfo_1.validateConsultPayRequestAdditionalInfo)(value.additionalInfo));
+    return validationErrorContexts;
 }

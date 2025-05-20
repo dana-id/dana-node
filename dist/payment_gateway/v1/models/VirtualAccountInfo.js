@@ -11,16 +11,12 @@ exports.VirtualAccountInfoFromJSON = VirtualAccountInfoFromJSON;
 exports.VirtualAccountInfoFromJSONTyped = VirtualAccountInfoFromJSONTyped;
 exports.VirtualAccountInfoToJSON = VirtualAccountInfoToJSON;
 exports.VirtualAccountInfoToJSONTyped = VirtualAccountInfoToJSONTyped;
+exports.validateVirtualAccountInfo = validateVirtualAccountInfo;
+const runtime_1 = require("../../../runtime");
 /**
  * Check if a given object implements the VirtualAccountInfo interface.
  */
 function instanceOfVirtualAccountInfo(value) {
-    if (!('virtualAccountCode' in value) || value['virtualAccountCode'] === undefined)
-        return false;
-    if (!('virtualAccountExpiryTime' in value) || value['virtualAccountExpiryTime'] === undefined)
-        return false;
-    if (!('signature' in value) || value['signature'] === undefined)
-        return false;
     return true;
 }
 function VirtualAccountInfoFromJSON(json) {
@@ -31,9 +27,9 @@ function VirtualAccountInfoFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'virtualAccountCode': json['virtualAccountCode'],
-        'virtualAccountExpiryTime': json['virtualAccountExpiryTime'],
-        'signature': json['signature'],
+        'virtualAccountCode': json['virtualAccountCode'] == null ? undefined : json['virtualAccountCode'],
+        'virtualAccountExpiryTime': json['virtualAccountExpiryTime'] == null ? undefined : json['virtualAccountExpiryTime'],
+        'signature': json['signature'] == null ? undefined : json['signature'],
     };
 }
 function VirtualAccountInfoToJSON(json) {
@@ -48,4 +44,26 @@ function VirtualAccountInfoToJSONTyped(value, ignoreDiscriminator = false) {
         'virtualAccountExpiryTime': value['virtualAccountExpiryTime'],
         'signature': value['signature'],
     };
+}
+const propertyValidationAttributesMap = {
+    virtualAccountCode: {
+        maxLength: 64,
+    },
+    virtualAccountExpiryTime: {
+        maxLength: 25,
+        pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
+    },
+    signature: {
+        maxLength: 128,
+    },
+};
+function validateVirtualAccountInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('virtualAccountCode', value.virtualAccountCode, propertyValidationAttributesMap['virtualAccountCode']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('virtualAccountExpiryTime', value.virtualAccountExpiryTime, propertyValidationAttributesMap['virtualAccountExpiryTime']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('signature', value.signature, propertyValidationAttributesMap['signature']));
+    return validationErrorContexts;
 }

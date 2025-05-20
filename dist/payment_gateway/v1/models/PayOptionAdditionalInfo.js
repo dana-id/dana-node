@@ -11,6 +11,8 @@ exports.PayOptionAdditionalInfoFromJSON = PayOptionAdditionalInfoFromJSON;
 exports.PayOptionAdditionalInfoFromJSONTyped = PayOptionAdditionalInfoFromJSONTyped;
 exports.PayOptionAdditionalInfoToJSON = PayOptionAdditionalInfoToJSON;
 exports.PayOptionAdditionalInfoToJSONTyped = PayOptionAdditionalInfoToJSONTyped;
+exports.validatePayOptionAdditionalInfo = validatePayOptionAdditionalInfo;
+const runtime_1 = require("../../../runtime");
 const PromoInfo_1 = require("./PromoInfo");
 /**
  * Check if a given object implements the PayOptionAdditionalInfo interface.
@@ -43,4 +45,21 @@ function PayOptionAdditionalInfoToJSONTyped(value, ignoreDiscriminator = false) 
         'paymentCode': value['paymentCode'],
         'promoInfos': value['promoInfos'] == null ? undefined : (value['promoInfos'].map(PromoInfo_1.PromoInfoToJSON)),
     };
+}
+const propertyValidationAttributesMap = {
+    phoneNumber: {
+        maxLength: 15,
+    },
+    paymentCode: {
+        maxLength: 64,
+    },
+};
+function validatePayOptionAdditionalInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('phoneNumber', value.phoneNumber, propertyValidationAttributesMap['phoneNumber']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('paymentCode', value.paymentCode, propertyValidationAttributesMap['paymentCode']));
+    return validationErrorContexts;
 }

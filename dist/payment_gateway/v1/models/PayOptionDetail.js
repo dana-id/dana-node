@@ -6,13 +6,50 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PayOptionDetailPayOptionEnum = exports.PayOptionDetailPayMethodEnum = void 0;
 exports.instanceOfPayOptionDetail = instanceOfPayOptionDetail;
 exports.PayOptionDetailFromJSON = PayOptionDetailFromJSON;
 exports.PayOptionDetailFromJSONTyped = PayOptionDetailFromJSONTyped;
 exports.PayOptionDetailToJSON = PayOptionDetailToJSON;
 exports.PayOptionDetailToJSONTyped = PayOptionDetailToJSONTyped;
+exports.validatePayOptionDetail = validatePayOptionDetail;
+const runtime_1 = require("../../../runtime");
 const Money_1 = require("./Money");
 const PayOptionAdditionalInfo_1 = require("./PayOptionAdditionalInfo");
+/**
+ * @export
+ */
+exports.PayOptionDetailPayMethodEnum = {
+    Balance: 'BALANCE',
+    Coupon: 'COUPON',
+    NetBanking: 'NET_BANKING',
+    CreditCard: 'CREDIT_CARD',
+    DebitCard: 'DEBIT_CARD',
+    VirtualAccount: 'VIRTUAL_ACCOUNT',
+    Otc: 'OTC',
+    DirectDebitCreditCard: 'DIRECT_DEBIT_CREDIT_CARD',
+    DirectDebitDebitCard: 'DIRECT_DEBIT_DEBIT_CARD',
+    OnlineCredit: 'ONLINE_CREDIT',
+    LoanCredit: 'LOAN_CREDIT',
+    NetworkPay: 'NETWORK_PAY'
+};
+/**
+ * @export
+ */
+exports.PayOptionDetailPayOptionEnum = {
+    NetworkPayPgSpay: 'NETWORK_PAY_PG_SPAY',
+    NetworkPayPgOvo: 'NETWORK_PAY_PG_OVO',
+    NetworkPayPgGopay: 'NETWORK_PAY_PG_GOPAY',
+    NetworkPayPgLinkaja: 'NETWORK_PAY_PG_LINKAJA',
+    NetworkPayPgCard: 'NETWORK_PAY_PG_CARD',
+    VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
+    VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
+    VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',
+    VirtualAccountBri: 'VIRTUAL_ACCOUNT_BRI',
+    VirtualAccountBtpn: 'VIRTUAL_ACCOUNT_BTPN',
+    VirtualAccountCimb: 'VIRTUAL_ACCOUNT_CIMB',
+    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA'
+};
 /**
  * Check if a given object implements the PayOptionDetail interface.
  */
@@ -58,4 +95,32 @@ function PayOptionDetailToJSONTyped(value, ignoreDiscriminator = false) {
         'merchantToken': value['merchantToken'],
         'additionalInfo': (0, PayOptionAdditionalInfo_1.PayOptionAdditionalInfoToJSON)(value['additionalInfo']),
     };
+}
+const propertyValidationAttributesMap = {
+    payMethod: {
+        maxLength: 64,
+    },
+    payOption: {
+        maxLength: 64,
+    },
+    cardToken: {
+        maxLength: 64,
+    },
+    merchantToken: {
+        maxLength: 64,
+    },
+};
+function validatePayOptionDetail(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('payMethod', value.payMethod, propertyValidationAttributesMap['payMethod']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('payOption', value.payOption, propertyValidationAttributesMap['payOption']));
+    validationErrorContexts.push(...(0, Money_1.validateMoney)(value.transAmount));
+    validationErrorContexts.push(...(0, Money_1.validateMoney)(value.feeAmount));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('cardToken', value.cardToken, propertyValidationAttributesMap['cardToken']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantToken', value.merchantToken, propertyValidationAttributesMap['merchantToken']));
+    validationErrorContexts.push(...(0, PayOptionAdditionalInfo_1.validatePayOptionAdditionalInfo)(value.additionalInfo));
+    return validationErrorContexts;
 }

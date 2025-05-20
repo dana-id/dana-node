@@ -11,6 +11,8 @@ exports.ShopInfoFromJSON = ShopInfoFromJSON;
 exports.ShopInfoFromJSONTyped = ShopInfoFromJSONTyped;
 exports.ShopInfoToJSON = ShopInfoToJSON;
 exports.ShopInfoToJSONTyped = ShopInfoToJSONTyped;
+exports.validateShopInfo = validateShopInfo;
+const runtime_1 = require("../../../runtime");
 /**
  * Check if a given object implements the ShopInfo interface.
  */
@@ -52,4 +54,45 @@ function ShopInfoToJSONTyped(value, ignoreDiscriminator = false) {
         'divisionType': value['divisionType'],
         'shopName': value['shopName'],
     };
+}
+const propertyValidationAttributesMap = {
+    shopId: {
+        maxLength: 64,
+    },
+    externalShopId: {
+        maxLength: 64,
+    },
+    operatorId: {
+        maxLength: 32,
+    },
+    shopAddress: {
+        maxLength: 256,
+    },
+    divisionId: {
+        maxLength: 64,
+    },
+    externalDivisionId: {
+        maxLength: 64,
+    },
+    divisionType: {
+        maxLength: 32,
+    },
+    shopName: {
+        maxLength: 128,
+    },
+};
+function validateShopInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('shopId', value.shopId, propertyValidationAttributesMap['shopId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('externalShopId', value.externalShopId, propertyValidationAttributesMap['externalShopId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('operatorId', value.operatorId, propertyValidationAttributesMap['operatorId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('shopAddress', value.shopAddress, propertyValidationAttributesMap['shopAddress']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('divisionId', value.divisionId, propertyValidationAttributesMap['divisionId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('externalDivisionId', value.externalDivisionId, propertyValidationAttributesMap['externalDivisionId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('divisionType', value.divisionType, propertyValidationAttributesMap['divisionType']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('shopName', value.shopName, propertyValidationAttributesMap['shopName']));
+    return validationErrorContexts;
 }

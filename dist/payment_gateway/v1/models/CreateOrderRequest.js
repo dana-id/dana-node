@@ -10,6 +10,7 @@ exports.CreateOrderRequestFromJSON = CreateOrderRequestFromJSON;
 exports.CreateOrderRequestFromJSONTyped = CreateOrderRequestFromJSONTyped;
 exports.CreateOrderRequestToJSON = CreateOrderRequestToJSON;
 exports.CreateOrderRequestToJSONTyped = CreateOrderRequestToJSONTyped;
+exports.validateCreateOrderRequest = validateCreateOrderRequest;
 const CreateOrderByApiRequest_1 = require("./CreateOrderByApiRequest");
 const CreateOrderByRedirectRequest_1 = require("./CreateOrderByRedirectRequest");
 function CreateOrderRequestFromJSON(json) {
@@ -41,4 +42,16 @@ function CreateOrderRequestToJSONTyped(value, ignoreDiscriminator = false) {
         return (0, CreateOrderByRedirectRequest_1.CreateOrderByRedirectRequestToJSON)(value);
     }
     return {};
+}
+function validateCreateOrderRequest(value) {
+    if (value == null) {
+        return [];
+    }
+    if ((0, CreateOrderByApiRequest_1.instanceOfCreateOrderByApiRequest)(value)) {
+        return (0, CreateOrderByApiRequest_1.validateCreateOrderByApiRequest)(value);
+    }
+    if ((0, CreateOrderByRedirectRequest_1.instanceOfCreateOrderByRedirectRequest)(value)) {
+        return (0, CreateOrderByRedirectRequest_1.validateCreateOrderByRedirectRequest)(value);
+    }
+    return [];
 }

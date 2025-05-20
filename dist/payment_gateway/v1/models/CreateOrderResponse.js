@@ -11,6 +11,8 @@ exports.CreateOrderResponseFromJSON = CreateOrderResponseFromJSON;
 exports.CreateOrderResponseFromJSONTyped = CreateOrderResponseFromJSONTyped;
 exports.CreateOrderResponseToJSON = CreateOrderResponseToJSON;
 exports.CreateOrderResponseToJSONTyped = CreateOrderResponseToJSONTyped;
+exports.validateCreateOrderResponse = validateCreateOrderResponse;
+const runtime_1 = require("../../../runtime");
 const CreateOrderResponseAdditionalInfo_1 = require("./CreateOrderResponseAdditionalInfo");
 /**
  * Check if a given object implements the CreateOrderResponse interface.
@@ -55,4 +57,34 @@ function CreateOrderResponseToJSONTyped(value, ignoreDiscriminator = false) {
         'webRedirectUrl': value['webRedirectUrl'],
         'additionalInfo': (0, CreateOrderResponseAdditionalInfo_1.CreateOrderResponseAdditionalInfoToJSON)(value['additionalInfo']),
     };
+}
+const propertyValidationAttributesMap = {
+    responseCode: {
+        maxLength: 7,
+    },
+    responseMessage: {
+        maxLength: 150,
+    },
+    referenceNo: {
+        maxLength: 64,
+    },
+    partnerReferenceNo: {
+        maxLength: 64,
+    },
+    webRedirectUrl: {
+        maxLength: 2048,
+    },
+};
+function validateCreateOrderResponse(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('responseCode', value.responseCode, propertyValidationAttributesMap['responseCode']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('responseMessage', value.responseMessage, propertyValidationAttributesMap['responseMessage']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('referenceNo', value.referenceNo, propertyValidationAttributesMap['referenceNo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('partnerReferenceNo', value.partnerReferenceNo, propertyValidationAttributesMap['partnerReferenceNo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('webRedirectUrl', value.webRedirectUrl, propertyValidationAttributesMap['webRedirectUrl']));
+    validationErrorContexts.push(...(0, CreateOrderResponseAdditionalInfo_1.validateCreateOrderResponseAdditionalInfo)(value.additionalInfo));
+    return validationErrorContexts;
 }

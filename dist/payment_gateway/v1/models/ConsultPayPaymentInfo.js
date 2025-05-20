@@ -12,6 +12,8 @@ exports.ConsultPayPaymentInfoFromJSON = ConsultPayPaymentInfoFromJSON;
 exports.ConsultPayPaymentInfoFromJSONTyped = ConsultPayPaymentInfoFromJSONTyped;
 exports.ConsultPayPaymentInfoToJSON = ConsultPayPaymentInfoToJSON;
 exports.ConsultPayPaymentInfoToJSONTyped = ConsultPayPaymentInfoToJSONTyped;
+exports.validateConsultPayPaymentInfo = validateConsultPayPaymentInfo;
+const runtime_1 = require("../../../runtime");
 const PromoInfo_1 = require("./PromoInfo");
 /**
  * @export
@@ -80,4 +82,21 @@ function ConsultPayPaymentInfoToJSONTyped(value, ignoreDiscriminator = false) {
         'payOption': value['payOption'],
         'promoInfos': value['promoInfos'] == null ? undefined : (value['promoInfos'].map(PromoInfo_1.PromoInfoToJSON)),
     };
+}
+const propertyValidationAttributesMap = {
+    payMethod: {
+        maxLength: 64,
+    },
+    payOption: {
+        maxLength: 128,
+    },
+};
+function validateConsultPayPaymentInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('payMethod', value.payMethod, propertyValidationAttributesMap['payMethod']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('payOption', value.payOption, propertyValidationAttributesMap['payOption']));
+    return validationErrorContexts;
 }

@@ -12,6 +12,8 @@ exports.OrderRedirectObjectFromJSON = OrderRedirectObjectFromJSON;
 exports.OrderRedirectObjectFromJSONTyped = OrderRedirectObjectFromJSONTyped;
 exports.OrderRedirectObjectToJSON = OrderRedirectObjectToJSON;
 exports.OrderRedirectObjectToJSONTyped = OrderRedirectObjectToJSONTyped;
+exports.validateOrderRedirectObject = validateOrderRedirectObject;
+const runtime_1 = require("../../../runtime");
 const Buyer_1 = require("./Buyer");
 const Goods_1 = require("./Goods");
 const ShippingInfo_1 = require("./ShippingInfo");
@@ -62,4 +64,30 @@ function OrderRedirectObjectToJSONTyped(value, ignoreDiscriminator = false) {
         'extendInfo': value['extendInfo'],
         'scenario': value['scenario'],
     };
+}
+const propertyValidationAttributesMap = {
+    orderTitle: {
+        maxLength: 64,
+    },
+    merchantTransType: {
+        maxLength: 64,
+    },
+    extendInfo: {
+        maxLength: 4096,
+    },
+    scenario: {
+        maxLength: 64,
+    },
+};
+function validateOrderRedirectObject(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('orderTitle', value.orderTitle, propertyValidationAttributesMap['orderTitle']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantTransType', value.merchantTransType, propertyValidationAttributesMap['merchantTransType']));
+    validationErrorContexts.push(...(0, Buyer_1.validateBuyer)(value.buyer));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('scenario', value.scenario, propertyValidationAttributesMap['scenario']));
+    return validationErrorContexts;
 }

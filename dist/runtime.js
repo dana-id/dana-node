@@ -6,13 +6,15 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DanaSignatureUtil = exports.TextApiResponse = exports.BlobApiResponse = exports.VoidApiResponse = exports.JSONApiResponse = exports.COLLECTION_FORMATS = exports.RequiredError = exports.FetchError = exports.ResponseError = exports.BaseAPI = exports.DefaultConfig = exports.Configuration = exports.BASE_PATH = void 0;
+exports.DanaSignatureUtil = exports.DanaHeaderUtil = exports.ValidationUtil = exports.TextApiResponse = exports.BlobApiResponse = exports.VoidApiResponse = exports.JSONApiResponse = exports.COLLECTION_FORMATS = exports.ValidationError = exports.RequiredError = exports.FetchError = exports.ResponseError = exports.BaseAPI = exports.DefaultConfig = exports.Configuration = exports.BASE_PATH = void 0;
 exports.getBasePathByEnv = getBasePathByEnv;
 exports.querystring = querystring;
 exports.exists = exists;
 exports.mapValues = mapValues;
 exports.canConsumeForm = canConsumeForm;
 const node_crypto_1 = require("node:crypto");
+const date_fns_tz_1 = require("date-fns-tz");
+const uuid_1 = require("uuid");
 exports.BASE_PATH = "https://api.saas.dana.id".replace(/\/+$/, "");
 class Configuration {
     constructor(configuration = {}) {
@@ -149,7 +151,14 @@ class BaseAPI {
         if (response && (response.status >= 200 && response.status < 300)) {
             return response;
         }
-        throw new ResponseError(response, 'Response returned an error code');
+        let errorResponse;
+        try {
+            errorResponse = await response.json();
+        }
+        catch (e) {
+            errorResponse = await response.text();
+        }
+        throw new ResponseError(errorResponse, response.status, response.statusText);
     }
     async createFetchParams(context, initOverrides) {
         let url = this.configuration.basePath + context.path;
@@ -210,10 +219,15 @@ function isFormData(value) {
     return typeof FormData !== "undefined" && value instanceof FormData;
 }
 class ResponseError extends Error {
-    constructor(response, msg) {
-        super(msg);
+    constructor(response, status, statusText) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        super(`[DANA SDK Error] ${status} ${statusText}`);
         this.response = response;
         this.name = "ResponseError";
+        this.rawResponse = response;
+        this.status = status || ((_a = this.rawResponse) === null || _a === void 0 ? void 0 : _a.status) || ((_b = this.rawResponse) === null || _b === void 0 ? void 0 : _b.status_code) || ((_c = this.rawResponse) === null || _c === void 0 ? void 0 : _c.statusCode);
+        this.errorCode = ((_d = this.rawResponse) === null || _d === void 0 ? void 0 : _d.error) || ((_e = this.rawResponse) === null || _e === void 0 ? void 0 : _e.error_code) || ((_f = this.rawResponse) === null || _f === void 0 ? void 0 : _f.errorCode);
+        this.errorMessage = ((_g = this.rawResponse) === null || _g === void 0 ? void 0 : _g.message) || ((_h = this.rawResponse) === null || _h === void 0 ? void 0 : _h.error_message) || ((_j = this.rawResponse) === null || _j === void 0 ? void 0 : _j.errorMessage) || statusText;
     }
 }
 exports.ResponseError = ResponseError;
@@ -233,6 +247,14 @@ class RequiredError extends Error {
     }
 }
 exports.RequiredError = RequiredError;
+class ValidationError extends Error {
+    constructor(validationErrorContexts) {
+        super(ValidationUtil.getValidationErrorMessage(validationErrorContexts));
+        this.validationErrorContexts = validationErrorContexts;
+        this.name = "ValidationError";
+    }
+}
+exports.ValidationError = ValidationError;
 exports.COLLECTION_FORMATS = {
     csv: ",",
     ssv: " ",
@@ -289,6 +311,7 @@ function canConsumeForm(consumes) {
     }
     return false;
 }
+;
 class JSONApiResponse {
     constructor(raw, transformer = (jsonValue) => jsonValue) {
         this.raw = raw;
@@ -328,13 +351,100 @@ class TextApiResponse {
     ;
 }
 exports.TextApiResponse = TextApiResponse;
+class ValidationUtil {
+    /**
+     * Validates a property against a set of validation attributes.
+     * @param field - The name of the field being validated.
+     * @param value - The value of the field to validate.
+     * @param attribute - The validation attributes to apply.
+     * @returns An array of `ValidationErrorContext` objects describing the validation errors.
+     */
+    static validateProperty(field, value, attribute) {
+        const validationErrorContexts = [];
+        if (value == null) {
+            return validationErrorContexts;
+        }
+        if (typeof value === 'string') {
+            if (attribute.maxLength !== undefined && value.length > attribute.maxLength) {
+                validationErrorContexts.push({ field, message: `must be at most ${attribute.maxLength} characters long` });
+            }
+            if (attribute.minLength !== undefined && value.length < attribute.minLength) {
+                validationErrorContexts.push({ field, message: `must be at least ${attribute.minLength} characters long` });
+            }
+            if (attribute.pattern && !attribute.pattern.test(value)) {
+                validationErrorContexts.push({ field, message: 'must match required pattern' });
+            }
+        }
+        if (typeof value === 'number') {
+            if (attribute.maximum !== undefined && value > attribute.maximum) {
+                validationErrorContexts.push({ field, message: `must be less than or equal to ${attribute.maximum}` });
+            }
+            if (attribute.exclusiveMaximum && value >= attribute.maximum) {
+                validationErrorContexts.push({ field, message: `must be less than ${attribute.maximum}` });
+            }
+            if (attribute.minimum !== undefined && value < attribute.minimum) {
+                validationErrorContexts.push({ field, message: `must be greater than or equal to ${attribute.minimum}` });
+            }
+            if (attribute.exclusiveMinimum && value <= attribute.minimum) {
+                validationErrorContexts.push({ field, message: `must be greater than ${attribute.minimum}` });
+            }
+            if (attribute.multipleOf !== undefined && value % attribute.multipleOf !== 0) {
+                validationErrorContexts.push({ field, message: `must be a multiple of ${attribute.multipleOf}` });
+            }
+        }
+        if (Array.isArray(value)) {
+            if (attribute.maxItems !== undefined && value.length > attribute.maxItems) {
+                validationErrorContexts.push({ field, message: `must have at most ${attribute.maxItems} items` });
+            }
+            if (attribute.minItems !== undefined && value.length < attribute.minItems) {
+                validationErrorContexts.push({ field, message: `must have at least ${attribute.minItems} items` });
+            }
+            if (attribute.uniqueItems) {
+                const unique = new Set(value);
+                if (unique.size !== value.length) {
+                    validationErrorContexts.push({ field, message: 'must have unique items' });
+                }
+            }
+        }
+        return validationErrorContexts;
+    }
+    static getValidationErrorMessage(validationErrorContexts) {
+        return validationErrorContexts.map((validationErrorContext) => {
+            return `${validationErrorContext.field} ${validationErrorContext.message}`;
+        }).join(', ');
+    }
+}
+exports.ValidationUtil = ValidationUtil;
+class DanaHeaderUtil {
+    /**
+     * Populates the HTTP headers required for the Snap B2B scenario.
+     * @param headerParameters - The HTTP headers object to populate.
+     * @param httpMethod - The HTTP method (e.g., GET, POST).
+     * @param endpointUrl - The API endpoint URL.
+     * @param requestBody - The request body as a string.
+     * @param privateKey - The private key used for generating the signature.
+     * @param origin - The origin of the request.
+     * @param partnerId - The partner ID.
+     */
+    static populateSnapB2BScenarioHeader(headerParameters, httpMethod, endpointUrl, requestBody, privateKey, origin, partnerId) {
+        const timestamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
+        const signature = DanaSignatureUtil.generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, privateKey, timestamp);
+        headerParameters['X-TIMESTAMP'] = timestamp;
+        headerParameters['X-SIGNATURE'] = signature;
+        headerParameters['ORIGIN'] = origin;
+        headerParameters['X-PARTNER-ID'] = partnerId;
+        headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
+        headerParameters['CHANNEL-ID'] = partnerId + '-SERVER';
+    }
+}
+exports.DanaHeaderUtil = DanaHeaderUtil;
 class DanaSignatureUtil {
     /**
      * Generates a signature for the Snap B2B scenario.
      * @param httpMethod - HTTP method (e.g., GET, POST).
      * @param endpointUrl - The API endpoint URL.
      * @param requestBody - The request body as a string.
-     * @param privateKey - The private key in Base64 format.
+     * @param privateKey - The private key used for generating the signature.
      * @param timeStamp - The timestamp for the signature.
      * @returns The Base64-encoded signature.
      */
@@ -349,21 +459,26 @@ class DanaSignatureUtil {
         const sign = (0, node_crypto_1.createSign)('RSA-SHA256');
         sign.update(stringToSign);
         sign.end();
-        // Convert the Base64 key to PEM format and sign the string
-        const pemKey = this.base64KeyToPEM(privateKey, 'PRIVATE');
+        // Convert the private key to PEM format and sign the string
+        const pemKey = this.convertToPEM(privateKey, 'PRIVATE');
         return sign.sign(pemKey, 'base64');
     }
     /**
-     * Converts a Base64-encoded key to PEM format.
-     * @param base64Key - The Base64-encoded key.
+     * Converts a private/public key to PEM format.
+     * @param key - The key.
      * @param keyType - The type of key (e.g., PRIVATE, PUBLIC).
      * @returns The PEM-formatted key.
      */
-    static base64KeyToPEM(base64Key, keyType) {
+    static convertToPEM(key, keyType) {
         const header = `-----BEGIN ${keyType} KEY-----`;
         const footer = `-----END ${keyType} KEY-----`;
-        const body = this.splitStringIntoChunks(base64Key, 64).join('\n');
-        return [header, body, footer].join('\n');
+        const delimiter = '\n';
+        // Check if the key is already in PEM format
+        if (key.includes(header) && key.includes(footer)) {
+            return key.replace(/\\n/g, delimiter);
+        }
+        const body = this.splitStringIntoChunks(key, 64).join(delimiter);
+        return [header, body, footer].join(delimiter);
     }
     /**
      * Splits a string into chunks of a specified size.

@@ -11,6 +11,8 @@ exports.QueryPaymentResponseAdditionalInfoFromJSON = QueryPaymentResponseAdditio
 exports.QueryPaymentResponseAdditionalInfoFromJSONTyped = QueryPaymentResponseAdditionalInfoFromJSONTyped;
 exports.QueryPaymentResponseAdditionalInfoToJSON = QueryPaymentResponseAdditionalInfoToJSON;
 exports.QueryPaymentResponseAdditionalInfoToJSONTyped = QueryPaymentResponseAdditionalInfoToJSONTyped;
+exports.validateQueryPaymentResponseAdditionalInfo = validateQueryPaymentResponseAdditionalInfo;
+const runtime_1 = require("../../../runtime");
 const PaymentView_1 = require("./PaymentView");
 const TimeDetail_1 = require("./TimeDetail");
 const AmountDetail_1 = require("./AmountDetail");
@@ -34,7 +36,6 @@ function QueryPaymentResponseAdditionalInfoFromJSONTyped(json, ignoreDiscriminat
         return json;
     }
     return {
-        'merchantId': json['merchantId'] == null ? undefined : json['merchantId'],
         'buyer': json['buyer'] == null ? undefined : (0, Buyer_1.BuyerFromJSON)(json['buyer']),
         'seller': json['seller'] == null ? undefined : (0, Seller_1.SellerFromJSON)(json['seller']),
         'amountDetail': json['amountDetail'] == null ? undefined : (0, AmountDetail_1.AmountDetailFromJSON)(json['amountDetail']),
@@ -47,6 +48,7 @@ function QueryPaymentResponseAdditionalInfoFromJSONTyped(json, ignoreDiscriminat
         'statusDetail': json['statusDetail'] == null ? undefined : (0, StatusDetail_1.StatusDetailFromJSON)(json['statusDetail']),
         'closeReason': json['closeReason'] == null ? undefined : json['closeReason'],
         'virtualAccountInfo': json['virtualAccountInfo'] == null ? undefined : (0, VirtualAccountInfo_1.VirtualAccountInfoFromJSON)(json['virtualAccountInfo']),
+        'merchantId': json['merchantId'] == null ? undefined : json['merchantId'],
     };
 }
 function QueryPaymentResponseAdditionalInfoToJSON(json) {
@@ -57,7 +59,6 @@ function QueryPaymentResponseAdditionalInfoToJSONTyped(value, ignoreDiscriminato
         return value;
     }
     return {
-        'merchantId': value['merchantId'],
         'buyer': (0, Buyer_1.BuyerToJSON)(value['buyer']),
         'seller': (0, Seller_1.SellerToJSON)(value['seller']),
         'amountDetail': (0, AmountDetail_1.AmountDetailToJSON)(value['amountDetail']),
@@ -70,5 +71,33 @@ function QueryPaymentResponseAdditionalInfoToJSONTyped(value, ignoreDiscriminato
         'statusDetail': (0, StatusDetail_1.StatusDetailToJSON)(value['statusDetail']),
         'closeReason': value['closeReason'],
         'virtualAccountInfo': (0, VirtualAccountInfo_1.VirtualAccountInfoToJSON)(value['virtualAccountInfo']),
+        'merchantId': value['merchantId'],
     };
+}
+const propertyValidationAttributesMap = {
+    orderMemo: {
+        maxLength: 64,
+    },
+    extendInfo: {
+        maxLength: 4096,
+    },
+    closeReason: {
+        maxLength: 128,
+    },
+};
+function validateQueryPaymentResponseAdditionalInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...(0, Buyer_1.validateBuyer)(value.buyer));
+    validationErrorContexts.push(...(0, Seller_1.validateSeller)(value.seller));
+    validationErrorContexts.push(...(0, AmountDetail_1.validateAmountDetail)(value.amountDetail));
+    validationErrorContexts.push(...(0, TimeDetail_1.validateTimeDetail)(value.timeDetail));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('orderMemo', value.orderMemo, propertyValidationAttributesMap['orderMemo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
+    validationErrorContexts.push(...(0, StatusDetail_1.validateStatusDetail)(value.statusDetail));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('closeReason', value.closeReason, propertyValidationAttributesMap['closeReason']));
+    validationErrorContexts.push(...(0, VirtualAccountInfo_1.validateVirtualAccountInfo)(value.virtualAccountInfo));
+    return validationErrorContexts;
 }

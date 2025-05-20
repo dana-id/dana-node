@@ -11,6 +11,9 @@ exports.FinishNotifyAdditionalInfoFromJSON = FinishNotifyAdditionalInfoFromJSON;
 exports.FinishNotifyAdditionalInfoFromJSONTyped = FinishNotifyAdditionalInfoFromJSONTyped;
 exports.FinishNotifyAdditionalInfoToJSON = FinishNotifyAdditionalInfoToJSON;
 exports.FinishNotifyAdditionalInfoToJSONTyped = FinishNotifyAdditionalInfoToJSONTyped;
+exports.validateFinishNotifyAdditionalInfo = validateFinishNotifyAdditionalInfo;
+const runtime_1 = require("../../../runtime");
+const ShopInfo_1 = require("./ShopInfo");
 const FinishNotifyPaymentInfo_1 = require("./FinishNotifyPaymentInfo");
 /**
  * Check if a given object implements the FinishNotifyAdditionalInfo interface.
@@ -27,7 +30,7 @@ function FinishNotifyAdditionalInfoFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'paymentInfo': json['paymentInfo'] == null ? undefined : (0, FinishNotifyPaymentInfo_1.FinishNotifyPaymentInfoFromJSON)(json['paymentInfo']),
-        'shopInfo': json['shopInfo'] == null ? undefined : json['shopInfo'],
+        'shopInfo': json['shopInfo'] == null ? undefined : (0, ShopInfo_1.ShopInfoFromJSON)(json['shopInfo']),
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
         'extendInfoClosedReason': json['extendInfo.closedReason'] == null ? undefined : json['extendInfo.closedReason'],
     };
@@ -41,8 +44,27 @@ function FinishNotifyAdditionalInfoToJSONTyped(value, ignoreDiscriminator = fals
     }
     return {
         'paymentInfo': (0, FinishNotifyPaymentInfo_1.FinishNotifyPaymentInfoToJSON)(value['paymentInfo']),
-        'shopInfo': value['shopInfo'],
+        'shopInfo': (0, ShopInfo_1.ShopInfoToJSON)(value['shopInfo']),
         'extendInfo': value['extendInfo'],
         'extendInfo.closedReason': value['extendInfoClosedReason'],
     };
+}
+const propertyValidationAttributesMap = {
+    extendInfo: {
+        maxLength: 4096,
+    },
+    extendInfoClosedReason: {
+        maxLength: 64,
+    },
+};
+function validateFinishNotifyAdditionalInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...(0, FinishNotifyPaymentInfo_1.validateFinishNotifyPaymentInfo)(value.paymentInfo));
+    validationErrorContexts.push(...(0, ShopInfo_1.validateShopInfo)(value.shopInfo));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfoClosedReason', value.extendInfoClosedReason, propertyValidationAttributesMap['extendInfoClosedReason']));
+    return validationErrorContexts;
 }

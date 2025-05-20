@@ -63,9 +63,13 @@ export declare class BaseAPI {
     private clone;
 }
 export declare class ResponseError extends Error {
-    response: Response;
+    private response;
     name: "ResponseError";
-    constructor(response: Response, msg?: string);
+    rawResponse?: any;
+    status: string;
+    errorCode?: string;
+    errorMessage?: string;
+    constructor(response: any, status: any, statusText: any);
 }
 export declare class FetchError extends Error {
     cause: Error;
@@ -76,6 +80,11 @@ export declare class RequiredError extends Error {
     field: string;
     name: "RequiredError";
     constructor(field: string, msg?: string);
+}
+export declare class ValidationError extends Error {
+    validationErrorContexts: ValidationErrorContext[];
+    name: "ValidationError";
+    constructor(validationErrorContexts: ValidationErrorContext[]);
 }
 export declare const COLLECTION_FORMATS: {
     csv: string;
@@ -134,6 +143,23 @@ export interface ResponseContext {
     init: RequestInit;
     response: Response;
 }
+export interface PropertyValidationAttribute {
+    maxLength?: number;
+    minLength?: number;
+    pattern?: RegExp;
+    maximum?: number;
+    exclusiveMaximum?: boolean;
+    minimum?: number;
+    exclusiveMinimum?: boolean;
+    multipleOf?: number;
+    maxItems?: number;
+    minItems?: number;
+    uniqueItems?: boolean;
+}
+export interface ValidationErrorContext {
+    field: string;
+    message: string;
+}
 export interface ErrorContext {
     fetch: FetchAPI;
     url: string;
@@ -174,24 +200,48 @@ export declare class TextApiResponse {
     constructor(raw: Response);
     value(): Promise<string>;
 }
+export declare class ValidationUtil {
+    /**
+     * Validates a property against a set of validation attributes.
+     * @param field - The name of the field being validated.
+     * @param value - The value of the field to validate.
+     * @param attribute - The validation attributes to apply.
+     * @returns An array of `ValidationErrorContext` objects describing the validation errors.
+     */
+    static validateProperty(field: string, value: any, attribute: PropertyValidationAttribute): ValidationErrorContext[];
+    static getValidationErrorMessage(validationErrorContexts: ValidationErrorContext[]): string;
+}
+export declare class DanaHeaderUtil {
+    /**
+     * Populates the HTTP headers required for the Snap B2B scenario.
+     * @param headerParameters - The HTTP headers object to populate.
+     * @param httpMethod - The HTTP method (e.g., GET, POST).
+     * @param endpointUrl - The API endpoint URL.
+     * @param requestBody - The request body as a string.
+     * @param privateKey - The private key used for generating the signature.
+     * @param origin - The origin of the request.
+     * @param partnerId - The partner ID.
+     */
+    static populateSnapB2BScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, origin: string, partnerId: string): void;
+}
 export declare class DanaSignatureUtil {
     /**
      * Generates a signature for the Snap B2B scenario.
      * @param httpMethod - HTTP method (e.g., GET, POST).
      * @param endpointUrl - The API endpoint URL.
      * @param requestBody - The request body as a string.
-     * @param privateKey - The private key in Base64 format.
+     * @param privateKey - The private key used for generating the signature.
      * @param timeStamp - The timestamp for the signature.
      * @returns The Base64-encoded signature.
      */
     static generateSnapB2BScenarioSignature(httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, timeStamp: string): string;
     /**
-     * Converts a Base64-encoded key to PEM format.
-     * @param base64Key - The Base64-encoded key.
+     * Converts a private/public key to PEM format.
+     * @param key - The key.
      * @param keyType - The type of key (e.g., PRIVATE, PUBLIC).
      * @returns The PEM-formatted key.
      */
-    private static base64KeyToPEM;
+    private static convertToPEM;
     /**
      * Splits a string into chunks of a specified size.
      * @param input - The input string.

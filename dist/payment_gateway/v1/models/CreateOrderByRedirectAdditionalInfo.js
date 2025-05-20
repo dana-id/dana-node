@@ -11,6 +11,8 @@ exports.CreateOrderByRedirectAdditionalInfoFromJSON = CreateOrderByRedirectAddit
 exports.CreateOrderByRedirectAdditionalInfoFromJSONTyped = CreateOrderByRedirectAdditionalInfoFromJSONTyped;
 exports.CreateOrderByRedirectAdditionalInfoToJSON = CreateOrderByRedirectAdditionalInfoToJSON;
 exports.CreateOrderByRedirectAdditionalInfoToJSONTyped = CreateOrderByRedirectAdditionalInfoToJSONTyped;
+exports.validateCreateOrderByRedirectAdditionalInfo = validateCreateOrderByRedirectAdditionalInfo;
+const runtime_1 = require("../../../runtime");
 const EnvInfo_1 = require("./EnvInfo");
 const OrderRedirectObject_1 = require("./OrderRedirectObject");
 /**
@@ -50,4 +52,23 @@ function CreateOrderByRedirectAdditionalInfoToJSONTyped(value, ignoreDiscriminat
         'envInfo': (0, EnvInfo_1.EnvInfoToJSON)(value['envInfo']),
         'order': (0, OrderRedirectObject_1.OrderRedirectObjectToJSON)(value['order']),
     };
+}
+const propertyValidationAttributesMap = {
+    mcc: {
+        maxLength: 64,
+    },
+    extendInfo: {
+        maxLength: 4096,
+    },
+};
+function validateCreateOrderByRedirectAdditionalInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('mcc', value.mcc, propertyValidationAttributesMap['mcc']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
+    validationErrorContexts.push(...(0, EnvInfo_1.validateEnvInfo)(value.envInfo));
+    validationErrorContexts.push(...(0, OrderRedirectObject_1.validateOrderRedirectObject)(value.order));
+    return validationErrorContexts;
 }

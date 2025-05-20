@@ -11,6 +11,8 @@ exports.CreateOrderBaseAdditionalInfoFromJSON = CreateOrderBaseAdditionalInfoFro
 exports.CreateOrderBaseAdditionalInfoFromJSONTyped = CreateOrderBaseAdditionalInfoFromJSONTyped;
 exports.CreateOrderBaseAdditionalInfoToJSON = CreateOrderBaseAdditionalInfoToJSON;
 exports.CreateOrderBaseAdditionalInfoToJSONTyped = CreateOrderBaseAdditionalInfoToJSONTyped;
+exports.validateCreateOrderBaseAdditionalInfo = validateCreateOrderBaseAdditionalInfo;
+const runtime_1 = require("../../../runtime");
 const EnvInfo_1 = require("./EnvInfo");
 /**
  * Check if a given object implements the CreateOrderBaseAdditionalInfo interface.
@@ -47,4 +49,22 @@ function CreateOrderBaseAdditionalInfoToJSONTyped(value, ignoreDiscriminator = f
         'extendInfo': value['extendInfo'],
         'envInfo': (0, EnvInfo_1.EnvInfoToJSON)(value['envInfo']),
     };
+}
+const propertyValidationAttributesMap = {
+    mcc: {
+        maxLength: 64,
+    },
+    extendInfo: {
+        maxLength: 4096,
+    },
+};
+function validateCreateOrderBaseAdditionalInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('mcc', value.mcc, propertyValidationAttributesMap['mcc']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
+    validationErrorContexts.push(...(0, EnvInfo_1.validateEnvInfo)(value.envInfo));
+    return validationErrorContexts;
 }

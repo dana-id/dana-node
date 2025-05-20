@@ -11,6 +11,8 @@ exports.ConsultPayRequestAdditionalInfoFromJSON = ConsultPayRequestAdditionalInf
 exports.ConsultPayRequestAdditionalInfoFromJSONTyped = ConsultPayRequestAdditionalInfoFromJSONTyped;
 exports.ConsultPayRequestAdditionalInfoToJSON = ConsultPayRequestAdditionalInfoToJSON;
 exports.ConsultPayRequestAdditionalInfoToJSONTyped = ConsultPayRequestAdditionalInfoToJSONTyped;
+exports.validateConsultPayRequestAdditionalInfo = validateConsultPayRequestAdditionalInfo;
+const runtime_1 = require("../../../runtime");
 const Buyer_1 = require("./Buyer");
 const EnvInfo_1 = require("./EnvInfo");
 /**
@@ -48,4 +50,19 @@ function ConsultPayRequestAdditionalInfoToJSONTyped(value, ignoreDiscriminator =
         'envInfo': (0, EnvInfo_1.EnvInfoToJSON)(value['envInfo']),
         'merchantTransType': value['merchantTransType'],
     };
+}
+const propertyValidationAttributesMap = {
+    merchantTransType: {
+        maxLength: 64,
+    },
+};
+function validateConsultPayRequestAdditionalInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...(0, Buyer_1.validateBuyer)(value.buyer));
+    validationErrorContexts.push(...(0, EnvInfo_1.validateEnvInfo)(value.envInfo));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantTransType', value.merchantTransType, propertyValidationAttributesMap['merchantTransType']));
+    return validationErrorContexts;
 }

@@ -11,6 +11,8 @@ exports.CreateOrderByApiAdditionalInfoFromJSON = CreateOrderByApiAdditionalInfoF
 exports.CreateOrderByApiAdditionalInfoFromJSONTyped = CreateOrderByApiAdditionalInfoFromJSONTyped;
 exports.CreateOrderByApiAdditionalInfoToJSON = CreateOrderByApiAdditionalInfoToJSON;
 exports.CreateOrderByApiAdditionalInfoToJSONTyped = CreateOrderByApiAdditionalInfoToJSONTyped;
+exports.validateCreateOrderByApiAdditionalInfo = validateCreateOrderByApiAdditionalInfo;
+const runtime_1 = require("../../../runtime");
 const OrderApiObject_1 = require("./OrderApiObject");
 const EnvInfo_1 = require("./EnvInfo");
 /**
@@ -50,4 +52,23 @@ function CreateOrderByApiAdditionalInfoToJSONTyped(value, ignoreDiscriminator = 
         'envInfo': (0, EnvInfo_1.EnvInfoToJSON)(value['envInfo']),
         'order': (0, OrderApiObject_1.OrderApiObjectToJSON)(value['order']),
     };
+}
+const propertyValidationAttributesMap = {
+    mcc: {
+        maxLength: 64,
+    },
+    extendInfo: {
+        maxLength: 4096,
+    },
+};
+function validateCreateOrderByApiAdditionalInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('mcc', value.mcc, propertyValidationAttributesMap['mcc']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
+    validationErrorContexts.push(...(0, EnvInfo_1.validateEnvInfo)(value.envInfo));
+    validationErrorContexts.push(...(0, OrderApiObject_1.validateOrderApiObject)(value.order));
+    return validationErrorContexts;
 }

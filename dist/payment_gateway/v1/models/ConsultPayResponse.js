@@ -11,6 +11,8 @@ exports.ConsultPayResponseFromJSON = ConsultPayResponseFromJSON;
 exports.ConsultPayResponseFromJSONTyped = ConsultPayResponseFromJSONTyped;
 exports.ConsultPayResponseToJSON = ConsultPayResponseToJSON;
 exports.ConsultPayResponseToJSONTyped = ConsultPayResponseToJSONTyped;
+exports.validateConsultPayResponse = validateConsultPayResponse;
+const runtime_1 = require("../../../runtime");
 const ConsultPayPaymentInfo_1 = require("./ConsultPayPaymentInfo");
 /**
  * Check if a given object implements the ConsultPayResponse interface.
@@ -43,4 +45,21 @@ function ConsultPayResponseToJSONTyped(value, ignoreDiscriminator = false) {
         'responseMessage': value['responseMessage'],
         'paymentInfos': value['paymentInfos'] == null ? undefined : (value['paymentInfos'].map(ConsultPayPaymentInfo_1.ConsultPayPaymentInfoToJSON)),
     };
+}
+const propertyValidationAttributesMap = {
+    responseCode: {
+        maxLength: 7,
+    },
+    responseMessage: {
+        maxLength: 150,
+    },
+};
+function validateConsultPayResponse(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('responseCode', value.responseCode, propertyValidationAttributesMap['responseCode']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('responseMessage', value.responseMessage, propertyValidationAttributesMap['responseMessage']));
+    return validationErrorContexts;
 }

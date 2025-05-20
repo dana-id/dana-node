@@ -11,6 +11,8 @@ exports.FinishNotifyFromJSON = FinishNotifyFromJSON;
 exports.FinishNotifyFromJSONTyped = FinishNotifyFromJSONTyped;
 exports.FinishNotifyToJSON = FinishNotifyToJSON;
 exports.FinishNotifyToJSONTyped = FinishNotifyToJSONTyped;
+exports.validateFinishNotify = validateFinishNotify;
+const runtime_1 = require("../../../runtime");
 const Money_1 = require("./Money");
 const FinishNotifyAdditionalInfo_1 = require("./FinishNotifyAdditionalInfo");
 /**
@@ -76,4 +78,57 @@ function FinishNotifyToJSONTyped(value, ignoreDiscriminator = false) {
         'externalStoreId': value['externalStoreId'],
         'additionalInfo': (0, FinishNotifyAdditionalInfo_1.FinishNotifyAdditionalInfoToJSON)(value['additionalInfo']),
     };
+}
+const propertyValidationAttributesMap = {
+    originalPartnerReferenceNo: {
+        maxLength: 64,
+    },
+    originalReferenceNo: {
+        maxLength: 64,
+    },
+    originalExternalId: {
+        maxLength: 36,
+    },
+    merchantId: {
+        maxLength: 64,
+    },
+    subMerchantId: {
+        maxLength: 32,
+    },
+    latestTransactionStatus: {
+        maxLength: 2,
+    },
+    transactionStatusDesc: {
+        maxLength: 50,
+    },
+    createdTime: {
+        maxLength: 25,
+        pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
+    },
+    finishedTime: {
+        maxLength: 25,
+        pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
+    },
+    externalStoreId: {
+        maxLength: 64,
+    },
+};
+function validateFinishNotify(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('originalPartnerReferenceNo', value.originalPartnerReferenceNo, propertyValidationAttributesMap['originalPartnerReferenceNo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('originalReferenceNo', value.originalReferenceNo, propertyValidationAttributesMap['originalReferenceNo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('originalExternalId', value.originalExternalId, propertyValidationAttributesMap['originalExternalId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantId', value.merchantId, propertyValidationAttributesMap['merchantId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('subMerchantId', value.subMerchantId, propertyValidationAttributesMap['subMerchantId']));
+    validationErrorContexts.push(...(0, Money_1.validateMoney)(value.amount));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('latestTransactionStatus', value.latestTransactionStatus, propertyValidationAttributesMap['latestTransactionStatus']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('transactionStatusDesc', value.transactionStatusDesc, propertyValidationAttributesMap['transactionStatusDesc']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('createdTime', value.createdTime, propertyValidationAttributesMap['createdTime']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('finishedTime', value.finishedTime, propertyValidationAttributesMap['finishedTime']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('externalStoreId', value.externalStoreId, propertyValidationAttributesMap['externalStoreId']));
+    validationErrorContexts.push(...(0, FinishNotifyAdditionalInfo_1.validateFinishNotifyAdditionalInfo)(value.additionalInfo));
+    return validationErrorContexts;
 }

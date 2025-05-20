@@ -48,7 +48,6 @@ __exportStar(require("./PayOptionInfo"), exports);
 __exportStar(require("./PaymentView"), exports);
 __exportStar(require("./PromoInfo"), exports);
 __exportStar(require("./QueryPaymentRequest"), exports);
-__exportStar(require("./QueryPaymentRequestAdditionalInfo"), exports);
 __exportStar(require("./QueryPaymentResponse"), exports);
 __exportStar(require("./QueryPaymentResponseAdditionalInfo"), exports);
 __exportStar(require("./RefundOrderRequest"), exports);

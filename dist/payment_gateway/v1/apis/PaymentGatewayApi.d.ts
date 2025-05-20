@@ -4,37 +4,20 @@
  */
 import * as runtime from '../../../runtime';
 import type { CancelOrderRequest, CancelOrderResponse, ConsultPayRequest, ConsultPayResponse, CreateOrderRequest, CreateOrderResponse, QueryPaymentRequest, QueryPaymentResponse, RefundOrderRequest, RefundOrderResponse } from '../models/index';
-export interface CancelOrderOperationRequest {
-    cancelOrderRequest: CancelOrderRequest;
-}
-export interface ConsultPayOperationRequest {
-    consultPayRequest: ConsultPayRequest;
-}
-export interface CreateOrderOperationRequest {
-    createOrderRequest: CreateOrderRequest;
-}
-export interface QueryPaymentOperationRequest {
-    queryPaymentRequest: QueryPaymentRequest;
-}
-export interface RefundOrderOperationRequest {
-    refundOrderRequest: RefundOrderRequest;
-}
 /**
  *
  */
 export declare class PaymentGatewayApi extends runtime.BaseAPI {
     partnerId: string;
     privateKey: string;
-    constructor({ partnerId, privateKey, env }: {
-        partnerId: string;
-        privateKey: string;
-        env: string;
+    origin: string;
+    env: string;
+    constructor({ partnerId, privateKey, origin, env }: {
+        partnerId?: string;
+        privateKey?: string;
+        origin?: string;
+        env?: string;
     });
-    /**
-     * This API is used to cancel the order from merchant\'s platform to DANA
-     * Cancel Order API
-     */
-    cancelOrderRaw(requestParameters: CancelOrderOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CancelOrderResponse>>;
     /**
      * This API is used to cancel the order from merchant\'s platform to DANA
      * Cancel Order API
@@ -44,37 +27,17 @@ export declare class PaymentGatewayApi extends runtime.BaseAPI {
      * This API is used to consult the list of payment methods or payment channels that user has and used in certain transactions or orders
      * Consult Pay API
      */
-    consultPayRaw(requestParameters: ConsultPayOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConsultPayResponse>>;
-    /**
-     * This API is used to consult the list of payment methods or payment channels that user has and used in certain transactions or orders
-     * Consult Pay API
-     */
     consultPay(consultPayRequest: ConsultPayRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ConsultPayResponse>;
     /**
-     * Create an order to process a payment through DANA Payment Gateway
-     * Create Payment Order
-     */
-    createOrderRaw(requestParameters: CreateOrderOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateOrderResponse>>;
-    /**
-     * Create an order to process a payment through DANA Payment Gateway
+     * This API is used for merchant to create order in DANA side
      * Create Payment Order
      */
     createOrder(createOrderRequest: CreateOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateOrderResponse>;
     /**
-     * Inquiry payment status and information from merchant’s platform to DANA
-     * Query Payment
-     */
-    queryPaymentRaw(requestParameters: QueryPaymentOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QueryPaymentResponse>>;
-    /**
-     * Inquiry payment status and information from merchant’s platform to DANA
+     * This API is used to inquiry payment status and information from merchant\'s platform to DANA
      * Query Payment
      */
     queryPayment(queryPaymentRequest: QueryPaymentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryPaymentResponse>;
-    /**
-     * This API is used to refund the order from merchant\'s platform to DANA
-     * Refund Order API
-     */
-    refundOrderRaw(requestParameters: RefundOrderOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RefundOrderResponse>>;
     /**
      * This API is used to refund the order from merchant\'s platform to DANA
      * Refund Order API

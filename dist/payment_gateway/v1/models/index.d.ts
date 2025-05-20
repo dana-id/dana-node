@@ -30,7 +30,6 @@ export * from './PayOptionInfo';
 export * from './PaymentView';
 export * from './PromoInfo';
 export * from './QueryPaymentRequest';
-export * from './QueryPaymentRequestAdditionalInfo';
 export * from './QueryPaymentResponse';
 export * from './QueryPaymentResponseAdditionalInfo';
 export * from './RefundOrderRequest';

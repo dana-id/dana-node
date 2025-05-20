@@ -11,6 +11,8 @@ exports.OrderBaseFromJSON = OrderBaseFromJSON;
 exports.OrderBaseFromJSONTyped = OrderBaseFromJSONTyped;
 exports.OrderBaseToJSON = OrderBaseToJSON;
 exports.OrderBaseToJSONTyped = OrderBaseToJSONTyped;
+exports.validateOrderBase = validateOrderBase;
+const runtime_1 = require("../../../runtime");
 const Buyer_1 = require("./Buyer");
 const Goods_1 = require("./Goods");
 const ShippingInfo_1 = require("./ShippingInfo");
@@ -53,4 +55,26 @@ function OrderBaseToJSONTyped(value, ignoreDiscriminator = false) {
         'shippingInfo': value['shippingInfo'] == null ? undefined : (value['shippingInfo'].map(ShippingInfo_1.ShippingInfoToJSON)),
         'extendInfo': value['extendInfo'],
     };
+}
+const propertyValidationAttributesMap = {
+    orderTitle: {
+        maxLength: 64,
+    },
+    merchantTransType: {
+        maxLength: 64,
+    },
+    extendInfo: {
+        maxLength: 4096,
+    },
+};
+function validateOrderBase(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('orderTitle', value.orderTitle, propertyValidationAttributesMap['orderTitle']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantTransType', value.merchantTransType, propertyValidationAttributesMap['merchantTransType']));
+    validationErrorContexts.push(...(0, Buyer_1.validateBuyer)(value.buyer));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
+    return validationErrorContexts;
 }

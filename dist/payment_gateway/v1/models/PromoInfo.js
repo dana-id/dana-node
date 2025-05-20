@@ -11,6 +11,8 @@ exports.PromoInfoFromJSON = PromoInfoFromJSON;
 exports.PromoInfoFromJSONTyped = PromoInfoFromJSONTyped;
 exports.PromoInfoToJSON = PromoInfoToJSON;
 exports.PromoInfoToJSONTyped = PromoInfoToJSONTyped;
+exports.validatePromoInfo = validatePromoInfo;
+const runtime_1 = require("../../../runtime");
 const Money_1 = require("./Money");
 /**
  * Check if a given object implements the PromoInfo interface.
@@ -49,4 +51,22 @@ function PromoInfoToJSONTyped(value, ignoreDiscriminator = false) {
         'promoId': value['promoId'],
         'promoType': value['promoType'],
     };
+}
+const propertyValidationAttributesMap = {
+    promoId: {
+        maxLength: 64,
+    },
+    promoType: {
+        maxLength: 32,
+    },
+};
+function validatePromoInfo(value) {
+    const validationErrorContexts = [];
+    if (value == null) {
+        return validationErrorContexts;
+    }
+    validationErrorContexts.push(...(0, Money_1.validateMoney)(value.promoAmount));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('promoId', value.promoId, propertyValidationAttributesMap['promoId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('promoType', value.promoType, propertyValidationAttributesMap['promoType']));
+    return validationErrorContexts;
 }
