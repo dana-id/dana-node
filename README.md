@@ -1,46 +1,57 @@
-## dana-node-api-client@1.0.0
+## dana-node-api-client
 
-This generator creates TypeScript/JavaScript client that utilizes [Fetch API](https://fetch.spec.whatwg.org/). The generated Node module can be used in the following environments:
+The official DANA Node SDK provides a simple and convenient way to call DANA's REST API in applications written in Node.js.
 
-Environment
-* Node.js
-* Webpack
-* Browserify
+# Getting Started
 
-Language level
-* ES5 - you must have a Promises/A+ library installed
-* ES6
+## Installation
 
-Module system
-* CommonJS
-* ES6 module system
+### Requirements
 
-It can be used in both TypeScript and JavaScript. In TypeScript, the definition will be automatically resolved via `package.json`. ([Reference](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html))
+- Node.js 18.0 or later.
 
-### Building
+### Install with npm
 
-To build and compile the typescript sources to javascript use:
-```
-npm install
-npm run build
+```bash
+npm install dana-node-api-client@latest --save
 ```
 
-### Publishing
+TypeScript support is included in this package.
 
-First build the package then run `npm publish`
+## Authorization
 
-### Consuming
+The SDK must be instantiated using your private key. Please check the [DANA API Docs](https://dashboard.dana.id/api-docs/read/45) for a guide on generating one.
 
-navigate to the folder of your consuming project and run one of the following commands.
+```javascript
+import { Dana } from "dana-node-api-client";
 
-_published:_
-
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
 ```
-npm install dana-node-api-client@1.0.0 --save
+
+### Sandbox Environment
+
+By default, the SDK will use the DANA production URL (`https://api.saas.dana.id`) to make API requests.<br/>
+If you need to override the environment, you can pass in `env` to the `Dana` constructor.
+
+```javascript
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.ENV
+});
 ```
 
-_unPublished (not recommended):_
+## Documentation
 
-```
-npm install PATH_TO_GENERATED_PACKAGE --save
-```
+Find detailed API information and examples for each of our products by clicking the links below:
+* [PaymentGatewayApi](docs/payment_gateway/v1/Apis/PaymentGatewayApi.md)
+* [IPGApi](docs/ipg/v1/Apis/IPGApi.md)
+
+## Further Reading
+
+* [DANA API Reference](https://dashboard.dana.id/api-docs)
