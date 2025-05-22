@@ -20,27 +20,27 @@ export declare class PaymentGatewayApi extends runtime.BaseAPI {
     });
     /**
      * This API is used to cancel the order from merchant\'s platform to DANA
-     * Cancel Order API
+     * Cancel Order - Payment Gateway
      */
     cancelOrder(cancelOrderRequest: CancelOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CancelOrderResponse>;
     /**
      * This API is used to consult the list of payment methods or payment channels that user has and used in certain transactions or orders
-     * Consult Pay API
+     * Consult Pay - Payment Gateway
      */
     consultPay(consultPayRequest: ConsultPayRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ConsultPayResponse>;
     /**
      * This API is used for merchant to create order in DANA side
-     * Create Payment Order
+     * Create Order - Payment Gateway
      */
     createOrder(createOrderRequest: CreateOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateOrderResponse>;
     /**
      * This API is used to inquiry payment status and information from merchant\'s platform to DANA
-     * Query Payment
+     * Query Payment - Payment Gateway
      */
     queryPayment(queryPaymentRequest: QueryPaymentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryPaymentResponse>;
     /**
      * This API is used to refund the order from merchant\'s platform to DANA
-     * Refund Order API
+     * Refund Order - Payment Gateway
      */
     refundOrder(refundOrderRequest: RefundOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RefundOrderResponse>;
 }

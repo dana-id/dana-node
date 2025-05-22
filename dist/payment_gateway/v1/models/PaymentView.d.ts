@@ -15,13 +15,13 @@ export interface PaymentView {
      * @type {string}
      * @memberof PaymentView
      */
-    cashierRequestId?: string;
+    cashierRequestId: string;
     /**
      * Information of paid time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
      * @type {string}
      * @memberof PaymentView
      */
-    paidTime?: string;
+    paidTime: string;
     /**
      * Information of pay option
      * @type {Array<PayOptionInfo>}
@@ -35,7 +35,7 @@ export interface PaymentView {
      */
     payRequestExtendInfo?: string;
     /**
-     * Additional extend information
+     * Extend information
      * @type {string}
      * @memberof PaymentView
      */

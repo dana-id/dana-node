@@ -19,25 +19,25 @@ import type { Seller } from './Seller';
  */
 export interface QueryPaymentResponseAdditionalInfo {
     /**
-     *
+     * Additional information of buyer
      * @type {Buyer}
      * @memberof QueryPaymentResponseAdditionalInfo
      */
     buyer?: Buyer;
     /**
-     *
+     * Additional information of seller
      * @type {Seller}
      * @memberof QueryPaymentResponseAdditionalInfo
      */
     seller?: Seller;
     /**
-     *
+     * Additional information of amount detail. Present if transaction found
      * @type {AmountDetail}
      * @memberof QueryPaymentResponseAdditionalInfo
      */
     amountDetail?: AmountDetail;
     /**
-     *
+     * Additional information of time detail. Present if transaction found
      * @type {TimeDetail}
      * @memberof QueryPaymentResponseAdditionalInfo
      */
@@ -61,7 +61,7 @@ export interface QueryPaymentResponseAdditionalInfo {
      */
     orderMemo?: string;
     /**
-     * Additional information of payment views (Present if transaction found)
+     * Additional information of payment views. Present if transaction found
      * @type {Array<PaymentView>}
      * @memberof QueryPaymentResponseAdditionalInfo
      */
@@ -73,7 +73,7 @@ export interface QueryPaymentResponseAdditionalInfo {
      */
     extendInfo?: string;
     /**
-     *
+     * Additional information of status detail
      * @type {StatusDetail}
      * @memberof QueryPaymentResponseAdditionalInfo
      */
@@ -85,7 +85,7 @@ export interface QueryPaymentResponseAdditionalInfo {
      */
     closeReason?: string;
     /**
-     *
+     * Additional information of virtual account. Only use for Payment Gateway service
      * @type {VirtualAccountInfo}
      * @memberof QueryPaymentResponseAdditionalInfo
      */

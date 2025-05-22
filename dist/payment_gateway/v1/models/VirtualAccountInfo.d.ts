@@ -10,19 +10,19 @@ import type { ValidationErrorContext } from '../../../runtime';
  */
 export interface VirtualAccountInfo {
     /**
-     * Virtual account code (Present if successfully processed and payment method is VIRTUAL_ACCOUNT)
+     * Virtual account code. Present if successfully processed and payment method is VIRTUAL_ACCOUNT
      * @type {string}
      * @memberof VirtualAccountInfo
      */
     virtualAccountCode?: string;
     /**
-     * Expiry time of virtual account, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time) (Present if successfully processed and payment method is VIRTUAL_ACCOUNT)
+     * Expiry time of virtual account, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time). Present if successfully processed and payment method is VIRTUAL_ACCOUNT
      * @type {string}
      * @memberof VirtualAccountInfo
      */
     virtualAccountExpiryTime?: string;
     /**
-     * Signature of virtual account (Present if successfully processed and payment method is VIRTUAL_ACCOUNT)
+     * Signature of virtual account. Present if successfully processed and payment method is VIRTUAL_ACCOUNT
      * @type {string}
      * @memberof VirtualAccountInfo
      */

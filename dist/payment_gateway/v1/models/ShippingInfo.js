@@ -18,21 +18,21 @@ const Money_1 = require("./Money");
  * Check if a given object implements the ShippingInfo interface.
  */
 function instanceOfShippingInfo(value) {
-    if (!('lastName' in value) || value['lastName'] === undefined)
+    if (!('merchantShippingId' in value) || value['merchantShippingId'] === undefined)
         return false;
     if (!('countryName' in value) || value['countryName'] === undefined)
         return false;
-    if (!('merchantShippingId' in value) || value['merchantShippingId'] === undefined)
+    if (!('stateName' in value) || value['stateName'] === undefined)
         return false;
     if (!('cityName' in value) || value['cityName'] === undefined)
         return false;
     if (!('address1' in value) || value['address1'] === undefined)
         return false;
-    if (!('zipCode' in value) || value['zipCode'] === undefined)
-        return false;
-    if (!('stateName' in value) || value['stateName'] === undefined)
-        return false;
     if (!('firstName' in value) || value['firstName'] === undefined)
+        return false;
+    if (!('lastName' in value) || value['lastName'] === undefined)
+        return false;
+    if (!('zipCode' in value) || value['zipCode'] === undefined)
         return false;
     return true;
 }
@@ -44,23 +44,23 @@ function ShippingInfoFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'chargeAmount': json['chargeAmount'] == null ? undefined : (0, Money_1.MoneyFromJSON)(json['chargeAmount']),
-        'lastName': json['lastName'],
-        'trackingNo': json['trackingNo'] == null ? undefined : json['trackingNo'],
-        'countryName': json['countryName'],
         'merchantShippingId': json['merchantShippingId'],
+        'trackingNo': json['trackingNo'] == null ? undefined : json['trackingNo'],
+        'carrier': json['carrier'] == null ? undefined : json['carrier'],
+        'chargeAmount': json['chargeAmount'] == null ? undefined : (0, Money_1.MoneyFromJSON)(json['chargeAmount']),
+        'countryName': json['countryName'],
+        'stateName': json['stateName'],
         'cityName': json['cityName'],
+        'areaName': json['areaName'] == null ? undefined : json['areaName'],
         'address1': json['address1'],
         'address2': json['address2'] == null ? undefined : json['address2'],
-        'phoneNo': json['phoneNo'] == null ? undefined : json['phoneNo'],
-        'areaName': json['areaName'] == null ? undefined : json['areaName'],
-        'email': json['email'] == null ? undefined : json['email'],
-        'zipCode': json['zipCode'],
-        'stateName': json['stateName'],
-        'faxNo': json['faxNo'] == null ? undefined : json['faxNo'],
-        'carrier': json['carrier'] == null ? undefined : json['carrier'],
         'firstName': json['firstName'],
+        'lastName': json['lastName'],
         'mobileNo': json['mobileNo'] == null ? undefined : json['mobileNo'],
+        'phoneNo': json['phoneNo'] == null ? undefined : json['phoneNo'],
+        'zipCode': json['zipCode'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'faxNo': json['faxNo'] == null ? undefined : json['faxNo'],
     };
 }
 function ShippingInfoToJSON(json) {
@@ -71,39 +71,45 @@ function ShippingInfoToJSONTyped(value, ignoreDiscriminator = false) {
         return value;
     }
     return {
-        'chargeAmount': (0, Money_1.MoneyToJSON)(value['chargeAmount']),
-        'lastName': value['lastName'],
-        'trackingNo': value['trackingNo'],
-        'countryName': value['countryName'],
         'merchantShippingId': value['merchantShippingId'],
+        'trackingNo': value['trackingNo'],
+        'carrier': value['carrier'],
+        'chargeAmount': (0, Money_1.MoneyToJSON)(value['chargeAmount']),
+        'countryName': value['countryName'],
+        'stateName': value['stateName'],
         'cityName': value['cityName'],
+        'areaName': value['areaName'],
         'address1': value['address1'],
         'address2': value['address2'],
-        'phoneNo': value['phoneNo'],
-        'areaName': value['areaName'],
-        'email': value['email'],
-        'zipCode': value['zipCode'],
-        'stateName': value['stateName'],
-        'faxNo': value['faxNo'],
-        'carrier': value['carrier'],
         'firstName': value['firstName'],
+        'lastName': value['lastName'],
         'mobileNo': value['mobileNo'],
+        'phoneNo': value['phoneNo'],
+        'zipCode': value['zipCode'],
+        'email': value['email'],
+        'faxNo': value['faxNo'],
     };
 }
 const propertyValidationAttributesMap = {
-    lastName: {
+    merchantShippingId: {
         maxLength: 64,
     },
     trackingNo: {
         maxLength: 64,
     },
+    carrier: {
+        maxLength: 64,
+    },
     countryName: {
         maxLength: 64,
     },
-    merchantShippingId: {
+    stateName: {
         maxLength: 64,
     },
     cityName: {
+        maxLength: 64,
+    },
+    areaName: {
         maxLength: 64,
     },
     address1: {
@@ -112,31 +118,25 @@ const propertyValidationAttributesMap = {
     address2: {
         maxLength: 256,
     },
-    phoneNo: {
-        maxLength: 32,
-    },
-    areaName: {
+    firstName: {
         maxLength: 64,
     },
-    email: {
-        maxLength: 128,
+    lastName: {
+        maxLength: 64,
+    },
+    mobileNo: {
+        maxLength: 32,
+    },
+    phoneNo: {
+        maxLength: 32,
     },
     zipCode: {
         maxLength: 32,
     },
-    stateName: {
-        maxLength: 64,
+    email: {
+        maxLength: 128,
     },
     faxNo: {
-        maxLength: 32,
-    },
-    carrier: {
-        maxLength: 64,
-    },
-    firstName: {
-        maxLength: 64,
-    },
-    mobileNo: {
         maxLength: 32,
     },
 };
@@ -145,22 +145,22 @@ function validateShippingInfo(value) {
     if (value == null) {
         return validationErrorContexts;
     }
-    validationErrorContexts.push(...(0, Money_1.validateMoney)(value.chargeAmount));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('lastName', value.lastName, propertyValidationAttributesMap['lastName']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('trackingNo', value.trackingNo, propertyValidationAttributesMap['trackingNo']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('countryName', value.countryName, propertyValidationAttributesMap['countryName']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantShippingId', value.merchantShippingId, propertyValidationAttributesMap['merchantShippingId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('trackingNo', value.trackingNo, propertyValidationAttributesMap['trackingNo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('carrier', value.carrier, propertyValidationAttributesMap['carrier']));
+    validationErrorContexts.push(...(0, Money_1.validateMoney)(value.chargeAmount));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('countryName', value.countryName, propertyValidationAttributesMap['countryName']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('stateName', value.stateName, propertyValidationAttributesMap['stateName']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('cityName', value.cityName, propertyValidationAttributesMap['cityName']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('areaName', value.areaName, propertyValidationAttributesMap['areaName']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('address1', value.address1, propertyValidationAttributesMap['address1']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('address2', value.address2, propertyValidationAttributesMap['address2']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('phoneNo', value.phoneNo, propertyValidationAttributesMap['phoneNo']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('areaName', value.areaName, propertyValidationAttributesMap['areaName']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('email', value.email, propertyValidationAttributesMap['email']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('zipCode', value.zipCode, propertyValidationAttributesMap['zipCode']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('stateName', value.stateName, propertyValidationAttributesMap['stateName']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('faxNo', value.faxNo, propertyValidationAttributesMap['faxNo']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('carrier', value.carrier, propertyValidationAttributesMap['carrier']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('firstName', value.firstName, propertyValidationAttributesMap['firstName']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('lastName', value.lastName, propertyValidationAttributesMap['lastName']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('mobileNo', value.mobileNo, propertyValidationAttributesMap['mobileNo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('phoneNo', value.phoneNo, propertyValidationAttributesMap['phoneNo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('zipCode', value.zipCode, propertyValidationAttributesMap['zipCode']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('email', value.email, propertyValidationAttributesMap['email']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('faxNo', value.faxNo, propertyValidationAttributesMap['faxNo']));
     return validationErrorContexts;
 }

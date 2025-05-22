@@ -10,7 +10,14 @@ import type { ValidationErrorContext } from '../../../runtime';
  */
 export interface StatusDetail {
     /**
-     * The status of acquirement
+     * Acquirement status. The enums:<br>
+     * * INIT - Order is created but not paid yet<br>
+     * * SUCCESS - Order is succeeded<br>
+     * * CLOSED - Order is closed<br>
+     * * PAYING - Order is paid but not finish<br>
+     * * MERCHANT_ACCEPT - Order is accepted by merchant after order is paid for PAY-CONFIRM<br>
+     * * CANCELLED - Order is cancelled<br>
+     *
      * @type {string}
      * @memberof StatusDetail
      */
@@ -20,13 +27,13 @@ export interface StatusDetail {
      * @type {string}
      * @memberof StatusDetail
      */
-    frozen?: string;
+    frozen: string;
     /**
      * Whether the cancelled is true or not
      * @type {string}
      * @memberof StatusDetail
      */
-    cancelled?: string;
+    cancelled: string;
 }
 /**
  * @export

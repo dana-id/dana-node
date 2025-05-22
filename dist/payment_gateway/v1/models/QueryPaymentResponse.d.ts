@@ -12,47 +12,25 @@ import type { Money } from './Money';
  */
 export interface QueryPaymentResponse {
     /**
-     * Response code - response message:<br>
-     * * 2005500 - Successful<br>
-     * * 4005500 - Bad Request - Retry request with proper parameter<br>
-     * * 4005501 - Invalid Field Format - Retry request with proper parameter<br>
-     * * 4005502 - Invalid Mandatory Field - Retry request with proper parameter<br>
-     * * 4015500 - Unauthorized. [reason] - Retry request with proper parameter<br>
-     * * 4015501 - Invalid Token (B2B) - Retry request with proper parameter<br>
-     * * 4045501 - Transaction Not Found - Try to create a new order<br>
-     * * 4295500 - Too Many Requests - Retry request periodically<br>
-     * * 5005500 - General Error - Retry request periodically<br>
-     * * 5005501 - Internal Server Error - Retry request periodically<br>
-     *
+     * Response code. Refer to https://dashboard.dana.id/api-docs/read/126#HTML-API-QueryPayment-ResponseCodeandMessage
      * @type {string}
      * @memberof QueryPaymentResponse
      */
     responseCode: string;
     /**
-     * Response code - response message:<br>
-     * * 2005500 - Successful<br>
-     * * 4005500 - Bad Request - Retry request with proper parameter<br>
-     * * 4005501 - Invalid Field Format - Retry request with proper parameter<br>
-     * * 4005502 - Invalid Mandatory Field - Retry request with proper parameter<br>
-     * * 4015500 - Unauthorized. [reason] - Retry request with proper parameter<br>
-     * * 4015501 - Invalid Token (B2B) - Retry request with proper parameter<br>
-     * * 4045501 - Transaction Not Found - Try to create a new order<br>
-     * * 4295500 - Too Many Requests - Retry request periodically<br>
-     * * 5005500 - General Error - Retry request periodically<br>
-     * * 5005501 - Internal Server Error - Retry request periodically<br>
-     *
+     * Response message. Refer to https://dashboard.dana.id/api-docs/read/126#HTML-API-QueryPayment-ResponseCodeandMessage
      * @type {string}
      * @memberof QueryPaymentResponse
      */
     responseMessage: string;
     /**
-     * Original transaction identifier on partner system (Present if transaction found)
+     * Original transaction identifier on partner system. Present if transaction found
      * @type {string}
      * @memberof QueryPaymentResponse
      */
     originalPartnerReferenceNo?: string;
     /**
-     * Original transaction identifier on DANA system (Present if transaction found)
+     * Original transaction identifier on DANA system. Present if transaction found
      * @type {string}
      * @memberof QueryPaymentResponse
      */
@@ -117,37 +95,46 @@ export interface QueryPaymentResponse {
      */
     requestID?: string;
     /**
+     * Trans amount. Present if transaction found. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      *
      * @type {Money}
      * @memberof QueryPaymentResponse
      */
     transAmount?: Money;
     /**
+     * Amount. Present if transaction found. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      *
      * @type {Money}
      * @memberof QueryPaymentResponse
      */
     amount?: Money;
     /**
+     * Fee amount. Present if transaction found. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      *
      * @type {Money}
      * @memberof QueryPaymentResponse
      */
     feeAmount?: Money;
     /**
-     * Transaction paid time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time) (Present if transaction is paid)
+     * Transaction paid time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time). Present if transaction is paid
      * @type {string}
      * @memberof QueryPaymentResponse
      */
     paidTime?: string;
     /**
-     * Brief description (Present if transaction found)
+     * Brief description. Present if transaction found
      * @type {string}
      * @memberof QueryPaymentResponse
      */
     title?: string;
     /**
-     *
+     * Additional information
      * @type {QueryPaymentResponseAdditionalInfo}
      * @memberof QueryPaymentResponse
      */

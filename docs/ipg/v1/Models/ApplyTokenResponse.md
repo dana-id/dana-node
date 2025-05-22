@@ -3,7 +3,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-| **responseCode** | **String** | Refer to response code list:&lt;br&gt; * 2007400 - Successful&lt;br&gt; * 4007400 - Bad Request - Retry request with proper parameter&lt;br&gt; * 4007401 - Invalid Field Format - Retry request with proper parameter&lt;br&gt; * 4007402 - Invalid Mandatory Field - Retry request with proper parameter&lt;br&gt; * 4017400 - Unauthorized. [reason] - Retry request with proper parameter&lt;br&gt; * 4297400 - Too Many Requests - Retry request periodically by sending same request payload&lt;br&gt; * 5007400 - General Error - Retry request periodically&lt;br&gt; * 5007401 - Internal Server Error - Retry request periodically by sending same request payload&lt;br&gt;  | [default to null] |
+| **responseCode** | **String** | Refer to response code list:<br> * 2007400 - Successful<br> * 4007400 - Bad Request - Retry request with proper parameter<br> * 4007401 - Invalid Field Format - Retry request with proper parameter<br> * 4007402 - Invalid Mandatory Field - Retry request with proper parameter<br> * 4017400 - Unauthorized. [reason] - Retry request with proper parameter<br> * 4297400 - Too Many Requests - Retry request periodically by sending same request payload<br> * 5007400 - General Error - Retry request periodically<br> * 5007401 - Internal Server Error - Retry request periodically by sending same request payload<br>  | [default to null] |
 | **responseMessage** | **String** | Refer to response code list | [default to null] |
 | **tokenType** | **String** | Token type | [optional] [default to null] |
 | **accessToken** | **String** | Access token that can be used as user authorization | [default to null] |

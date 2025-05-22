@@ -11,30 +11,6 @@ import type { Money } from './Money';
  */
 export interface Goods {
     /**
-     * Goods unit
-     * @type {string}
-     * @memberof Goods
-     */
-    unit?: string;
-    /**
-     * Goods category
-     * @type {string}
-     * @memberof Goods
-     */
-    category: string;
-    /**
-     *
-     * @type {Money}
-     * @memberof Goods
-     */
-    price: Money;
-    /**
-     * Shipment identifier provided by merchant
-     * @type {string}
-     * @memberof Goods
-     */
-    merchantShippingId?: string;
-    /**
      * Goods identifier provided by merchant
      * @type {string}
      * @memberof Goods
@@ -47,17 +23,44 @@ export interface Goods {
      */
     description: string;
     /**
-     * The URL of good's snapshot web page
+     * Goods category
      * @type {string}
      * @memberof Goods
      */
-    snapshotUrl?: string;
+    category: string;
+    /**
+     * Goods price. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
+     *
+     * @type {Money}
+     * @memberof Goods
+     */
+    price: Money;
+    /**
+     * Goods unit
+     * @type {string}
+     * @memberof Goods
+     */
+    unit?: string;
     /**
      * Count of items
      * @type {string}
      * @memberof Goods
      */
     quantity: string;
+    /**
+     * Shipment identifier provided by merchant
+     * @type {string}
+     * @memberof Goods
+     */
+    merchantShippingId?: string;
+    /**
+     * The URL of good's snapshot web page
+     * @type {string}
+     * @memberof Goods
+     */
+    snapshotUrl?: string;
     /**
      * Extend information
      * @type {string}

@@ -12,7 +12,7 @@ import type { OrderRedirectObject } from './OrderRedirectObject';
  */
 export interface CreateOrderByRedirectAdditionalInfo {
     /**
-     * Additional information of merchant category code. This parameter is used to identify the type of business in which a merchant is engaged. Refer to https://dashboard.dana.id/api-docs/read/197#OpenAPI-MerchantCategoryCode
+     * Additional information of merchant category code. This parameter is used to identify the type of business in which a merchant is engaged. Refer to Details of https://dashboard.dana.id/api-docs/read/197#OpenAPI-MerchantCategoryCode
      * @type {string}
      * @memberof CreateOrderByRedirectAdditionalInfo
      */
@@ -24,13 +24,13 @@ export interface CreateOrderByRedirectAdditionalInfo {
      */
     extendInfo?: string;
     /**
-     *
+     * Additional information of environment info
      * @type {EnvInfo}
      * @memberof CreateOrderByRedirectAdditionalInfo
      */
     envInfo: EnvInfo;
     /**
-     *
+     * Additional information of order
      * @type {OrderRedirectObject}
      * @memberof CreateOrderByRedirectAdditionalInfo
      */

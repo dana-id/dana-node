@@ -61,7 +61,7 @@ export interface RefundOrderRequest {
      */
     originalExternalId?: string;
     /**
-     * DANA's capture identifier. Use to refund the corresponding capture order
+     * DANA's capture identifier. Use to refund the corresponding capture order. Required if auth payment scenario
      * @type {string}
      * @memberof RefundOrderRequest
      */
@@ -73,7 +73,10 @@ export interface RefundOrderRequest {
      */
     partnerRefundNo: string;
     /**
-     * Refund amount. Contains two sub-fields - 1. Value (Transaction amount, including the cents) and 2. Currency (Currency code based on ISO)
+     * Refund amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
+     * 
      * @type {Money}
      * @memberof RefundOrderRequest
      */
@@ -91,7 +94,7 @@ export interface RefundOrderRequest {
      */
     reason?: string;
     /**
-     * 
+     * Additional information
      * @type {RefundOrderRequestAdditionalInfo}
      * @memberof RefundOrderRequest
      */

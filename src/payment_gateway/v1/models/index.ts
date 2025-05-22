@@ -1,6 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './ActorContext';
 export * from './AmountDetail';
+export * from './AuditInfo';
 export * from './Buyer';
 export * from './CancelOrderRequest';
 export * from './CancelOrderResponse';
@@ -18,9 +20,10 @@ export * from './CreateOrderRequest';
 export * from './CreateOrderResponse';
 export * from './CreateOrderResponseAdditionalInfo';
 export * from './EnvInfo';
-export * from './FinishNotify';
-export * from './FinishNotifyAdditionalInfo';
 export * from './FinishNotifyPaymentInfo';
+export * from './FinishNotifyRequest';
+export * from './FinishNotifyRequestAdditionalInfo';
+export * from './FinishNotifyResponse';
 export * from './Goods';
 export * from './Money';
 export * from './OrderApiObject';
@@ -34,6 +37,7 @@ export * from './PromoInfo';
 export * from './QueryPaymentRequest';
 export * from './QueryPaymentResponse';
 export * from './QueryPaymentResponseAdditionalInfo';
+export * from './RefundOptionBill';
 export * from './RefundOrderRequest';
 export * from './RefundOrderRequestAdditionalInfo';
 export * from './RefundOrderResponse';

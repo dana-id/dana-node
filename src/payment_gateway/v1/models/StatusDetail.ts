@@ -14,7 +14,14 @@ import { mapValues, ValidationUtil } from '../../../runtime';
  */
 export interface StatusDetail {
     /**
-     * The status of acquirement
+     * Acquirement status. The enums:<br>
+     * * INIT - Order is created but not paid yet<br>
+     * * SUCCESS - Order is succeeded<br>
+     * * CLOSED - Order is closed<br>
+     * * PAYING - Order is paid but not finish<br>
+     * * MERCHANT_ACCEPT - Order is accepted by merchant after order is paid for PAY-CONFIRM<br>
+     * * CANCELLED - Order is cancelled<br>
+     * 
      * @type {string}
      * @memberof StatusDetail
      */
@@ -24,13 +31,13 @@ export interface StatusDetail {
      * @type {string}
      * @memberof StatusDetail
      */
-    frozen?: string;
+    frozen: string;
     /**
      * Whether the cancelled is true or not
      * @type {string}
      * @memberof StatusDetail
      */
-    cancelled?: string;
+    cancelled: string;
 }
 
 
@@ -53,6 +60,8 @@ export type StatusDetailAcquirementStatusEnum = typeof StatusDetailAcquirementSt
  */
 export function instanceOfStatusDetail(value: object): value is StatusDetail {
     if (!('acquirementStatus' in value) || value['acquirementStatus'] === undefined) return false;
+    if (!('frozen' in value) || value['frozen'] === undefined) return false;
+    if (!('cancelled' in value) || value['cancelled'] === undefined) return false;
     return true;
 }
 
@@ -67,8 +76,8 @@ export function StatusDetailFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'acquirementStatus': json['acquirementStatus'],
-        'frozen': json['frozen'] == null ? undefined : json['frozen'],
-        'cancelled': json['cancelled'] == null ? undefined : json['cancelled'],
+        'frozen': json['frozen'],
+        'cancelled': json['cancelled'],
     };
 }
 
@@ -93,6 +102,12 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     acquirementStatus: {
         maxLength: 64,
     },
+    frozen: {
+        maxLength: 64,
+    },
+    cancelled: {
+        maxLength: 64,
+    },
 }
 
 export function validateStatusDetail(value: StatusDetail): ValidationErrorContext[] {
@@ -103,6 +118,10 @@ export function validateStatusDetail(value: StatusDetail): ValidationErrorContex
     }
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('acquirementStatus', value.acquirementStatus, propertyValidationAttributesMap['acquirementStatus']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('frozen', value.frozen, propertyValidationAttributesMap['frozen']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('cancelled', value.cancelled, propertyValidationAttributesMap['cancelled']));
 
     return validationErrorContexts;
 }

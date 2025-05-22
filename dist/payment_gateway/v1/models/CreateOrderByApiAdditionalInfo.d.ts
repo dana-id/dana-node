@@ -12,7 +12,7 @@ import type { EnvInfo } from './EnvInfo';
  */
 export interface CreateOrderByApiAdditionalInfo {
     /**
-     * Additional information of merchant category code. This parameter is used to identify the type of business in which a merchant is engaged. Refer to https://dashboard.dana.id/api-docs/read/197#OpenAPI-MerchantCategoryCode
+     * Additional information of merchant category code. This parameter is used to identify the type of business in which a merchant is engaged. Refer to Details of https://dashboard.dana.id/api-docs/read/197#OpenAPI-MerchantCategoryCode
      * @type {string}
      * @memberof CreateOrderByApiAdditionalInfo
      */
@@ -24,13 +24,13 @@ export interface CreateOrderByApiAdditionalInfo {
      */
     extendInfo?: string;
     /**
-     *
+     * Additional information of environment info
      * @type {EnvInfo}
      * @memberof CreateOrderByApiAdditionalInfo
      */
     envInfo: EnvInfo;
     /**
-     *
+     * Additional information of order
      * @type {OrderApiObject}
      * @memberof CreateOrderByApiAdditionalInfo
      */

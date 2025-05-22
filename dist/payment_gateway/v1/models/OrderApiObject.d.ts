@@ -13,43 +13,43 @@ import type { ShippingInfo } from './ShippingInfo';
  */
 export interface OrderApiObject {
     /**
-     *
+     * Additional information of order title
      * @type {string}
      * @memberof OrderApiObject
      */
     orderTitle: string;
     /**
-     *
+     * Additional information of merchant transaction type
      * @type {string}
      * @memberof OrderApiObject
      */
     merchantTransType?: string;
     /**
-     *
+     * Additional information of buyer
      * @type {Buyer}
      * @memberof OrderApiObject
      */
     buyer?: Buyer;
     /**
-     *
+     * Additional information of goods
      * @type {Array<Goods>}
      * @memberof OrderApiObject
      */
     goods?: Array<Goods>;
     /**
-     *
+     * Additional information of shipping info
      * @type {Array<ShippingInfo>}
      * @memberof OrderApiObject
      */
     shippingInfo?: Array<ShippingInfo>;
     /**
-     *
+     * Additional information of extend
      * @type {string}
      * @memberof OrderApiObject
      */
     extendInfo?: string;
     /**
-     *
+     * For Payment Gateway scenario, need to fill it as API
      * @type {string}
      * @memberof OrderApiObject
      */

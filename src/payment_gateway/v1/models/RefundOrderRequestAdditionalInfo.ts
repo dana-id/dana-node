@@ -7,8 +7,41 @@
 
 import type { PropertyValidationAttribute, ValidationErrorContext } from '../../../runtime';
 import { mapValues, ValidationUtil } from '../../../runtime';
+import type { AuditInfo } from './AuditInfo';
+import {
+    validateAuditInfo,
+    AuditInfoFromJSON,
+    AuditInfoFromJSONTyped,
+    AuditInfoToJSON,
+    AuditInfoToJSONTyped,
+} from './AuditInfo';
+import type { RefundOptionBill } from './RefundOptionBill';
+import {
+    validateRefundOptionBill,
+    RefundOptionBillFromJSON,
+    RefundOptionBillFromJSONTyped,
+    RefundOptionBillToJSON,
+    RefundOptionBillToJSONTyped,
+} from './RefundOptionBill';
+import type { ActorContext } from './ActorContext';
+import {
+    validateActorContext,
+    ActorContextFromJSON,
+    ActorContextFromJSONTyped,
+    ActorContextToJSON,
+    ActorContextToJSONTyped,
+} from './ActorContext';
+import type { EnvInfo } from './EnvInfo';
+import {
+    validateEnvInfo,
+    EnvInfoFromJSON,
+    EnvInfoFromJSONTyped,
+    EnvInfoToJSON,
+    EnvInfoToJSONTyped,
+} from './EnvInfo';
+
 /**
- * Additional information
+ * 
  * @export
  * @interface RefundOrderRequestAdditionalInfo
  */
@@ -26,11 +59,17 @@ export interface RefundOrderRequestAdditionalInfo {
      */
     refundAppliedTime?: string;
     /**
-     * Additional information of actor type, refer to ActorTypeEnum
+     * Additional information of actor type. The enums:<br>
+     * * USER - User<br>
+     * * MERCHANT - Merchant<br
+     * * MERCHANT_OPERATOR - Merchant operator<br>
+     * * BACK_OFFICE - Back office<br>
+     * * SYSTEM - System<br>
+     * 
      * @type {string}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    actorType?: string;
+    actorType?: RefundOrderRequestAdditionalInfoActorTypeEnum;
     /**
      * Additional information of return charge to payer
      * @type {string}
@@ -45,28 +84,28 @@ export interface RefundOrderRequestAdditionalInfo {
     destination?: string;
     /**
      * Additional information of environment
-     * @type {object}
+     * @type {EnvInfo}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    envInfo: object;
+    envInfo?: EnvInfo;
     /**
      * Additional information of audit
-     * @type {object}
+     * @type {AuditInfo}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    auditInfo?: object;
+    auditInfo?: AuditInfo;
     /**
      * Additional information of actor context
-     * @type {object}
+     * @type {ActorContext}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    actorContext?: object;
+    actorContext?: ActorContext;
     /**
      * Additional information of refund option bill
-     * @type {Array<object>}
+     * @type {Array<RefundOptionBill>}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    refundOptionBill?: Array<object>;
+    refundOptionBill?: Array<RefundOptionBill>;
     /**
      * Additional information of extend
      * @type {string}
@@ -81,11 +120,24 @@ export interface RefundOrderRequestAdditionalInfo {
     asyncRefund?: string;
 }
 
+
+/**
+ * @export
+ */
+export const RefundOrderRequestAdditionalInfoActorTypeEnum = {
+    User: 'USER',
+    Merchant: 'MERCHANT',
+    MerchantOperator: 'MERCHANT_OPERATOR',
+    BackOffice: 'BACK_OFFICE',
+    System: 'SYSTEM'
+} as const;
+export type RefundOrderRequestAdditionalInfoActorTypeEnum = typeof RefundOrderRequestAdditionalInfoActorTypeEnum[keyof typeof RefundOrderRequestAdditionalInfoActorTypeEnum];
+
+
 /**
  * Check if a given object implements the RefundOrderRequestAdditionalInfo interface.
  */
 export function instanceOfRefundOrderRequestAdditionalInfo(value: object): value is RefundOrderRequestAdditionalInfo {
-    if (!('envInfo' in value) || value['envInfo'] === undefined) return false;
     return true;
 }
 
@@ -104,10 +156,10 @@ export function RefundOrderRequestAdditionalInfoFromJSONTyped(json: any, ignoreD
         'actorType': json['actorType'] == null ? undefined : json['actorType'],
         'returnChargeToPayer': json['returnChargeToPayer'] == null ? undefined : json['returnChargeToPayer'],
         'destination': json['destination'] == null ? undefined : json['destination'],
-        'envInfo': json['envInfo'],
-        'auditInfo': json['auditInfo'] == null ? undefined : json['auditInfo'],
-        'actorContext': json['actorContext'] == null ? undefined : json['actorContext'],
-        'refundOptionBill': json['refundOptionBill'] == null ? undefined : json['refundOptionBill'],
+        'envInfo': json['envInfo'] == null ? undefined : EnvInfoFromJSON(json['envInfo']),
+        'auditInfo': json['auditInfo'] == null ? undefined : AuditInfoFromJSON(json['auditInfo']),
+        'actorContext': json['actorContext'] == null ? undefined : ActorContextFromJSON(json['actorContext']),
+        'refundOptionBill': json['refundOptionBill'] == null ? undefined : ((json['refundOptionBill'] as Array<any>).map(RefundOptionBillFromJSON)),
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
         'asyncRefund': json['asyncRefund'] == null ? undefined : json['asyncRefund'],
     };
@@ -129,10 +181,10 @@ export function RefundOrderRequestAdditionalInfoToJSONTyped(value?: RefundOrderR
         'actorType': value['actorType'],
         'returnChargeToPayer': value['returnChargeToPayer'],
         'destination': value['destination'],
-        'envInfo': value['envInfo'],
-        'auditInfo': value['auditInfo'],
-        'actorContext': value['actorContext'],
-        'refundOptionBill': value['refundOptionBill'],
+        'envInfo': EnvInfoToJSON(value['envInfo']),
+        'auditInfo': AuditInfoToJSON(value['auditInfo']),
+        'actorContext': ActorContextToJSON(value['actorContext']),
+        'refundOptionBill': value['refundOptionBill'] == null ? undefined : ((value['refundOptionBill'] as Array<any>).map(RefundOptionBillToJSON)),
         'extendInfo': value['extendInfo'],
         'asyncRefund': value['asyncRefund'],
     };
@@ -178,6 +230,12 @@ export function validateRefundOrderRequestAdditionalInfo(value: RefundOrderReque
     validationErrorContexts.push(...ValidationUtil.validateProperty('returnChargeToPayer', value.returnChargeToPayer, propertyValidationAttributesMap['returnChargeToPayer']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('destination', value.destination, propertyValidationAttributesMap['destination']));
+
+    validationErrorContexts.push(...validateEnvInfo(value.envInfo));
+
+    validationErrorContexts.push(...validateAuditInfo(value.auditInfo));
+
+    validationErrorContexts.push(...validateActorContext(value.actorContext));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
 

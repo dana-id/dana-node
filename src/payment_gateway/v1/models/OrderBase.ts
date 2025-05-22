@@ -39,37 +39,37 @@ import {
  */
 export interface OrderBase {
     /**
-     * 
+     * Additional information of order title
      * @type {string}
      * @memberof OrderBase
      */
     orderTitle: string;
     /**
-     * 
+     * Additional information of merchant transaction type
      * @type {string}
      * @memberof OrderBase
      */
     merchantTransType?: string;
     /**
-     * 
+     * Additional information of buyer
      * @type {Buyer}
      * @memberof OrderBase
      */
     buyer?: Buyer;
     /**
-     * 
+     * Additional information of goods
      * @type {Array<Goods>}
      * @memberof OrderBase
      */
     goods?: Array<Goods>;
     /**
-     * 
+     * Additional information of shipping info
      * @type {Array<ShippingInfo>}
      * @memberof OrderBase
      */
     shippingInfo?: Array<ShippingInfo>;
     /**
-     * 
+     * Additional information of extend
      * @type {string}
      * @memberof OrderBase
      */

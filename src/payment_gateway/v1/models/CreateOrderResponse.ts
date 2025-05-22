@@ -23,47 +23,19 @@ import {
  */
 export interface CreateOrderResponse {
     /**
-     * Response code - response message:<br>
-     * * 2005400 - Successful<br>
-     * * 4005400 - Bad Request - Retry request with proper parameter<br>
-     * * 4005401 - Invalid Field Format - Retry request with proper parameter<br>
-     * * 4005402 - Invalid Mandatory Field - Retry request with proper parameter<br>
-     * * 4015400 - Unauthorized. Invalid Signature - Retry request with proper parameter<br>
-     * * 4035402 - Exceeds Transaction Amount Limit - Try to adjust the order amount<br>
-     * * 4035405 - Do Not Honor - Retry request with proper parameter or can contact DANA to check the user/account status<br>
-     * * 4035415 - Transaction Not Permitted - Retry request periodically or consult to DANA<br>
-     * * 4045408 - Invalid Merchant - Retry request with proper parameter<br>
-     * * 4045418 - Inconsistent Request - Retry with proper parameter<br>
-     * * 4295400 - Too Many Requests - Retry request periodically by sending same request payload<br>
-     * * 5005400 - General Error - Retry request periodically<br>
-     * * 5005401 - Internal Server Error - Retry request periodically by sending same request payload<br>
-     * 
+     * Response code. Refer to https://dashboard.dana.id/api-docs/read/243#paymentgatewayprod-paymentRedirect-ResponseCodeandMessage
      * @type {string}
      * @memberof CreateOrderResponse
      */
     responseCode: string;
     /**
-     * Response code - response message:<br>
-     * * 2005400 - Successful<br>
-     * * 4005400 - Bad Request - Retry request with proper parameter<br>
-     * * 4005401 - Invalid Field Format - Retry request with proper parameter<br>
-     * * 4005402 - Invalid Mandatory Field - Retry request with proper parameter<br>
-     * * 4015400 - Unauthorized. Invalid Signature - Retry request with proper parameter<br>
-     * * 4035402 - Exceeds Transaction Amount Limit - Try to adjust the order amount<br>
-     * * 4035405 - Do Not Honor - Retry request with proper parameter or can contact DANA to check the user/account status<br>
-     * * 4035415 - Transaction Not Permitted - Retry request periodically or consult to DANA<br>
-     * * 4045408 - Invalid Merchant - Retry request with proper parameter<br>
-     * * 4045418 - Inconsistent Request - Retry with proper parameter<br>
-     * * 4295400 - Too Many Requests - Retry request periodically by sending same request payload<br>
-     * * 5005400 - General Error - Retry request periodically<br>
-     * * 5005401 - Internal Server Error - Retry request periodically by sending same request payload<br>
-     * 
+     * Response message. Refer to https://dashboard.dana.id/api-docs/read/243#paymentgatewayprod-paymentRedirect-ResponseCodeandMessage
      * @type {string}
      * @memberof CreateOrderResponse
      */
     responseMessage: string;
     /**
-     * Transaction identifier on DANA system (Present if successfully processed)
+     * Transaction identifier on DANA system. Present if successfully processed
      * @type {string}
      * @memberof CreateOrderResponse
      */
@@ -75,17 +47,23 @@ export interface CreateOrderResponse {
      */
     partnerReferenceNo: string;
     /**
-     * Checkout URL (Present if successfully processed and payment method is not OVO/Virtual Account/QRIS)
+     * Checkout URLs. Present if successfully processed and payment method is not OVO/Virtual Account/QRIS
      * @type {string}
      * @memberof CreateOrderResponse
      */
     webRedirectUrl?: string;
     /**
-     * 
+     * Additional information
      * @type {CreateOrderResponseAdditionalInfo}
      * @memberof CreateOrderResponse
      */
     additionalInfo?: CreateOrderResponseAdditionalInfo;
+    /**
+     * External order identifier
+     * @type {string}
+     * @memberof CreateOrderResponse
+     */
+    externalOrderId?: string;
 }
 
 /**
@@ -114,6 +92,7 @@ export function CreateOrderResponseFromJSONTyped(json: any, ignoreDiscriminator:
         'partnerReferenceNo': json['partnerReferenceNo'],
         'webRedirectUrl': json['webRedirectUrl'] == null ? undefined : json['webRedirectUrl'],
         'additionalInfo': json['additionalInfo'] == null ? undefined : CreateOrderResponseAdditionalInfoFromJSON(json['additionalInfo']),
+        'externalOrderId': json['externalOrderId'] == null ? undefined : json['externalOrderId'],
     };
 }
 
@@ -134,6 +113,7 @@ export function CreateOrderResponseToJSONTyped(value?: CreateOrderResponse | nul
         'partnerReferenceNo': value['partnerReferenceNo'],
         'webRedirectUrl': value['webRedirectUrl'],
         'additionalInfo': CreateOrderResponseAdditionalInfoToJSON(value['additionalInfo']),
+        'externalOrderId': value['externalOrderId'],
     };
 }
 

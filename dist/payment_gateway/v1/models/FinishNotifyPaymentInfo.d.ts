@@ -17,13 +17,13 @@ export interface FinishNotifyPaymentInfo {
      */
     cashierRequestId: string;
     /**
-     * Time of paid transaction (format in YYYY-MM-DDTHH:mm:ss+07:00)
+     * Information of paid time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
      * @type {string}
      * @memberof FinishNotifyPaymentInfo
      */
     paidTime: string;
     /**
-     * Information of pay options
+     * Information of pay option. Refer to payOptionInfos for the detailed
      * @type {Array<PayOptionInfo>}
      * @memberof FinishNotifyPaymentInfo
      */
@@ -35,7 +35,7 @@ export interface FinishNotifyPaymentInfo {
      */
     payRequestExtendInfo?: string;
     /**
-     * Additional extended information
+     * Extend information
      * @type {string}
      * @memberof FinishNotifyPaymentInfo
      */

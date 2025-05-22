@@ -11,41 +11,19 @@ import type { ConsultPayPaymentInfo } from './ConsultPayPaymentInfo';
  */
 export interface ConsultPayResponse {
     /**
-     * Response code - response message:<br>
-     * * 2000000 - Successful<br>
-     * * 4000000 - Bad Request - Retry request with proper parameter<br>
-     * * 4000001 - Invalid format for certain field - Retry request with proper parameter<br>
-     * * 4000002 - Missing or invalid format on mandatory field - Retry request with proper parameter<br>
-     * * 4010000 - Signature is invalid - Retry request with proper parameter<br>
-     * * 4030005 - Account or user status is abnormal - Retry request with proper parameter or can contact DANA to check the user/account status<br>
-     * * 4030015 - Transaction not permitted - Retry request periodically or consult to DANA<br>
-     * * 4040008 - Merchant does not exist or status abnormal - Retry request with proper parameter<br>
-     * * 4290000 - Maximum transaction limit exceeded - Retry request periodically by sending same request payload<br>
-     * * 5000000 - General error - Retry request periodically<br>
-     *
+     * Response code. Refer to https://dashboard.dana.id/api-docs/read/237#paymentgatewayprod-ConsultPay-ResponseCodeandMessage
      * @type {string}
      * @memberof ConsultPayResponse
      */
     responseCode?: string;
     /**
-     * Response code - response message:
-     * * 2000000 - Successful<br>
-     * * 4000000 - Bad Request - Retry request with proper parameter<br>
-     * * 4000001 - Invalid format for certain field - Retry request with proper parameter<br>
-     * * 4000002 - Missing or invalid format on mandatory field - Retry request with proper parameter<br>
-     * * 4010000 - Signature is invalid - Retry request with proper parameter<br>
-     * * 4030005 - Account or user status is abnormal - Retry request with proper parameter or can contact DANA to check the user/account status<br>
-     * * 4030015 - Transaction not permitted - Retry request periodically or consult to DANA<br>
-     * * 4040008 - Merchant does not exist or status abnormal - Retry request with proper parameter<br>
-     * * 4290000 - Maximum transaction limit exceeded - Retry request periodically by sending same request payload<br>
-     * * 5000000 - General error - Retry request periodically<br>
-     *
+     * Response message. Refer to https://dashboard.dana.id/api-docs/read/237#paymentgatewayprod-ConsultPay-ResponseCodeandMessage
      * @type {string}
      * @memberof ConsultPayResponse
      */
     responseMessage?: string;
     /**
-     *
+     * Define list of payment information that includes payment method and payment option for transaction
      * @type {Array<ConsultPayPaymentInfo>}
      * @memberof ConsultPayResponse
      */

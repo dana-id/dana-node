@@ -11,13 +11,13 @@ import type { Money } from './Money';
  */
 export interface QueryPaymentRequest {
     /**
-     * Original transaction identifier on partner system. Must be filled if originalReferenceNo is not filled
+     * Original transaction identifier on partner system. Required if originalReferenceNo is not filled
      * @type {string}
      * @memberof QueryPaymentRequest
      */
     originalPartnerReferenceNo?: string;
     /**
-     * Original transaction identifier on DANA system. Must be filled if originalPartnerReferenceNo is not filled
+     * Original transaction identifier on DANA system. Required if originalPartnerReferenceNo is not filled
      * @type {string}
      * @memberof QueryPaymentRequest
      */
@@ -46,6 +46,9 @@ export interface QueryPaymentRequest {
      */
     transactionDate?: string;
     /**
+     * Amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      *
      * @type {Money}
      * @memberof QueryPaymentRequest

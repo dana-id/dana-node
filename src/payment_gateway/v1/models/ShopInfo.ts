@@ -8,55 +8,55 @@
 import type { PropertyValidationAttribute, ValidationErrorContext } from '../../../runtime';
 import { mapValues, ValidationUtil } from '../../../runtime';
 /**
- * Additional information of shop
+ * 
  * @export
  * @interface ShopInfo
  */
 export interface ShopInfo {
     /**
-     * Shop identifier (required if externalShopId is blank)
+     * Information of shop identifier. Required if externalShopId is blank
      * @type {string}
      * @memberof ShopInfo
      */
     shopId?: string;
     /**
-     * External shop identifier (required if shopId is blank)
+     * Information of external shop identifier. Required if shopId is blank
      * @type {string}
      * @memberof ShopInfo
      */
     externalShopId?: string;
     /**
-     * Operator identifier
+     * Information of operator identifier
      * @type {string}
      * @memberof ShopInfo
      */
     operatorId?: string;
     /**
-     * Shop address
+     * Information of shop address
      * @type {string}
      * @memberof ShopInfo
      */
     shopAddress?: string;
     /**
-     * Division identifier
+     * Information of division identifier
      * @type {string}
      * @memberof ShopInfo
      */
     divisionId?: string;
     /**
-     * External division identifier
+     * Information of external division identifier
      * @type {string}
      * @memberof ShopInfo
      */
     externalDivisionId?: string;
     /**
-     * Division type
+     * Information of division type
      * @type {string}
      * @memberof ShopInfo
      */
     divisionType?: string;
     /**
-     * Shop name
+     * Information of shop name
      * @type {string}
      * @memberof ShopInfo
      */

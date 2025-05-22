@@ -27,13 +27,13 @@ export interface PaymentView {
      * @type {string}
      * @memberof PaymentView
      */
-    cashierRequestId?: string;
+    cashierRequestId: string;
     /**
      * Information of paid time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
      * @type {string}
      * @memberof PaymentView
      */
-    paidTime?: string;
+    paidTime: string;
     /**
      * Information of pay option
      * @type {Array<PayOptionInfo>}
@@ -47,7 +47,7 @@ export interface PaymentView {
      */
     payRequestExtendInfo?: string;
     /**
-     * Additional extend information
+     * Extend information
      * @type {string}
      * @memberof PaymentView
      */
@@ -58,6 +58,8 @@ export interface PaymentView {
  * Check if a given object implements the PaymentView interface.
  */
 export function instanceOfPaymentView(value: object): value is PaymentView {
+    if (!('cashierRequestId' in value) || value['cashierRequestId'] === undefined) return false;
+    if (!('paidTime' in value) || value['paidTime'] === undefined) return false;
     if (!('payOptionInfos' in value) || value['payOptionInfos'] === undefined) return false;
     return true;
 }
@@ -72,8 +74,8 @@ export function PaymentViewFromJSONTyped(json: any, ignoreDiscriminator: boolean
     }
     return {
         
-        'cashierRequestId': json['cashierRequestId'] == null ? undefined : json['cashierRequestId'],
-        'paidTime': json['paidTime'] == null ? undefined : json['paidTime'],
+        'cashierRequestId': json['cashierRequestId'],
+        'paidTime': json['paidTime'],
         'payOptionInfos': ((json['payOptionInfos'] as Array<any>).map(PayOptionInfoFromJSON)),
         'payRequestExtendInfo': json['payRequestExtendInfo'] == null ? undefined : json['payRequestExtendInfo'],
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],

@@ -10,19 +10,19 @@ import type { ValidationErrorContext } from '../../../runtime';
  */
 export interface CancelOrderResponse {
     /**
-     * Refer to response code list
+     * Response code. Refer to https://dashboard.dana.id/api-docs/read/117#HTML-API-CancelOrder-ResponseCodeandMessage
      * @type {string}
      * @memberof CancelOrderResponse
      */
     responseCode: string;
     /**
-     * Refer to response code list
+     * Response message. Refer to https://dashboard.dana.id/api-docs/read/117#HTML-API-CancelOrder-ResponseCodeandMessage
      * @type {string}
      * @memberof CancelOrderResponse
      */
     responseMessage: string;
     /**
-     * Original transaction identifier on DANA system
+     * Original transaction identifier on DANA system. Present if successfully processed
      * @type {string}
      * @memberof CancelOrderResponse
      */
@@ -40,7 +40,7 @@ export interface CancelOrderResponse {
      */
     originalExternalId?: string;
     /**
-     * Cancellation date time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
+     * Cancellation date time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time). Present if successfully processed
      * @type {string}
      * @memberof CancelOrderResponse
      */

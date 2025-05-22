@@ -23,42 +23,63 @@ import {
  */
 export interface AmountDetail {
     /**
+     * Order amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      * 
      * @type {Money}
      * @memberof AmountDetail
      */
     orderAmount: Money;
     /**
+     * Pay amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      * 
      * @type {Money}
      * @memberof AmountDetail
      */
     payAmount?: Money;
     /**
+     * Void amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      * 
      * @type {Money}
      * @memberof AmountDetail
      */
     voidAmount?: Money;
     /**
+     * Confirm amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      * 
      * @type {Money}
      * @memberof AmountDetail
      */
     confirmAmount?: Money;
     /**
+     * Refund amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      * 
      * @type {Money}
      * @memberof AmountDetail
      */
     refundAmount?: Money;
     /**
+     * Chargeback amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      * 
      * @type {Money}
      * @memberof AmountDetail
      */
     chargebackAmount?: Money;
     /**
+     * Charge amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      * 
      * @type {Money}
      * @memberof AmountDetail

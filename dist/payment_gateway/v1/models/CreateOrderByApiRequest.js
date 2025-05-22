@@ -87,6 +87,7 @@ const propertyValidationAttributesMap = {
         maxLength: 64,
     },
     validUpTo: {
+        maxLength: 25,
         pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
     },
     disabledPayMethods: {

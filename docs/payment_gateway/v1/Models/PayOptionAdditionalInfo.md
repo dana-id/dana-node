@@ -3,7 +3,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-| **phoneNumber** | **String** | User&#39;s phone number | [optional] [default to null] |
+| **phoneNumber** | **String** | User's phone number | [optional] [default to null] |
 | **paymentCode** | **String** | Payment code that used for payment with virtual account | [optional] [default to null] |
 | **promoInfos** | [**List**](PromoInfo.md) |  | [optional] [default to null] |
 

@@ -14,13 +14,13 @@ import { mapValues, ValidationUtil } from '../../../runtime';
  */
 export interface Money {
     /**
-     * Value of amount. Following ISO-4217, for IDR the value includes 2 decimal digits separated with point e.g. IDR 10.000,- will be placed with 10000.00
+     * Value of amount. Following ISO-4217, for IDR the value includes 2 decimal digits separated with point e.g. ,IDR 10.000,- will be placed with 10000.00
      * @type {string}
      * @memberof Money
      */
     value: string;
     /**
-     * Currency of money following ISO-4217
+     * Currency. Following ISO-4217
      * @type {string}
      * @memberof Money
      */

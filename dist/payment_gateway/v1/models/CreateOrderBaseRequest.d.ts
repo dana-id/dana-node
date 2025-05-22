@@ -30,6 +30,9 @@ export interface CreateOrderBaseRequest {
      */
     subMerchantId?: string;
     /**
+     * Amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      *
      * @type {Money}
      * @memberof CreateOrderBaseRequest
@@ -43,7 +46,6 @@ export interface CreateOrderBaseRequest {
     externalStoreId?: string;
     /**
      * The time when the payment will be automatically expired, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
-     *
      * @type {string}
      * @memberof CreateOrderBaseRequest
      */

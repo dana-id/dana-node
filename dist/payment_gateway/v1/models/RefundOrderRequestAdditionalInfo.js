@@ -6,6 +6,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RefundOrderRequestAdditionalInfoActorTypeEnum = void 0;
 exports.instanceOfRefundOrderRequestAdditionalInfo = instanceOfRefundOrderRequestAdditionalInfo;
 exports.RefundOrderRequestAdditionalInfoFromJSON = RefundOrderRequestAdditionalInfoFromJSON;
 exports.RefundOrderRequestAdditionalInfoFromJSONTyped = RefundOrderRequestAdditionalInfoFromJSONTyped;
@@ -13,12 +14,24 @@ exports.RefundOrderRequestAdditionalInfoToJSON = RefundOrderRequestAdditionalInf
 exports.RefundOrderRequestAdditionalInfoToJSONTyped = RefundOrderRequestAdditionalInfoToJSONTyped;
 exports.validateRefundOrderRequestAdditionalInfo = validateRefundOrderRequestAdditionalInfo;
 const runtime_1 = require("../../../runtime");
+const AuditInfo_1 = require("./AuditInfo");
+const RefundOptionBill_1 = require("./RefundOptionBill");
+const ActorContext_1 = require("./ActorContext");
+const EnvInfo_1 = require("./EnvInfo");
+/**
+ * @export
+ */
+exports.RefundOrderRequestAdditionalInfoActorTypeEnum = {
+    User: 'USER',
+    Merchant: 'MERCHANT',
+    MerchantOperator: 'MERCHANT_OPERATOR',
+    BackOffice: 'BACK_OFFICE',
+    System: 'SYSTEM'
+};
 /**
  * Check if a given object implements the RefundOrderRequestAdditionalInfo interface.
  */
 function instanceOfRefundOrderRequestAdditionalInfo(value) {
-    if (!('envInfo' in value) || value['envInfo'] === undefined)
-        return false;
     return true;
 }
 function RefundOrderRequestAdditionalInfoFromJSON(json) {
@@ -34,10 +47,10 @@ function RefundOrderRequestAdditionalInfoFromJSONTyped(json, ignoreDiscriminator
         'actorType': json['actorType'] == null ? undefined : json['actorType'],
         'returnChargeToPayer': json['returnChargeToPayer'] == null ? undefined : json['returnChargeToPayer'],
         'destination': json['destination'] == null ? undefined : json['destination'],
-        'envInfo': json['envInfo'],
-        'auditInfo': json['auditInfo'] == null ? undefined : json['auditInfo'],
-        'actorContext': json['actorContext'] == null ? undefined : json['actorContext'],
-        'refundOptionBill': json['refundOptionBill'] == null ? undefined : json['refundOptionBill'],
+        'envInfo': json['envInfo'] == null ? undefined : (0, EnvInfo_1.EnvInfoFromJSON)(json['envInfo']),
+        'auditInfo': json['auditInfo'] == null ? undefined : (0, AuditInfo_1.AuditInfoFromJSON)(json['auditInfo']),
+        'actorContext': json['actorContext'] == null ? undefined : (0, ActorContext_1.ActorContextFromJSON)(json['actorContext']),
+        'refundOptionBill': json['refundOptionBill'] == null ? undefined : (json['refundOptionBill'].map(RefundOptionBill_1.RefundOptionBillFromJSON)),
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
         'asyncRefund': json['asyncRefund'] == null ? undefined : json['asyncRefund'],
     };
@@ -55,10 +68,10 @@ function RefundOrderRequestAdditionalInfoToJSONTyped(value, ignoreDiscriminator 
         'actorType': value['actorType'],
         'returnChargeToPayer': value['returnChargeToPayer'],
         'destination': value['destination'],
-        'envInfo': value['envInfo'],
-        'auditInfo': value['auditInfo'],
-        'actorContext': value['actorContext'],
-        'refundOptionBill': value['refundOptionBill'],
+        'envInfo': (0, EnvInfo_1.EnvInfoToJSON)(value['envInfo']),
+        'auditInfo': (0, AuditInfo_1.AuditInfoToJSON)(value['auditInfo']),
+        'actorContext': (0, ActorContext_1.ActorContextToJSON)(value['actorContext']),
+        'refundOptionBill': value['refundOptionBill'] == null ? undefined : (value['refundOptionBill'].map(RefundOptionBill_1.RefundOptionBillToJSON)),
         'extendInfo': value['extendInfo'],
         'asyncRefund': value['asyncRefund'],
     };
@@ -96,6 +109,9 @@ function validateRefundOrderRequestAdditionalInfo(value) {
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('actorType', value.actorType, propertyValidationAttributesMap['actorType']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('returnChargeToPayer', value.returnChargeToPayer, propertyValidationAttributesMap['returnChargeToPayer']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('destination', value.destination, propertyValidationAttributesMap['destination']));
+    validationErrorContexts.push(...(0, EnvInfo_1.validateEnvInfo)(value.envInfo));
+    validationErrorContexts.push(...(0, AuditInfo_1.validateAuditInfo)(value.auditInfo));
+    validationErrorContexts.push(...(0, ActorContext_1.validateActorContext)(value.actorContext));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('asyncRefund', value.asyncRefund, propertyValidationAttributesMap['asyncRefund']));
     return validationErrorContexts;

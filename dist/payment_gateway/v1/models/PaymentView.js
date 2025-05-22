@@ -18,6 +18,10 @@ const PayOptionInfo_1 = require("./PayOptionInfo");
  * Check if a given object implements the PaymentView interface.
  */
 function instanceOfPaymentView(value) {
+    if (!('cashierRequestId' in value) || value['cashierRequestId'] === undefined)
+        return false;
+    if (!('paidTime' in value) || value['paidTime'] === undefined)
+        return false;
     if (!('payOptionInfos' in value) || value['payOptionInfos'] === undefined)
         return false;
     return true;
@@ -30,8 +34,8 @@ function PaymentViewFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'cashierRequestId': json['cashierRequestId'] == null ? undefined : json['cashierRequestId'],
-        'paidTime': json['paidTime'] == null ? undefined : json['paidTime'],
+        'cashierRequestId': json['cashierRequestId'],
+        'paidTime': json['paidTime'],
         'payOptionInfos': (json['payOptionInfos'].map(PayOptionInfo_1.PayOptionInfoFromJSON)),
         'payRequestExtendInfo': json['payRequestExtendInfo'] == null ? undefined : json['payRequestExtendInfo'],
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],

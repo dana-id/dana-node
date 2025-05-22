@@ -63,6 +63,9 @@ export interface CreateOrderByRedirectRequest {
      */
     subMerchantId?: string;
     /**
+     * Amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      * 
      * @type {Money}
      * @memberof CreateOrderByRedirectRequest
@@ -76,7 +79,6 @@ export interface CreateOrderByRedirectRequest {
     externalStoreId?: string;
     /**
      * The time when the payment will be automatically expired, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
-     * 
      * @type {string}
      * @memberof CreateOrderByRedirectRequest
      */
@@ -165,6 +167,7 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
         maxLength: 64,
     },
     validUpTo: {
+        maxLength: 25,
         pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
     },
     disabledPayMethods: {

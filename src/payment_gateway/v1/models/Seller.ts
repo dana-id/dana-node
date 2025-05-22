@@ -14,7 +14,7 @@ import { mapValues, ValidationUtil } from '../../../runtime';
  */
 export interface Seller {
     /**
-     * Type of external user. Must be filled if externalUserId is filled
+     * Type of external user. Required if externalUserId is filled
      * @type {string}
      * @memberof Seller
      */
@@ -26,7 +26,7 @@ export interface Seller {
      */
     nickname?: string;
     /**
-     * External user identifier. Must be filled if externalUserType is filled
+     * External user identifier. Required if externalUserType is filled
      * @type {string}
      * @memberof Seller
      */

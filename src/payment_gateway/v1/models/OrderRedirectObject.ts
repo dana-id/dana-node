@@ -39,43 +39,43 @@ import {
  */
 export interface OrderRedirectObject {
     /**
-     * 
+     * Additional information of order title
      * @type {string}
      * @memberof OrderRedirectObject
      */
     orderTitle: string;
     /**
-     * 
+     * Additional information of merchant transaction type
      * @type {string}
      * @memberof OrderRedirectObject
      */
     merchantTransType?: string;
     /**
-     * 
+     * Additional information of buyer
      * @type {Buyer}
      * @memberof OrderRedirectObject
      */
     buyer?: Buyer;
     /**
-     * 
+     * Additional information of goods
      * @type {Array<Goods>}
      * @memberof OrderRedirectObject
      */
     goods?: Array<Goods>;
     /**
-     * 
+     * Additional information of shipping info
      * @type {Array<ShippingInfo>}
      * @memberof OrderRedirectObject
      */
     shippingInfo?: Array<ShippingInfo>;
     /**
-     * 
+     * Additional information of extend
      * @type {string}
      * @memberof OrderRedirectObject
      */
     extendInfo?: string;
     /**
-     * 
+     * For Payment Gateway Drop-in scenario, need to fill it as REDIRECT
      * @type {string}
      * @memberof OrderRedirectObject
      */

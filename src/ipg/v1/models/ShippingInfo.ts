@@ -23,17 +23,11 @@ import {
  */
 export interface ShippingInfo {
     /**
-     * 
-     * @type {Money}
-     * @memberof ShippingInfo
-     */
-    chargeAmount?: Money;
-    /**
-     * Last name
+     * Merchant shipping identifier
      * @type {string}
      * @memberof ShippingInfo
      */
-    lastName: string;
+    merchantShippingId: string;
     /**
      * Number of tracking
      * @type {string}
@@ -41,23 +35,44 @@ export interface ShippingInfo {
      */
     trackingNo?: string;
     /**
+     * Information of carrier
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    carrier?: string;
+    /**
+     * Promo amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
+     * 
+     * @type {Money}
+     * @memberof ShippingInfo
+     */
+    chargeAmount?: Money;
+    /**
      * Name of country
      * @type {string}
      * @memberof ShippingInfo
      */
     countryName: string;
     /**
-     * Merchant shipping identifier
+     * Name of state
      * @type {string}
      * @memberof ShippingInfo
      */
-    merchantShippingId: string;
+    stateName: string;
     /**
      * Name of city
      * @type {string}
      * @memberof ShippingInfo
      */
     cityName: string;
+    /**
+     * Name of area
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    areaName?: string;
     /**
      * Information of address 1
      * @type {string}
@@ -71,23 +86,29 @@ export interface ShippingInfo {
      */
     address2?: string;
     /**
+     * First name
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    firstName: string;
+    /**
+     * Last name
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    lastName: string;
+    /**
+     * Mobile number
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    mobileNo?: string;
+    /**
      * Phone number
      * @type {string}
      * @memberof ShippingInfo
      */
     phoneNo?: string;
-    /**
-     * Name of area
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    areaName?: string;
-    /**
-     * Email
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    email?: string;
     /**
      * Zip code
      * @type {string}
@@ -95,49 +116,31 @@ export interface ShippingInfo {
      */
     zipCode: string;
     /**
-     * Name of state
+     * Email
      * @type {string}
      * @memberof ShippingInfo
      */
-    stateName: string;
+    email?: string;
     /**
      * Fax number
      * @type {string}
      * @memberof ShippingInfo
      */
     faxNo?: string;
-    /**
-     * Information of carrier
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    carrier?: string;
-    /**
-     * First name
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    firstName: string;
-    /**
-     * Mobile number
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    mobileNo?: string;
 }
 
 /**
  * Check if a given object implements the ShippingInfo interface.
  */
 export function instanceOfShippingInfo(value: object): value is ShippingInfo {
-    if (!('lastName' in value) || value['lastName'] === undefined) return false;
-    if (!('countryName' in value) || value['countryName'] === undefined) return false;
     if (!('merchantShippingId' in value) || value['merchantShippingId'] === undefined) return false;
+    if (!('countryName' in value) || value['countryName'] === undefined) return false;
+    if (!('stateName' in value) || value['stateName'] === undefined) return false;
     if (!('cityName' in value) || value['cityName'] === undefined) return false;
     if (!('address1' in value) || value['address1'] === undefined) return false;
-    if (!('zipCode' in value) || value['zipCode'] === undefined) return false;
-    if (!('stateName' in value) || value['stateName'] === undefined) return false;
     if (!('firstName' in value) || value['firstName'] === undefined) return false;
+    if (!('lastName' in value) || value['lastName'] === undefined) return false;
+    if (!('zipCode' in value) || value['zipCode'] === undefined) return false;
     return true;
 }
 
@@ -151,23 +154,23 @@ export function ShippingInfoFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'chargeAmount': json['chargeAmount'] == null ? undefined : MoneyFromJSON(json['chargeAmount']),
-        'lastName': json['lastName'],
-        'trackingNo': json['trackingNo'] == null ? undefined : json['trackingNo'],
-        'countryName': json['countryName'],
         'merchantShippingId': json['merchantShippingId'],
+        'trackingNo': json['trackingNo'] == null ? undefined : json['trackingNo'],
+        'carrier': json['carrier'] == null ? undefined : json['carrier'],
+        'chargeAmount': json['chargeAmount'] == null ? undefined : MoneyFromJSON(json['chargeAmount']),
+        'countryName': json['countryName'],
+        'stateName': json['stateName'],
         'cityName': json['cityName'],
+        'areaName': json['areaName'] == null ? undefined : json['areaName'],
         'address1': json['address1'],
         'address2': json['address2'] == null ? undefined : json['address2'],
-        'phoneNo': json['phoneNo'] == null ? undefined : json['phoneNo'],
-        'areaName': json['areaName'] == null ? undefined : json['areaName'],
-        'email': json['email'] == null ? undefined : json['email'],
-        'zipCode': json['zipCode'],
-        'stateName': json['stateName'],
-        'faxNo': json['faxNo'] == null ? undefined : json['faxNo'],
-        'carrier': json['carrier'] == null ? undefined : json['carrier'],
         'firstName': json['firstName'],
+        'lastName': json['lastName'],
         'mobileNo': json['mobileNo'] == null ? undefined : json['mobileNo'],
+        'phoneNo': json['phoneNo'] == null ? undefined : json['phoneNo'],
+        'zipCode': json['zipCode'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'faxNo': json['faxNo'] == null ? undefined : json['faxNo'],
     };
 }
 
@@ -182,40 +185,46 @@ export function ShippingInfoToJSONTyped(value?: ShippingInfo | null, ignoreDiscr
 
     return {
         
-        'chargeAmount': MoneyToJSON(value['chargeAmount']),
-        'lastName': value['lastName'],
-        'trackingNo': value['trackingNo'],
-        'countryName': value['countryName'],
         'merchantShippingId': value['merchantShippingId'],
+        'trackingNo': value['trackingNo'],
+        'carrier': value['carrier'],
+        'chargeAmount': MoneyToJSON(value['chargeAmount']),
+        'countryName': value['countryName'],
+        'stateName': value['stateName'],
         'cityName': value['cityName'],
+        'areaName': value['areaName'],
         'address1': value['address1'],
         'address2': value['address2'],
-        'phoneNo': value['phoneNo'],
-        'areaName': value['areaName'],
-        'email': value['email'],
-        'zipCode': value['zipCode'],
-        'stateName': value['stateName'],
-        'faxNo': value['faxNo'],
-        'carrier': value['carrier'],
         'firstName': value['firstName'],
+        'lastName': value['lastName'],
         'mobileNo': value['mobileNo'],
+        'phoneNo': value['phoneNo'],
+        'zipCode': value['zipCode'],
+        'email': value['email'],
+        'faxNo': value['faxNo'],
     };
 }
 
 const propertyValidationAttributesMap: { [property: string]: PropertyValidationAttribute } = {
-    lastName: {
+    merchantShippingId: {
         maxLength: 64,
     },
     trackingNo: {
         maxLength: 64,
     },
+    carrier: {
+        maxLength: 64,
+    },
     countryName: {
         maxLength: 64,
     },
-    merchantShippingId: {
+    stateName: {
         maxLength: 64,
     },
     cityName: {
+        maxLength: 64,
+    },
+    areaName: {
         maxLength: 64,
     },
     address1: {
@@ -224,31 +233,25 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     address2: {
         maxLength: 256,
     },
-    phoneNo: {
-        maxLength: 32,
-    },
-    areaName: {
+    firstName: {
         maxLength: 64,
     },
-    email: {
-        maxLength: 128,
+    lastName: {
+        maxLength: 64,
+    },
+    mobileNo: {
+        maxLength: 32,
+    },
+    phoneNo: {
+        maxLength: 32,
     },
     zipCode: {
         maxLength: 32,
     },
-    stateName: {
-        maxLength: 64,
+    email: {
+        maxLength: 128,
     },
     faxNo: {
-        maxLength: 32,
-    },
-    carrier: {
-        maxLength: 64,
-    },
-    firstName: {
-        maxLength: 64,
-    },
-    mobileNo: {
         maxLength: 32,
     },
 }
@@ -260,39 +263,39 @@ export function validateShippingInfo(value: ShippingInfo): ValidationErrorContex
         return validationErrorContexts;
     }
 
-    validationErrorContexts.push(...validateMoney(value.chargeAmount));
-
-    validationErrorContexts.push(...ValidationUtil.validateProperty('lastName', value.lastName, propertyValidationAttributesMap['lastName']));
+    validationErrorContexts.push(...ValidationUtil.validateProperty('merchantShippingId', value.merchantShippingId, propertyValidationAttributesMap['merchantShippingId']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('trackingNo', value.trackingNo, propertyValidationAttributesMap['trackingNo']));
 
+    validationErrorContexts.push(...ValidationUtil.validateProperty('carrier', value.carrier, propertyValidationAttributesMap['carrier']));
+
+    validationErrorContexts.push(...validateMoney(value.chargeAmount));
+
     validationErrorContexts.push(...ValidationUtil.validateProperty('countryName', value.countryName, propertyValidationAttributesMap['countryName']));
 
-    validationErrorContexts.push(...ValidationUtil.validateProperty('merchantShippingId', value.merchantShippingId, propertyValidationAttributesMap['merchantShippingId']));
+    validationErrorContexts.push(...ValidationUtil.validateProperty('stateName', value.stateName, propertyValidationAttributesMap['stateName']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('cityName', value.cityName, propertyValidationAttributesMap['cityName']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('areaName', value.areaName, propertyValidationAttributesMap['areaName']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('address1', value.address1, propertyValidationAttributesMap['address1']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('address2', value.address2, propertyValidationAttributesMap['address2']));
 
+    validationErrorContexts.push(...ValidationUtil.validateProperty('firstName', value.firstName, propertyValidationAttributesMap['firstName']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('lastName', value.lastName, propertyValidationAttributesMap['lastName']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('mobileNo', value.mobileNo, propertyValidationAttributesMap['mobileNo']));
+
     validationErrorContexts.push(...ValidationUtil.validateProperty('phoneNo', value.phoneNo, propertyValidationAttributesMap['phoneNo']));
-
-    validationErrorContexts.push(...ValidationUtil.validateProperty('areaName', value.areaName, propertyValidationAttributesMap['areaName']));
-
-    validationErrorContexts.push(...ValidationUtil.validateProperty('email', value.email, propertyValidationAttributesMap['email']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('zipCode', value.zipCode, propertyValidationAttributesMap['zipCode']));
 
-    validationErrorContexts.push(...ValidationUtil.validateProperty('stateName', value.stateName, propertyValidationAttributesMap['stateName']));
+    validationErrorContexts.push(...ValidationUtil.validateProperty('email', value.email, propertyValidationAttributesMap['email']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('faxNo', value.faxNo, propertyValidationAttributesMap['faxNo']));
-
-    validationErrorContexts.push(...ValidationUtil.validateProperty('carrier', value.carrier, propertyValidationAttributesMap['carrier']));
-
-    validationErrorContexts.push(...ValidationUtil.validateProperty('firstName', value.firstName, propertyValidationAttributesMap['firstName']));
-
-    validationErrorContexts.push(...ValidationUtil.validateProperty('mobileNo', value.mobileNo, propertyValidationAttributesMap['mobileNo']));
 
     return validationErrorContexts;
 }

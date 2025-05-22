@@ -31,6 +31,10 @@ exports.StatusDetailAcquirementStatusEnum = {
 function instanceOfStatusDetail(value) {
     if (!('acquirementStatus' in value) || value['acquirementStatus'] === undefined)
         return false;
+    if (!('frozen' in value) || value['frozen'] === undefined)
+        return false;
+    if (!('cancelled' in value) || value['cancelled'] === undefined)
+        return false;
     return true;
 }
 function StatusDetailFromJSON(json) {
@@ -42,8 +46,8 @@ function StatusDetailFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'acquirementStatus': json['acquirementStatus'],
-        'frozen': json['frozen'] == null ? undefined : json['frozen'],
-        'cancelled': json['cancelled'] == null ? undefined : json['cancelled'],
+        'frozen': json['frozen'],
+        'cancelled': json['cancelled'],
     };
 }
 function StatusDetailToJSON(json) {
@@ -63,6 +67,12 @@ const propertyValidationAttributesMap = {
     acquirementStatus: {
         maxLength: 64,
     },
+    frozen: {
+        maxLength: 64,
+    },
+    cancelled: {
+        maxLength: 64,
+    },
 };
 function validateStatusDetail(value) {
     const validationErrorContexts = [];
@@ -70,5 +80,7 @@ function validateStatusDetail(value) {
         return validationErrorContexts;
     }
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('acquirementStatus', value.acquirementStatus, propertyValidationAttributesMap['acquirementStatus']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('frozen', value.frozen, propertyValidationAttributesMap['frozen']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('cancelled', value.cancelled, propertyValidationAttributesMap['cancelled']));
     return validationErrorContexts;
 }

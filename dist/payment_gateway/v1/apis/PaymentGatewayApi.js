@@ -30,7 +30,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
     }
     /**
      * This API is used to cancel the order from merchant\'s platform to DANA
-     * Cancel Order API
+     * Cancel Order - Payment Gateway
      */
     async cancelOrder(cancelOrderRequest, initOverrides) {
         if (cancelOrderRequest == null) {
@@ -57,7 +57,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
     }
     /**
      * This API is used to consult the list of payment methods or payment channels that user has and used in certain transactions or orders
-     * Consult Pay API
+     * Consult Pay - Payment Gateway
      */
     async consultPay(consultPayRequest, initOverrides) {
         if (consultPayRequest == null) {
@@ -84,7 +84,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
     }
     /**
      * This API is used for merchant to create order in DANA side
-     * Create Payment Order
+     * Create Order - Payment Gateway
      */
     async createOrder(createOrderRequest, initOverrides) {
         if (createOrderRequest == null) {
@@ -111,7 +111,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
     }
     /**
      * This API is used to inquiry payment status and information from merchant\'s platform to DANA
-     * Query Payment
+     * Query Payment - Payment Gateway
      */
     async queryPayment(queryPaymentRequest, initOverrides) {
         if (queryPaymentRequest == null) {
@@ -138,7 +138,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
     }
     /**
      * This API is used to refund the order from merchant\'s platform to DANA
-     * Refund Order API
+     * Refund Order - Payment Gateway
      */
     async refundOrder(refundOrderRequest, initOverrides) {
         if (refundOrderRequest == null) {

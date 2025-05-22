@@ -16,7 +16,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /* tslint:disable */
 /* eslint-disable */
+__exportStar(require("./ActorContext"), exports);
 __exportStar(require("./AmountDetail"), exports);
+__exportStar(require("./AuditInfo"), exports);
 __exportStar(require("./Buyer"), exports);
 __exportStar(require("./CancelOrderRequest"), exports);
 __exportStar(require("./CancelOrderResponse"), exports);
@@ -34,9 +36,10 @@ __exportStar(require("./CreateOrderRequest"), exports);
 __exportStar(require("./CreateOrderResponse"), exports);
 __exportStar(require("./CreateOrderResponseAdditionalInfo"), exports);
 __exportStar(require("./EnvInfo"), exports);
-__exportStar(require("./FinishNotify"), exports);
-__exportStar(require("./FinishNotifyAdditionalInfo"), exports);
 __exportStar(require("./FinishNotifyPaymentInfo"), exports);
+__exportStar(require("./FinishNotifyRequest"), exports);
+__exportStar(require("./FinishNotifyRequestAdditionalInfo"), exports);
+__exportStar(require("./FinishNotifyResponse"), exports);
 __exportStar(require("./Goods"), exports);
 __exportStar(require("./Money"), exports);
 __exportStar(require("./OrderApiObject"), exports);
@@ -50,6 +53,7 @@ __exportStar(require("./PromoInfo"), exports);
 __exportStar(require("./QueryPaymentRequest"), exports);
 __exportStar(require("./QueryPaymentResponse"), exports);
 __exportStar(require("./QueryPaymentResponseAdditionalInfo"), exports);
+__exportStar(require("./RefundOptionBill"), exports);
 __exportStar(require("./RefundOrderRequest"), exports);
 __exportStar(require("./RefundOrderRequestAdditionalInfo"), exports);
 __exportStar(require("./RefundOrderResponse"), exports);

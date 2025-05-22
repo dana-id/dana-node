@@ -23,13 +23,13 @@ import {
  */
 export interface RefundOrderResponse {
     /**
-     * Refer to response code list
+     * Response code. Refer to https://dashboard.dana.id/api-docs/read/127#HTML-API-RefundOrder-ResponseCodeandMessage
      * @type {string}
      * @memberof RefundOrderResponse
      */
     responseCode: string;
     /**
-     * Refer to response code list
+     * Response message. Refer to https://dashboard.dana.id/api-docs/read/127#HTML-API-RefundOrder-ResponseCodeandMessage
      * @type {string}
      * @memberof RefundOrderResponse
      */

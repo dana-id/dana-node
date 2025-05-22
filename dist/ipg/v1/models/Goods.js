@@ -18,13 +18,13 @@ const Money_1 = require("./Money");
  * Check if a given object implements the Goods interface.
  */
 function instanceOfGoods(value) {
-    if (!('category' in value) || value['category'] === undefined)
-        return false;
-    if (!('price' in value) || value['price'] === undefined)
-        return false;
     if (!('merchantGoodsId' in value) || value['merchantGoodsId'] === undefined)
         return false;
     if (!('description' in value) || value['description'] === undefined)
+        return false;
+    if (!('category' in value) || value['category'] === undefined)
+        return false;
+    if (!('price' in value) || value['price'] === undefined)
         return false;
     if (!('quantity' in value) || value['quantity'] === undefined)
         return false;
@@ -38,14 +38,14 @@ function GoodsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'unit': json['unit'] == null ? undefined : json['unit'],
-        'category': json['category'],
-        'price': (0, Money_1.MoneyFromJSON)(json['price']),
-        'merchantShippingId': json['merchantShippingId'] == null ? undefined : json['merchantShippingId'],
         'merchantGoodsId': json['merchantGoodsId'],
         'description': json['description'],
-        'snapshotUrl': json['snapshotUrl'] == null ? undefined : json['snapshotUrl'],
+        'category': json['category'],
+        'price': (0, Money_1.MoneyFromJSON)(json['price']),
+        'unit': json['unit'] == null ? undefined : json['unit'],
         'quantity': json['quantity'],
+        'merchantShippingId': json['merchantShippingId'] == null ? undefined : json['merchantShippingId'],
+        'snapshotUrl': json['snapshotUrl'] == null ? undefined : json['snapshotUrl'],
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
     };
 }
@@ -57,38 +57,38 @@ function GoodsToJSONTyped(value, ignoreDiscriminator = false) {
         return value;
     }
     return {
-        'unit': value['unit'],
-        'category': value['category'],
-        'price': (0, Money_1.MoneyToJSON)(value['price']),
-        'merchantShippingId': value['merchantShippingId'],
         'merchantGoodsId': value['merchantGoodsId'],
         'description': value['description'],
-        'snapshotUrl': value['snapshotUrl'],
+        'category': value['category'],
+        'price': (0, Money_1.MoneyToJSON)(value['price']),
+        'unit': value['unit'],
         'quantity': value['quantity'],
+        'merchantShippingId': value['merchantShippingId'],
+        'snapshotUrl': value['snapshotUrl'],
         'extendInfo': value['extendInfo'],
     };
 }
 const propertyValidationAttributesMap = {
-    unit: {
-        maxLength: 64,
-    },
-    category: {
-        maxLength: 64,
-    },
-    merchantShippingId: {
-        maxLength: 64,
-    },
     merchantGoodsId: {
         maxLength: 64,
     },
     description: {
         maxLength: 1024,
     },
-    snapshotUrl: {
-        maxLength: 512,
+    category: {
+        maxLength: 64,
+    },
+    unit: {
+        maxLength: 64,
     },
     quantity: {
         maxLength: 16,
+    },
+    merchantShippingId: {
+        maxLength: 64,
+    },
+    snapshotUrl: {
+        maxLength: 512,
     },
     extendInfo: {
         maxLength: 4096,
@@ -99,14 +99,14 @@ function validateGoods(value) {
     if (value == null) {
         return validationErrorContexts;
     }
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('unit', value.unit, propertyValidationAttributesMap['unit']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('category', value.category, propertyValidationAttributesMap['category']));
-    validationErrorContexts.push(...(0, Money_1.validateMoney)(value.price));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantShippingId', value.merchantShippingId, propertyValidationAttributesMap['merchantShippingId']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantGoodsId', value.merchantGoodsId, propertyValidationAttributesMap['merchantGoodsId']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('description', value.description, propertyValidationAttributesMap['description']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('snapshotUrl', value.snapshotUrl, propertyValidationAttributesMap['snapshotUrl']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('category', value.category, propertyValidationAttributesMap['category']));
+    validationErrorContexts.push(...(0, Money_1.validateMoney)(value.price));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('unit', value.unit, propertyValidationAttributesMap['unit']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('quantity', value.quantity, propertyValidationAttributesMap['quantity']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantShippingId', value.merchantShippingId, propertyValidationAttributesMap['merchantShippingId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('snapshotUrl', value.snapshotUrl, propertyValidationAttributesMap['snapshotUrl']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
     return validationErrorContexts;
 }

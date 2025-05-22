@@ -11,17 +11,11 @@ import type { Money } from './Money';
  */
 export interface ShippingInfo {
     /**
-     *
-     * @type {Money}
-     * @memberof ShippingInfo
-     */
-    chargeAmount?: Money;
-    /**
-     * Last name
+     * Merchant shipping identifier
      * @type {string}
      * @memberof ShippingInfo
      */
-    lastName: string;
+    merchantShippingId: string;
     /**
      * Number of tracking
      * @type {string}
@@ -29,23 +23,44 @@ export interface ShippingInfo {
      */
     trackingNo?: string;
     /**
+     * Information of carrier
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    carrier?: string;
+    /**
+     * Promo amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
+     *
+     * @type {Money}
+     * @memberof ShippingInfo
+     */
+    chargeAmount?: Money;
+    /**
      * Name of country
      * @type {string}
      * @memberof ShippingInfo
      */
     countryName: string;
     /**
-     * Merchant shipping identifier
+     * Name of state
      * @type {string}
      * @memberof ShippingInfo
      */
-    merchantShippingId: string;
+    stateName: string;
     /**
      * Name of city
      * @type {string}
      * @memberof ShippingInfo
      */
     cityName: string;
+    /**
+     * Name of area
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    areaName?: string;
     /**
      * Information of address 1
      * @type {string}
@@ -59,23 +74,29 @@ export interface ShippingInfo {
      */
     address2?: string;
     /**
+     * First name
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    firstName: string;
+    /**
+     * Last name
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    lastName: string;
+    /**
+     * Mobile number
+     * @type {string}
+     * @memberof ShippingInfo
+     */
+    mobileNo?: string;
+    /**
      * Phone number
      * @type {string}
      * @memberof ShippingInfo
      */
     phoneNo?: string;
-    /**
-     * Name of area
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    areaName?: string;
-    /**
-     * Email
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    email?: string;
     /**
      * Zip code
      * @type {string}
@@ -83,35 +104,17 @@ export interface ShippingInfo {
      */
     zipCode: string;
     /**
-     * Name of state
+     * Email
      * @type {string}
      * @memberof ShippingInfo
      */
-    stateName: string;
+    email?: string;
     /**
      * Fax number
      * @type {string}
      * @memberof ShippingInfo
      */
     faxNo?: string;
-    /**
-     * Information of carrier
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    carrier?: string;
-    /**
-     * First name
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    firstName: string;
-    /**
-     * Mobile number
-     * @type {string}
-     * @memberof ShippingInfo
-     */
-    mobileNo?: string;
 }
 /**
  * Check if a given object implements the ShippingInfo interface.

@@ -10,7 +10,7 @@ import type { ValidationErrorContext } from '../../../runtime';
  */
 export interface CreateOrderResponseAdditionalInfo {
     /**
-     * Payment code (Present if payment method is Virtual Account/QRIS)
+     * Additional information of payment code. Only use for Payment Gateway service. Present if payment using Virtual Account/QRIS
      * @type {string}
      * @memberof CreateOrderResponseAdditionalInfo
      */

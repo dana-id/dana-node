@@ -31,7 +31,7 @@ import {
  */
 export interface PayOptionDetail {
     /**
-     * Payment method that used to payment. The enums:
+     * Payment method that used to payment. The enums:<br>
      *   * BALANCE - Payment method with balance<br>
      *   * COUPON - Payment method with coupon<br>
      *   * NET_BANKING - Payment method with internet banking<br>
@@ -50,7 +50,7 @@ export interface PayOptionDetail {
      */
     payMethod: PayOptionDetailPayMethodEnum;
     /**
-     * Payment option that available to used to payment, depends on the payment method. The enums:
+     * Payment option that available to used to payment, depends on the payment method. The enums:<br>
      *   * NETWORK_PAY_PG_SPAY - Payment method with ShopeePay e-wallet<br>
      *   * NETWORK_PAY_PG_OVO - Payment method with OVO e-wallet<br>
      *   * NETWORK_PAY_PG_GOPAY - Payment method with GoPay e-wallet<br>

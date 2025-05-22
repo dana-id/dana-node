@@ -4,18 +4,18 @@ All URIs are relative to *https://api.saas.dana.id*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**cancelOrder**](PaymentGatewayApi.md#cancelOrder) | **POST** /payment-gateway/v1.0/debit/cancel.htm | Cancel Order API |
-| [**consultPay**](PaymentGatewayApi.md#consultPay) | **POST** /v1.0/payment-gateway/consult-pay.htm | Consult Pay API |
-| [**createOrder**](PaymentGatewayApi.md#createOrder) | **POST** /payment-gateway/v1.0/debit/payment-host-to-host.htm | Create Payment Order |
-| [**queryPayment**](PaymentGatewayApi.md#queryPayment) | **POST** /payment-gateway/v1.0/debit/status.htm | Query Payment |
-| [**refundOrder**](PaymentGatewayApi.md#refundOrder) | **POST** /payment-gateway/v1.0/debit/refund.htm | Refund Order API |
+| [**cancelOrder**](PaymentGatewayApi.md#cancelOrder) | **POST** /payment-gateway/v1.0/debit/cancel.htm | Cancel Order - Payment Gateway |
+| [**consultPay**](PaymentGatewayApi.md#consultPay) | **POST** /v1.0/payment-gateway/consult-pay.htm | Consult Pay - Payment Gateway |
+| [**createOrder**](PaymentGatewayApi.md#createOrder) | **POST** /payment-gateway/v1.0/debit/payment-host-to-host.htm | Create Order - Payment Gateway |
+| [**queryPayment**](PaymentGatewayApi.md#queryPayment) | **POST** /payment-gateway/v1.0/debit/status.htm | Query Payment - Payment Gateway |
+| [**refundOrder**](PaymentGatewayApi.md#refundOrder) | **POST** /payment-gateway/v1.0/debit/refund.htm | Refund Order - Payment Gateway |
 
 
 <a name="cancelOrder"></a>
 # **cancelOrder**
 > CancelOrderResponse cancelOrder(CancelOrderRequest)
 
-Cancel Order API
+Cancel Order - Payment Gateway
 
     This API is used to cancel the order from merchant&#39;s platform to DANA
 
@@ -42,7 +42,7 @@ Cancel Order API
 # **consultPay**
 > ConsultPayResponse consultPay(ConsultPayRequest)
 
-Consult Pay API
+Consult Pay - Payment Gateway
 
     This API is used to consult the list of payment methods or payment channels that user has and used in certain transactions or orders
 
@@ -69,7 +69,7 @@ Consult Pay API
 # **createOrder**
 > CreateOrderResponse createOrder(CreateOrderRequest)
 
-Create Payment Order
+Create Order - Payment Gateway
 
     This API is used for merchant to create order in DANA side
 
@@ -96,7 +96,7 @@ Create Payment Order
 # **queryPayment**
 > QueryPaymentResponse queryPayment(QueryPaymentRequest)
 
-Query Payment
+Query Payment - Payment Gateway
 
     This API is used to inquiry payment status and information from merchant&#39;s platform to DANA
 
@@ -123,7 +123,7 @@ Query Payment
 # **refundOrder**
 > RefundOrderResponse refundOrder(RefundOrderRequest)
 
-Refund Order API
+Refund Order - Payment Gateway
 
     This API is used to refund the order from merchant&#39;s platform to DANA
 

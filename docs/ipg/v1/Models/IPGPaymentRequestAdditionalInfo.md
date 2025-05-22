@@ -4,8 +4,8 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 | **supportDeepLinkCheckoutUrl** | **String** | Additional information of deeplink checkout URL. For Mini Program, DANA will treat as false | [optional] [default to null] |
-| **phoneNumber** | **String** | Additional information of user&#39;s phone number | [optional] [default to null] |
-| **publicUserId** | **String** | Additional information of public user&#39;s identifier | [optional] [default to null] |
+| **phoneNumber** | **String** | Additional information of user's phone number | [optional] [default to null] |
+| **publicUserId** | **String** | Additional information of public user's identifier | [optional] [default to null] |
 | **productCode** | **String** | Additional information of product code | [default to null] |
 | **serviceInfo** | [**ServiceInfo**](ServiceInfo.md) |  | [optional] [default to null] |
 | **order** | [**Order**](Order.md) |  | [default to null] |

@@ -40,6 +40,7 @@ function CreateOrderResponseFromJSONTyped(json, ignoreDiscriminator) {
         'partnerReferenceNo': json['partnerReferenceNo'],
         'webRedirectUrl': json['webRedirectUrl'] == null ? undefined : json['webRedirectUrl'],
         'additionalInfo': json['additionalInfo'] == null ? undefined : (0, CreateOrderResponseAdditionalInfo_1.CreateOrderResponseAdditionalInfoFromJSON)(json['additionalInfo']),
+        'externalOrderId': json['externalOrderId'] == null ? undefined : json['externalOrderId'],
     };
 }
 function CreateOrderResponseToJSON(json) {
@@ -56,6 +57,7 @@ function CreateOrderResponseToJSONTyped(value, ignoreDiscriminator = false) {
         'partnerReferenceNo': value['partnerReferenceNo'],
         'webRedirectUrl': value['webRedirectUrl'],
         'additionalInfo': (0, CreateOrderResponseAdditionalInfo_1.CreateOrderResponseAdditionalInfoToJSON)(value['additionalInfo']),
+        'externalOrderId': value['externalOrderId'],
     };
 }
 const propertyValidationAttributesMap = {

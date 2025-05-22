@@ -3,8 +3,12 @@
  * Do not edit the class manually.
  */
 import type { ValidationErrorContext } from '../../../runtime';
+import type { AuditInfo } from './AuditInfo';
+import type { RefundOptionBill } from './RefundOptionBill';
+import type { ActorContext } from './ActorContext';
+import type { EnvInfo } from './EnvInfo';
 /**
- * Additional information
+ *
  * @export
  * @interface RefundOrderRequestAdditionalInfo
  */
@@ -22,11 +26,17 @@ export interface RefundOrderRequestAdditionalInfo {
      */
     refundAppliedTime?: string;
     /**
-     * Additional information of actor type, refer to ActorTypeEnum
+     * Additional information of actor type. The enums:<br>
+     * * USER - User<br>
+     * * MERCHANT - Merchant<br
+     * * MERCHANT_OPERATOR - Merchant operator<br>
+     * * BACK_OFFICE - Back office<br>
+     * * SYSTEM - System<br>
+     *
      * @type {string}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    actorType?: string;
+    actorType?: RefundOrderRequestAdditionalInfoActorTypeEnum;
     /**
      * Additional information of return charge to payer
      * @type {string}
@@ -41,28 +51,28 @@ export interface RefundOrderRequestAdditionalInfo {
     destination?: string;
     /**
      * Additional information of environment
-     * @type {object}
+     * @type {EnvInfo}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    envInfo: object;
+    envInfo?: EnvInfo;
     /**
      * Additional information of audit
-     * @type {object}
+     * @type {AuditInfo}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    auditInfo?: object;
+    auditInfo?: AuditInfo;
     /**
      * Additional information of actor context
-     * @type {object}
+     * @type {ActorContext}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    actorContext?: object;
+    actorContext?: ActorContext;
     /**
      * Additional information of refund option bill
-     * @type {Array<object>}
+     * @type {Array<RefundOptionBill>}
      * @memberof RefundOrderRequestAdditionalInfo
      */
-    refundOptionBill?: Array<object>;
+    refundOptionBill?: Array<RefundOptionBill>;
     /**
      * Additional information of extend
      * @type {string}
@@ -76,6 +86,17 @@ export interface RefundOrderRequestAdditionalInfo {
      */
     asyncRefund?: string;
 }
+/**
+ * @export
+ */
+export declare const RefundOrderRequestAdditionalInfoActorTypeEnum: {
+    readonly User: "USER";
+    readonly Merchant: "MERCHANT";
+    readonly MerchantOperator: "MERCHANT_OPERATOR";
+    readonly BackOffice: "BACK_OFFICE";
+    readonly System: "SYSTEM";
+};
+export type RefundOrderRequestAdditionalInfoActorTypeEnum = typeof RefundOrderRequestAdditionalInfoActorTypeEnum[keyof typeof RefundOrderRequestAdditionalInfoActorTypeEnum];
 /**
  * Check if a given object implements the RefundOrderRequestAdditionalInfo interface.
  */

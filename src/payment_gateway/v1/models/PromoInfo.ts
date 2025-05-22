@@ -23,6 +23,9 @@ import {
  */
 export interface PromoInfo {
     /**
+     * Promo amount. Contains two sub-fields:<br>
+     * 1. Value: Transaction amount, including the cents<br>
+     * 2. Currency: Currency code based on ISO<br>
      * 
      * @type {Money}
      * @memberof PromoInfo

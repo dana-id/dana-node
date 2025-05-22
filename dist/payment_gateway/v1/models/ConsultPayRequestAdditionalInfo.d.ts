@@ -6,19 +6,19 @@ import type { ValidationErrorContext } from '../../../runtime';
 import type { Buyer } from './Buyer';
 import type { EnvInfo } from './EnvInfo';
 /**
- * Additional information
+ *
  * @export
  * @interface ConsultPayRequestAdditionalInfo
  */
 export interface ConsultPayRequestAdditionalInfo {
     /**
-     *
+     * Additional information of buyer
      * @type {Buyer}
      * @memberof ConsultPayRequestAdditionalInfo
      */
     buyer: Buyer;
     /**
-     *
+     * Additional information of environment info
      * @type {EnvInfo}
      * @memberof ConsultPayRequestAdditionalInfo
      */
