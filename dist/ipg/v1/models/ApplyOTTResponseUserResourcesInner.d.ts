@@ -10,7 +10,7 @@ import type { ValidationErrorContext } from '../../../runtime';
  */
 export interface ApplyOTTResponseUserResourcesInner {
     /**
-     * Information of resource type. List of resource retrieved - OTT
+     * Information of resource type. List of resource retrieved: OTT
      * @type {string}
      * @memberof ApplyOTTResponseUserResourcesInner
      */

@@ -8,7 +8,7 @@
 import type { PropertyValidationAttribute, ValidationErrorContext } from '../../../runtime';
 import { mapValues, ValidationUtil } from '../../../runtime';
 /**
- * User information
+ * Additional information of user. Contains publicUserId
  * @export
  * @interface ApplyTokenResponseAdditionalInfoUserInfo
  */

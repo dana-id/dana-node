@@ -54,8 +54,6 @@ exports.PayOptionInfoPayOptionEnum = {
 function instanceOfPayOptionInfo(value) {
     if (!('payMethod' in value) || value['payMethod'] === undefined)
         return false;
-    if (!('payAmount' in value) || value['payAmount'] === undefined)
-        return false;
     return true;
 }
 function PayOptionInfoFromJSON(json) {
@@ -68,7 +66,7 @@ function PayOptionInfoFromJSONTyped(json, ignoreDiscriminator) {
     return {
         'payMethod': json['payMethod'],
         'payOption': json['payOption'] == null ? undefined : json['payOption'],
-        'payAmount': (0, Money_1.MoneyFromJSON)(json['payAmount']),
+        'payAmount': json['payAmount'] == null ? undefined : (0, Money_1.MoneyFromJSON)(json['payAmount']),
         'transAmount': json['transAmount'] == null ? undefined : (0, Money_1.MoneyFromJSON)(json['transAmount']),
         'chargeAmount': json['chargeAmount'] == null ? undefined : (0, Money_1.MoneyFromJSON)(json['chargeAmount']),
         'payOptionBillExtendInfo': json['payOptionBillExtendInfo'] == null ? undefined : json['payOptionBillExtendInfo'],

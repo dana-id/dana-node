@@ -11,58 +11,49 @@ import type { ApplyTokenResponseAdditionalInfo } from './ApplyTokenResponseAddit
  */
 export interface ApplyTokenResponse {
     /**
-     * Refer to response code list:<br>
-     * * 2007400 - Successful<br>
-     * * 4007400 - Bad Request - Retry request with proper parameter<br>
-     * * 4007401 - Invalid Field Format - Retry request with proper parameter<br>
-     * * 4007402 - Invalid Mandatory Field - Retry request with proper parameter<br>
-     * * 4017400 - Unauthorized. [reason] - Retry request with proper parameter<br>
-     * * 4297400 - Too Many Requests - Retry request periodically by sending same request payload<br>
-     * * 5007400 - General Error - Retry request periodically<br>
-     * * 5007401 - Internal Server Error - Retry request periodically by sending same request payload<br>
-     *
+     * Response code. Refer to https://dashboard.dana.id/api-docs/read/110#HTML-ApplyToken-ResponseCodeandMessage
      * @type {string}
      * @memberof ApplyTokenResponse
      */
     responseCode: string;
     /**
-     * Refer to response code list
+     * Response message. Refer to https://dashboard.dana.id/api-docs/read/110#HTML-ApplyToken-ResponseCodeandMessage
      * @type {string}
      * @memberof ApplyTokenResponse
      */
     responseMessage: string;
     /**
-     * Token type
+     * Token type. Present if successfully processed
      * @type {string}
      * @memberof ApplyTokenResponse
      */
     tokenType?: string;
     /**
-     * Access token that can be used as user authorization
+     * This token is called Customer Token that will be used as a parameter on header in other API “Authorization-Customer”. Present if successfully processed
      * @type {string}
      * @memberof ApplyTokenResponse
      */
     accessToken: string;
     /**
-     * Access token expiry time
+     * Expiry time for access token was given to user, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time). Present if successfully processed
      * @type {string}
      * @memberof ApplyTokenResponse
      */
     accessTokenExpiryTime?: string;
     /**
-     * Token that can be used to refresh the accessToken when it expires
+     * This token is used for refresh session if existing token has been expired. Present if successfully processed
      * @type {string}
      * @memberof ApplyTokenResponse
      */
     refreshToken?: string;
     /**
-     * Refresh token expiry time
+     * Expiry time for refresh token was given to user, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time). Present if successfully processed
      * @type {string}
      * @memberof ApplyTokenResponse
      */
     refreshTokenExpiryTime?: string;
     /**
-     *
+     * Additional information
      * @type {ApplyTokenResponseAdditionalInfo}
      * @memberof ApplyTokenResponse
      */

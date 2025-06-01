@@ -5,7 +5,7 @@
 import type { ValidationErrorContext } from '../../../runtime';
 import type { ApplyTokenResponseAdditionalInfoUserInfo } from './ApplyTokenResponseAdditionalInfoUserInfo';
 /**
- * Additional information
+ *
  * @export
  * @interface ApplyTokenResponseAdditionalInfo
  */

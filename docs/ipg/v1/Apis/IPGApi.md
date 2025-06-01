@@ -1,243 +1,229 @@
 # IPGApi
 
-All URIs are relative to *https://api.saas.dana.id*
+You can use the APIs below to interface with DANA's `IPGApi` API.
+To start using the API, you need to destruct instantiated DANA client or directly import the module.
+
+```typescript
+import { Dana, IPGApi as IPGApiClient } from 'dana-node-api-client';
+
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
+const { IPGApi } = danaClient;
+
+const danaIPGApiClient = new IPGApiClient({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
+
+// At this point, `IPGApi` and `danaIPGApiClient` will have no usage difference, for example:
+// IPGApi.
+// or
+// danaIPGApiClient.
+```
+
+All URIs are relative to *https://api.saas.dana.id*, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
-|------------- | ------------- | -------------|
-| [**accountUnbinding**](IPGApi.md#accountUnbinding) | **POST** /v1.0/registration-account-unbinding.htm | Account unbinding process |
-| [**applyOTT**](IPGApi.md#applyOTT) | **POST** /rest/v1.1/qr/apply-ott | Apply One Time Token |
-| [**applyToken**](IPGApi.md#applyToken) | **POST** /v1.0/access-token/b2b2c.htm | Account binding process to get user token |
-| [**cancelOrder**](IPGApi.md#cancelOrder) | **POST** /v1.0/debit/cancel.htm | Cancel Order API |
-| [**getOAuthUrl**](IPGApi.md#getOAuthUrl) | **GET** /v1.0/get-auth-code | Get OAuth 2.0 URL for end user authentication |
-| [**ipgPayment**](IPGApi.md#ipgPayment) | **POST** /rest/redirection/v1.0/debit/payment-host-to-host | Process IPG payment |
-| [**queryPayment**](IPGApi.md#queryPayment) | **POST** /rest/v1.1/debit/status | Query Payment API |
-| [**refundOrder**](IPGApi.md#refundOrder) | **POST** /v1.0/debit/refund.htm | Refund Order API |
+| ------------- | ------------- | ------------- |
+| [**accountUnbinding**](IPGApi.md#accountUnbinding) | **POST** /v1.0/registration-account-unbinding.htm | This API is used to reverses the account binding process by revoking the accessToken and refreshToken |
+| [**applyOTT**](IPGApi.md#applyOTT) | **POST** /rest/v1.1/qr/apply-ott | This API is used to get one time token that will be used as authorization parameter upon redirecting to DANA |
+| [**applyToken**](IPGApi.md#applyToken) | **POST** /v1.0/access-token/b2b2c.htm | This API is used to finalized account binding process by exchanging the authCode into accessToken that can be used as user authorization |
+| [**cancelOrder**](IPGApi.md#cancelOrder) | **POST** /v1.0/debit/cancel.htm | This API is used to cancel the order from merchant&#39;s platform to DANA |
+| [**ipgPayment**](IPGApi.md#ipgPayment) | **POST** /rest/redirection/v1.0/debit/payment-host-to-host | This API is used to initiate payment from merchant&#39;s platform to DANA |
+| [**queryPayment**](IPGApi.md#queryPayment) | **POST** /rest/v1.1/debit/status | This API is used to inquiry payment status and information from merchant&#39;s platform to DANA |
+| [**refundOrder**](IPGApi.md#refundOrder) | **POST** /v1.0/debit/refund.htm | This API is used to refund the order from merchant&#39;s platform to DANA |
 
 
 <a name="accountUnbinding"></a>
-# **accountUnbinding**
-> AccountUnbindingResponse accountUnbinding(AccountUnbindingRequest)
+## `accountUnbinding()` Function
 
-Account unbinding process
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `accountUnbinding` |
+| Request Parameters | [**AccountUnbindingRequest**](../Models/AccountUnbindingRequest.md) |
+| Return Type | [**AccountUnbindingResponse**](../Models/AccountUnbindingResponse.md) |
 
-    This API is used to reverses the account binding process by revoking the accessToken and refreshToken
+### Usage Example
+```typescript
+import { Dana } from 'dana-node-api-client';
 
-### Parameters
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
+const { PaymentGatewayApi } = danaClient;
 
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **AccountUnbindingRequest** | [**AccountUnbindingRequest**](../Models/AccountUnbindingRequest.md)| Account unbinding request body | |
+const request: AccountUnbindingRequest = {
+    // Define the request parameters for the API call here
+};
 
-### Return type
-
-[**AccountUnbindingResponse**](../Models/AccountUnbindingResponse.md)
-
-### Authorization
-
-[X_PARTNER_ID](../README.md#X_PARTNER_ID), [PRIVATE_KEY](../README.md#PRIVATE_KEY), [PRIVATE_KEY_PATH](../README.md#PRIVATE_KEY_PATH), [ENV](../README.md#ENV)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
+const response: AccountUnbindingResponse = await PaymentGatewayApi.accountUnbinding(request);
+```
 <a name="applyOTT"></a>
-# **applyOTT**
-> ApplyOTTResponse applyOTT(ApplyOTTRequest)
+## `applyOTT()` Function
 
-Apply One Time Token
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `applyOTT` |
+| Request Parameters | [**ApplyOTTRequest**](../Models/ApplyOTTRequest.md) |
+| Return Type | [**ApplyOTTResponse**](../Models/ApplyOTTResponse.md) |
 
-    This API is used to get one time token that will be used as authorization parameter upon redirecting to DANA
+### Usage Example
+```typescript
+import { Dana } from 'dana-node-api-client';
 
-### Parameters
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
+const { PaymentGatewayApi } = danaClient;
 
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **ApplyOTTRequest** | [**ApplyOTTRequest**](../Models/ApplyOTTRequest.md)| Apply OTT request body | |
+const request: ApplyOTTRequest = {
+    // Define the request parameters for the API call here
+};
 
-### Return type
-
-[**ApplyOTTResponse**](../Models/ApplyOTTResponse.md)
-
-### Authorization
-
-[ORIGIN](../README.md#ORIGIN), [X_PARTNER_ID](../README.md#X_PARTNER_ID), [CHANNEL_ID](../README.md#CHANNEL_ID), [PRIVATE_KEY](../README.md#PRIVATE_KEY), [PRIVATE_KEY_PATH](../README.md#PRIVATE_KEY_PATH), [ENV](../README.md#ENV)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
+const response: ApplyOTTResponse = await PaymentGatewayApi.applyOTT(request);
+```
 <a name="applyToken"></a>
-# **applyToken**
-> ApplyTokenResponse applyToken(ApplyTokenRequest)
+## `applyToken()` Function
 
-Account binding process to get user token
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `applyToken` |
+| Request Parameters | [**ApplyTokenRequest**](../Models/ApplyTokenRequest.md) |
+| Return Type | [**ApplyTokenResponse**](../Models/ApplyTokenResponse.md) |
 
-    This API is used to finalized account binding process by exchanging the authCode into accessToken that can be used as user authorization
+### Usage Example
+```typescript
+import { Dana } from 'dana-node-api-client';
 
-### Parameters
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
+const { PaymentGatewayApi } = danaClient;
 
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **ApplyTokenRequest** | [**ApplyTokenRequest**](../Models/ApplyTokenRequest.md)| Apply token request body | |
+const request: ApplyTokenRequest = {
+    // Define the request parameters for the API call here
+};
 
-### Return type
-
-[**ApplyTokenResponse**](../Models/ApplyTokenResponse.md)
-
-### Authorization
-
-[X_PARTNER_ID](../README.md#X_PARTNER_ID), [PRIVATE_KEY](../README.md#PRIVATE_KEY), [PRIVATE_KEY_PATH](../README.md#PRIVATE_KEY_PATH), [ENV](../README.md#ENV)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
+const response: ApplyTokenResponse = await PaymentGatewayApi.applyToken(request);
+```
 <a name="cancelOrder"></a>
-# **cancelOrder**
-> CancelOrderResponse cancelOrder(CancelOrderRequest)
+## `cancelOrder()` Function
 
-Cancel Order API
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `cancelOrder` |
+| Request Parameters | [**CancelOrderRequest**](../Models/CancelOrderRequest.md) |
+| Return Type | [**CancelOrderResponse**](../Models/CancelOrderResponse.md) |
 
-    This API is used to cancel the order from merchant&#39;s platform to DANA
+### Usage Example
+```typescript
+import { Dana } from 'dana-node-api-client';
 
-### Parameters
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
+const { PaymentGatewayApi } = danaClient;
 
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **CancelOrderRequest** | [**CancelOrderRequest**](../Models/CancelOrderRequest.md)|  | |
+const request: CancelOrderRequest = {
+    // Define the request parameters for the API call here
+};
 
-### Return type
-
-[**CancelOrderResponse**](../Models/CancelOrderResponse.md)
-
-### Authorization
-
-[ORIGIN](../README.md#ORIGIN), [X_PARTNER_ID](../README.md#X_PARTNER_ID), [CHANNEL_ID](../README.md#CHANNEL_ID), [PRIVATE_KEY](../README.md#PRIVATE_KEY), [PRIVATE_KEY_PATH](../README.md#PRIVATE_KEY_PATH)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-<a name="getOAuthUrl"></a>
-# **getOAuthUrl**
-> GetOAuthUrlResponse getOAuthUrl(partnerId, timestamp, externalId, channelId, scopes, redirectUrl, state, merchantId, subMerchantId, seamlessData, lang, allowRegistration)
-
-Get OAuth 2.0 URL for end user authentication
-
-    TThis API is used to generate OAuth 2.0 redirect URL to DANA to initiate account binding process where the user will be able to register/login from DANA page
-
-### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **partnerId** | **String**| Information of partner identifier | [default to null] |
-| **timestamp** | **String**| Transaction date time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time) | [default to null] |
-| **externalId** | **String**| Information of partner identifier | [default to null] |
-| **channelId** | **String**| Information of channel identifier | [default to null] |
-| **scopes** | [**List**](../Models/String.md)| The scopes of the authorization | [default to null] |
-| **redirectUrl** | **String**| When user authorization is success, the user will be redirected to this URL | [default to null] |
-| **state** | **String**| Random string for CSRF protection purposes | [default to null] |
-| **merchantId** | **String**| Merchant identifier that is unique per each merchant | [optional] [default to null] |
-| **subMerchantId** | **String**| Information of sub merchant identifier | [optional] [default to null] |
-| **seamlessData** | [**SeamlessData**](../Models/.md)| Option for binding process. This is a JSON object that will be automatically URL-encoded.  | [optional] [default to null] |
-| **lang** | **String**| Service language code, ISO 639-1 | [optional] [default to null] |
-| **allowRegistration** | **String**| If value equals true, provider may enable registration process during binding. Default true | [optional] [default to null] |
-
-### Return type
-
-[**GetOAuthUrlResponse**](../Models/GetOAuthUrlResponse.md)
-
-### Authorization
-
-[PRIVATE_KEY](../README.md#PRIVATE_KEY), [PRIVATE_KEY_PATH](../README.md#PRIVATE_KEY_PATH), [ENV](../README.md#ENV)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
+const response: CancelOrderResponse = await PaymentGatewayApi.cancelOrder(request);
+```
 <a name="ipgPayment"></a>
-# **ipgPayment**
-> IPGPaymentResponse ipgPayment(IPGPaymentRequest)
+## `ipgPayment()` Function
 
-Process IPG payment
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `ipgPayment` |
+| Request Parameters | [**IPGPaymentRequest**](../Models/IPGPaymentRequest.md) |
+| Return Type | [**IPGPaymentResponse**](../Models/IPGPaymentResponse.md) |
 
-    This API is used to initiate payment from merchant&#39;s platform to DANA
+### Usage Example
+```typescript
+import { Dana } from 'dana-node-api-client';
 
-### Parameters
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
+const { PaymentGatewayApi } = danaClient;
 
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **IPGPaymentRequest** | [**IPGPaymentRequest**](../Models/IPGPaymentRequest.md)|  | |
+const request: IPGPaymentRequest = {
+    // Define the request parameters for the API call here
+};
 
-### Return type
-
-[**IPGPaymentResponse**](../Models/IPGPaymentResponse.md)
-
-### Authorization
-
-[ORIGIN](../README.md#ORIGIN), [X_PARTNER_ID](../README.md#X_PARTNER_ID), [CHANNEL_ID](../README.md#CHANNEL_ID), [PRIVATE_KEY](../README.md#PRIVATE_KEY), [PRIVATE_KEY_PATH](../README.md#PRIVATE_KEY_PATH), [ENV](../README.md#ENV)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
+const response: IPGPaymentResponse = await PaymentGatewayApi.ipgPayment(request);
+```
 <a name="queryPayment"></a>
-# **queryPayment**
-> QueryPaymentResponse queryPayment(QueryPaymentRequest)
+## `queryPayment()` Function
 
-Query Payment API
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `queryPayment` |
+| Request Parameters | [**QueryPaymentRequest**](../Models/QueryPaymentRequest.md) |
+| Return Type | [**QueryPaymentResponse**](../Models/QueryPaymentResponse.md) |
 
-    This API is used to inquiry payment status and information from merchant&#39;s platform to DANA
+### Usage Example
+```typescript
+import { Dana } from 'dana-node-api-client';
 
-### Parameters
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
+const { PaymentGatewayApi } = danaClient;
 
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **QueryPaymentRequest** | [**QueryPaymentRequest**](../Models/QueryPaymentRequest.md)|  | |
+const request: QueryPaymentRequest = {
+    // Define the request parameters for the API call here
+};
 
-### Return type
-
-[**QueryPaymentResponse**](../Models/QueryPaymentResponse.md)
-
-### Authorization
-
-[ORIGIN](../README.md#ORIGIN), [X_PARTNER_ID](../README.md#X_PARTNER_ID), [CHANNEL_ID](../README.md#CHANNEL_ID), [PRIVATE_KEY](../README.md#PRIVATE_KEY), [PRIVATE_KEY_PATH](../README.md#PRIVATE_KEY_PATH)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
+const response: QueryPaymentResponse = await PaymentGatewayApi.queryPayment(request);
+```
 <a name="refundOrder"></a>
-# **refundOrder**
-> RefundOrderResponse refundOrder(RefundOrderRequest)
+## `refundOrder()` Function
 
-Refund Order API
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `refundOrder` |
+| Request Parameters | [**RefundOrderRequest**](../Models/RefundOrderRequest.md) |
+| Return Type | [**RefundOrderResponse**](../Models/RefundOrderResponse.md) |
 
-    This API is used to refund the order from merchant&#39;s platform to DANA
+### Usage Example
+```typescript
+import { Dana } from 'dana-node-api-client';
 
-### Parameters
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+});
+const { PaymentGatewayApi } = danaClient;
 
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **RefundOrderRequest** | [**RefundOrderRequest**](../Models/RefundOrderRequest.md)|  | |
+const request: RefundOrderRequest = {
+    // Define the request parameters for the API call here
+};
 
-### Return type
-
-[**RefundOrderResponse**](../Models/RefundOrderResponse.md)
-
-### Authorization
-
-[ORIGIN](../README.md#ORIGIN), [X_PARTNER_ID](../README.md#X_PARTNER_ID), [CHANNEL_ID](../README.md#CHANNEL_ID), [PRIVATE_KEY](../README.md#PRIVATE_KEY), [PRIVATE_KEY_PATH](../README.md#PRIVATE_KEY_PATH)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
+const response: RefundOrderResponse = await PaymentGatewayApi.refundOrder(request);
+```

@@ -1,17 +1,16 @@
 # IPGPaymentRequestAdditionalInfo
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-| **supportDeepLinkCheckoutUrl** | **String** | Additional information of deeplink checkout URL. For Mini Program, DANA will treat as false | [optional] [default to null] |
-| **phoneNumber** | **String** | Additional information of user's phone number | [optional] [default to null] |
-| **publicUserId** | **String** | Additional information of public user's identifier | [optional] [default to null] |
-| **productCode** | **String** | Additional information of product code | [default to null] |
-| **serviceInfo** | [**ServiceInfo**](ServiceInfo.md) |  | [optional] [default to null] |
-| **order** | [**Order**](Order.md) |  | [default to null] |
-| **mcc** | **String** | Additional information of merchant category code. This parameter is used to identify the type of business in which a merchant is engaged. | [default to null] |
-| **envInfo** | [**EnvInfo**](EnvInfo.md) |  | [default to null] |
-| **extendInfo** | **String** | Additional information of extend | [optional] [default to null] |
+| Name | Type | Required | Description |
+| ------------- | ------------- | ------------- | ------------- |
+| **supportDeepLinkCheckoutUrl** | **String** |  | Additional information of deeplink checkout URL. For Mini Program, DANA will treat as false |
+| **phoneNumber** | **String** |  | Additional information of user's phone number |
+| **publicUserId** | **String** |  | Additional information of public user's identifier |
+| **productCode** | **String** | ☑️ | Additional information of product code |
+| **serviceInfo** | [**ServiceInfo**](ServiceInfo.md) |  |  |
+| **order** | [**Order**](Order.md) | ☑️ |  |
+| **mcc** | **String** | ☑️ | Additional information of merchant category code. This parameter is used to identify the type of business in which a merchant is engaged. |
+| **envInfo** | [**EnvInfo**](EnvInfo.md) | ☑️ |  |
+| **extendInfo** | **String** |  | Additional information of extend |
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-
+[[Back to README]](../../../../README.md)

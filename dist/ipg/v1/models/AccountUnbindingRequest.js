@@ -20,6 +20,8 @@ const AccountUnbindingRequestAdditionalInfo_1 = require("./AccountUnbindingReque
 function instanceOfAccountUnbindingRequest(value) {
     if (!('merchantId' in value) || value['merchantId'] === undefined)
         return false;
+    if (!('additionalInfo' in value) || value['additionalInfo'] === undefined)
+        return false;
     return true;
 }
 function AccountUnbindingRequestFromJSON(json) {
@@ -35,7 +37,7 @@ function AccountUnbindingRequestFromJSONTyped(json, ignoreDiscriminator) {
         'partnerReferenceNo': json['partnerReferenceNo'] == null ? undefined : json['partnerReferenceNo'],
         'linkId': json['linkId'] == null ? undefined : json['linkId'],
         'tokenId': json['tokenId'] == null ? undefined : json['tokenId'],
-        'additionalInfo': json['additionalInfo'] == null ? undefined : (0, AccountUnbindingRequestAdditionalInfo_1.AccountUnbindingRequestAdditionalInfoFromJSON)(json['additionalInfo']),
+        'additionalInfo': (0, AccountUnbindingRequestAdditionalInfo_1.AccountUnbindingRequestAdditionalInfoFromJSON)(json['additionalInfo']),
     };
 }
 function AccountUnbindingRequestToJSON(json) {

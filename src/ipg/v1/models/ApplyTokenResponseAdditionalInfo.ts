@@ -17,7 +17,7 @@ import {
 } from './ApplyTokenResponseAdditionalInfoUserInfo';
 
 /**
- * Additional information
+ * 
  * @export
  * @interface ApplyTokenResponseAdditionalInfo
  */

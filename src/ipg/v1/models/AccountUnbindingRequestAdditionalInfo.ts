@@ -19,6 +19,30 @@ export interface AccountUnbindingRequestAdditionalInfo {
      * @memberof AccountUnbindingRequestAdditionalInfo
      */
     accessToken: string;
+    /**
+     * IP address of the end user (customer) using IPv4 format
+     * @type {string}
+     * @memberof AccountUnbindingRequestAdditionalInfo
+     */
+    endUserIpAddress?: string;
+    /**
+     * Device identification on which the API services is currently being accessed by the end user (customer)
+     * @type {string}
+     * @memberof AccountUnbindingRequestAdditionalInfo
+     */
+    deviceId: string;
+    /**
+     * Location on which the API services is currently being accessed by the end user (customer), refer to ISO 6709 standard representation of geographic point location by coordinates
+     * @type {string}
+     * @memberof AccountUnbindingRequestAdditionalInfo
+     */
+    latitude?: string;
+    /**
+     * Location on which the API services is currently being accessed by the end user (customer), refer to ISO 6709 Standard representation of geographic point location by coordinates
+     * @type {string}
+     * @memberof AccountUnbindingRequestAdditionalInfo
+     */
+    longitude?: string;
 }
 
 /**
@@ -26,6 +50,7 @@ export interface AccountUnbindingRequestAdditionalInfo {
  */
 export function instanceOfAccountUnbindingRequestAdditionalInfo(value: object): value is AccountUnbindingRequestAdditionalInfo {
     if (!('accessToken' in value) || value['accessToken'] === undefined) return false;
+    if (!('deviceId' in value) || value['deviceId'] === undefined) return false;
     return true;
 }
 
@@ -40,6 +65,10 @@ export function AccountUnbindingRequestAdditionalInfoFromJSONTyped(json: any, ig
     return {
         
         'accessToken': json['accessToken'],
+        'endUserIpAddress': json['endUserIpAddress'] == null ? undefined : json['endUserIpAddress'],
+        'deviceId': json['deviceId'],
+        'latitude': json['latitude'] == null ? undefined : json['latitude'],
+        'longitude': json['longitude'] == null ? undefined : json['longitude'],
     };
 }
 
@@ -55,12 +84,30 @@ export function AccountUnbindingRequestAdditionalInfoToJSONTyped(value?: Account
     return {
         
         'accessToken': value['accessToken'],
+        'endUserIpAddress': value['endUserIpAddress'],
+        'deviceId': value['deviceId'],
+        'latitude': value['latitude'],
+        'longitude': value['longitude'],
     };
 }
 
 const propertyValidationAttributesMap: { [property: string]: PropertyValidationAttribute } = {
     accessToken: {
         maxLength: 512,
+    },
+    endUserIpAddress: {
+        maxLength: 15,
+    },
+    deviceId: {
+        maxLength: 400,
+    },
+    latitude: {
+        maxLength: 10,
+        pattern: new RegExp('/^[-+]?[0-9]{1,2}([.][0-9]{1,4})?$/'.slice(1, -1)),
+    },
+    longitude: {
+        maxLength: 10,
+        pattern: new RegExp('/^[-+]?[0-9]{1,2}([.][0-9]{1,4})?$/'.slice(1, -1)),
     },
 }
 
@@ -72,6 +119,14 @@ export function validateAccountUnbindingRequestAdditionalInfo(value: AccountUnbi
     }
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('accessToken', value.accessToken, propertyValidationAttributesMap['accessToken']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('endUserIpAddress', value.endUserIpAddress, propertyValidationAttributesMap['endUserIpAddress']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('deviceId', value.deviceId, propertyValidationAttributesMap['deviceId']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('latitude', value.latitude, propertyValidationAttributesMap['latitude']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('longitude', value.longitude, propertyValidationAttributesMap['longitude']));
 
     return validationErrorContexts;
 }

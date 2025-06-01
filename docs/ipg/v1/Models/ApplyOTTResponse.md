@@ -1,12 +1,11 @@
 # ApplyOTTResponse
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-| **responseCode** | **String** | Refer to response code list | [default to null] |
-| **responseMessage** | **String** | Refer to response code list | [default to null] |
-| **userResources** | [**List**](ApplyOTTResponse_userResources_inner.md) |  | [default to null] |
-| **additionalInfo** | [**Object**](.md) | Additional information | [optional] [default to null] |
+| Name | Type | Required | Description |
+| ------------- | ------------- | ------------- | ------------- |
+| **responseCode** | **String** | ☑️ | Response code. https://dashboard.dana.id/api-docs/read/109#HTML-API-ApplyOTT-ResponseCodeandMessage |
+| **responseMessage** | **String** | ☑️ | Response message. https://dashboard.dana.id/api-docs/read/109#HTML-API-ApplyOTT-ResponseCodeandMessage |
+| **userResources** | [**List**](ApplyOTTResponse_userResources_inner.md) | ☑️ | User resources |
+| **additionalInfo** | [**Object**](.md) |  | Additional information |
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-
+[[Back to README]](../../../../README.md)

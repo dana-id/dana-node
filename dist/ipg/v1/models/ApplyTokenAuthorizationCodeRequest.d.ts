@@ -17,7 +17,32 @@ export interface ApplyTokenAuthorizationCodeRequest {
     additionalInfo?: {
         [key: string]: any;
     };
+    /**
+     * Apply token request type. The value is AUTHORIZATION_CODE
+     * @type {string}
+     * @memberof ApplyTokenAuthorizationCodeRequest
+     */
+    grantType: ApplyTokenAuthorizationCodeRequestGrantTypeEnum;
+    /**
+     * Authorization code. Please refer to https://dashboard.dana.id/api-docs/read/125. Required if grantType is AUTHORIZATION_CODE
+     * @type {string}
+     * @memberof ApplyTokenAuthorizationCodeRequest
+     */
+    authCode: string;
+    /**
+     * This token is used for refresh session if existing token has been expired
+     * @type {string}
+     * @memberof ApplyTokenAuthorizationCodeRequest
+     */
+    refreshToken?: string;
 }
+/**
+ * @export
+ */
+export declare const ApplyTokenAuthorizationCodeRequestGrantTypeEnum: {
+    readonly AuthorizationCode: "AUTHORIZATION_CODE";
+};
+export type ApplyTokenAuthorizationCodeRequestGrantTypeEnum = typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum[keyof typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum];
 /**
  * Check if a given object implements the ApplyTokenAuthorizationCodeRequest interface.
  */

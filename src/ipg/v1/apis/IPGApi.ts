@@ -15,14 +15,12 @@ import type {
   ApplyTokenResponse,
   CancelOrderRequest,
   CancelOrderResponse,
-  GetOAuthUrlResponse,
   IPGPaymentRequest,
   IPGPaymentResponse,
   QueryPaymentRequest,
   QueryPaymentResponse,
   RefundOrderRequest,
   RefundOrderResponse,
-  SeamlessData,
 } from '../models/index';
 import {
     validateAccountUnbindingRequest,
@@ -49,9 +47,6 @@ import {
     validateCancelOrderResponse,
     CancelOrderResponseFromJSON,
     CancelOrderResponseToJSON,
-    validateGetOAuthUrlResponse,
-    GetOAuthUrlResponseFromJSON,
-    GetOAuthUrlResponseToJSON,
     validateIPGPaymentRequest,
     IPGPaymentRequestFromJSON,
     IPGPaymentRequestToJSON,
@@ -70,9 +65,6 @@ import {
     validateRefundOrderResponse,
     RefundOrderResponseFromJSON,
     RefundOrderResponseToJSON,
-    validateSeamlessData,
-    SeamlessDataFromJSON,
-    SeamlessDataToJSON,
 } from '../models/index';
 
 /**
@@ -102,7 +94,7 @@ export class IPGApi extends runtime.BaseAPI {
 
     /**
      * This API is used to reverses the account binding process by revoking the accessToken and refreshToken
-     * Account unbinding process
+     * Account unbinding - Binding
      */
     async accountUnbinding(accountUnbindingRequest: AccountUnbindingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AccountUnbindingResponse> {
         if (accountUnbindingRequest == null) {
@@ -125,6 +117,16 @@ export class IPGApi extends runtime.BaseAPI {
 
         const endpointUrl: string = `/v1.0/registration-account-unbinding.htm`;
 
+        const requestBody: string = JSON.stringify(AccountUnbindingRequestToJSON(accountUnbindingRequest));
+        
+        const accessToken = accountUnbindingRequest.additionalInfo.accessToken;
+        const endUserIpAddress = accountUnbindingRequest.additionalInfo.endUserIpAddress;
+        const deviceId = accountUnbindingRequest.additionalInfo.deviceId;
+        const latitude = accountUnbindingRequest.additionalInfo.latitude;
+        const longitude = accountUnbindingRequest.additionalInfo.longitude;
+
+        runtime.DanaHeaderUtil.populateSnapAccountB2B2CScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, accessToken, endUserIpAddress, deviceId, latitude, longitude);
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -138,7 +140,7 @@ export class IPGApi extends runtime.BaseAPI {
 
     /**
      * This API is used to get one time token that will be used as authorization parameter upon redirecting to DANA
-     * Apply One Time Token
+     * Apply OTT - IPG
      */
     async applyOTT(applyOTTRequest: ApplyOTTRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApplyOTTResponse> {
         if (applyOTTRequest == null) {
@@ -161,6 +163,16 @@ export class IPGApi extends runtime.BaseAPI {
 
         const endpointUrl: string = `/rest/v1.1/qr/apply-ott`;
 
+        const requestBody: string = JSON.stringify(ApplyOTTRequestToJSON(applyOTTRequest));
+        
+        const accessToken = applyOTTRequest.additionalInfo.accessToken;
+        const endUserIpAddress = applyOTTRequest.additionalInfo.endUserIpAddress;
+        const deviceId = applyOTTRequest.additionalInfo.deviceId;
+        const latitude = applyOTTRequest.additionalInfo.latitude;
+        const longitude = applyOTTRequest.additionalInfo.longitude;
+
+        runtime.DanaHeaderUtil.populateSnapAccountB2B2CScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, accessToken, endUserIpAddress, deviceId, latitude, longitude);
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -174,7 +186,7 @@ export class IPGApi extends runtime.BaseAPI {
 
     /**
      * This API is used to finalized account binding process by exchanging the authCode into accessToken that can be used as user authorization
-     * Account binding process to get user token
+     * Apply Token, required by Apply OTT - Binding
      */
     async applyToken(applyTokenRequest: ApplyTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApplyTokenResponse> {
         if (applyTokenRequest == null) {
@@ -197,6 +209,8 @@ export class IPGApi extends runtime.BaseAPI {
 
         const endpointUrl: string = `/v1.0/access-token/b2b2c.htm`;
 
+        runtime.DanaHeaderUtil.populateSnapApplyTokenScenarioHeader(headerParameters, this.privateKey, this.partnerId);
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -210,7 +224,7 @@ export class IPGApi extends runtime.BaseAPI {
 
     /**
      * This API is used to cancel the order from merchant\'s platform to DANA
-     * Cancel Order API
+     * Cancel Order - IPG
      */
     async cancelOrder(cancelOrderRequest: CancelOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CancelOrderResponse> {
         if (cancelOrderRequest == null) {
@@ -249,126 +263,8 @@ export class IPGApi extends runtime.BaseAPI {
     }
 
     /**
-     * TThis API is used to generate OAuth 2.0 redirect URL to DANA to initiate account binding process where the user will be able to register/login from DANA page
-     * Get OAuth 2.0 URL for end user authentication
-     */
-    async getOAuthUrl(partnerId: string, timestamp: string, externalId: string, channelId: string, scopes: Array<string>, redirectUrl: string, state: string, merchantId?: string, subMerchantId?: string, seamlessData?: SeamlessData, lang?: string, allowRegistration?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetOAuthUrlResponse> {
-        if (partnerId == null) {
-            throw new runtime.RequiredError(
-                'partnerId',
-                'Required parameter "partnerId" was null or undefined when calling getOAuthUrl().'
-            );
-        }
-
-        if (timestamp == null) {
-            throw new runtime.RequiredError(
-                'timestamp',
-                'Required parameter "timestamp" was null or undefined when calling getOAuthUrl().'
-            );
-        }
-
-        if (externalId == null) {
-            throw new runtime.RequiredError(
-                'externalId',
-                'Required parameter "externalId" was null or undefined when calling getOAuthUrl().'
-            );
-        }
-
-        if (channelId == null) {
-            throw new runtime.RequiredError(
-                'channelId',
-                'Required parameter "channelId" was null or undefined when calling getOAuthUrl().'
-            );
-        }
-
-        if (scopes == null) {
-            throw new runtime.RequiredError(
-                'scopes',
-                'Required parameter "scopes" was null or undefined when calling getOAuthUrl().'
-            );
-        }
-
-        if (redirectUrl == null) {
-            throw new runtime.RequiredError(
-                'redirectUrl',
-                'Required parameter "redirectUrl" was null or undefined when calling getOAuthUrl().'
-            );
-        }
-
-        if (state == null) {
-            throw new runtime.RequiredError(
-                'state',
-                'Required parameter "state" was null or undefined when calling getOAuthUrl().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (partnerId != null) {
-            queryParameters['partnerId'] = partnerId;
-        }
-
-        if (timestamp != null) {
-            queryParameters['timestamp'] = timestamp;
-        }
-
-        if (externalId != null) {
-            queryParameters['externalId'] = externalId;
-        }
-
-        if (channelId != null) {
-            queryParameters['channelId'] = channelId;
-        }
-
-        if (merchantId != null) {
-            queryParameters['merchantId'] = merchantId;
-        }
-
-        if (subMerchantId != null) {
-            queryParameters['subMerchantId'] = subMerchantId;
-        }
-
-        if (seamlessData != null) {
-            queryParameters['seamlessData'] = seamlessData;
-        }
-
-        if (scopes != null) {
-            queryParameters['scopes'] = scopes;
-        }
-
-        if (redirectUrl != null) {
-            queryParameters['redirectUrl'] = redirectUrl;
-        }
-
-        if (state != null) {
-            queryParameters['state'] = state;
-        }
-
-        if (lang != null) {
-            queryParameters['lang'] = lang;
-        }
-
-        if (allowRegistration != null) {
-            queryParameters['allowRegistration'] = allowRegistration;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const endpointUrl: string = `/v1.0/get-auth-code`;
-
-        const response = await this.request({
-            path: endpointUrl,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => GetOAuthUrlResponseFromJSON(jsonValue)).value();
-    }
-
-    /**
      * This API is used to initiate payment from merchant\'s platform to DANA
-     * Process IPG payment
+     * IPG payment - IPG
      */
     async ipgPayment(iPGPaymentRequest: IPGPaymentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IPGPaymentResponse> {
         if (iPGPaymentRequest == null) {
@@ -408,7 +304,7 @@ export class IPGApi extends runtime.BaseAPI {
 
     /**
      * This API is used to inquiry payment status and information from merchant\'s platform to DANA
-     * Query Payment API
+     * Query Payment - IPG
      */
     async queryPayment(queryPaymentRequest: QueryPaymentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryPaymentResponse> {
         if (queryPaymentRequest == null) {
@@ -448,7 +344,7 @@ export class IPGApi extends runtime.BaseAPI {
 
     /**
      * This API is used to refund the order from merchant\'s platform to DANA
-     * Refund Order API
+     * Refund Order - IPG
      */
     async refundOrder(refundOrderRequest: RefundOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RefundOrderResponse> {
         if (refundOrderRequest == null) {

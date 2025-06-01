@@ -15,6 +15,30 @@ export interface AccountUnbindingRequestAdditionalInfo {
      * @memberof AccountUnbindingRequestAdditionalInfo
      */
     accessToken: string;
+    /**
+     * IP address of the end user (customer) using IPv4 format
+     * @type {string}
+     * @memberof AccountUnbindingRequestAdditionalInfo
+     */
+    endUserIpAddress?: string;
+    /**
+     * Device identification on which the API services is currently being accessed by the end user (customer)
+     * @type {string}
+     * @memberof AccountUnbindingRequestAdditionalInfo
+     */
+    deviceId: string;
+    /**
+     * Location on which the API services is currently being accessed by the end user (customer), refer to ISO 6709 standard representation of geographic point location by coordinates
+     * @type {string}
+     * @memberof AccountUnbindingRequestAdditionalInfo
+     */
+    latitude?: string;
+    /**
+     * Location on which the API services is currently being accessed by the end user (customer), refer to ISO 6709 Standard representation of geographic point location by coordinates
+     * @type {string}
+     * @memberof AccountUnbindingRequestAdditionalInfo
+     */
+    longitude?: string;
 }
 /**
  * Check if a given object implements the AccountUnbindingRequestAdditionalInfo interface.

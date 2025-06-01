@@ -56,6 +56,7 @@ export interface PayOptionDetail {
      *   * NETWORK_PAY_PG_GOPAY - Payment method with GoPay e-wallet<br>
      *   * NETWORK_PAY_PG_LINKAJA - Payment method with LinkAja e-wallet<br>
      *   * NETWORK_PAY_PG_CARD - Payment method with Card<br>
+     *   * NETWORK_PAY_PG_QRIS - Payment method with QRIS<br>
      *   * VIRTUAL_ACCOUNT_BCA - Payment method with BCA virtual account<br>
      *   * VIRTUAL_ACCOUNT_BNI - Payment method with BNI virtual account<br>
      *   * VIRTUAL_ACCOUNT_MANDIRI - Payment method with Mandiri virtual account<br>
@@ -129,6 +130,7 @@ export const PayOptionDetailPayOptionEnum = {
     NetworkPayPgGopay: 'NETWORK_PAY_PG_GOPAY',
     NetworkPayPgLinkaja: 'NETWORK_PAY_PG_LINKAJA',
     NetworkPayPgCard: 'NETWORK_PAY_PG_CARD',
+    NetworkPayPgQris: 'NETWORK_PAY_PG_QRIS',
     VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
     VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
     VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',

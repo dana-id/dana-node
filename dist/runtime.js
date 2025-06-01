@@ -436,6 +436,49 @@ class DanaHeaderUtil {
         headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
         headerParameters['CHANNEL-ID'] = partnerId + '-SERVER';
     }
+    /**
+     * Populates the HTTP headers required for the Snap Apply Token scenario.
+     * @param headerParameters - The HTTP headers object to populate.
+     * @param privateKey - The private key used for generating the signature.
+     * @param partnerId - The partner ID.
+     */
+    static populateSnapApplyTokenScenarioHeader(headerParameters, privateKey, partnerId) {
+        const timestamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
+        const signature = DanaSignatureUtil.generateSnapApplyTokenScenarioSignature(partnerId, privateKey, timestamp);
+        headerParameters['X-TIMESTAMP'] = timestamp;
+        headerParameters['X-CLIENT-KEY'] = partnerId;
+        headerParameters['X-SIGNATURE'] = signature;
+    }
+    /**
+     * Populates the HTTP headers required for the Snap Account B2B2C scenario.
+     * @param headerParameters - The HTTP headers object to populate.
+     * @param httpMethod - The HTTP method (e.g., GET, POST).
+     * @param endpointUrl - The API endpoint URL.
+     * @param requestBody - The request body as a string.
+     * @param privateKey - The private key used for generating the signature.
+     * @param origin - The origin of the request.
+     * @param partnerId - The partner ID.
+     * @param accessToken - The access token.
+     * @param endUserIpAddress - The end user IP address.
+     * @param deviceId - The device ID.
+     * @param latitude - The latitude.
+     * @param longitude - The longitude.
+     */
+    static populateSnapAccountB2B2CScenarioHeader(headerParameters, httpMethod, endpointUrl, requestBody, privateKey, origin, partnerId, accessToken, endUserIpAddress, deviceId, latitude, longitude) {
+        const timestamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
+        const signature = DanaSignatureUtil.generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, privateKey, timestamp);
+        headerParameters['Authorization-Customer'] = accessToken.startsWith('Bearer ') ? accessToken : `Bearer ${accessToken}`;
+        headerParameters['X-TIMESTAMP'] = timestamp;
+        headerParameters['X-SIGNATURE'] = signature;
+        headerParameters['ORIGIN'] = origin;
+        headerParameters['X-PARTNER-ID'] = partnerId;
+        headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
+        headerParameters['X-IP-ADDRESS'] = endUserIpAddress;
+        headerParameters['X-DEVICE-ID'] = deviceId;
+        headerParameters['X-LATITUDE'] = latitude;
+        headerParameters['X-LONGITUDE'] = longitude;
+        headerParameters['CHANNEL-ID'] = partnerId + '-SERVER';
+    }
 }
 exports.DanaHeaderUtil = DanaHeaderUtil;
 class DanaSignatureUtil {
@@ -445,16 +488,37 @@ class DanaSignatureUtil {
      * @param endpointUrl - The API endpoint URL.
      * @param requestBody - The request body as a string.
      * @param privateKey - The private key used for generating the signature.
-     * @param timeStamp - The timestamp for the signature.
+     * @param timestamp - The timestamp for the signature.
      * @returns The Base64-encoded signature.
      */
-    static generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, privateKey, timeStamp) {
+    static generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, privateKey, timestamp) {
         // Generate a SHA-256 hash of the request body
         const hash = (0, node_crypto_1.createHash)('sha256')
             .update(requestBody)
             .digest('hex');
         // Construct the string to sign
-        const stringToSign = `${httpMethod}:${endpointUrl}:${hash}:${timeStamp}`;
+        const stringToSign = `${httpMethod}:${endpointUrl}:${hash}:${timestamp}`;
+        return this.generateAsymmetricSignature(stringToSign, privateKey);
+    }
+    /**
+     * Generates a signature for the Snap Apply Token scenario.
+     * @param partnerId - The partner ID.
+     * @param privateKey - The private key used for generating the signature.
+     * @param timestamp - The timestamp for the signature.
+     * @returns The Base64-encoded signature.
+     */
+    static generateSnapApplyTokenScenarioSignature(partnerId, privateKey, timestamp) {
+        // Construct the string to sign
+        const stringToSign = `${partnerId}|${timestamp}`;
+        return this.generateAsymmetricSignature(stringToSign, privateKey);
+    }
+    /**
+     * Generates an asymmetric signature.
+     * @param stringToSign - The string to sign.
+     * @param privateKey - The private key used for generating the signature.
+     * @returns The Base64-encoded signature.
+     */
+    static generateAsymmetricSignature(stringToSign, privateKey) {
         // Create an RSA-SHA256 signer and sign the string
         const sign = (0, node_crypto_1.createSign)('RSA-SHA256');
         sign.update(stringToSign);

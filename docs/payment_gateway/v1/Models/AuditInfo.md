@@ -1,10 +1,9 @@
 # AuditInfo
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-| **actionReason** | **String** | Action trigger reason | [optional] [default to null] |
-| **thirdClientId** | **String** | Third party client identifier | [optional] [default to null] |
+| Name | Type | Required | Description |
+| ------------- | ------------- | ------------- | ------------- |
+| **actionReason** | **String** |  | Action trigger reason |
+| **thirdClientId** | **String** |  | Third party client identifier |
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-
+[[Back to README]](../../../../README.md)

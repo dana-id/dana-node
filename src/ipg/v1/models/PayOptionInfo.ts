@@ -67,7 +67,7 @@ export interface PayOptionInfo {
      * @type {Money}
      * @memberof PayOptionInfo
      */
-    payAmount: Money;
+    payAmount?: Money;
     /**
      * Trans amount. Contains two sub-fields:<br>
      * 1. Value: Transaction amount, including the cents<br>
@@ -150,7 +150,6 @@ export type PayOptionInfoPayOptionEnum = typeof PayOptionInfoPayOptionEnum[keyof
  */
 export function instanceOfPayOptionInfo(value: object): value is PayOptionInfo {
     if (!('payMethod' in value) || value['payMethod'] === undefined) return false;
-    if (!('payAmount' in value) || value['payAmount'] === undefined) return false;
     return true;
 }
 
@@ -166,7 +165,7 @@ export function PayOptionInfoFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'payMethod': json['payMethod'],
         'payOption': json['payOption'] == null ? undefined : json['payOption'],
-        'payAmount': MoneyFromJSON(json['payAmount']),
+        'payAmount': json['payAmount'] == null ? undefined : MoneyFromJSON(json['payAmount']),
         'transAmount': json['transAmount'] == null ? undefined : MoneyFromJSON(json['transAmount']),
         'chargeAmount': json['chargeAmount'] == null ? undefined : MoneyFromJSON(json['chargeAmount']),
         'payOptionBillExtendInfo': json['payOptionBillExtendInfo'] == null ? undefined : json['payOptionBillExtendInfo'],

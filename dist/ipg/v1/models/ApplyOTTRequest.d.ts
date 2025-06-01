@@ -12,11 +12,24 @@ import type { ApplyOTTRequestAdditionalInfo } from './ApplyOTTRequestAdditionalI
 export interface ApplyOTTRequest {
     /**
      *
+     * @type {Array<string>}
+     * @memberof ApplyOTTRequest
+     */
+    userResources: Array<ApplyOTTRequestUserResourcesEnum>;
+    /**
+     *
      * @type {ApplyOTTRequestAdditionalInfo}
      * @memberof ApplyOTTRequest
      */
     additionalInfo: ApplyOTTRequestAdditionalInfo;
 }
+/**
+ * @export
+ */
+export declare const ApplyOTTRequestUserResourcesEnum: {
+    readonly Ott: "OTT";
+};
+export type ApplyOTTRequestUserResourcesEnum = typeof ApplyOTTRequestUserResourcesEnum[keyof typeof ApplyOTTRequestUserResourcesEnum];
 /**
  * Check if a given object implements the ApplyOTTRequest interface.
  */

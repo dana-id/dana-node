@@ -19,12 +19,42 @@ export interface ApplyTokenAuthorizationCodeRequest {
      * @memberof ApplyTokenAuthorizationCodeRequest
      */
     additionalInfo?: { [key: string]: any; };
+    /**
+     * Apply token request type. The value is AUTHORIZATION_CODE
+     * @type {string}
+     * @memberof ApplyTokenAuthorizationCodeRequest
+     */
+    grantType: ApplyTokenAuthorizationCodeRequestGrantTypeEnum;
+    /**
+     * Authorization code. Please refer to https://dashboard.dana.id/api-docs/read/125. Required if grantType is AUTHORIZATION_CODE
+     * @type {string}
+     * @memberof ApplyTokenAuthorizationCodeRequest
+     */
+    authCode: string;
+    /**
+     * This token is used for refresh session if existing token has been expired
+     * @type {string}
+     * @memberof ApplyTokenAuthorizationCodeRequest
+     */
+    refreshToken?: string;
 }
+
+
+/**
+ * @export
+ */
+export const ApplyTokenAuthorizationCodeRequestGrantTypeEnum = {
+    AuthorizationCode: 'AUTHORIZATION_CODE'
+} as const;
+export type ApplyTokenAuthorizationCodeRequestGrantTypeEnum = typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum[keyof typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum];
+
 
 /**
  * Check if a given object implements the ApplyTokenAuthorizationCodeRequest interface.
  */
 export function instanceOfApplyTokenAuthorizationCodeRequest(value: object): value is ApplyTokenAuthorizationCodeRequest {
+    if (!('grantType' in value) || value['grantType'] === undefined) return false;
+    if (!('authCode' in value) || value['authCode'] === undefined) return false;
     return true;
 }
 
@@ -39,6 +69,9 @@ export function ApplyTokenAuthorizationCodeRequestFromJSONTyped(json: any, ignor
     return {
         
         'additionalInfo': json['additionalInfo'] == null ? undefined : json['additionalInfo'],
+        'grantType': json['grantType'],
+        'authCode': json['authCode'],
+        'refreshToken': json['refreshToken'] == null ? undefined : json['refreshToken'],
     };
 }
 
@@ -54,10 +87,22 @@ export function ApplyTokenAuthorizationCodeRequestToJSONTyped(value?: ApplyToken
     return {
         
         'additionalInfo': value['additionalInfo'],
+        'grantType': value['grantType'],
+        'authCode': value['authCode'],
+        'refreshToken': value['refreshToken'],
     };
 }
 
 const propertyValidationAttributesMap: { [property: string]: PropertyValidationAttribute } = {
+    grantType: {
+        maxLength: 64,
+    },
+    authCode: {
+        maxLength: 256,
+    },
+    refreshToken: {
+        maxLength: 512,
+    },
 }
 
 export function validateApplyTokenAuthorizationCodeRequest(value: ApplyTokenAuthorizationCodeRequest): ValidationErrorContext[] {
@@ -66,6 +111,12 @@ export function validateApplyTokenAuthorizationCodeRequest(value: ApplyTokenAuth
     if (value == null) {
         return validationErrorContexts;
     }
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('grantType', value.grantType, propertyValidationAttributesMap['grantType']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('authCode', value.authCode, propertyValidationAttributesMap['authCode']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('refreshToken', value.refreshToken, propertyValidationAttributesMap['refreshToken']));
 
     return validationErrorContexts;
 }

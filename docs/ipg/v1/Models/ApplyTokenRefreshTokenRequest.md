@@ -1,12 +1,11 @@
 # ApplyTokenRefreshTokenRequest
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-| **additionalInfo** | [**Map**](AnyType.md) | Additional information | [optional] [default to null] |
-| **grantType** | **String** | Apply token request type. The values are AUTHORIZATION_CODE or REFRESH_TOKEN | [default to null] |
-| **authCode** | **String** |  | [optional] [default to ] |
-| **refreshToken** | **String** | This token is used for refresh session if existing token has been expired | [default to null] |
+| Name | Type | Required | Description |
+| ------------- | ------------- | ------------- | ------------- |
+| **additionalInfo** | [**Map**](AnyType.md) |  | Additional information |
+| **grantType** | **String** | ☑️ | Apply token request type. The value is REFRESH_TOKEN |
+| **authCode** | **String** |  | Authorization code. Please refer to https://dashboard.dana.id/api-docs/read/125. Required if grantType is AUTHORIZATION_CODE |
+| **refreshToken** | **String** | ☑️ | This token is used for refresh session if existing token has been expired |
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-
+[[Back to README]](../../../../README.md)

@@ -10,6 +10,7 @@ import type { ApplyTokenRefreshTokenRequest } from './ApplyTokenRefreshTokenRequ
  * This schema is a oneOf type with the following possible variants:
  * - ApplyTokenAuthorizationCodeRequest
  * - ApplyTokenRefreshTokenRequest
+ *
  * @export
  */
 export type ApplyTokenRequest = ApplyTokenAuthorizationCodeRequest | ApplyTokenRefreshTokenRequest;

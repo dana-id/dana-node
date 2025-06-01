@@ -18,13 +18,13 @@ export interface ApplyTokenRefreshTokenRequest {
         [key: string]: any;
     };
     /**
-     * Apply token request type. The values are AUTHORIZATION_CODE or REFRESH_TOKEN
+     * Apply token request type. The value is REFRESH_TOKEN
      * @type {string}
      * @memberof ApplyTokenRefreshTokenRequest
      */
     grantType: ApplyTokenRefreshTokenRequestGrantTypeEnum;
     /**
-     *
+     * Authorization code. Please refer to https://dashboard.dana.id/api-docs/read/125. Required if grantType is AUTHORIZATION_CODE
      * @type {string}
      * @memberof ApplyTokenRefreshTokenRequest
      */

@@ -27,13 +27,13 @@ export interface StatusDetail {
      * @type {string}
      * @memberof StatusDetail
      */
-    frozen: string;
+    frozen?: string;
     /**
      * Whether the cancelled is true or not
      * @type {string}
      * @memberof StatusDetail
      */
-    cancelled: string;
+    cancelled?: string;
 }
 /**
  * @export

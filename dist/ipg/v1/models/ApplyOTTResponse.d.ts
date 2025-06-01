@@ -11,19 +11,19 @@ import type { ApplyOTTResponseUserResourcesInner } from './ApplyOTTResponseUserR
  */
 export interface ApplyOTTResponse {
     /**
-     * Refer to response code list
+     * Response code. https://dashboard.dana.id/api-docs/read/109#HTML-API-ApplyOTT-ResponseCodeandMessage
      * @type {string}
      * @memberof ApplyOTTResponse
      */
     responseCode: string;
     /**
-     * Refer to response code list
+     * Response message. https://dashboard.dana.id/api-docs/read/109#HTML-API-ApplyOTT-ResponseCodeandMessage
      * @type {string}
      * @memberof ApplyOTTResponse
      */
     responseMessage: string;
     /**
-     *
+     * User resources
      * @type {Array<ApplyOTTResponseUserResourcesInner>}
      * @memberof ApplyOTTResponse
      */

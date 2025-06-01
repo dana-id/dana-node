@@ -3,7 +3,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../../../runtime';
-import type { AccountUnbindingRequest, AccountUnbindingResponse, ApplyOTTRequest, ApplyOTTResponse, ApplyTokenRequest, ApplyTokenResponse, CancelOrderRequest, CancelOrderResponse, GetOAuthUrlResponse, IPGPaymentRequest, IPGPaymentResponse, QueryPaymentRequest, QueryPaymentResponse, RefundOrderRequest, RefundOrderResponse, SeamlessData } from '../models/index';
+import type { AccountUnbindingRequest, AccountUnbindingResponse, ApplyOTTRequest, ApplyOTTResponse, ApplyTokenRequest, ApplyTokenResponse, CancelOrderRequest, CancelOrderResponse, IPGPaymentRequest, IPGPaymentResponse, QueryPaymentRequest, QueryPaymentResponse, RefundOrderRequest, RefundOrderResponse } from '../models/index';
 /**
  *
  */
@@ -20,42 +20,37 @@ export declare class IPGApi extends runtime.BaseAPI {
     });
     /**
      * This API is used to reverses the account binding process by revoking the accessToken and refreshToken
-     * Account unbinding process
+     * Account unbinding - Binding
      */
     accountUnbinding(accountUnbindingRequest: AccountUnbindingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AccountUnbindingResponse>;
     /**
      * This API is used to get one time token that will be used as authorization parameter upon redirecting to DANA
-     * Apply One Time Token
+     * Apply OTT - IPG
      */
     applyOTT(applyOTTRequest: ApplyOTTRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApplyOTTResponse>;
     /**
      * This API is used to finalized account binding process by exchanging the authCode into accessToken that can be used as user authorization
-     * Account binding process to get user token
+     * Apply Token, required by Apply OTT - Binding
      */
     applyToken(applyTokenRequest: ApplyTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApplyTokenResponse>;
     /**
      * This API is used to cancel the order from merchant\'s platform to DANA
-     * Cancel Order API
+     * Cancel Order - IPG
      */
     cancelOrder(cancelOrderRequest: CancelOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CancelOrderResponse>;
     /**
-     * TThis API is used to generate OAuth 2.0 redirect URL to DANA to initiate account binding process where the user will be able to register/login from DANA page
-     * Get OAuth 2.0 URL for end user authentication
-     */
-    getOAuthUrl(partnerId: string, timestamp: string, externalId: string, channelId: string, scopes: Array<string>, redirectUrl: string, state: string, merchantId?: string, subMerchantId?: string, seamlessData?: SeamlessData, lang?: string, allowRegistration?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetOAuthUrlResponse>;
-    /**
      * This API is used to initiate payment from merchant\'s platform to DANA
-     * Process IPG payment
+     * IPG payment - IPG
      */
     ipgPayment(iPGPaymentRequest: IPGPaymentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IPGPaymentResponse>;
     /**
      * This API is used to inquiry payment status and information from merchant\'s platform to DANA
-     * Query Payment API
+     * Query Payment - IPG
      */
     queryPayment(queryPaymentRequest: QueryPaymentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryPaymentResponse>;
     /**
      * This API is used to refund the order from merchant\'s platform to DANA
-     * Refund Order API
+     * Refund Order - IPG
      */
     refundOrder(refundOrderRequest: RefundOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RefundOrderResponse>;
 }

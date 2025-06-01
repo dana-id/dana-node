@@ -30,7 +30,7 @@ export interface ApplyOTTRequestAdditionalInfo {
      * @type {string}
      * @memberof ApplyOTTRequestAdditionalInfo
      */
-    deviceId?: string;
+    deviceId: string;
     /**
      * Location on which the API services is currently being accessed by the end user (customer), refer to ISO 6709 standard representation of geographic point location by coordinates
      * @type {string}
@@ -50,6 +50,7 @@ export interface ApplyOTTRequestAdditionalInfo {
  */
 export function instanceOfApplyOTTRequestAdditionalInfo(value: object): value is ApplyOTTRequestAdditionalInfo {
     if (!('accessToken' in value) || value['accessToken'] === undefined) return false;
+    if (!('deviceId' in value) || value['deviceId'] === undefined) return false;
     return true;
 }
 
@@ -65,7 +66,7 @@ export function ApplyOTTRequestAdditionalInfoFromJSONTyped(json: any, ignoreDisc
         
         'accessToken': json['accessToken'],
         'endUserIpAddress': json['endUserIpAddress'] == null ? undefined : json['endUserIpAddress'],
-        'deviceId': json['deviceId'] == null ? undefined : json['deviceId'],
+        'deviceId': json['deviceId'],
         'latitude': json['latitude'] == null ? undefined : json['latitude'],
         'longitude': json['longitude'] == null ? undefined : json['longitude'],
     };

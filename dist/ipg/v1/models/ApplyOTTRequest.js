@@ -6,6 +6,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ApplyOTTRequestUserResourcesEnum = void 0;
 exports.instanceOfApplyOTTRequest = instanceOfApplyOTTRequest;
 exports.ApplyOTTRequestFromJSON = ApplyOTTRequestFromJSON;
 exports.ApplyOTTRequestFromJSONTyped = ApplyOTTRequestFromJSONTyped;
@@ -14,9 +15,17 @@ exports.ApplyOTTRequestToJSONTyped = ApplyOTTRequestToJSONTyped;
 exports.validateApplyOTTRequest = validateApplyOTTRequest;
 const ApplyOTTRequestAdditionalInfo_1 = require("./ApplyOTTRequestAdditionalInfo");
 /**
+ * @export
+ */
+exports.ApplyOTTRequestUserResourcesEnum = {
+    Ott: 'OTT'
+};
+/**
  * Check if a given object implements the ApplyOTTRequest interface.
  */
 function instanceOfApplyOTTRequest(value) {
+    if (!('userResources' in value) || value['userResources'] === undefined)
+        return false;
     if (!('additionalInfo' in value) || value['additionalInfo'] === undefined)
         return false;
     return true;
@@ -29,6 +38,7 @@ function ApplyOTTRequestFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
+        'userResources': json['userResources'],
         'additionalInfo': (0, ApplyOTTRequestAdditionalInfo_1.ApplyOTTRequestAdditionalInfoFromJSON)(json['additionalInfo']),
     };
 }
@@ -40,6 +50,7 @@ function ApplyOTTRequestToJSONTyped(value, ignoreDiscriminator = false) {
         return value;
     }
     return {
+        'userResources': value['userResources'],
         'additionalInfo': (0, ApplyOTTRequestAdditionalInfo_1.ApplyOTTRequestAdditionalInfoToJSON)(value['additionalInfo']),
     };
 }

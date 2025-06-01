@@ -19,6 +19,8 @@ const runtime_1 = require("../../../runtime");
 function instanceOfApplyOTTRequestAdditionalInfo(value) {
     if (!('accessToken' in value) || value['accessToken'] === undefined)
         return false;
+    if (!('deviceId' in value) || value['deviceId'] === undefined)
+        return false;
     return true;
 }
 function ApplyOTTRequestAdditionalInfoFromJSON(json) {
@@ -31,7 +33,7 @@ function ApplyOTTRequestAdditionalInfoFromJSONTyped(json, ignoreDiscriminator) {
     return {
         'accessToken': json['accessToken'],
         'endUserIpAddress': json['endUserIpAddress'] == null ? undefined : json['endUserIpAddress'],
-        'deviceId': json['deviceId'] == null ? undefined : json['deviceId'],
+        'deviceId': json['deviceId'],
         'latitude': json['latitude'] == null ? undefined : json['latitude'],
         'longitude': json['longitude'] == null ? undefined : json['longitude'],
     };

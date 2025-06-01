@@ -31,13 +31,13 @@ export interface StatusDetail {
      * @type {string}
      * @memberof StatusDetail
      */
-    frozen: string;
+    frozen?: string;
     /**
      * Whether the cancelled is true or not
      * @type {string}
      * @memberof StatusDetail
      */
-    cancelled: string;
+    cancelled?: string;
 }
 
 
@@ -60,8 +60,6 @@ export type StatusDetailAcquirementStatusEnum = typeof StatusDetailAcquirementSt
  */
 export function instanceOfStatusDetail(value: object): value is StatusDetail {
     if (!('acquirementStatus' in value) || value['acquirementStatus'] === undefined) return false;
-    if (!('frozen' in value) || value['frozen'] === undefined) return false;
-    if (!('cancelled' in value) || value['cancelled'] === undefined) return false;
     return true;
 }
 
@@ -76,8 +74,8 @@ export function StatusDetailFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'acquirementStatus': json['acquirementStatus'],
-        'frozen': json['frozen'],
-        'cancelled': json['cancelled'],
+        'frozen': json['frozen'] == null ? undefined : json['frozen'],
+        'cancelled': json['cancelled'] == null ? undefined : json['cancelled'],
     };
 }
 

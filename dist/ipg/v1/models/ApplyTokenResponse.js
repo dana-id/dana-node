@@ -69,10 +69,21 @@ const propertyValidationAttributesMap = {
     responseMessage: {
         maxLength: 150,
     },
+    tokenType: {
+        maxLength: 7,
+    },
+    accessToken: {
+        maxLength: 512,
+    },
     accessTokenExpiryTime: {
+        maxLength: 25,
         pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
     },
+    refreshToken: {
+        maxLength: 512,
+    },
     refreshTokenExpiryTime: {
+        maxLength: 25,
         pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
     },
 };
@@ -83,7 +94,10 @@ function validateApplyTokenResponse(value) {
     }
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('responseCode', value.responseCode, propertyValidationAttributesMap['responseCode']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('responseMessage', value.responseMessage, propertyValidationAttributesMap['responseMessage']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('tokenType', value.tokenType, propertyValidationAttributesMap['tokenType']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('accessToken', value.accessToken, propertyValidationAttributesMap['accessToken']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('accessTokenExpiryTime', value.accessTokenExpiryTime, propertyValidationAttributesMap['accessTokenExpiryTime']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('refreshToken', value.refreshToken, propertyValidationAttributesMap['refreshToken']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('refreshTokenExpiryTime', value.refreshTokenExpiryTime, propertyValidationAttributesMap['refreshTokenExpiryTime']));
     validationErrorContexts.push(...(0, ApplyTokenResponseAdditionalInfo_1.validateApplyTokenResponseAdditionalInfo)(value.additionalInfo));
     return validationErrorContexts;

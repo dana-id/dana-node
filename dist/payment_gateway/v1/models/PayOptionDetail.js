@@ -42,6 +42,7 @@ exports.PayOptionDetailPayOptionEnum = {
     NetworkPayPgGopay: 'NETWORK_PAY_PG_GOPAY',
     NetworkPayPgLinkaja: 'NETWORK_PAY_PG_LINKAJA',
     NetworkPayPgCard: 'NETWORK_PAY_PG_CARD',
+    NetworkPayPgQris: 'NETWORK_PAY_PG_QRIS',
     VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
     VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
     VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',

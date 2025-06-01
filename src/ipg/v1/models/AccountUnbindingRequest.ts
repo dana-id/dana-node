@@ -53,11 +53,11 @@ export interface AccountUnbindingRequest {
      */
     tokenId?: string;
     /**
-     * 
+     * Additional information
      * @type {AccountUnbindingRequestAdditionalInfo}
      * @memberof AccountUnbindingRequest
      */
-    additionalInfo?: AccountUnbindingRequestAdditionalInfo;
+    additionalInfo: AccountUnbindingRequestAdditionalInfo;
 }
 
 /**
@@ -65,6 +65,7 @@ export interface AccountUnbindingRequest {
  */
 export function instanceOfAccountUnbindingRequest(value: object): value is AccountUnbindingRequest {
     if (!('merchantId' in value) || value['merchantId'] === undefined) return false;
+    if (!('additionalInfo' in value) || value['additionalInfo'] === undefined) return false;
     return true;
 }
 
@@ -83,7 +84,7 @@ export function AccountUnbindingRequestFromJSONTyped(json: any, ignoreDiscrimina
         'partnerReferenceNo': json['partnerReferenceNo'] == null ? undefined : json['partnerReferenceNo'],
         'linkId': json['linkId'] == null ? undefined : json['linkId'],
         'tokenId': json['tokenId'] == null ? undefined : json['tokenId'],
-        'additionalInfo': json['additionalInfo'] == null ? undefined : AccountUnbindingRequestAdditionalInfoFromJSON(json['additionalInfo']),
+        'additionalInfo': AccountUnbindingRequestAdditionalInfoFromJSON(json['additionalInfo']),
     };
 }
 

@@ -1,11 +1,10 @@
 # ConsultPayRequestAdditionalInfo
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-| **buyer** | [**Buyer**](Buyer.md) | Additional information of buyer | [default to null] |
-| **envInfo** | [**EnvInfo**](EnvInfo.md) | Additional information of environment info | [default to null] |
-| **merchantTransType** | **String** | Additional information of merchant transaction type | [optional] [default to null] |
+| Name | Type | Required | Description |
+| ------------- | ------------- | ------------- | ------------- |
+| **buyer** | [**Buyer**](Buyer.md) | ☑️ | Additional information of buyer |
+| **envInfo** | [**EnvInfo**](EnvInfo.md) | ☑️ | Additional information of environment info |
+| **merchantTransType** | **String** |  | Additional information of merchant transaction type |
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-
+[[Back to README]](../../../../README.md)

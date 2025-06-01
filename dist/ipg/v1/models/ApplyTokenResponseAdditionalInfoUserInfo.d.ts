@@ -4,7 +4,7 @@
  */
 import type { ValidationErrorContext } from '../../../runtime';
 /**
- * User information
+ * Additional information of user. Contains publicUserId
  * @export
  * @interface ApplyTokenResponseAdditionalInfoUserInfo
  */

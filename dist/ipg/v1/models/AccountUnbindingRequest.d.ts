@@ -41,11 +41,11 @@ export interface AccountUnbindingRequest {
      */
     tokenId?: string;
     /**
-     *
+     * Additional information
      * @type {AccountUnbindingRequestAdditionalInfo}
      * @memberof AccountUnbindingRequest
      */
-    additionalInfo?: AccountUnbindingRequestAdditionalInfo;
+    additionalInfo: AccountUnbindingRequestAdditionalInfo;
 }
 /**
  * Check if a given object implements the AccountUnbindingRequest interface.

@@ -19,6 +19,8 @@ const runtime_1 = require("../../../runtime");
 function instanceOfAccountUnbindingRequestAdditionalInfo(value) {
     if (!('accessToken' in value) || value['accessToken'] === undefined)
         return false;
+    if (!('deviceId' in value) || value['deviceId'] === undefined)
+        return false;
     return true;
 }
 function AccountUnbindingRequestAdditionalInfoFromJSON(json) {
@@ -30,6 +32,10 @@ function AccountUnbindingRequestAdditionalInfoFromJSONTyped(json, ignoreDiscrimi
     }
     return {
         'accessToken': json['accessToken'],
+        'endUserIpAddress': json['endUserIpAddress'] == null ? undefined : json['endUserIpAddress'],
+        'deviceId': json['deviceId'],
+        'latitude': json['latitude'] == null ? undefined : json['latitude'],
+        'longitude': json['longitude'] == null ? undefined : json['longitude'],
     };
 }
 function AccountUnbindingRequestAdditionalInfoToJSON(json) {
@@ -41,11 +47,29 @@ function AccountUnbindingRequestAdditionalInfoToJSONTyped(value, ignoreDiscrimin
     }
     return {
         'accessToken': value['accessToken'],
+        'endUserIpAddress': value['endUserIpAddress'],
+        'deviceId': value['deviceId'],
+        'latitude': value['latitude'],
+        'longitude': value['longitude'],
     };
 }
 const propertyValidationAttributesMap = {
     accessToken: {
         maxLength: 512,
+    },
+    endUserIpAddress: {
+        maxLength: 15,
+    },
+    deviceId: {
+        maxLength: 400,
+    },
+    latitude: {
+        maxLength: 10,
+        pattern: new RegExp('/^[-+]?[0-9]{1,2}([.][0-9]{1,4})?$/'.slice(1, -1)),
+    },
+    longitude: {
+        maxLength: 10,
+        pattern: new RegExp('/^[-+]?[0-9]{1,2}([.][0-9]{1,4})?$/'.slice(1, -1)),
     },
 };
 function validateAccountUnbindingRequestAdditionalInfo(value) {
@@ -54,5 +78,9 @@ function validateAccountUnbindingRequestAdditionalInfo(value) {
         return validationErrorContexts;
     }
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('accessToken', value.accessToken, propertyValidationAttributesMap['accessToken']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('endUserIpAddress', value.endUserIpAddress, propertyValidationAttributesMap['endUserIpAddress']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('deviceId', value.deviceId, propertyValidationAttributesMap['deviceId']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('latitude', value.latitude, propertyValidationAttributesMap['latitude']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('longitude', value.longitude, propertyValidationAttributesMap['longitude']));
     return validationErrorContexts;
 }

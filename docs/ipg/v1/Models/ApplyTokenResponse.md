@@ -1,16 +1,15 @@
 # ApplyTokenResponse
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-| **responseCode** | **String** | Refer to response code list:<br> * 2007400 - Successful<br> * 4007400 - Bad Request - Retry request with proper parameter<br> * 4007401 - Invalid Field Format - Retry request with proper parameter<br> * 4007402 - Invalid Mandatory Field - Retry request with proper parameter<br> * 4017400 - Unauthorized. [reason] - Retry request with proper parameter<br> * 4297400 - Too Many Requests - Retry request periodically by sending same request payload<br> * 5007400 - General Error - Retry request periodically<br> * 5007401 - Internal Server Error - Retry request periodically by sending same request payload<br>  | [default to null] |
-| **responseMessage** | **String** | Refer to response code list | [default to null] |
-| **tokenType** | **String** | Token type | [optional] [default to null] |
-| **accessToken** | **String** | Access token that can be used as user authorization | [default to null] |
-| **accessTokenExpiryTime** | **String** | Access token expiry time | [optional] [default to null] |
-| **refreshToken** | **String** | Token that can be used to refresh the accessToken when it expires | [optional] [default to null] |
-| **refreshTokenExpiryTime** | **String** | Refresh token expiry time | [optional] [default to null] |
-| **additionalInfo** | [**ApplyTokenResponseAdditionalInfo**](ApplyTokenResponseAdditionalInfo.md) |  | [optional] [default to null] |
+| Name | Type | Required | Description |
+| ------------- | ------------- | ------------- | ------------- |
+| **responseCode** | **String** | ☑️ | Response code. Refer to https://dashboard.dana.id/api-docs/read/110#HTML-ApplyToken-ResponseCodeandMessage |
+| **responseMessage** | **String** | ☑️ | Response message. Refer to https://dashboard.dana.id/api-docs/read/110#HTML-ApplyToken-ResponseCodeandMessage |
+| **tokenType** | **String** |  | Token type. Present if successfully processed |
+| **accessToken** | **String** | ☑️ | This token is called Customer Token that will be used as a parameter on header in other API “Authorization-Customer”. Present if successfully processed |
+| **accessTokenExpiryTime** | **String** |  | Expiry time for access token was given to user, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time). Present if successfully processed |
+| **refreshToken** | **String** |  | This token is used for refresh session if existing token has been expired. Present if successfully processed |
+| **refreshTokenExpiryTime** | **String** |  | Expiry time for refresh token was given to user, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time). Present if successfully processed |
+| **additionalInfo** | [**ApplyTokenResponseAdditionalInfo**](ApplyTokenResponseAdditionalInfo.md) |  | Additional information |
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-
+[[Back to README]](../../../../README.md)

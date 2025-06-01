@@ -55,7 +55,7 @@ export interface PayOptionInfo {
      * @type {Money}
      * @memberof PayOptionInfo
      */
-    payAmount: Money;
+    payAmount?: Money;
     /**
      * Trans amount. Contains two sub-fields:<br>
      * 1. Value: Transaction amount, including the cents<br>

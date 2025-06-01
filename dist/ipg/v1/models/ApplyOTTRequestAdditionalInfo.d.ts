@@ -26,7 +26,7 @@ export interface ApplyOTTRequestAdditionalInfo {
      * @type {string}
      * @memberof ApplyOTTRequestAdditionalInfo
      */
-    deviceId?: string;
+    deviceId: string;
     /**
      * Location on which the API services is currently being accessed by the end user (customer), refer to ISO 6709 standard representation of geographic point location by coordinates
      * @type {string}

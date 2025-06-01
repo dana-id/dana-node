@@ -6,16 +6,28 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ApplyTokenAuthorizationCodeRequestGrantTypeEnum = void 0;
 exports.instanceOfApplyTokenAuthorizationCodeRequest = instanceOfApplyTokenAuthorizationCodeRequest;
 exports.ApplyTokenAuthorizationCodeRequestFromJSON = ApplyTokenAuthorizationCodeRequestFromJSON;
 exports.ApplyTokenAuthorizationCodeRequestFromJSONTyped = ApplyTokenAuthorizationCodeRequestFromJSONTyped;
 exports.ApplyTokenAuthorizationCodeRequestToJSON = ApplyTokenAuthorizationCodeRequestToJSON;
 exports.ApplyTokenAuthorizationCodeRequestToJSONTyped = ApplyTokenAuthorizationCodeRequestToJSONTyped;
 exports.validateApplyTokenAuthorizationCodeRequest = validateApplyTokenAuthorizationCodeRequest;
+const runtime_1 = require("../../../runtime");
+/**
+ * @export
+ */
+exports.ApplyTokenAuthorizationCodeRequestGrantTypeEnum = {
+    AuthorizationCode: 'AUTHORIZATION_CODE'
+};
 /**
  * Check if a given object implements the ApplyTokenAuthorizationCodeRequest interface.
  */
 function instanceOfApplyTokenAuthorizationCodeRequest(value) {
+    if (!('grantType' in value) || value['grantType'] === undefined)
+        return false;
+    if (!('authCode' in value) || value['authCode'] === undefined)
+        return false;
     return true;
 }
 function ApplyTokenAuthorizationCodeRequestFromJSON(json) {
@@ -27,6 +39,9 @@ function ApplyTokenAuthorizationCodeRequestFromJSONTyped(json, ignoreDiscriminat
     }
     return {
         'additionalInfo': json['additionalInfo'] == null ? undefined : json['additionalInfo'],
+        'grantType': json['grantType'],
+        'authCode': json['authCode'],
+        'refreshToken': json['refreshToken'] == null ? undefined : json['refreshToken'],
     };
 }
 function ApplyTokenAuthorizationCodeRequestToJSON(json) {
@@ -38,13 +53,29 @@ function ApplyTokenAuthorizationCodeRequestToJSONTyped(value, ignoreDiscriminato
     }
     return {
         'additionalInfo': value['additionalInfo'],
+        'grantType': value['grantType'],
+        'authCode': value['authCode'],
+        'refreshToken': value['refreshToken'],
     };
 }
-const propertyValidationAttributesMap = {};
+const propertyValidationAttributesMap = {
+    grantType: {
+        maxLength: 64,
+    },
+    authCode: {
+        maxLength: 256,
+    },
+    refreshToken: {
+        maxLength: 512,
+    },
+};
 function validateApplyTokenAuthorizationCodeRequest(value) {
     const validationErrorContexts = [];
     if (value == null) {
         return validationErrorContexts;
     }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('grantType', value.grantType, propertyValidationAttributesMap['grantType']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('authCode', value.authCode, propertyValidationAttributesMap['authCode']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('refreshToken', value.refreshToken, propertyValidationAttributesMap['refreshToken']));
     return validationErrorContexts;
 }

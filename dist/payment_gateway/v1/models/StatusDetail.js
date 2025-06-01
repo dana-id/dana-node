@@ -31,10 +31,6 @@ exports.StatusDetailAcquirementStatusEnum = {
 function instanceOfStatusDetail(value) {
     if (!('acquirementStatus' in value) || value['acquirementStatus'] === undefined)
         return false;
-    if (!('frozen' in value) || value['frozen'] === undefined)
-        return false;
-    if (!('cancelled' in value) || value['cancelled'] === undefined)
-        return false;
     return true;
 }
 function StatusDetailFromJSON(json) {
@@ -46,8 +42,8 @@ function StatusDetailFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'acquirementStatus': json['acquirementStatus'],
-        'frozen': json['frozen'],
-        'cancelled': json['cancelled'],
+        'frozen': json['frozen'] == null ? undefined : json['frozen'],
+        'cancelled': json['cancelled'] == null ? undefined : json['cancelled'],
     };
 }
 function StatusDetailToJSON(json) {

@@ -1,9 +1,9 @@
 # ApplyOTTRequest
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-| **additionalInfo** | [**ApplyOTTRequestAdditionalInfo**](ApplyOTTRequestAdditionalInfo.md) |  | [default to null] |
+| Name | Type | Required | Description |
+| ------------- | ------------- | ------------- | ------------- |
+| **userResources** | **List** | ☑️ |  |
+| **additionalInfo** | [**ApplyOTTRequestAdditionalInfo**](ApplyOTTRequestAdditionalInfo.md) | ☑️ |  |
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-
+[[Back to README]](../../../../README.md)

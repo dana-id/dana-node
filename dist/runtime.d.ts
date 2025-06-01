@@ -223,6 +223,29 @@ export declare class DanaHeaderUtil {
      * @param partnerId - The partner ID.
      */
     static populateSnapB2BScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, origin: string, partnerId: string): void;
+    /**
+     * Populates the HTTP headers required for the Snap Apply Token scenario.
+     * @param headerParameters - The HTTP headers object to populate.
+     * @param privateKey - The private key used for generating the signature.
+     * @param partnerId - The partner ID.
+     */
+    static populateSnapApplyTokenScenarioHeader(headerParameters: HTTPHeaders, privateKey: string, partnerId: string): void;
+    /**
+     * Populates the HTTP headers required for the Snap Account B2B2C scenario.
+     * @param headerParameters - The HTTP headers object to populate.
+     * @param httpMethod - The HTTP method (e.g., GET, POST).
+     * @param endpointUrl - The API endpoint URL.
+     * @param requestBody - The request body as a string.
+     * @param privateKey - The private key used for generating the signature.
+     * @param origin - The origin of the request.
+     * @param partnerId - The partner ID.
+     * @param accessToken - The access token.
+     * @param endUserIpAddress - The end user IP address.
+     * @param deviceId - The device ID.
+     * @param latitude - The latitude.
+     * @param longitude - The longitude.
+     */
+    static populateSnapAccountB2B2CScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, origin: string, partnerId: string, accessToken: string, endUserIpAddress: string, deviceId: string, latitude: string, longitude: string): void;
 }
 export declare class DanaSignatureUtil {
     /**
@@ -231,10 +254,25 @@ export declare class DanaSignatureUtil {
      * @param endpointUrl - The API endpoint URL.
      * @param requestBody - The request body as a string.
      * @param privateKey - The private key used for generating the signature.
-     * @param timeStamp - The timestamp for the signature.
+     * @param timestamp - The timestamp for the signature.
      * @returns The Base64-encoded signature.
      */
-    static generateSnapB2BScenarioSignature(httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, timeStamp: string): string;
+    static generateSnapB2BScenarioSignature(httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, timestamp: string): string;
+    /**
+     * Generates a signature for the Snap Apply Token scenario.
+     * @param partnerId - The partner ID.
+     * @param privateKey - The private key used for generating the signature.
+     * @param timestamp - The timestamp for the signature.
+     * @returns The Base64-encoded signature.
+     */
+    static generateSnapApplyTokenScenarioSignature(partnerId: string, privateKey: string, timestamp: string): string;
+    /**
+     * Generates an asymmetric signature.
+     * @param stringToSign - The string to sign.
+     * @param privateKey - The private key used for generating the signature.
+     * @returns The Base64-encoded signature.
+     */
+    private static generateAsymmetricSignature;
     /**
      * Converts a private/public key to PEM format.
      * @param key - The key.

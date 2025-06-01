@@ -1,11 +1,10 @@
 # UrlParam
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-| **url** | **String** | URL link | [default to null] |
-| **type** | **String** | Url param. The enums:<br> * PAY_RETURN - When finish payment, DANA will notify to the URL that has been defined by<br> * NOTIFICATION - After the payment, the user will be redirected to merchant page, this is mandatory<br>  | [default to null] |
-| **isDeeplink** | **String** | Deeplink URL or not | [default to null] |
+| Name | Type | Required | Description |
+| ------------- | ------------- | ------------- | ------------- |
+| **url** | **String** | ☑️ | URL link |
+| **type** | **String** | ☑️ | Url param. The enums:<br> * PAY_RETURN - When finish payment, DANA will notify to the URL that has been defined by<br> * NOTIFICATION - After the payment, the user will be redirected to merchant page, this is mandatory<br>  |
+| **isDeeplink** | **String** | ☑️ | Deeplink URL or not |
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-
+[[Back to README]](../../../../README.md)

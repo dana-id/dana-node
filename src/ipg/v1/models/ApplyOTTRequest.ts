@@ -24,16 +24,33 @@ import {
 export interface ApplyOTTRequest {
     /**
      * 
+     * @type {Array<string>}
+     * @memberof ApplyOTTRequest
+     */
+    userResources: Array<ApplyOTTRequestUserResourcesEnum>;
+    /**
+     * 
      * @type {ApplyOTTRequestAdditionalInfo}
      * @memberof ApplyOTTRequest
      */
     additionalInfo: ApplyOTTRequestAdditionalInfo;
 }
 
+
+/**
+ * @export
+ */
+export const ApplyOTTRequestUserResourcesEnum = {
+    Ott: 'OTT'
+} as const;
+export type ApplyOTTRequestUserResourcesEnum = typeof ApplyOTTRequestUserResourcesEnum[keyof typeof ApplyOTTRequestUserResourcesEnum];
+
+
 /**
  * Check if a given object implements the ApplyOTTRequest interface.
  */
 export function instanceOfApplyOTTRequest(value: object): value is ApplyOTTRequest {
+    if (!('userResources' in value) || value['userResources'] === undefined) return false;
     if (!('additionalInfo' in value) || value['additionalInfo'] === undefined) return false;
     return true;
 }
@@ -48,6 +65,7 @@ export function ApplyOTTRequestFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
+        'userResources': json['userResources'],
         'additionalInfo': ApplyOTTRequestAdditionalInfoFromJSON(json['additionalInfo']),
     };
 }
@@ -63,6 +81,7 @@ export function ApplyOTTRequestToJSONTyped(value?: ApplyOTTRequest | null, ignor
 
     return {
         
+        'userResources': value['userResources'],
         'additionalInfo': ApplyOTTRequestAdditionalInfoToJSON(value['additionalInfo']),
     };
 }

@@ -10,13 +10,13 @@ import type { ValidationErrorContext } from '../../../runtime';
  */
 export interface AccountUnbindingResponse {
     /**
-     * Refer to response code list
+     * Response code. Refer to https://dashboard.dana.id/api-docs/read/108#HTML-AccountUnbinding-ResponseCodeandMessage
      * @type {string}
      * @memberof AccountUnbindingResponse
      */
     responseCode: string;
     /**
-     * Refer to response code list
+     * Response message. Refer to https://dashboard.dana.id/api-docs/read/108#HTML-AccountUnbinding-ResponseCodeandMessage
      * @type {string}
      * @memberof AccountUnbindingResponse
      */
