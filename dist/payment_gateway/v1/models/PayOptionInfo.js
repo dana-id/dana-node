@@ -29,7 +29,8 @@ exports.PayOptionInfoPayMethodEnum = {
     DirectDebitCreditCard: 'DIRECT_DEBIT_CREDIT_CARD',
     DirectDebitDebitCard: 'DIRECT_DEBIT_DEBIT_CARD',
     OnlineCredit: 'ONLINE_CREDIT',
-    LoanCredit: 'LOAN_CREDIT'
+    LoanCredit: 'LOAN_CREDIT',
+    NetworkPay: 'NETWORK_PAY'
 };
 /**
  * @export

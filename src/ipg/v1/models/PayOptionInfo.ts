@@ -35,6 +35,7 @@ export interface PayOptionInfo {
      *   * DIRECT_DEBIT_DEBIT_CARD - Payment method with direct debit of debit card<br>
      *   * ONLINE_CREDIT - Payment method with online Credit<br>
      *   * LOAN_CREDIT - Payment method with DANA Cicil<br>
+     *   * NETWORK_PAY - Payment method with e-wallet
      * 
      * @type {string}
      * @memberof PayOptionInfo
@@ -121,7 +122,8 @@ export const PayOptionInfoPayMethodEnum = {
     DirectDebitCreditCard: 'DIRECT_DEBIT_CREDIT_CARD',
     DirectDebitDebitCard: 'DIRECT_DEBIT_DEBIT_CARD',
     OnlineCredit: 'ONLINE_CREDIT',
-    LoanCredit: 'LOAN_CREDIT'
+    LoanCredit: 'LOAN_CREDIT',
+    NetworkPay: 'NETWORK_PAY'
 } as const;
 export type PayOptionInfoPayMethodEnum = typeof PayOptionInfoPayMethodEnum[keyof typeof PayOptionInfoPayMethodEnum];
 

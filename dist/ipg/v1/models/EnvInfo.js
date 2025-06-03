@@ -69,6 +69,7 @@ function EnvInfoFromJSONTyped(json, ignoreDiscriminator) {
         'terminalType': json['terminalType'],
         'orderTerminalType': json['orderTerminalType'] == null ? undefined : json['orderTerminalType'],
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
+        'clientKey': json['clientKey'] == null ? undefined : json['clientKey'],
     };
 }
 function EnvInfoToJSON(json) {
@@ -92,6 +93,7 @@ function EnvInfoToJSONTyped(value, ignoreDiscriminator = false) {
         'terminalType': value['terminalType'],
         'orderTerminalType': value['orderTerminalType'],
         'extendInfo': value['extendInfo'],
+        'clientKey': value['clientKey'],
     };
 }
 const propertyValidationAttributesMap = {
@@ -134,6 +136,9 @@ const propertyValidationAttributesMap = {
     extendInfo: {
         maxLength: 4096,
     },
+    clientKey: {
+        maxLength: 64,
+    },
 };
 function validateEnvInfo(value) {
     const validationErrorContexts = [];
@@ -153,5 +158,6 @@ function validateEnvInfo(value) {
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('terminalType', value.terminalType, propertyValidationAttributesMap['terminalType']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('orderTerminalType', value.orderTerminalType, propertyValidationAttributesMap['orderTerminalType']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('clientKey', value.clientKey, propertyValidationAttributesMap['clientKey']));
     return validationErrorContexts;
 }
