@@ -75,6 +75,18 @@ export interface OrderRedirectObject {
      */
     extendInfo?: string;
     /**
+     * Additional information of created time
+     * @type {string}
+     * @memberof OrderRedirectObject
+     */
+    createdTime?: string;
+    /**
+     * Additional information of order
+     * @type {string}
+     * @memberof OrderRedirectObject
+     */
+    orderMemo?: string;
+    /**
      * For Payment Gateway Drop-in scenario, need to fill it as REDIRECT
      * @type {string}
      * @memberof OrderRedirectObject
@@ -116,6 +128,8 @@ export function OrderRedirectObjectFromJSONTyped(json: any, ignoreDiscriminator:
         'goods': json['goods'] == null ? undefined : ((json['goods'] as Array<any>).map(GoodsFromJSON)),
         'shippingInfo': json['shippingInfo'] == null ? undefined : ((json['shippingInfo'] as Array<any>).map(ShippingInfoFromJSON)),
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
+        'createdTime': json['createdTime'] == null ? undefined : json['createdTime'],
+        'orderMemo': json['orderMemo'] == null ? undefined : json['orderMemo'],
         'scenario': json['scenario'] == null ? undefined : json['scenario'],
     };
 }
@@ -137,6 +151,8 @@ export function OrderRedirectObjectToJSONTyped(value?: OrderRedirectObject | nul
         'goods': value['goods'] == null ? undefined : ((value['goods'] as Array<any>).map(GoodsToJSON)),
         'shippingInfo': value['shippingInfo'] == null ? undefined : ((value['shippingInfo'] as Array<any>).map(ShippingInfoToJSON)),
         'extendInfo': value['extendInfo'],
+        'createdTime': value['createdTime'],
+        'orderMemo': value['orderMemo'],
         'scenario': value['scenario'],
     };
 }

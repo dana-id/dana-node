@@ -75,6 +75,18 @@ export interface OrderApiObject {
      */
     extendInfo?: string;
     /**
+     * Additional information of created time
+     * @type {string}
+     * @memberof OrderApiObject
+     */
+    createdTime?: string;
+    /**
+     * Additional information of order
+     * @type {string}
+     * @memberof OrderApiObject
+     */
+    orderMemo?: string;
+    /**
      * For Payment Gateway scenario, need to fill it as API
      * @type {string}
      * @memberof OrderApiObject
@@ -116,6 +128,8 @@ export function OrderApiObjectFromJSONTyped(json: any, ignoreDiscriminator: bool
         'goods': json['goods'] == null ? undefined : ((json['goods'] as Array<any>).map(GoodsFromJSON)),
         'shippingInfo': json['shippingInfo'] == null ? undefined : ((json['shippingInfo'] as Array<any>).map(ShippingInfoFromJSON)),
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
+        'createdTime': json['createdTime'] == null ? undefined : json['createdTime'],
+        'orderMemo': json['orderMemo'] == null ? undefined : json['orderMemo'],
         'scenario': json['scenario'] == null ? undefined : json['scenario'],
     };
 }
@@ -137,6 +151,8 @@ export function OrderApiObjectToJSONTyped(value?: OrderApiObject | null, ignoreD
         'goods': value['goods'] == null ? undefined : ((value['goods'] as Array<any>).map(GoodsToJSON)),
         'shippingInfo': value['shippingInfo'] == null ? undefined : ((value['shippingInfo'] as Array<any>).map(ShippingInfoToJSON)),
         'extendInfo': value['extendInfo'],
+        'createdTime': value['createdTime'],
+        'orderMemo': value['orderMemo'],
         'scenario': value['scenario'],
     };
 }

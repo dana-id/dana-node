@@ -48,6 +48,18 @@ export interface OrderBase {
      * @memberof OrderBase
      */
     extendInfo?: string;
+    /**
+     * Additional information of created time
+     * @type {string}
+     * @memberof OrderBase
+     */
+    createdTime?: string;
+    /**
+     * Additional information of order
+     * @type {string}
+     * @memberof OrderBase
+     */
+    orderMemo?: string;
 }
 /**
  * Check if a given object implements the OrderBase interface.

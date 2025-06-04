@@ -2,6 +2,38 @@
 
 The official DANA Node SDK provides a simple and convenient way to call DANA's REST API in applications written in Node.js.
 
+## ⚠️ **Run This First – Save Days of Debugging**
+
+Before writing any integration code, **run our automated test suite.** It takes **under 2 minutes** and shows you how the full flow works — **with your own credentials.**
+
+Here is the link: https://github.com/dana-id/uat-script.
+
+### Why This Matters
+
+- 🧪 Validates your setup instantly
+- 👀 **See exactly how each scenario flows**
+- 🧾 Gives us logs to help you faster
+- 🚫 Skipping this = guaranteed delays 
+
+
+### What It Does
+
+✅ Runs full scenario checks for DANA Sandbox
+
+✅ Installs and executes automatically
+
+✅ Shows real-time results in your terminal
+
+✅ Runs in a safe, simulation-only environment
+
+> Don’t fly blind. Run the test first. See the flow. Build with confidence.
+
+  
+  .  
+
+  .
+
+
 # Getting Started
 
 ## Installation

@@ -45,6 +45,8 @@ function OrderApiObjectFromJSONTyped(json, ignoreDiscriminator) {
         'goods': json['goods'] == null ? undefined : (json['goods'].map(Goods_1.GoodsFromJSON)),
         'shippingInfo': json['shippingInfo'] == null ? undefined : (json['shippingInfo'].map(ShippingInfo_1.ShippingInfoFromJSON)),
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
+        'createdTime': json['createdTime'] == null ? undefined : json['createdTime'],
+        'orderMemo': json['orderMemo'] == null ? undefined : json['orderMemo'],
         'scenario': json['scenario'] == null ? undefined : json['scenario'],
     };
 }
@@ -62,6 +64,8 @@ function OrderApiObjectToJSONTyped(value, ignoreDiscriminator = false) {
         'goods': value['goods'] == null ? undefined : (value['goods'].map(Goods_1.GoodsToJSON)),
         'shippingInfo': value['shippingInfo'] == null ? undefined : (value['shippingInfo'].map(ShippingInfo_1.ShippingInfoToJSON)),
         'extendInfo': value['extendInfo'],
+        'createdTime': value['createdTime'],
+        'orderMemo': value['orderMemo'],
         'scenario': value['scenario'],
     };
 }

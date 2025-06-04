@@ -49,6 +49,18 @@ export interface OrderApiObject {
      */
     extendInfo?: string;
     /**
+     * Additional information of created time
+     * @type {string}
+     * @memberof OrderApiObject
+     */
+    createdTime?: string;
+    /**
+     * Additional information of order
+     * @type {string}
+     * @memberof OrderApiObject
+     */
+    orderMemo?: string;
+    /**
      * For Payment Gateway scenario, need to fill it as API
      * @type {string}
      * @memberof OrderApiObject
