@@ -74,6 +74,18 @@ export interface OrderBase {
      * @memberof OrderBase
      */
     extendInfo?: string;
+    /**
+     * Additional information of created time
+     * @type {string}
+     * @memberof OrderBase
+     */
+    createdTime?: string;
+    /**
+     * Additional information of order
+     * @type {string}
+     * @memberof OrderBase
+     */
+    orderMemo?: string;
 }
 
 /**
@@ -100,6 +112,8 @@ export function OrderBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'goods': json['goods'] == null ? undefined : ((json['goods'] as Array<any>).map(GoodsFromJSON)),
         'shippingInfo': json['shippingInfo'] == null ? undefined : ((json['shippingInfo'] as Array<any>).map(ShippingInfoFromJSON)),
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
+        'createdTime': json['createdTime'] == null ? undefined : json['createdTime'],
+        'orderMemo': json['orderMemo'] == null ? undefined : json['orderMemo'],
     };
 }
 
@@ -120,6 +134,8 @@ export function OrderBaseToJSONTyped(value?: OrderBase | null, ignoreDiscriminat
         'goods': value['goods'] == null ? undefined : ((value['goods'] as Array<any>).map(GoodsToJSON)),
         'shippingInfo': value['shippingInfo'] == null ? undefined : ((value['shippingInfo'] as Array<any>).map(ShippingInfoToJSON)),
         'extendInfo': value['extendInfo'],
+        'createdTime': value['createdTime'],
+        'orderMemo': value['orderMemo'],
     };
 }
 

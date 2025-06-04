@@ -49,6 +49,18 @@ export interface OrderRedirectObject {
      */
     extendInfo?: string;
     /**
+     * Additional information of created time
+     * @type {string}
+     * @memberof OrderRedirectObject
+     */
+    createdTime?: string;
+    /**
+     * Additional information of order
+     * @type {string}
+     * @memberof OrderRedirectObject
+     */
+    orderMemo?: string;
+    /**
      * For Payment Gateway Drop-in scenario, need to fill it as REDIRECT
      * @type {string}
      * @memberof OrderRedirectObject
