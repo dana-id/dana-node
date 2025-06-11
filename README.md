@@ -1,4 +1,4 @@
-## dana-node-api-client
+## dana-node
 
 The official DANA Node SDK provides a simple and convenient way to call DANA's REST API in applications written in Node.js.
 
@@ -45,7 +45,7 @@ Here is the link: https://github.com/dana-id/uat-script.
 ### Install with npm
 
 ```bash
-npm install dana-node-api-client@latest --save
+npm install dana-node@latest --save
 ```
 
 TypeScript support is included in this package.
@@ -55,7 +55,7 @@ TypeScript support is included in this package.
 The SDK must be instantiated using your private key. Please check the [DANA API Docs](https://dashboard.dana.id/api-docs/read/45) for a guide on generating one.
 
 ```javascript
-import { Dana } from "dana-node-api-client";
+import { Dana } from "dana-node";
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
