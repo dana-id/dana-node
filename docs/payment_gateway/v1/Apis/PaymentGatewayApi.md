@@ -1,7 +1,7 @@
 # PaymentGatewayApi
 
 You can use the APIs below to interface with DANA's `PaymentGatewayApi` API.
-To start using the API, you need to destruct instantiated DANA client or directly import the module.
+To start using the API, you need to destruct instantiated DANA client. This client would be a singleton object that you can use across various api and operation.
 
 ```typescript
 import { Dana, PaymentGatewayApi as PaymentGatewayApiClient } from 'dana-node';
@@ -10,19 +10,9 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.ENV or "sandbox" or "production"
 });
 const { PaymentGatewayApi } = danaClient;
-
-const danaPaymentGatewayApiClient = new PaymentGatewayApiClient({
-    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
-    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
-    origin: "YOUR_ORIGIN", // process.env.ORIGIN
-});
-
-// At this point, `PaymentGatewayApi` and `danaPaymentGatewayApiClient` will have no usage difference, for example:
-// PaymentGatewayApi.
-// or
-// danaPaymentGatewayApiClient.
 ```
 
 All URIs are relative to *https://api.saas.dana.id*, except if the operation defines another base path.
@@ -54,6 +44,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.ENV or "sandbox" or "production"
 });
 const { PaymentGatewayApi } = danaClient;
 
@@ -81,6 +72,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.ENV or "sandbox" or "production"
 });
 const { PaymentGatewayApi } = danaClient;
 
@@ -108,6 +100,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.ENV or "sandbox" or "production"
 });
 const { PaymentGatewayApi } = danaClient;
 
@@ -135,6 +128,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.ENV or "sandbox" or "production"
 });
 const { PaymentGatewayApi } = danaClient;
 
@@ -162,6 +156,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.ENV or "sandbox" or "production"
 });
 const { PaymentGatewayApi } = danaClient;
 
@@ -188,7 +183,7 @@ const response: RefundOrderResponse = await PaymentGatewayApi.refundOrder(reques
 | Value | Description |
 |-------|-------------|
 | `USER` | User |
-| `MERCHANT` | Merchant<br |
+| `MERCHANT` | Merchant |
 | `MERCHANT_OPERATOR` | Merchant operator |
 | `BACK_OFFICE` | Back office |
 | `SYSTEM` | System |

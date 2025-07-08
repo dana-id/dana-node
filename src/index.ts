@@ -7,8 +7,11 @@ export * from './runtime';
 import { PaymentGatewayApi } from './payment_gateway/v1';
 export { PaymentGatewayApi } from './payment_gateway/v1';
 
-import { IPGApi } from './ipg/v1';
-export { IPGApi } from './ipg/v1';
+import { WidgetApi } from './widget/v1';
+export { WidgetApi } from './widget/v1';
+
+import { DisbursementApi } from './disbursement/v1';
+export { DisbursementApi } from './disbursement/v1';
 
 export interface DanaOpts {
     partnerId?: string;
@@ -20,7 +23,8 @@ export interface DanaOpts {
 export class Dana {
     opts: DanaOpts;
     paymentGatewayApi: PaymentGatewayApi;
-    ipgApi: IPGApi;
+    widgetApi: WidgetApi;
+    disbursementApi: DisbursementApi;
 
     constructor({ partnerId, privateKey, origin, env }: DanaOpts = {}) {
         partnerId = partnerId ? partnerId : process.env.X_PARTNER_ID;
@@ -49,7 +53,9 @@ export class Dana {
 
         this.paymentGatewayApi = new PaymentGatewayApi(this.opts);
 
-        this.ipgApi = new IPGApi(this.opts);
+        this.widgetApi = new WidgetApi(this.opts);
+
+        this.disbursementApi = new DisbursementApi(this.opts);
     }
 }
 
