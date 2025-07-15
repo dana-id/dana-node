@@ -43,7 +43,7 @@ export interface ApplyOTTRequest {
 export const ApplyOTTRequestUserResourcesEnum = {
     Ott: 'OTT'
 } as const;
-export type ApplyOTTRequestUserResourcesEnum = typeof ApplyOTTRequestUserResourcesEnum[keyof typeof ApplyOTTRequestUserResourcesEnum];
+export type ApplyOTTRequestUserResourcesEnum = typeof ApplyOTTRequestUserResourcesEnum[keyof typeof ApplyOTTRequestUserResourcesEnum] | '';
 
 
 /**

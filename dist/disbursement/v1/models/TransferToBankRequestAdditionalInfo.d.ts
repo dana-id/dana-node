@@ -64,7 +64,7 @@ export declare const TransferToBankRequestAdditionalInfoChargeTargetEnum: {
     readonly Division: "DIVISION";
     readonly Merchant: "MERCHANT";
 };
-export type TransferToBankRequestAdditionalInfoChargeTargetEnum = typeof TransferToBankRequestAdditionalInfoChargeTargetEnum[keyof typeof TransferToBankRequestAdditionalInfoChargeTargetEnum];
+export type TransferToBankRequestAdditionalInfoChargeTargetEnum = typeof TransferToBankRequestAdditionalInfoChargeTargetEnum[keyof typeof TransferToBankRequestAdditionalInfoChargeTargetEnum] | '';
 /**
  * Check if a given object implements the TransferToBankRequestAdditionalInfo interface.
  */

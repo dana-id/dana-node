@@ -14,8 +14,12 @@ const danaClient = new Dana({
 });
 const { DisbursementApi } = danaClient;
 ```
+## Additional Documentation
+* [Enum Types](#enum-types) - List of available enum constants
+* [Webhook Parser](#webhookparser) - Webhook handling
 
-All URIs are relative to *https://api.saas.dana.id*, except if the operation defines another base path.
+
+All URIs are relative to *https://api.saas.dana.id*, except if the operation defines another base path (for sandbox it is http://api.sandbox.dana.id).
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
@@ -226,17 +230,26 @@ const response: TransferToDanaInquiryStatusResponse = await DisbursementApi.tran
 ```
 
 # Enum Types
-## actorType
+# Enum Types
+
+Example Usage:
+```node
+import { EnvInfoSourcePlatformEnum } from 'dana-node/dist/disbursement/v1';
+
+const ipg = EnvInfoSourcePlatformEnum.Ipg;
+```
+
+## ActorTypeEnum (actorType)
 | Value | Description |
 |-------|-------------|
-| `USER` | User |
-| `MERCHANT` | Merchant<br |
-| `MERCHANT_OPERATOR` | Merchant operator |
-| `BACK_OFFICE` | Back office |
-| `SYSTEM` | System |
+| `User` | User |
+| `Merchant` | Merchant<br |
+| `MerchantOperator` | Merchant operator |
+| `BackOffice` | Back office |
+| `System` | System |
 
 
-## latestTransactionStatus
+## LatestTransactionStatusEnum (latestTransactionStatus)
 | Value | Description |
 |-------|-------------|
 | `00` |  |
@@ -249,58 +262,58 @@ const response: TransferToDanaInquiryStatusResponse = await DisbursementApi.tran
 | `07` |  |
 
 
-## orderTerminalType
+## OrderTerminalTypeEnum (orderTerminalType)
 | Value | Description |
 |-------|-------------|
-| `APP` | Mobile Application |
-| `WEB` | Browser Web |
-| `WAP` | Mobile Wap |
-| `SYSTEM` | System Call |
+| `App` | Mobile Application |
+| `Web` | Browser Web |
+| `Wap` | Mobile Wap |
+| `System` | System Call |
 
 
-## payMethod
+## PayMethodEnum (payMethod)
 | Value | Description |
 |-------|-------------|
-| `BALANCE` | Payment method with balance |
-| `COUPON` | Payment method with coupon |
-| `NET_BANKING` | Payment method with internet banking |
-| `CREDIT_CARD` | Payment method with credit card |
-| `DEBIT_CARD` | Payment method with debit card |
-| `VIRTUAL_ACCOUNT` | Payment method with virtual account |
-| `OTC` | Payment method with OTC |
-| `DIRECT_DEBIT_CREDIT_CARD` | Payment method with direct debit of credit card |
-| `DIRECT_DEBIT_DEBIT_CARD` | Payment method with direct debit of debit card |
-| `ONLINE_CREDIT` | Payment method with online Credit |
-| `LOAN_CREDIT` | Payment method with DANA Cicil |
-| `NETWORK_PAY` | Payment method with e-wallet |
+| `Balance` | Payment method with balance |
+| `Coupon` | Payment method with coupon |
+| `NetBanking` | Payment method with internet banking |
+| `CreditCard` | Payment method with credit card |
+| `DebitCard` | Payment method with debit card |
+| `VirtualAccount` | Payment method with virtual account |
+| `Otc` | Payment method with OTC |
+| `DirectDebitCreditCard` | Payment method with direct debit of credit card |
+| `DirectDebitDebitCard` | Payment method with direct debit of debit card |
+| `OnlineCredit` | Payment method with online Credit |
+| `LoanCredit` | Payment method with DANA Cicil |
+| `NetworkPay` | Payment method with e-wallet |
 
 
-## payOption
+## PayOptionEnum (payOption)
 | Value | Description |
 |-------|-------------|
-| `NETWORK_PAY_PG_SPAY` | Payment method with ShopeePay e-wallet |
-| `NETWORK_PAY_PG_OVO` | Payment method with OVO e-wallet |
-| `NETWORK_PAY_PG_GOPAY` | Payment method with GoPay e-wallet |
-| `NETWORK_PAY_PG_LINKAJA` | Payment method with LinkAja e-wallet |
-| `NETWORK_PAY_PG_CARD` | Payment method with Card |
-| `VIRTUAL_ACCOUNT_BCA` | Payment method with BCA virtual account |
-| `VIRTUAL_ACCOUNT_BNI` | Payment method with BNI virtual account |
-| `VIRTUAL_ACCOUNT_MANDIRI` | Payment method with Mandiri virtual account |
-| `VIRTUAL_ACCOUNT_BRI` | Payment method with BRI virtual account |
-| `VIRTUAL_ACCOUNT_BTPN` | Payment method with BTPN virtual account |
-| `VIRTUAL_ACCOUNT_CIMB` | Payment method with CIMB virtual account |
-| `VIRTUAL_ACCOUNT_PERMATA` | Payment method with Permata virtual account |
+| `NetworkPayPgSpay` | Payment method with ShopeePay e-wallet |
+| `NetworkPayPgOvo` | Payment method with OVO e-wallet |
+| `NetworkPayPgGopay` | Payment method with GoPay e-wallet |
+| `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
+| `NetworkPayPgCard` | Payment method with Card |
+| `VirtualAccountBca` | Payment method with BCA virtual account |
+| `VirtualAccountBni` | Payment method with BNI virtual account |
+| `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
+| `VirtualAccountBri` | Payment method with BRI virtual account |
+| `VirtualAccountBtpn` | Payment method with BTPN virtual account |
+| `VirtualAccountCimb` | Payment method with CIMB virtual account |
+| `VirtualAccountPermata` | Payment method with Permata virtual account |
 
 
-## resourceType
+## ResourceTypeEnum (resourceType)
 | Value | Description |
 |-------|-------------|
-| `MERCHANT_DEPOSIT_BALANCE` |  |
-| `MERCHANT_AVAILABLE_BALANCE` |  |
-| `MERCHANT_TOTAL_BALANCE` |  |
+| `MerchantDepositBalance` |  |
+| `MerchantAvailableBalance` |  |
+| `MerchantTotalBalance` |  |
 
 
-## resultStatus
+## ResultStatusEnum (resultStatus)
 | Value | Description |
 |-------|-------------|
 | `S` |  |
@@ -308,26 +321,26 @@ const response: TransferToDanaInquiryStatusResponse = await DisbursementApi.tran
 | `U` |  |
 
 
-## sourcePlatform
+## SourcePlatformEnum (sourcePlatform)
 | Value | Description |
 |-------|-------------|
-| `IPG` |  |
+| `Ipg` |  |
 
 
-## terminalType
+## TerminalTypeEnum (terminalType)
 | Value | Description |
 |-------|-------------|
-| `APP` | Mobile Application |
-| `WEB` | Browser Web |
-| `WAP` | Mobile Wap |
-| `SYSTEM` | System Call |
+| `App` | Mobile Application |
+| `Web` | Browser Web |
+| `Wap` | Mobile Wap |
+| `System` | System Call |
 
 
-## type
+## TypeEnum (type)
 | Value | Description |
 |-------|-------------|
-| `PAY_RETURN` | When finish payment, DANA will notify to the URL that has been defined by |
-| `NOTIFICATION` | After the payment, the user will be redirected to merchant page, this is mandatory |
+| `PayReturn` | When finish payment, DANA will notify to the URL that has been defined by |
+| `Notification` | After the payment, the user will be redirected to merchant page, this is mandatory |
 
 
 
@@ -339,7 +352,7 @@ This document explains how to use the `WebhookParser` utility from the `` SDK to
 ## Example
 
 ```typescript
-import { WebhookParser } from '/webhook/webhook'; // Adjust import path as needed
+import { WebhookParser } from 'dana-node/dist/webhook'; // Adjust import path as needed
 // Assuming you are in an Express.js route handler or similar framework context.
 // If using Express, you might import types like this:
 // import { Request, Response } from 'express';
@@ -455,5 +468,5 @@ The following webhook notification models may be received:
 
 Model | Description
 ------------- | -------------
-[**FinishNotifyRequest**](PaymentGateway/FinishNotifyRequest.md) | Represents the standard notification payload for payment events.
+[**FinishNotifyRequest**](../../../webhook/v1/FinishNotifyRequest.md) | Represents the standard notification payload for payment events.
 

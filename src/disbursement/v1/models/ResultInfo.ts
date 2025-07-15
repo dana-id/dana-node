@@ -48,7 +48,7 @@ export const ResultInfoResultStatusEnum = {
     F: 'F',
     U: 'U'
 } as const;
-export type ResultInfoResultStatusEnum = typeof ResultInfoResultStatusEnum[keyof typeof ResultInfoResultStatusEnum];
+export type ResultInfoResultStatusEnum = typeof ResultInfoResultStatusEnum[keyof typeof ResultInfoResultStatusEnum] | '';
 
 
 /**

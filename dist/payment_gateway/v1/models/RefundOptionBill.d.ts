@@ -54,7 +54,7 @@ export declare const RefundOptionBillPayMethodEnum: {
     readonly OnlineCredit: "ONLINE_CREDIT";
     readonly LoanCredit: "LOAN_CREDIT";
 };
-export type RefundOptionBillPayMethodEnum = typeof RefundOptionBillPayMethodEnum[keyof typeof RefundOptionBillPayMethodEnum];
+export type RefundOptionBillPayMethodEnum = typeof RefundOptionBillPayMethodEnum[keyof typeof RefundOptionBillPayMethodEnum] | '';
 /**
  * Check if a given object implements the RefundOptionBill interface.
  */

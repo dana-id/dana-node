@@ -68,7 +68,7 @@ export const RefundOptionBillPayMethodEnum = {
     OnlineCredit: 'ONLINE_CREDIT',
     LoanCredit: 'LOAN_CREDIT'
 } as const;
-export type RefundOptionBillPayMethodEnum = typeof RefundOptionBillPayMethodEnum[keyof typeof RefundOptionBillPayMethodEnum];
+export type RefundOptionBillPayMethodEnum = typeof RefundOptionBillPayMethodEnum[keyof typeof RefundOptionBillPayMethodEnum] | '';
 
 
 /**

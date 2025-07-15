@@ -101,7 +101,7 @@ export interface OrderRedirectObject {
 export const OrderRedirectObjectScenarioEnum = {
     Redirect: 'REDIRECT'
 } as const;
-export type OrderRedirectObjectScenarioEnum = typeof OrderRedirectObjectScenarioEnum[keyof typeof OrderRedirectObjectScenarioEnum];
+export type OrderRedirectObjectScenarioEnum = typeof OrderRedirectObjectScenarioEnum[keyof typeof OrderRedirectObjectScenarioEnum] | '';
 
 
 /**

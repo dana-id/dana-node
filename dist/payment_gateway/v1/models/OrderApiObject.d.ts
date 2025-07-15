@@ -73,7 +73,7 @@ export interface OrderApiObject {
 export declare const OrderApiObjectScenarioEnum: {
     readonly Api: "API";
 };
-export type OrderApiObjectScenarioEnum = typeof OrderApiObjectScenarioEnum[keyof typeof OrderApiObjectScenarioEnum];
+export type OrderApiObjectScenarioEnum = typeof OrderApiObjectScenarioEnum[keyof typeof OrderApiObjectScenarioEnum] | '';
 /**
  * Check if a given object implements the OrderApiObject interface.
  */

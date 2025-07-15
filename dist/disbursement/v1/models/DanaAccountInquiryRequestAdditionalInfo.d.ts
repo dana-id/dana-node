@@ -62,7 +62,7 @@ export declare const DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum: {
     readonly Division: "DIVISION";
     readonly Merchant: "MERCHANT";
 };
-export type DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum = typeof DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum[keyof typeof DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum];
+export type DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum = typeof DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum[keyof typeof DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum] | '';
 /**
  * Check if a given object implements the DanaAccountInquiryRequestAdditionalInfo interface.
  */

@@ -76,7 +76,7 @@ export const BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = {
     Division: 'DIVISION',
     Merchant: 'MERCHANT'
 } as const;
-export type BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum[keyof typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum];
+export type BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum[keyof typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum] | '';
 
 
 /**

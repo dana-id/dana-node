@@ -35,7 +35,7 @@ export declare const ServiceInfoServiceTypeEnum: {
     readonly Parking: "PARKING";
     readonly Investment: "INVESTMENT";
 };
-export type ServiceInfoServiceTypeEnum = typeof ServiceInfoServiceTypeEnum[keyof typeof ServiceInfoServiceTypeEnum];
+export type ServiceInfoServiceTypeEnum = typeof ServiceInfoServiceTypeEnum[keyof typeof ServiceInfoServiceTypeEnum] | '';
 /**
  * @export
  */
@@ -44,7 +44,7 @@ export declare const ServiceInfoServiceScenarioEnum: {
     readonly ExitAndPay: "EXIT_AND_PAY";
     readonly EmasPurchase: "EMAS_PURCHASE";
 };
-export type ServiceInfoServiceScenarioEnum = typeof ServiceInfoServiceScenarioEnum[keyof typeof ServiceInfoServiceScenarioEnum];
+export type ServiceInfoServiceScenarioEnum = typeof ServiceInfoServiceScenarioEnum[keyof typeof ServiceInfoServiceScenarioEnum] | '';
 /**
  * Check if a given object implements the ServiceInfo interface.
  */

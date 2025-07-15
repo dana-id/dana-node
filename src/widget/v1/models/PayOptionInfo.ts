@@ -125,7 +125,7 @@ export const PayOptionInfoPayMethodEnum = {
     LoanCredit: 'LOAN_CREDIT',
     NetworkPay: 'NETWORK_PAY'
 } as const;
-export type PayOptionInfoPayMethodEnum = typeof PayOptionInfoPayMethodEnum[keyof typeof PayOptionInfoPayMethodEnum];
+export type PayOptionInfoPayMethodEnum = typeof PayOptionInfoPayMethodEnum[keyof typeof PayOptionInfoPayMethodEnum] | '';
 
 /**
  * @export
@@ -144,7 +144,7 @@ export const PayOptionInfoPayOptionEnum = {
     VirtualAccountCimb: 'VIRTUAL_ACCOUNT_CIMB',
     VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA'
 } as const;
-export type PayOptionInfoPayOptionEnum = typeof PayOptionInfoPayOptionEnum[keyof typeof PayOptionInfoPayOptionEnum];
+export type PayOptionInfoPayOptionEnum = typeof PayOptionInfoPayOptionEnum[keyof typeof PayOptionInfoPayOptionEnum] | '';
 
 
 /**

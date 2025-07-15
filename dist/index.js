@@ -14,20 +14,14 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Dana = exports.DisbursementApi = exports.WidgetApi = exports.PaymentGatewayApi = void 0;
+exports.Dana = void 0;
 /* tslint:disable */
 /* eslint-disable */
 require("dotenv/config");
 __exportStar(require("./runtime"), exports);
 const v1_1 = require("./payment_gateway/v1");
-var v1_2 = require("./payment_gateway/v1");
-Object.defineProperty(exports, "PaymentGatewayApi", { enumerable: true, get: function () { return v1_2.PaymentGatewayApi; } });
-const v1_3 = require("./widget/v1");
-var v1_4 = require("./widget/v1");
-Object.defineProperty(exports, "WidgetApi", { enumerable: true, get: function () { return v1_4.WidgetApi; } });
-const v1_5 = require("./disbursement/v1");
-var v1_6 = require("./disbursement/v1");
-Object.defineProperty(exports, "DisbursementApi", { enumerable: true, get: function () { return v1_6.DisbursementApi; } });
+const v1_2 = require("./widget/v1");
+const v1_3 = require("./disbursement/v1");
 class Dana {
     constructor({ partnerId, privateKey, origin, env } = {}) {
         partnerId = partnerId ? partnerId : process.env.X_PARTNER_ID;
@@ -50,8 +44,8 @@ class Dana {
             env
         };
         this.paymentGatewayApi = new v1_1.PaymentGatewayApi(this.opts);
-        this.widgetApi = new v1_3.WidgetApi(this.opts);
-        this.disbursementApi = new v1_5.DisbursementApi(this.opts);
+        this.widgetApi = new v1_2.WidgetApi(this.opts);
+        this.disbursementApi = new v1_3.DisbursementApi(this.opts);
     }
 }
 exports.Dana = Dana;

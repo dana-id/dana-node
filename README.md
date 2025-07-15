@@ -83,6 +83,7 @@ const danaClient = new Dana({
 Find detailed API information and examples for each of our products by clicking the links below:
 * [PaymentGatewayApi](docs/payment_gateway/v1/Apis/PaymentGatewayApi.md)
 * [WidgetApi](docs/widget/v1/Apis/WidgetApi.md)
+* [DisbursementApi](docs/disbursement/v1/Apis/DisbursementApi.md)
 
 ## Further Reading
 

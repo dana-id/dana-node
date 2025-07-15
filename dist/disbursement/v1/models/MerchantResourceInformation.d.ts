@@ -30,7 +30,7 @@ export declare const MerchantResourceInformationResourceTypeEnum: {
     readonly MerchantAvailableBalance: "MERCHANT_AVAILABLE_BALANCE";
     readonly MerchantTotalBalance: "MERCHANT_TOTAL_BALANCE";
 };
-export type MerchantResourceInformationResourceTypeEnum = typeof MerchantResourceInformationResourceTypeEnum[keyof typeof MerchantResourceInformationResourceTypeEnum];
+export type MerchantResourceInformationResourceTypeEnum = typeof MerchantResourceInformationResourceTypeEnum[keyof typeof MerchantResourceInformationResourceTypeEnum] | '';
 /**
  * Check if a given object implements the MerchantResourceInformation interface.
  */

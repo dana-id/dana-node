@@ -35,7 +35,7 @@ export declare const QueryMerchantResourceRequestRequestBodyMerchantResourceInfo
     readonly MerchantAvailableBalance: "MERCHANT_AVAILABLE_BALANCE";
     readonly MerchantTotalBalance: "MERCHANT_TOTAL_BALANCE";
 };
-export type QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum = typeof QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum[keyof typeof QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum];
+export type QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum = typeof QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum[keyof typeof QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum] | '';
 /**
  * Check if a given object implements the QueryMerchantResourceRequestRequestBody interface.
  */

@@ -72,7 +72,7 @@ export declare const ConsultPayPaymentInfoPayMethodEnum: {
     readonly LoanCredit: "LOAN_CREDIT";
     readonly NetworkPay: "NETWORK_PAY";
 };
-export type ConsultPayPaymentInfoPayMethodEnum = typeof ConsultPayPaymentInfoPayMethodEnum[keyof typeof ConsultPayPaymentInfoPayMethodEnum];
+export type ConsultPayPaymentInfoPayMethodEnum = typeof ConsultPayPaymentInfoPayMethodEnum[keyof typeof ConsultPayPaymentInfoPayMethodEnum] | '';
 /**
  * @export
  */
@@ -90,7 +90,7 @@ export declare const ConsultPayPaymentInfoPayOptionEnum: {
     readonly VirtualAccountCimb: "VIRTUAL_ACCOUNT_CIMB";
     readonly VirtualAccountPermata: "VIRTUAL_ACCOUNT_PERMATA";
 };
-export type ConsultPayPaymentInfoPayOptionEnum = typeof ConsultPayPaymentInfoPayOptionEnum[keyof typeof ConsultPayPaymentInfoPayOptionEnum];
+export type ConsultPayPaymentInfoPayOptionEnum = typeof ConsultPayPaymentInfoPayOptionEnum[keyof typeof ConsultPayPaymentInfoPayOptionEnum] | '';
 /**
  * Check if a given object implements the ConsultPayPaymentInfo interface.
  */

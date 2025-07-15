@@ -73,7 +73,7 @@ export declare const TransferToDanaRequestAdditionalInfoChargeTargetEnum: {
     readonly Division: "DIVISION";
     readonly Merchant: "MERCHANT";
 };
-export type TransferToDanaRequestAdditionalInfoChargeTargetEnum = typeof TransferToDanaRequestAdditionalInfoChargeTargetEnum[keyof typeof TransferToDanaRequestAdditionalInfoChargeTargetEnum];
+export type TransferToDanaRequestAdditionalInfoChargeTargetEnum = typeof TransferToDanaRequestAdditionalInfoChargeTargetEnum[keyof typeof TransferToDanaRequestAdditionalInfoChargeTargetEnum] | '';
 /**
  * Check if a given object implements the TransferToDanaRequestAdditionalInfo interface.
  */

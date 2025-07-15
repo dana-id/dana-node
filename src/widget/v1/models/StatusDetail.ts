@@ -45,7 +45,7 @@ export const StatusDetailAcquirementStatusEnum = {
     MerchantAccept: 'MERCHANT_ACCEPT',
     Cancelled: 'CANCELLED'
 } as const;
-export type StatusDetailAcquirementStatusEnum = typeof StatusDetailAcquirementStatusEnum[keyof typeof StatusDetailAcquirementStatusEnum];
+export type StatusDetailAcquirementStatusEnum = typeof StatusDetailAcquirementStatusEnum[keyof typeof StatusDetailAcquirementStatusEnum] | '';
 
 
 /**

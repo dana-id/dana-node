@@ -6,7 +6,7 @@
  */
 
 
-import { createHash, createSign } from 'node:crypto';
+import { createHash, createSign, constants as cryptoConstants } from 'node:crypto';
 import { format } from 'date-fns-tz';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -655,6 +655,39 @@ export class DanaSignatureUtil {
         const stringToSign: string = `${partnerId}|${timestamp}`;
 
         return this.generateAsymmetricSignature(stringToSign, privateKey);
+    }
+    
+    /**
+     * Generates the seamlessSign for Oauth Url
+     * @param seamlessData The data object to be signed
+     * @param privateKey The private key for signing
+     * @returns URL-encoded signature string
+     */
+    static generateSeamlessSign(seamlessData: object, privateKey: string): string {
+        if (!seamlessData) {
+            return '';
+        }
+        
+        if (!privateKey) {
+            throw new RequiredError('generateSeamlessSign', 'Private key is required');
+        }
+        
+        try {
+            const seamlessDataStr = JSON.stringify(seamlessData);
+            
+            const signer = createSign('RSA-SHA256');
+            signer.update(seamlessDataStr);
+            const signature = signer.sign({
+                key: this.convertToPEM(privateKey, 'PRIVATE'),
+                padding: cryptoConstants.RSA_PKCS1_PADDING,
+            });
+            
+            const base64Signature = signature.toString('base64');
+            
+            return encodeURIComponent(base64Signature);
+        } catch (error) {
+            throw new Error(`Failed to calculate seamlessSign: ${error.message}`);
+        }
     }
 
     /**

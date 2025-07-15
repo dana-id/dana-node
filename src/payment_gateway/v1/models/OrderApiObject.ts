@@ -101,7 +101,7 @@ export interface OrderApiObject {
 export const OrderApiObjectScenarioEnum = {
     Api: 'API'
 } as const;
-export type OrderApiObjectScenarioEnum = typeof OrderApiObjectScenarioEnum[keyof typeof OrderApiObjectScenarioEnum];
+export type OrderApiObjectScenarioEnum = typeof OrderApiObjectScenarioEnum[keyof typeof OrderApiObjectScenarioEnum] | '';
 
 
 /**

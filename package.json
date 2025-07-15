@@ -1,6 +1,6 @@
 {
   "name": "dana-node",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "author": "dana-id",
   "repository": {
     "type": "git",
@@ -8,6 +8,42 @@
   },
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./payment_gateway/v1": {
+      "import": "./dist/payment_gateway/v1/index.js",
+      "require": "./dist/payment_gateway/v1/index.js",
+      "types": "./dist/payment_gateway/v1/index.d.ts"
+    },
+    "./widget/v1": {
+      "import": "./dist/widget/v1/index.js",
+      "require": "./dist/widget/v1/index.js",
+      "types": "./dist/widget/v1/index.d.ts"
+    },
+    "./disbursement/v1": {
+      "import": "./dist/disbursement/v1/index.js",
+      "require": "./dist/disbursement/v1/index.js",
+      "types": "./dist/disbursement/v1/index.d.ts"
+    },
+    "./runtime": {
+      "import": "./dist/runtime.js",
+      "require": "./dist/runtime.js",
+      "types": "./dist/runtime.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "payment_gateway/v1": ["./dist/payment_gateway/v1/index.d.ts"],
+      "widget/v1": ["./dist/widget/v1/index.d.ts"],
+      "disbursement/v1": ["./dist/disbursement/v1/index.d.ts"],
+      "runtime": ["./dist/runtime.d.ts"],
+      "index": ["./dist/index.d.ts"]
+    }
+  },
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",

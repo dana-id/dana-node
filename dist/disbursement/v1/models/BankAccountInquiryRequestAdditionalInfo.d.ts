@@ -70,7 +70,7 @@ export declare const BankAccountInquiryRequestAdditionalInfoChargeTargetEnum: {
     readonly Division: "DIVISION";
     readonly Merchant: "MERCHANT";
 };
-export type BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum[keyof typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum];
+export type BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum[keyof typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum] | '';
 /**
  * Check if a given object implements the BankAccountInquiryRequestAdditionalInfo interface.
  */

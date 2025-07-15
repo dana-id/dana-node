@@ -23,6 +23,8 @@ export * from './Goods';
 export * from './InternationalOrderInfo';
 export * from './InternationalOrderInfoExchangeRate';
 export * from './Money';
+export * from './Oauth2UrlData';
+export * from './Oauth2UrlDataSeamlessData';
 export * from './Order';
 export * from './PayOptionDetail';
 export * from './PayOptionDetailAdditionalInfo';

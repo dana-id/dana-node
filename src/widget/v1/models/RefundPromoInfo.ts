@@ -58,7 +58,7 @@ export const RefundPromoInfoPromoTypeEnum = {
     Voucher: 'VOUCHER',
     Point: 'POINT'
 } as const;
-export type RefundPromoInfoPromoTypeEnum = typeof RefundPromoInfoPromoTypeEnum[keyof typeof RefundPromoInfoPromoTypeEnum];
+export type RefundPromoInfoPromoTypeEnum = typeof RefundPromoInfoPromoTypeEnum[keyof typeof RefundPromoInfoPromoTypeEnum] | '';
 
 
 /**

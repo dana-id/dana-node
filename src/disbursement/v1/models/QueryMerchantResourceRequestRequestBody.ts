@@ -41,7 +41,7 @@ export const QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum
     MerchantAvailableBalance: 'MERCHANT_AVAILABLE_BALANCE',
     MerchantTotalBalance: 'MERCHANT_TOTAL_BALANCE'
 } as const;
-export type QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum = typeof QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum[keyof typeof QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum];
+export type QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum = typeof QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum[keyof typeof QueryMerchantResourceRequestRequestBodyMerchantResourceInfoListEnum] | '';
 
 
 /**

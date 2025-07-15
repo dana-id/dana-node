@@ -110,7 +110,7 @@ export const TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum = {
     _06: '06',
     _07: '07'
 } as const;
-export type TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum = typeof TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum[keyof typeof TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum];
+export type TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum = typeof TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum[keyof typeof TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum] | '';
 
 
 /**

@@ -29,7 +29,7 @@ export interface ApplyOTTRequest {
 export declare const ApplyOTTRequestUserResourcesEnum: {
     readonly Ott: "OTT";
 };
-export type ApplyOTTRequestUserResourcesEnum = typeof ApplyOTTRequestUserResourcesEnum[keyof typeof ApplyOTTRequestUserResourcesEnum];
+export type ApplyOTTRequestUserResourcesEnum = typeof ApplyOTTRequestUserResourcesEnum[keyof typeof ApplyOTTRequestUserResourcesEnum] | '';
 /**
  * Check if a given object implements the ApplyOTTRequest interface.
  */

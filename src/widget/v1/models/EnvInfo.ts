@@ -116,7 +116,7 @@ export interface EnvInfo {
 export const EnvInfoSourcePlatformEnum = {
     Ipg: 'IPG'
 } as const;
-export type EnvInfoSourcePlatformEnum = typeof EnvInfoSourcePlatformEnum[keyof typeof EnvInfoSourcePlatformEnum];
+export type EnvInfoSourcePlatformEnum = typeof EnvInfoSourcePlatformEnum[keyof typeof EnvInfoSourcePlatformEnum] | '';
 
 /**
  * @export
@@ -127,7 +127,7 @@ export const EnvInfoTerminalTypeEnum = {
     Wap: 'WAP',
     System: 'SYSTEM'
 } as const;
-export type EnvInfoTerminalTypeEnum = typeof EnvInfoTerminalTypeEnum[keyof typeof EnvInfoTerminalTypeEnum];
+export type EnvInfoTerminalTypeEnum = typeof EnvInfoTerminalTypeEnum[keyof typeof EnvInfoTerminalTypeEnum] | '';
 
 /**
  * @export
@@ -138,7 +138,7 @@ export const EnvInfoOrderTerminalTypeEnum = {
     Wap: 'WAP',
     System: 'SYSTEM'
 } as const;
-export type EnvInfoOrderTerminalTypeEnum = typeof EnvInfoOrderTerminalTypeEnum[keyof typeof EnvInfoOrderTerminalTypeEnum];
+export type EnvInfoOrderTerminalTypeEnum = typeof EnvInfoOrderTerminalTypeEnum[keyof typeof EnvInfoOrderTerminalTypeEnum] | '';
 
 
 /**

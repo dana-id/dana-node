@@ -267,6 +267,13 @@ export declare class DanaSignatureUtil {
      */
     static generateSnapApplyTokenScenarioSignature(partnerId: string, privateKey: string, timestamp: string): string;
     /**
+     * Generates the seamlessSign for Oauth Url
+     * @param seamlessData The data object to be signed
+     * @param privateKey The private key for signing
+     * @returns URL-encoded signature string
+     */
+    static generateSeamlessSign(seamlessData: object, privateKey: string): string;
+    /**
      * Generates an asymmetric signature.
      * @param stringToSign - The string to sign.
      * @param privateKey - The private key used for generating the signature.

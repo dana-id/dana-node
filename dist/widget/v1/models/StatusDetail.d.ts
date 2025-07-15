@@ -39,7 +39,7 @@ export declare const StatusDetailAcquirementStatusEnum: {
     readonly MerchantAccept: "MERCHANT_ACCEPT";
     readonly Cancelled: "CANCELLED";
 };
-export type StatusDetailAcquirementStatusEnum = typeof StatusDetailAcquirementStatusEnum[keyof typeof StatusDetailAcquirementStatusEnum];
+export type StatusDetailAcquirementStatusEnum = typeof StatusDetailAcquirementStatusEnum[keyof typeof StatusDetailAcquirementStatusEnum] | '';
 /**
  * Check if a given object implements the StatusDetail interface.
  */

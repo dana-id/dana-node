@@ -68,7 +68,7 @@ export const DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum = {
     Division: 'DIVISION',
     Merchant: 'MERCHANT'
 } as const;
-export type DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum = typeof DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum[keyof typeof DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum];
+export type DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum = typeof DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum[keyof typeof DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum] | '';
 
 
 /**

@@ -38,7 +38,7 @@ export declare const UrlParamTypeEnum: {
     readonly PayReturn: "PAY_RETURN";
     readonly Notification: "NOTIFICATION";
 };
-export type UrlParamTypeEnum = typeof UrlParamTypeEnum[keyof typeof UrlParamTypeEnum];
+export type UrlParamTypeEnum = typeof UrlParamTypeEnum[keyof typeof UrlParamTypeEnum] | '';
 /**
  * Check if a given object implements the UrlParam interface.
  */

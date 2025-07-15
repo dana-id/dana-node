@@ -36,7 +36,7 @@ export const MerchantResourceInformationResourceTypeEnum = {
     MerchantAvailableBalance: 'MERCHANT_AVAILABLE_BALANCE',
     MerchantTotalBalance: 'MERCHANT_TOTAL_BALANCE'
 } as const;
-export type MerchantResourceInformationResourceTypeEnum = typeof MerchantResourceInformationResourceTypeEnum[keyof typeof MerchantResourceInformationResourceTypeEnum];
+export type MerchantResourceInformationResourceTypeEnum = typeof MerchantResourceInformationResourceTypeEnum[keyof typeof MerchantResourceInformationResourceTypeEnum] | '';
 
 
 /**

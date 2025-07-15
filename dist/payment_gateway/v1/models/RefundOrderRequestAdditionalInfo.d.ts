@@ -96,7 +96,7 @@ export declare const RefundOrderRequestAdditionalInfoActorTypeEnum: {
     readonly BackOffice: "BACK_OFFICE";
     readonly System: "SYSTEM";
 };
-export type RefundOrderRequestAdditionalInfoActorTypeEnum = typeof RefundOrderRequestAdditionalInfoActorTypeEnum[keyof typeof RefundOrderRequestAdditionalInfoActorTypeEnum];
+export type RefundOrderRequestAdditionalInfoActorTypeEnum = typeof RefundOrderRequestAdditionalInfoActorTypeEnum[keyof typeof RefundOrderRequestAdditionalInfoActorTypeEnum] | '';
 /**
  * Check if a given object implements the RefundOrderRequestAdditionalInfo interface.
  */

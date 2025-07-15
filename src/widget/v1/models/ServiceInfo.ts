@@ -41,7 +41,7 @@ export const ServiceInfoServiceTypeEnum = {
     Parking: 'PARKING',
     Investment: 'INVESTMENT'
 } as const;
-export type ServiceInfoServiceTypeEnum = typeof ServiceInfoServiceTypeEnum[keyof typeof ServiceInfoServiceTypeEnum];
+export type ServiceInfoServiceTypeEnum = typeof ServiceInfoServiceTypeEnum[keyof typeof ServiceInfoServiceTypeEnum] | '';
 
 /**
  * @export
@@ -51,7 +51,7 @@ export const ServiceInfoServiceScenarioEnum = {
     ExitAndPay: 'EXIT_AND_PAY',
     EmasPurchase: 'EMAS_PURCHASE'
 } as const;
-export type ServiceInfoServiceScenarioEnum = typeof ServiceInfoServiceScenarioEnum[keyof typeof ServiceInfoServiceScenarioEnum];
+export type ServiceInfoServiceScenarioEnum = typeof ServiceInfoServiceScenarioEnum[keyof typeof ServiceInfoServiceScenarioEnum] | '';
 
 
 /**

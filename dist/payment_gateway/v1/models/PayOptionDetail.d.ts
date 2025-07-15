@@ -98,7 +98,7 @@ export declare const PayOptionDetailPayMethodEnum: {
     readonly LoanCredit: "LOAN_CREDIT";
     readonly NetworkPay: "NETWORK_PAY";
 };
-export type PayOptionDetailPayMethodEnum = typeof PayOptionDetailPayMethodEnum[keyof typeof PayOptionDetailPayMethodEnum];
+export type PayOptionDetailPayMethodEnum = typeof PayOptionDetailPayMethodEnum[keyof typeof PayOptionDetailPayMethodEnum] | '';
 /**
  * @export
  */
@@ -117,7 +117,7 @@ export declare const PayOptionDetailPayOptionEnum: {
     readonly VirtualAccountCimb: "VIRTUAL_ACCOUNT_CIMB";
     readonly VirtualAccountPermata: "VIRTUAL_ACCOUNT_PERMATA";
 };
-export type PayOptionDetailPayOptionEnum = typeof PayOptionDetailPayOptionEnum[keyof typeof PayOptionDetailPayOptionEnum];
+export type PayOptionDetailPayOptionEnum = typeof PayOptionDetailPayOptionEnum[keyof typeof PayOptionDetailPayOptionEnum] | '';
 /**
  * Check if a given object implements the PayOptionDetail interface.
  */

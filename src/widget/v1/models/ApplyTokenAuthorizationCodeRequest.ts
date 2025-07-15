@@ -46,7 +46,7 @@ export interface ApplyTokenAuthorizationCodeRequest {
 export const ApplyTokenAuthorizationCodeRequestGrantTypeEnum = {
     AuthorizationCode: 'AUTHORIZATION_CODE'
 } as const;
-export type ApplyTokenAuthorizationCodeRequestGrantTypeEnum = typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum[keyof typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum];
+export type ApplyTokenAuthorizationCodeRequestGrantTypeEnum = typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum[keyof typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum] | '';
 
 
 /**

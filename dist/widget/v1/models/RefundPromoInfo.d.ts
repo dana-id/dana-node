@@ -44,7 +44,7 @@ export declare const RefundPromoInfoPromoTypeEnum: {
     readonly Voucher: "VOUCHER";
     readonly Point: "POINT";
 };
-export type RefundPromoInfoPromoTypeEnum = typeof RefundPromoInfoPromoTypeEnum[keyof typeof RefundPromoInfoPromoTypeEnum];
+export type RefundPromoInfoPromoTypeEnum = typeof RefundPromoInfoPromoTypeEnum[keyof typeof RefundPromoInfoPromoTypeEnum] | '';
 /**
  * Check if a given object implements the RefundPromoInfo interface.
  */

@@ -39,6 +39,8 @@ __exportStar(require("./Goods"), exports);
 __exportStar(require("./InternationalOrderInfo"), exports);
 __exportStar(require("./InternationalOrderInfoExchangeRate"), exports);
 __exportStar(require("./Money"), exports);
+__exportStar(require("./Oauth2UrlData"), exports);
+__exportStar(require("./Oauth2UrlDataSeamlessData"), exports);
 __exportStar(require("./Order"), exports);
 __exportStar(require("./PayOptionDetail"), exports);
 __exportStar(require("./PayOptionDetailAdditionalInfo"), exports);

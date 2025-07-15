@@ -44,7 +44,7 @@ export const UrlParamTypeEnum = {
     PayReturn: 'PAY_RETURN',
     Notification: 'NOTIFICATION'
 } as const;
-export type UrlParamTypeEnum = typeof UrlParamTypeEnum[keyof typeof UrlParamTypeEnum];
+export type UrlParamTypeEnum = typeof UrlParamTypeEnum[keyof typeof UrlParamTypeEnum] | '';
 
 
 /**

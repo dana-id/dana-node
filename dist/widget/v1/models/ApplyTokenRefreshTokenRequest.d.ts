@@ -42,7 +42,7 @@ export interface ApplyTokenRefreshTokenRequest {
 export declare const ApplyTokenRefreshTokenRequestGrantTypeEnum: {
     readonly RefreshToken: "REFRESH_TOKEN";
 };
-export type ApplyTokenRefreshTokenRequestGrantTypeEnum = typeof ApplyTokenRefreshTokenRequestGrantTypeEnum[keyof typeof ApplyTokenRefreshTokenRequestGrantTypeEnum];
+export type ApplyTokenRefreshTokenRequestGrantTypeEnum = typeof ApplyTokenRefreshTokenRequestGrantTypeEnum[keyof typeof ApplyTokenRefreshTokenRequestGrantTypeEnum] | '';
 /**
  * Check if a given object implements the ApplyTokenRefreshTokenRequest interface.
  */

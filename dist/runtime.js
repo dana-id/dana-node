@@ -513,6 +513,34 @@ class DanaSignatureUtil {
         return this.generateAsymmetricSignature(stringToSign, privateKey);
     }
     /**
+     * Generates the seamlessSign for Oauth Url
+     * @param seamlessData The data object to be signed
+     * @param privateKey The private key for signing
+     * @returns URL-encoded signature string
+     */
+    static generateSeamlessSign(seamlessData, privateKey) {
+        if (!seamlessData) {
+            return '';
+        }
+        if (!privateKey) {
+            throw new RequiredError('generateSeamlessSign', 'Private key is required');
+        }
+        try {
+            const seamlessDataStr = JSON.stringify(seamlessData);
+            const signer = (0, node_crypto_1.createSign)('RSA-SHA256');
+            signer.update(seamlessDataStr);
+            const signature = signer.sign({
+                key: this.convertToPEM(privateKey, 'PRIVATE'),
+                padding: node_crypto_1.constants.RSA_PKCS1_PADDING,
+            });
+            const base64Signature = signature.toString('base64');
+            return encodeURIComponent(base64Signature);
+        }
+        catch (error) {
+            throw new Error(`Failed to calculate seamlessSign: ${error.message}`);
+        }
+    }
+    /**
      * Generates an asymmetric signature.
      * @param stringToSign - The string to sign.
      * @param privateKey - The private key used for generating the signature.

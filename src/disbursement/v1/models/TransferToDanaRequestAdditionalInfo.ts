@@ -79,7 +79,7 @@ export const TransferToDanaRequestAdditionalInfoChargeTargetEnum = {
     Division: 'DIVISION',
     Merchant: 'MERCHANT'
 } as const;
-export type TransferToDanaRequestAdditionalInfoChargeTargetEnum = typeof TransferToDanaRequestAdditionalInfoChargeTargetEnum[keyof typeof TransferToDanaRequestAdditionalInfoChargeTargetEnum];
+export type TransferToDanaRequestAdditionalInfoChargeTargetEnum = typeof TransferToDanaRequestAdditionalInfoChargeTargetEnum[keyof typeof TransferToDanaRequestAdditionalInfoChargeTargetEnum] | '';
 
 
 /**

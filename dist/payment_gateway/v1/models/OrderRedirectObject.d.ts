@@ -73,7 +73,7 @@ export interface OrderRedirectObject {
 export declare const OrderRedirectObjectScenarioEnum: {
     readonly Redirect: "REDIRECT";
 };
-export type OrderRedirectObjectScenarioEnum = typeof OrderRedirectObjectScenarioEnum[keyof typeof OrderRedirectObjectScenarioEnum];
+export type OrderRedirectObjectScenarioEnum = typeof OrderRedirectObjectScenarioEnum[keyof typeof OrderRedirectObjectScenarioEnum] | '';
 /**
  * Check if a given object implements the OrderRedirectObject interface.
  */

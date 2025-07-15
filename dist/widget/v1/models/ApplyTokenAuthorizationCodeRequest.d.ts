@@ -42,7 +42,7 @@ export interface ApplyTokenAuthorizationCodeRequest {
 export declare const ApplyTokenAuthorizationCodeRequestGrantTypeEnum: {
     readonly AuthorizationCode: "AUTHORIZATION_CODE";
 };
-export type ApplyTokenAuthorizationCodeRequestGrantTypeEnum = typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum[keyof typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum];
+export type ApplyTokenAuthorizationCodeRequestGrantTypeEnum = typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum[keyof typeof ApplyTokenAuthorizationCodeRequestGrantTypeEnum] | '';
 /**
  * Check if a given object implements the ApplyTokenAuthorizationCodeRequest interface.
  */

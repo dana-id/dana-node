@@ -38,7 +38,7 @@ export declare const ActorContextActorTypeEnum: {
     readonly BackOffice: "BACK_OFFICE";
     readonly System: "SYSTEM";
 };
-export type ActorContextActorTypeEnum = typeof ActorContextActorTypeEnum[keyof typeof ActorContextActorTypeEnum];
+export type ActorContextActorTypeEnum = typeof ActorContextActorTypeEnum[keyof typeof ActorContextActorTypeEnum] | '';
 /**
  * Check if a given object implements the ActorContext interface.
  */

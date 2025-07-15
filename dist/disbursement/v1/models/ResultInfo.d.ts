@@ -42,7 +42,7 @@ export declare const ResultInfoResultStatusEnum: {
     readonly F: "F";
     readonly U: "U";
 };
-export type ResultInfoResultStatusEnum = typeof ResultInfoResultStatusEnum[keyof typeof ResultInfoResultStatusEnum];
+export type ResultInfoResultStatusEnum = typeof ResultInfoResultStatusEnum[keyof typeof ResultInfoResultStatusEnum] | '';
 /**
  * Check if a given object implements the ResultInfo interface.
  */

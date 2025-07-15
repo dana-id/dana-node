@@ -131,7 +131,7 @@ export const RefundOrderRequestAdditionalInfoActorTypeEnum = {
     BackOffice: 'BACK_OFFICE',
     System: 'SYSTEM'
 } as const;
-export type RefundOrderRequestAdditionalInfoActorTypeEnum = typeof RefundOrderRequestAdditionalInfoActorTypeEnum[keyof typeof RefundOrderRequestAdditionalInfoActorTypeEnum];
+export type RefundOrderRequestAdditionalInfoActorTypeEnum = typeof RefundOrderRequestAdditionalInfoActorTypeEnum[keyof typeof RefundOrderRequestAdditionalInfoActorTypeEnum] | '';
 
 
 /**

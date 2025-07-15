@@ -46,7 +46,7 @@ export interface ApplyTokenRefreshTokenRequest {
 export const ApplyTokenRefreshTokenRequestGrantTypeEnum = {
     RefreshToken: 'REFRESH_TOKEN'
 } as const;
-export type ApplyTokenRefreshTokenRequestGrantTypeEnum = typeof ApplyTokenRefreshTokenRequestGrantTypeEnum[keyof typeof ApplyTokenRefreshTokenRequestGrantTypeEnum];
+export type ApplyTokenRefreshTokenRequestGrantTypeEnum = typeof ApplyTokenRefreshTokenRequestGrantTypeEnum[keyof typeof ApplyTokenRefreshTokenRequestGrantTypeEnum] | '';
 
 
 /**

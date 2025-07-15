@@ -52,7 +52,7 @@ export interface QueryMerchantResourceResponseResponseHead {
 export const QueryMerchantResourceResponseResponseHeadFunctionEnum = {
     DanaMerchantQueryMerchantResource: 'dana.merchant.queryMerchantResource'
 } as const;
-export type QueryMerchantResourceResponseResponseHeadFunctionEnum = typeof QueryMerchantResourceResponseResponseHeadFunctionEnum[keyof typeof QueryMerchantResourceResponseResponseHeadFunctionEnum];
+export type QueryMerchantResourceResponseResponseHeadFunctionEnum = typeof QueryMerchantResourceResponseResponseHeadFunctionEnum[keyof typeof QueryMerchantResourceResponseResponseHeadFunctionEnum] | '';
 
 
 /**

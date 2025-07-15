@@ -96,7 +96,7 @@ export declare const TransferToDanaInquiryStatusResponseLatestTransactionStatusE
     readonly _06: "06";
     readonly _07: "07";
 };
-export type TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum = typeof TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum[keyof typeof TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum];
+export type TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum = typeof TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum[keyof typeof TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum] | '';
 /**
  * Check if a given object implements the TransferToDanaInquiryStatusResponse interface.
  */

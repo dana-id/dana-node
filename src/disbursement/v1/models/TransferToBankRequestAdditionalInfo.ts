@@ -70,7 +70,7 @@ export const TransferToBankRequestAdditionalInfoChargeTargetEnum = {
     Division: 'DIVISION',
     Merchant: 'MERCHANT'
 } as const;
-export type TransferToBankRequestAdditionalInfoChargeTargetEnum = typeof TransferToBankRequestAdditionalInfoChargeTargetEnum[keyof typeof TransferToBankRequestAdditionalInfoChargeTargetEnum];
+export type TransferToBankRequestAdditionalInfoChargeTargetEnum = typeof TransferToBankRequestAdditionalInfoChargeTargetEnum[keyof typeof TransferToBankRequestAdditionalInfoChargeTargetEnum] | '';
 
 
 /**

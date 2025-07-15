@@ -58,7 +58,7 @@ export const PaymentPromoInfoPromoTypeEnum = {
     Voucher: 'VOUCHER',
     Point: 'POINT'
 } as const;
-export type PaymentPromoInfoPromoTypeEnum = typeof PaymentPromoInfoPromoTypeEnum[keyof typeof PaymentPromoInfoPromoTypeEnum];
+export type PaymentPromoInfoPromoTypeEnum = typeof PaymentPromoInfoPromoTypeEnum[keyof typeof PaymentPromoInfoPromoTypeEnum] | '';
 
 
 /**

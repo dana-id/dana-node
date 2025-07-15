@@ -44,7 +44,7 @@ export const ActorContextActorTypeEnum = {
     BackOffice: 'BACK_OFFICE',
     System: 'SYSTEM'
 } as const;
-export type ActorContextActorTypeEnum = typeof ActorContextActorTypeEnum[keyof typeof ActorContextActorTypeEnum];
+export type ActorContextActorTypeEnum = typeof ActorContextActorTypeEnum[keyof typeof ActorContextActorTypeEnum] | '';
 
 
 /**

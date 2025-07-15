@@ -46,7 +46,7 @@ export interface QueryMerchantResourceResponseResponseHead {
 export declare const QueryMerchantResourceResponseResponseHeadFunctionEnum: {
     readonly DanaMerchantQueryMerchantResource: "dana.merchant.queryMerchantResource";
 };
-export type QueryMerchantResourceResponseResponseHeadFunctionEnum = typeof QueryMerchantResourceResponseResponseHeadFunctionEnum[keyof typeof QueryMerchantResourceResponseResponseHeadFunctionEnum];
+export type QueryMerchantResourceResponseResponseHeadFunctionEnum = typeof QueryMerchantResourceResponseResponseHeadFunctionEnum[keyof typeof QueryMerchantResourceResponseResponseHeadFunctionEnum] | '';
 /**
  * Check if a given object implements the QueryMerchantResourceResponseResponseHead interface.
  */

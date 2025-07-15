@@ -110,7 +110,7 @@ export interface EnvInfo {
 export declare const EnvInfoSourcePlatformEnum: {
     readonly Ipg: "IPG";
 };
-export type EnvInfoSourcePlatformEnum = typeof EnvInfoSourcePlatformEnum[keyof typeof EnvInfoSourcePlatformEnum];
+export type EnvInfoSourcePlatformEnum = typeof EnvInfoSourcePlatformEnum[keyof typeof EnvInfoSourcePlatformEnum] | '';
 /**
  * @export
  */
@@ -120,7 +120,7 @@ export declare const EnvInfoTerminalTypeEnum: {
     readonly Wap: "WAP";
     readonly System: "SYSTEM";
 };
-export type EnvInfoTerminalTypeEnum = typeof EnvInfoTerminalTypeEnum[keyof typeof EnvInfoTerminalTypeEnum];
+export type EnvInfoTerminalTypeEnum = typeof EnvInfoTerminalTypeEnum[keyof typeof EnvInfoTerminalTypeEnum] | '';
 /**
  * @export
  */
@@ -130,7 +130,7 @@ export declare const EnvInfoOrderTerminalTypeEnum: {
     readonly Wap: "WAP";
     readonly System: "SYSTEM";
 };
-export type EnvInfoOrderTerminalTypeEnum = typeof EnvInfoOrderTerminalTypeEnum[keyof typeof EnvInfoOrderTerminalTypeEnum];
+export type EnvInfoOrderTerminalTypeEnum = typeof EnvInfoOrderTerminalTypeEnum[keyof typeof EnvInfoOrderTerminalTypeEnum] | '';
 /**
  * Check if a given object implements the EnvInfo interface.
  */

@@ -96,7 +96,7 @@ export declare const TransferToBankInquiryStatusResponseLatestTransactionStatusE
     readonly _06: "06";
     readonly _07: "07";
 };
-export type TransferToBankInquiryStatusResponseLatestTransactionStatusEnum = typeof TransferToBankInquiryStatusResponseLatestTransactionStatusEnum[keyof typeof TransferToBankInquiryStatusResponseLatestTransactionStatusEnum];
+export type TransferToBankInquiryStatusResponseLatestTransactionStatusEnum = typeof TransferToBankInquiryStatusResponseLatestTransactionStatusEnum[keyof typeof TransferToBankInquiryStatusResponseLatestTransactionStatusEnum] | '';
 /**
  * Check if a given object implements the TransferToBankInquiryStatusResponse interface.
  */
