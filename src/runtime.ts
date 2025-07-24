@@ -573,6 +573,22 @@ export class DanaHeaderUtil {
         headerParameters['CHANNEL-ID'] = partnerId + '-SERVER';
     }
 
+    static populateOpenApiScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: Record<string,any>, privateKey: string, clientSecret: string, partnerId: string, functionName: string): void {
+        const timestamp: string = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
+        
+        requestBody['request']['head'] = {
+            'version': "2.0",
+            'function': functionName,
+            'clientId': partnerId,
+            'clientSecret': clientSecret,
+            'reqTime': timestamp,
+            'reqMsgId': uuidv4(),
+            'reserve': {}
+        }
+        const signature = DanaSignatureUtil.generateOpenApiScenarioSignature(privateKey, JSON.stringify(requestBody["request"]));
+        requestBody['signature'] = signature;
+    }
+
     /**
      * Populates the HTTP headers required for the Snap Apply Token scenario.
      * @param headerParameters - The HTTP headers object to populate.
@@ -657,6 +673,10 @@ export class DanaSignatureUtil {
         return this.generateAsymmetricSignature(stringToSign, privateKey);
     }
     
+    static generateOpenApiScenarioSignature(privateKey: string, requestBody: string) {
+        return this.generateAsymmetricSignature(requestBody, privateKey)
+    }
+
     /**
      * Generates the seamlessSign for Oauth Url
      * @param seamlessData The data object to be signed

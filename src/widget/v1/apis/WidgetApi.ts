@@ -13,10 +13,14 @@ import type {
   ApplyOTTResponse,
   ApplyTokenRequest,
   ApplyTokenResponse,
+  BalanceInquiryRequest,
+  BalanceInquiryResponse,
   CancelOrderRequest,
   CancelOrderResponse,
   QueryPaymentRequest,
   QueryPaymentResponse,
+  QueryUserProfileRequest,
+  QueryUserProfileResponse,
   RefundOrderRequest,
   RefundOrderResponse,
   WidgetPaymentRequest,
@@ -41,6 +45,12 @@ import {
     validateApplyTokenResponse,
     ApplyTokenResponseFromJSON,
     ApplyTokenResponseToJSON,
+    validateBalanceInquiryRequest,
+    BalanceInquiryRequestFromJSON,
+    BalanceInquiryRequestToJSON,
+    validateBalanceInquiryResponse,
+    BalanceInquiryResponseFromJSON,
+    BalanceInquiryResponseToJSON,
     validateCancelOrderRequest,
     CancelOrderRequestFromJSON,
     CancelOrderRequestToJSON,
@@ -53,6 +63,12 @@ import {
     validateQueryPaymentResponse,
     QueryPaymentResponseFromJSON,
     QueryPaymentResponseToJSON,
+    validateQueryUserProfileRequest,
+    QueryUserProfileRequestFromJSON,
+    QueryUserProfileRequestToJSON,
+    validateQueryUserProfileResponse,
+    QueryUserProfileResponseFromJSON,
+    QueryUserProfileResponseToJSON,
     validateRefundOrderRequest,
     RefundOrderRequestFromJSON,
     RefundOrderRequestToJSON,
@@ -76,8 +92,9 @@ export class WidgetApi extends runtime.BaseAPI {
     privateKey: string = "";
     origin: string = "";
     env: string = "";
+    clientSecret: string = "";
 
-    constructor({ partnerId, privateKey, origin, env }: { partnerId?: string, privateKey?: string, origin?: string, env?: string }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret }: { partnerId?: string, privateKey?: string, origin?: string, env?: string, clientSecret?: string }) {
         const basePath = runtime.getBasePathByEnv(env);
 
         const configuration = new runtime.Configuration({
@@ -90,6 +107,7 @@ export class WidgetApi extends runtime.BaseAPI {
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
+        this.clientSecret = clientSecret;
     }
 
     /**
@@ -126,6 +144,7 @@ export class WidgetApi extends runtime.BaseAPI {
         const longitude = accountUnbindingRequest.additionalInfo.longitude;
 
         runtime.DanaHeaderUtil.populateSnapAccountB2B2CScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, accessToken, endUserIpAddress, deviceId, latitude, longitude);
+
 
         const response = await this.request({
             path: endpointUrl,
@@ -173,6 +192,7 @@ export class WidgetApi extends runtime.BaseAPI {
 
         runtime.DanaHeaderUtil.populateSnapAccountB2B2CScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, accessToken, endUserIpAddress, deviceId, latitude, longitude);
 
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -211,6 +231,7 @@ export class WidgetApi extends runtime.BaseAPI {
 
         runtime.DanaHeaderUtil.populateSnapApplyTokenScenarioHeader(headerParameters, this.privateKey, this.partnerId);
 
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -220,6 +241,47 @@ export class WidgetApi extends runtime.BaseAPI {
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApplyTokenResponseFromJSON(jsonValue)).value();
+    }
+
+    /**
+     * This API is used to query user\'s DANA account balance via merchant
+     * Balance Inquiry
+     */
+    async balanceInquiry(balanceInquiryRequest: BalanceInquiryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BalanceInquiryResponse> {
+        if (balanceInquiryRequest == null) {
+            throw new runtime.RequiredError(
+                'balanceInquiryRequest',
+                'Required parameter "balanceInquiryRequest" was null or undefined when calling balanceInquiry().'
+            );
+        }
+
+        const validationErrorContexts: runtime.ValidationErrorContext[] = validateBalanceInquiryRequest(balanceInquiryRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const endpointUrl: string = `/v1.0/balance-inquiry.htm`;
+
+        const requestBody: string = JSON.stringify(BalanceInquiryRequestToJSON(balanceInquiryRequest));
+
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
+
+        const response = await this.request({
+            path: endpointUrl,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BalanceInquiryRequestToJSON(balanceInquiryRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BalanceInquiryResponseFromJSON(jsonValue)).value();
     }
 
     /**
@@ -250,6 +312,7 @@ export class WidgetApi extends runtime.BaseAPI {
         const requestBody: string = JSON.stringify(CancelOrderRequestToJSON(cancelOrderRequest));
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
 
         const response = await this.request({
             path: endpointUrl,
@@ -291,6 +354,7 @@ export class WidgetApi extends runtime.BaseAPI {
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
 
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -300,6 +364,51 @@ export class WidgetApi extends runtime.BaseAPI {
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QueryPaymentResponseFromJSON(jsonValue)).value();
+    }
+
+    /**
+     * The API is used to query user profile such as DANA balance (unit in IDR), masked DANA phone number, KYC or OTT (one time token) between merchant server and DANA\'s server
+     * Query User Profile
+     */
+    async queryUserProfile(queryUserProfileRequest: QueryUserProfileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryUserProfileResponse> {
+        if (queryUserProfileRequest == null) {
+            throw new runtime.RequiredError(
+                'queryUserProfileRequest',
+                'Required parameter "queryUserProfileRequest" was null or undefined when calling queryUserProfile().'
+            );
+        }
+
+        const validationErrorContexts: runtime.ValidationErrorContext[] = validateQueryUserProfileRequest(queryUserProfileRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const endpointUrl: string = `/dana/member/query/queryUserProfile.htm`;
+
+
+        const requestBody = {
+            "request":{"head":{}, "body":queryUserProfileRequest},
+            "signature":""
+        }
+        
+        const functionName = "dana.member.query.queryUserProfile"
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        const response = await this.request({
+            path: endpointUrl,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestBody,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => QueryUserProfileResponseFromJSON(jsonValue)).value();
     }
 
     /**
@@ -330,6 +439,7 @@ export class WidgetApi extends runtime.BaseAPI {
         const requestBody: string = JSON.stringify(RefundOrderRequestToJSON(refundOrderRequest));
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
 
         const response = await this.request({
             path: endpointUrl,
@@ -370,6 +480,7 @@ export class WidgetApi extends runtime.BaseAPI {
         const requestBody: string = JSON.stringify(WidgetPaymentRequestToJSON(widgetPaymentRequest));
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
 
         const response = await this.request({
             path: endpointUrl,

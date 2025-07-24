@@ -27,8 +27,10 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 | [**accountUnbinding**](WidgetApi.md#accountUnbinding) | **POST** /v1.0/registration-account-unbinding.htm | This API is used to reverses the account binding process by revoking the accessToken and refreshToken |
 | [**applyOTT**](WidgetApi.md#applyOTT) | **POST** /rest/v1.1/qr/apply-ott | This API is used to get one time token that will be used as authorization parameter upon redirecting to DANA |
 | [**applyToken**](WidgetApi.md#applyToken) | **POST** /v1.0/access-token/b2b2c.htm | This API is used to finalized account binding process by exchanging the authCode into accessToken that can be used as user authorization |
+| [**balanceInquiry**](WidgetApi.md#balanceInquiry) | **POST** /v1.0/balance-inquiry.htm | This API is used to query user&#39;s DANA account balance via merchant |
 | [**cancelOrder**](WidgetApi.md#cancelOrder) | **POST** /v1.0/debit/cancel.htm | This API is used to cancel the order from merchant&#39;s platform to DANA |
 | [**queryPayment**](WidgetApi.md#queryPayment) | **POST** /rest/v1.1/debit/status | This API is used to inquiry payment status and information from merchant&#39;s platform to DANA |
+| [**queryUserProfile**](WidgetApi.md#queryUserProfile) | **POST** /dana/member/query/queryUserProfile.htm | The API is used to query user profile such as DANA balance (unit in IDR), masked DANA phone number, KYC or OTT (one time token) between merchant server and DANA&#39;s server |
 | [**refundOrder**](WidgetApi.md#refundOrder) | **POST** /v1.0/debit/refund.htm | This API is used to refund the order from merchant&#39;s platform to DANA |
 | [**widgetPayment**](WidgetApi.md#widgetPayment) | **POST** /rest/redirection/v1.0/debit/payment-host-to-host | This API is used to initiate payment from merchant&#39;s platform to DANA |
 
@@ -117,6 +119,34 @@ const request: ApplyTokenRequest = {
 
 const response: ApplyTokenResponse = await WidgetApi.applyToken(request);
 ```
+<a name="balanceInquiry"></a>
+## `balanceInquiry()` Function
+
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `balanceInquiry` |
+| Request Parameters | [**BalanceInquiryRequest**](../Models/BalanceInquiryRequest.md) |
+| Return Type | [**BalanceInquiryResponse**](../Models/BalanceInquiryResponse.md) |
+
+### Usage Example
+```typescript
+import { Dana } from 'dana-node';
+
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+});
+const { WidgetApi } = danaClient;
+
+const request: BalanceInquiryRequest = {
+    // Define the request parameters for the API call here
+};
+
+const response: BalanceInquiryResponse = await WidgetApi.balanceInquiry(request);
+```
 <a name="cancelOrder"></a>
 ## `cancelOrder()` Function
 
@@ -172,6 +202,34 @@ const request: QueryPaymentRequest = {
 };
 
 const response: QueryPaymentResponse = await WidgetApi.queryPayment(request);
+```
+<a name="queryUserProfile"></a>
+## `queryUserProfile()` Function
+
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `queryUserProfile` |
+| Request Parameters | [**QueryUserProfileRequest**](../Models/QueryUserProfileRequest.md) |
+| Return Type | [**QueryUserProfileResponse**](../Models/QueryUserProfileResponse.md) |
+
+### Usage Example
+```typescript
+import { Dana } from 'dana-node';
+
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+});
+const { WidgetApi } = danaClient;
+
+const request: QueryUserProfileRequest = {
+    // Define the request parameters for the API call here
+};
+
+const response: QueryUserProfileResponse = await WidgetApi.queryUserProfile(request);
 ```
 <a name="refundOrder"></a>
 ## `refundOrder()` Function
@@ -319,6 +377,25 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `Point` |  |
 
 
+## ResourceTypeEnum (resourceType)
+| Value | Description |
+|-------|-------------|
+| `Balance` |  |
+| `TransactionUrl` |  |
+| `MaskDanaId` |  |
+| `TopupUrl` |  |
+| `Ott` |  |
+| `UserKyc` |  |
+
+
+## ResultStatusEnum (resultStatus)
+| Value | Description |
+|-------|-------------|
+| `S` |  |
+| `F` |  |
+| `U` |  |
+
+
 ## ServiceScenarioEnum (serviceScenario)
 | Value | Description |
 |-------|-------------|
@@ -365,7 +442,7 @@ This document explains how to use the `WebhookParser` utility from the `` SDK to
 ## Example
 
 ```typescript
-import { WebhookParser } from 'dana-node/dist/webhook'; // Adjust import path as needed
+import { WebhookParser } from 'dana-node/webhook'; // Adjust import path as needed
 // Assuming you are in an Express.js route handler or similar framework context.
 // If using Express, you might import types like this:
 // import { Request, Response } from 'express';
@@ -375,9 +452,9 @@ import { WebhookParser } from 'dana-node/dist/webhook'; // Adjust import path as
 async function handleDanaWebhook(req: AnyRequestType, res: AnyResponseType) {
     // Retrieve the DANA public key from environment variables or a secure configuration.
     // Option 1: Public key as a string
-    const danaPublicKeyString: string | undefined = process.env.DANA_WEBHOOK_PUBLIC_KEY_STRING;
+    const danaPublicKeyString: string | undefined = process.env.DANA_PUBLIC_KEY;
     // Option 2: Path to the public key file (recommended for production)
-    const danaPublicKeyPath: string | undefined = process.env.DANA_WEBHOOK_PUBLIC_KEY_PATH;
+    const danaPublicKeyPath: string | undefined = process.env.DANA_PUBLIC_KEY_PATH;
 
     if (!danaPublicKeyString && !danaPublicKeyPath) {
         console.error('DANA webhook public key not configured.');
@@ -489,7 +566,7 @@ Model | Description
 You can generate OAuth URLs for widget authorization using the WidgetUtils helper:
 
 ```typescript
-import { WidgetUtils } from 'dana-node';
+import { WidgetUtils } from 'dana-node/widget/v1';
 
 // Generate OAuth URL
 const oauth2UrlData = {

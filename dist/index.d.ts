@@ -3,17 +3,20 @@ export * from './runtime';
 import { PaymentGatewayApi } from './payment_gateway/v1';
 import { WidgetApi } from './widget/v1';
 import { DisbursementApi } from './disbursement/v1';
+import { MerchantManagementApi } from './merchant_management/v1';
 export interface DanaOpts {
     partnerId?: string;
     privateKey?: string;
     origin?: string;
     env?: string;
+    clientSecret?: string;
 }
 export declare class Dana {
     opts: DanaOpts;
     paymentGatewayApi: PaymentGatewayApi;
     widgetApi: WidgetApi;
     disbursementApi: DisbursementApi;
-    constructor({ partnerId, privateKey, origin, env }?: DanaOpts);
+    merchantManagementApi: MerchantManagementApi;
+    constructor({ partnerId, privateKey, origin, env, clientSecret }?: DanaOpts);
 }
 export default Dana;

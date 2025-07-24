@@ -3,7 +3,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../../../runtime';
-import type { BankAccountInquiryRequest, BankAccountInquiryResponse, DanaAccountInquiryRequest, DanaAccountInquiryResponse, QueryMerchantResourceRequest, QueryMerchantResourceResponse, TransferToBankInquiryStatusRequest, TransferToBankInquiryStatusResponse, TransferToBankRequest, TransferToBankResponse, TransferToDanaInquiryStatusRequest, TransferToDanaInquiryStatusResponse, TransferToDanaRequest, TransferToDanaResponse } from '../models/index';
+import type { BankAccountInquiryRequest, BankAccountInquiryResponse, DanaAccountInquiryRequest, DanaAccountInquiryResponse, TransferToBankInquiryStatusRequest, TransferToBankInquiryStatusResponse, TransferToBankRequest, TransferToBankResponse, TransferToDanaInquiryStatusRequest, TransferToDanaInquiryStatusResponse, TransferToDanaRequest, TransferToDanaResponse } from '../models/index';
 /**
  *
  */
@@ -12,11 +12,13 @@ export declare class DisbursementApi extends runtime.BaseAPI {
     privateKey: string;
     origin: string;
     env: string;
-    constructor({ partnerId, privateKey, origin, env }: {
+    clientSecret: string;
+    constructor({ partnerId, privateKey, origin, env, clientSecret }: {
         partnerId?: string;
         privateKey?: string;
         origin?: string;
         env?: string;
+        clientSecret?: string;
     });
     /**
      * This API is used for merchant to do inquiry Bank account info via DANA
@@ -28,11 +30,6 @@ export declare class DisbursementApi extends runtime.BaseAPI {
      * DANA Account Inquiry
      */
     danaAccountInquiry(danaAccountInquiryRequest: DanaAccountInquiryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DanaAccountInquiryResponse>;
-    /**
-     * The interface is check merchant resource info (account balance merchant)
-     * Member – Merchant Open API Check Disbursement Account
-     */
-    queryMerchantResource(queryMerchantResourceRequest: QueryMerchantResourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryMerchantResourceResponse>;
     /**
      * This API is used for merchant to do transfer to Bank request via DANA
      * Transfer to Bank

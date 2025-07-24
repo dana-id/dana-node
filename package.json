@@ -1,6 +1,6 @@
 {
   "name": "dana-node",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "author": "dana-id",
   "repository": {
     "type": "git",
@@ -47,7 +47,7 @@
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "test": "jest --coverage"
+    "test": "jest --coverage --runInBand"
   },
   "jest": {
     "preset": "ts-jest",

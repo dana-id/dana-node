@@ -13,7 +13,7 @@ const index_1 = require("../models/index");
  *
  */
 class PaymentGatewayApi extends runtime.BaseAPI {
-    constructor({ partnerId, privateKey, origin, env }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret }) {
         const basePath = runtime.getBasePathByEnv(env);
         const configuration = new runtime.Configuration({
             basePath: basePath,
@@ -23,10 +23,12 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         this.privateKey = "";
         this.origin = "";
         this.env = "";
+        this.clientSecret = "";
         this.partnerId = partnerId;
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
+        this.clientSecret = clientSecret;
     }
     /**
      * This API is used to cancel the order from merchant\'s platform to DANA

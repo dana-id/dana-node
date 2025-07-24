@@ -18,4 +18,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable */
 __exportStar(require("./apis/index"), exports);
 __exportStar(require("./models/index"), exports);
-__exportStar(require("./utils"), exports);
+__exportStar(require("./utils/index"), exports);

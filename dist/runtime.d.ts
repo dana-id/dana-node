@@ -223,6 +223,7 @@ export declare class DanaHeaderUtil {
      * @param partnerId - The partner ID.
      */
     static populateSnapB2BScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, origin: string, partnerId: string): void;
+    static populateOpenApiScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: Record<string, any>, privateKey: string, clientSecret: string, partnerId: string, functionName: string): void;
     /**
      * Populates the HTTP headers required for the Snap Apply Token scenario.
      * @param headerParameters - The HTTP headers object to populate.
@@ -266,6 +267,7 @@ export declare class DanaSignatureUtil {
      * @returns The Base64-encoded signature.
      */
     static generateSnapApplyTokenScenarioSignature(partnerId: string, privateKey: string, timestamp: string): string;
+    static generateOpenApiScenarioSignature(privateKey: string, requestBody: string): string;
     /**
      * Generates the seamlessSign for Oauth Url
      * @param seamlessData The data object to be signed

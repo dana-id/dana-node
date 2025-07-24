@@ -25,7 +25,6 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 | ------------- | ------------- | ------------- |
 | [**bankAccountInquiry**](DisbursementApi.md#bankAccountInquiry) | **POST** /v1.0/emoney/bank-account-inquiry.htm | This API is used for merchant to do inquiry Bank account info via DANA |
 | [**danaAccountInquiry**](DisbursementApi.md#danaAccountInquiry) | **POST** /v1.0/emoney/account-inquiry.htm | This API is used for merchant to do account inquiry to DANA |
-| [**queryMerchantResource**](DisbursementApi.md#queryMerchantResource) | **POST** /merchant/queryMerchantResource.htm | The interface is check merchant resource info (account balance merchant) |
 | [**transferToBank**](DisbursementApi.md#transferToBank) | **POST** /v1.0/emoney/transfer-bank.htm | This API is used for merchant to do transfer to Bank request via DANA |
 | [**transferToBankInquiryStatus**](DisbursementApi.md#transferToBankInquiryStatus) | **POST** /v1.0/emoney/transfer-bank-status.htm | This API is used for merchant to do inquiry status transfer to Bank transaction to DANA |
 | [**transferToDana**](DisbursementApi.md#transferToDana) | **POST** /v1.0/emoney/topup.htm | This API is used for merchant to do top up request to DANA |
@@ -87,34 +86,6 @@ const request: DanaAccountInquiryRequest = {
 };
 
 const response: DanaAccountInquiryResponse = await DisbursementApi.danaAccountInquiry(request);
-```
-<a name="queryMerchantResource"></a>
-## `queryMerchantResource()` Function
-
-### Function Signature
-| Name | Value |
-| ------------- | ------------- |
-| Function Name | `queryMerchantResource` |
-| Request Parameters | [**QueryMerchantResourceRequest**](../Models/QueryMerchantResourceRequest.md) |
-| Return Type | [**QueryMerchantResourceResponse**](../Models/QueryMerchantResourceResponse.md) |
-
-### Usage Example
-```typescript
-import { Dana } from 'dana-node';
-
-const danaClient = new Dana({
-    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
-    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
-    origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
-});
-const { DisbursementApi } = danaClient;
-
-const request: QueryMerchantResourceRequest = {
-    // Define the request parameters for the API call here
-};
-
-const response: QueryMerchantResourceResponse = await DisbursementApi.queryMerchantResource(request);
 ```
 <a name="transferToBank"></a>
 ## `transferToBank()` Function
@@ -305,22 +276,6 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
 
 
-## ResourceTypeEnum (resourceType)
-| Value | Description |
-|-------|-------------|
-| `MerchantDepositBalance` |  |
-| `MerchantAvailableBalance` |  |
-| `MerchantTotalBalance` |  |
-
-
-## ResultStatusEnum (resultStatus)
-| Value | Description |
-|-------|-------------|
-| `S` |  |
-| `F` |  |
-| `U` |  |
-
-
 ## SourcePlatformEnum (sourcePlatform)
 | Value | Description |
 |-------|-------------|
@@ -352,7 +307,7 @@ This document explains how to use the `WebhookParser` utility from the `` SDK to
 ## Example
 
 ```typescript
-import { WebhookParser } from 'dana-node/dist/webhook'; // Adjust import path as needed
+import { WebhookParser } from 'dana-node/webhook'; // Adjust import path as needed
 // Assuming you are in an Express.js route handler or similar framework context.
 // If using Express, you might import types like this:
 // import { Request, Response } from 'express';
@@ -362,9 +317,9 @@ import { WebhookParser } from 'dana-node/dist/webhook'; // Adjust import path as
 async function handleDanaWebhook(req: AnyRequestType, res: AnyResponseType) {
     // Retrieve the DANA public key from environment variables or a secure configuration.
     // Option 1: Public key as a string
-    const danaPublicKeyString: string | undefined = process.env.DANA_WEBHOOK_PUBLIC_KEY_STRING;
+    const danaPublicKeyString: string | undefined = process.env.DANA_PUBLIC_KEY;
     // Option 2: Path to the public key file (recommended for production)
-    const danaPublicKeyPath: string | undefined = process.env.DANA_WEBHOOK_PUBLIC_KEY_PATH;
+    const danaPublicKeyPath: string | undefined = process.env.DANA_PUBLIC_KEY_PATH;
 
     if (!danaPublicKeyString && !danaPublicKeyPath) {
         console.error('DANA webhook public key not configured.');

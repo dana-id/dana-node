@@ -282,7 +282,7 @@ This document explains how to use the `WebhookParser` utility from the `` SDK to
 ## Example
 
 ```typescript
-import { WebhookParser } from 'dana-node/dist/webhook'; // Adjust import path as needed
+import { WebhookParser } from 'dana-node/webhook'; // Adjust import path as needed
 // Assuming you are in an Express.js route handler or similar framework context.
 // If using Express, you might import types like this:
 // import { Request, Response } from 'express';
@@ -292,9 +292,9 @@ import { WebhookParser } from 'dana-node/dist/webhook'; // Adjust import path as
 async function handleDanaWebhook(req: AnyRequestType, res: AnyResponseType) {
     // Retrieve the DANA public key from environment variables or a secure configuration.
     // Option 1: Public key as a string
-    const danaPublicKeyString: string | undefined = process.env.DANA_WEBHOOK_PUBLIC_KEY_STRING;
+    const danaPublicKeyString: string | undefined = process.env.DANA_PUBLIC_KEY;
     // Option 2: Path to the public key file (recommended for production)
-    const danaPublicKeyPath: string | undefined = process.env.DANA_WEBHOOK_PUBLIC_KEY_PATH;
+    const danaPublicKeyPath: string | undefined = process.env.DANA_PUBLIC_KEY_PATH;
 
     if (!danaPublicKeyString && !danaPublicKeyPath) {
         console.error('DANA webhook public key not configured.');

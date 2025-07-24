@@ -22,12 +22,14 @@ __exportStar(require("./runtime"), exports);
 const v1_1 = require("./payment_gateway/v1");
 const v1_2 = require("./widget/v1");
 const v1_3 = require("./disbursement/v1");
+const v1_4 = require("./merchant_management/v1");
 class Dana {
-    constructor({ partnerId, privateKey, origin, env } = {}) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret } = {}) {
         partnerId = partnerId ? partnerId : process.env.X_PARTNER_ID;
         privateKey = privateKey ? privateKey : process.env.PRIVATE_KEY;
         origin = origin ? origin : process.env.ORIGIN;
         env = env ? env : process.env.ENV;
+        clientSecret = clientSecret ? clientSecret : process.env.CLIENT_SECRET;
         if (!partnerId) {
             throw new Error('Missing required environment variable: X_PARTNER_ID. Please set X_PARTNER_ID in your environment or .env file.');
         }
@@ -41,11 +43,13 @@ class Dana {
             partnerId,
             privateKey,
             origin,
-            env
+            env,
+            clientSecret
         };
         this.paymentGatewayApi = new v1_1.PaymentGatewayApi(this.opts);
         this.widgetApi = new v1_2.WidgetApi(this.opts);
         this.disbursementApi = new v1_3.DisbursementApi(this.opts);
+        this.merchantManagementApi = new v1_4.MerchantManagementApi(this.opts);
     }
 }
 exports.Dana = Dana;

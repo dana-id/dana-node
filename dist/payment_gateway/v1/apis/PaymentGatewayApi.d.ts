@@ -12,11 +12,13 @@ export declare class PaymentGatewayApi extends runtime.BaseAPI {
     privateKey: string;
     origin: string;
     env: string;
-    constructor({ partnerId, privateKey, origin, env }: {
+    clientSecret: string;
+    constructor({ partnerId, privateKey, origin, env, clientSecret }: {
         partnerId?: string;
         privateKey?: string;
         origin?: string;
         env?: string;
+        clientSecret?: string;
     });
     /**
      * This API is used to cancel the order from merchant\'s platform to DANA

@@ -3,7 +3,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../../../runtime';
-import type { AccountUnbindingRequest, AccountUnbindingResponse, ApplyOTTRequest, ApplyOTTResponse, ApplyTokenRequest, ApplyTokenResponse, CancelOrderRequest, CancelOrderResponse, QueryPaymentRequest, QueryPaymentResponse, RefundOrderRequest, RefundOrderResponse, WidgetPaymentRequest, WidgetPaymentResponse } from '../models/index';
+import type { AccountUnbindingRequest, AccountUnbindingResponse, ApplyOTTRequest, ApplyOTTResponse, ApplyTokenRequest, ApplyTokenResponse, BalanceInquiryRequest, BalanceInquiryResponse, CancelOrderRequest, CancelOrderResponse, QueryPaymentRequest, QueryPaymentResponse, QueryUserProfileRequest, QueryUserProfileResponse, RefundOrderRequest, RefundOrderResponse, WidgetPaymentRequest, WidgetPaymentResponse } from '../models/index';
 /**
  *
  */
@@ -12,11 +12,13 @@ export declare class WidgetApi extends runtime.BaseAPI {
     privateKey: string;
     origin: string;
     env: string;
-    constructor({ partnerId, privateKey, origin, env }: {
+    clientSecret: string;
+    constructor({ partnerId, privateKey, origin, env, clientSecret }: {
         partnerId?: string;
         privateKey?: string;
         origin?: string;
         env?: string;
+        clientSecret?: string;
     });
     /**
      * This API is used to reverses the account binding process by revoking the accessToken and refreshToken
@@ -34,6 +36,11 @@ export declare class WidgetApi extends runtime.BaseAPI {
      */
     applyToken(applyTokenRequest: ApplyTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApplyTokenResponse>;
     /**
+     * This API is used to query user\'s DANA account balance via merchant
+     * Balance Inquiry
+     */
+    balanceInquiry(balanceInquiryRequest: BalanceInquiryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BalanceInquiryResponse>;
+    /**
      * This API is used to cancel the order from merchant\'s platform to DANA
      * Cancel Order - Widget
      */
@@ -43,6 +50,11 @@ export declare class WidgetApi extends runtime.BaseAPI {
      * Query Payment - Widget
      */
     queryPayment(queryPaymentRequest: QueryPaymentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryPaymentResponse>;
+    /**
+     * The API is used to query user profile such as DANA balance (unit in IDR), masked DANA phone number, KYC or OTT (one time token) between merchant server and DANA\'s server
+     * Query User Profile
+     */
+    queryUserProfile(queryUserProfileRequest: QueryUserProfileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryUserProfileResponse>;
     /**
      * This API is used to refund the order from merchant\'s platform to DANA
      * Refund Order - Widget

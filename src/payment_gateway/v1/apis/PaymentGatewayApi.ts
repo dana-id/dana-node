@@ -60,8 +60,9 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
     privateKey: string = "";
     origin: string = "";
     env: string = "";
+    clientSecret: string = "";
 
-    constructor({ partnerId, privateKey, origin, env }: { partnerId?: string, privateKey?: string, origin?: string, env?: string }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret }: { partnerId?: string, privateKey?: string, origin?: string, env?: string, clientSecret?: string }) {
         const basePath = runtime.getBasePathByEnv(env);
 
         const configuration = new runtime.Configuration({
@@ -74,6 +75,7 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
+        this.clientSecret = clientSecret;
     }
 
     /**
@@ -104,6 +106,7 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
         const requestBody: string = JSON.stringify(CancelOrderRequestToJSON(cancelOrderRequest));
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
 
         const response = await this.request({
             path: endpointUrl,
@@ -145,6 +148,7 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
 
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -184,6 +188,7 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
         const requestBody: string = JSON.stringify(CreateOrderRequestToJSON(createOrderRequest));
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
 
         const response = await this.request({
             path: endpointUrl,
@@ -225,6 +230,7 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
 
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -264,6 +270,7 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
         const requestBody: string = JSON.stringify(RefundOrderRequestToJSON(refundOrderRequest));
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
 
         const response = await this.request({
             path: endpointUrl,

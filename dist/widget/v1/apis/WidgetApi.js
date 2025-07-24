@@ -13,7 +13,7 @@ const index_1 = require("../models/index");
  *
  */
 class WidgetApi extends runtime.BaseAPI {
-    constructor({ partnerId, privateKey, origin, env }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret }) {
         const basePath = runtime.getBasePathByEnv(env);
         const configuration = new runtime.Configuration({
             basePath: basePath,
@@ -23,10 +23,12 @@ class WidgetApi extends runtime.BaseAPI {
         this.privateKey = "";
         this.origin = "";
         this.env = "";
+        this.clientSecret = "";
         this.partnerId = partnerId;
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
+        this.clientSecret = clientSecret;
     }
     /**
      * This API is used to reverses the account binding process by revoking the accessToken and refreshToken
@@ -119,6 +121,33 @@ class WidgetApi extends runtime.BaseAPI {
         return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.ApplyTokenResponseFromJSON)(jsonValue)).value();
     }
     /**
+     * This API is used to query user\'s DANA account balance via merchant
+     * Balance Inquiry
+     */
+    async balanceInquiry(balanceInquiryRequest, initOverrides) {
+        if (balanceInquiryRequest == null) {
+            throw new runtime.RequiredError('balanceInquiryRequest', 'Required parameter "balanceInquiryRequest" was null or undefined when calling balanceInquiry().');
+        }
+        const validationErrorContexts = (0, index_1.validateBalanceInquiryRequest)(balanceInquiryRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const endpointUrl = `/v1.0/balance-inquiry.htm`;
+        const requestBody = JSON.stringify((0, index_1.BalanceInquiryRequestToJSON)(balanceInquiryRequest));
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        const response = await this.request({
+            path: endpointUrl,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, index_1.BalanceInquiryRequestToJSON)(balanceInquiryRequest),
+        }, initOverrides);
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.BalanceInquiryResponseFromJSON)(jsonValue)).value();
+    }
+    /**
      * This API is used to cancel the order from merchant\'s platform to DANA
      * Cancel Order - Widget
      */
@@ -171,6 +200,37 @@ class WidgetApi extends runtime.BaseAPI {
             body: (0, index_1.QueryPaymentRequestToJSON)(queryPaymentRequest),
         }, initOverrides);
         return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.QueryPaymentResponseFromJSON)(jsonValue)).value();
+    }
+    /**
+     * The API is used to query user profile such as DANA balance (unit in IDR), masked DANA phone number, KYC or OTT (one time token) between merchant server and DANA\'s server
+     * Query User Profile
+     */
+    async queryUserProfile(queryUserProfileRequest, initOverrides) {
+        if (queryUserProfileRequest == null) {
+            throw new runtime.RequiredError('queryUserProfileRequest', 'Required parameter "queryUserProfileRequest" was null or undefined when calling queryUserProfile().');
+        }
+        const validationErrorContexts = (0, index_1.validateQueryUserProfileRequest)(queryUserProfileRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const endpointUrl = `/dana/member/query/queryUserProfile.htm`;
+        const requestBody = {
+            "request": { "head": {}, "body": queryUserProfileRequest },
+            "signature": ""
+        };
+        const functionName = "dana.member.query.queryUserProfile";
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        const response = await this.request({
+            path: endpointUrl,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestBody,
+        }, initOverrides);
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.QueryUserProfileResponseFromJSON)(jsonValue)).value();
     }
     /**
      * This API is used to refund the order from merchant\'s platform to DANA

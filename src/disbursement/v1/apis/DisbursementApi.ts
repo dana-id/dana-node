@@ -11,8 +11,6 @@ import type {
   BankAccountInquiryResponse,
   DanaAccountInquiryRequest,
   DanaAccountInquiryResponse,
-  QueryMerchantResourceRequest,
-  QueryMerchantResourceResponse,
   TransferToBankInquiryStatusRequest,
   TransferToBankInquiryStatusResponse,
   TransferToBankRequest,
@@ -35,12 +33,6 @@ import {
     validateDanaAccountInquiryResponse,
     DanaAccountInquiryResponseFromJSON,
     DanaAccountInquiryResponseToJSON,
-    validateQueryMerchantResourceRequest,
-    QueryMerchantResourceRequestFromJSON,
-    QueryMerchantResourceRequestToJSON,
-    validateQueryMerchantResourceResponse,
-    QueryMerchantResourceResponseFromJSON,
-    QueryMerchantResourceResponseToJSON,
     validateTransferToBankInquiryStatusRequest,
     TransferToBankInquiryStatusRequestFromJSON,
     TransferToBankInquiryStatusRequestToJSON,
@@ -76,8 +68,9 @@ export class DisbursementApi extends runtime.BaseAPI {
     privateKey: string = "";
     origin: string = "";
     env: string = "";
+    clientSecret: string = "";
 
-    constructor({ partnerId, privateKey, origin, env }: { partnerId?: string, privateKey?: string, origin?: string, env?: string }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret }: { partnerId?: string, privateKey?: string, origin?: string, env?: string, clientSecret?: string }) {
         const basePath = runtime.getBasePathByEnv(env);
 
         const configuration = new runtime.Configuration({
@@ -90,6 +83,7 @@ export class DisbursementApi extends runtime.BaseAPI {
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
+        this.clientSecret = clientSecret;
     }
 
     /**
@@ -120,6 +114,7 @@ export class DisbursementApi extends runtime.BaseAPI {
         const requestBody: string = JSON.stringify(BankAccountInquiryRequestToJSON(bankAccountInquiryRequest));
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
 
         const response = await this.request({
             path: endpointUrl,
@@ -161,6 +156,7 @@ export class DisbursementApi extends runtime.BaseAPI {
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
 
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -170,42 +166,6 @@ export class DisbursementApi extends runtime.BaseAPI {
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DanaAccountInquiryResponseFromJSON(jsonValue)).value();
-    }
-
-    /**
-     * The interface is check merchant resource info (account balance merchant)
-     * Member – Merchant Open API Check Disbursement Account
-     */
-    async queryMerchantResource(queryMerchantResourceRequest: QueryMerchantResourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryMerchantResourceResponse> {
-        if (queryMerchantResourceRequest == null) {
-            throw new runtime.RequiredError(
-                'queryMerchantResourceRequest',
-                'Required parameter "queryMerchantResourceRequest" was null or undefined when calling queryMerchantResource().'
-            );
-        }
-
-        const validationErrorContexts: runtime.ValidationErrorContext[] = validateQueryMerchantResourceRequest(queryMerchantResourceRequest);
-        if (validationErrorContexts.length > 0) {
-            throw new runtime.ValidationError(validationErrorContexts);
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const endpointUrl: string = `/merchant/queryMerchantResource.htm`;
-
-        const response = await this.request({
-            path: endpointUrl,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: QueryMerchantResourceRequestToJSON(queryMerchantResourceRequest),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => QueryMerchantResourceResponseFromJSON(jsonValue)).value();
     }
 
     /**
@@ -236,6 +196,7 @@ export class DisbursementApi extends runtime.BaseAPI {
         const requestBody: string = JSON.stringify(TransferToBankRequestToJSON(transferToBankRequest));
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
 
         const response = await this.request({
             path: endpointUrl,
@@ -277,6 +238,7 @@ export class DisbursementApi extends runtime.BaseAPI {
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
 
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -317,6 +279,7 @@ export class DisbursementApi extends runtime.BaseAPI {
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
 
+
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -356,6 +319,7 @@ export class DisbursementApi extends runtime.BaseAPI {
         const requestBody: string = JSON.stringify(TransferToDanaInquiryStatusRequestToJSON(transferToDanaInquiryStatusRequest));
 
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+
 
         const response = await this.request({
             path: endpointUrl,

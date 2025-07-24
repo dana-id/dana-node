@@ -13,7 +13,7 @@ const index_1 = require("../models/index");
  *
  */
 class DisbursementApi extends runtime.BaseAPI {
-    constructor({ partnerId, privateKey, origin, env }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret }) {
         const basePath = runtime.getBasePathByEnv(env);
         const configuration = new runtime.Configuration({
             basePath: basePath,
@@ -23,10 +23,12 @@ class DisbursementApi extends runtime.BaseAPI {
         this.privateKey = "";
         this.origin = "";
         this.env = "";
+        this.clientSecret = "";
         this.partnerId = partnerId;
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
+        this.clientSecret = clientSecret;
     }
     /**
      * This API is used for merchant to do inquiry Bank account info via DANA
@@ -81,31 +83,6 @@ class DisbursementApi extends runtime.BaseAPI {
             body: (0, index_1.DanaAccountInquiryRequestToJSON)(danaAccountInquiryRequest),
         }, initOverrides);
         return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.DanaAccountInquiryResponseFromJSON)(jsonValue)).value();
-    }
-    /**
-     * The interface is check merchant resource info (account balance merchant)
-     * Member – Merchant Open API Check Disbursement Account
-     */
-    async queryMerchantResource(queryMerchantResourceRequest, initOverrides) {
-        if (queryMerchantResourceRequest == null) {
-            throw new runtime.RequiredError('queryMerchantResourceRequest', 'Required parameter "queryMerchantResourceRequest" was null or undefined when calling queryMerchantResource().');
-        }
-        const validationErrorContexts = (0, index_1.validateQueryMerchantResourceRequest)(queryMerchantResourceRequest);
-        if (validationErrorContexts.length > 0) {
-            throw new runtime.ValidationError(validationErrorContexts);
-        }
-        const queryParameters = {};
-        const headerParameters = {};
-        headerParameters['Content-Type'] = 'application/json';
-        const endpointUrl = `/merchant/queryMerchantResource.htm`;
-        const response = await this.request({
-            path: endpointUrl,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: (0, index_1.QueryMerchantResourceRequestToJSON)(queryMerchantResourceRequest),
-        }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.QueryMerchantResourceResponseFromJSON)(jsonValue)).value();
     }
     /**
      * This API is used for merchant to do transfer to Bank request via DANA
