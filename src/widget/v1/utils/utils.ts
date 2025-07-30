@@ -45,13 +45,10 @@ export class WidgetUtils {
             );
         }
 
-        if (env === 'sandbox') {
+        if (env.toLowerCase() !== 'production') {
             return 'CASHIER,AGREEMENT_PAY,QUERY_BALANCE,DEFAULT_BASIC_PROFILE,MINI_DANA';
         } else {
-            throw new RequiredError(
-                'generateScopes - generateOauthUrl',
-                'Scopes is required in production'
-            );
+            return 'CASHIER'
         }
     }
 
