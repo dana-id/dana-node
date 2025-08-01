@@ -12,6 +12,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const BASE_PATH = "https://api.saas.dana.id".replace(/\/+$/, "");
 
+export const Env = {
+    SANDBOX: 'sandbox',
+    PRODUCTION: 'production'
+};
+
 export interface ConfigurationParameters {
     basePath?: string; // override base path
     fetchApi?: FetchAPI; // override for fetch implementation

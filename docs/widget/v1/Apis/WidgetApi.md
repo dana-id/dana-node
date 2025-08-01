@@ -10,7 +10,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 ```
@@ -53,7 +53,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 
@@ -81,7 +81,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 
@@ -109,7 +109,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 
@@ -137,7 +137,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 
@@ -165,7 +165,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 
@@ -193,7 +193,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 
@@ -221,7 +221,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 
@@ -249,7 +249,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 
@@ -277,7 +277,7 @@ const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
-    env: "sandbox", // process.env.ENV or "sandbox" or "production"
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
 const { WidgetApi } = danaClient;
 

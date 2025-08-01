@@ -3,6 +3,7 @@ import 'dotenv/config'
 import { Oauth2UrlData } from "../models";
 import { RequiredError, DanaSignatureUtil } from "../../../runtime";
 import { v4 as uuidv4 } from 'uuid';
+import { Env } from "../../../runtime";
 
 /**
  * Widget utility functions for the DANA Widget API
@@ -37,15 +38,15 @@ export class WidgetUtils {
      * @returns The scopes string
      */
     private static generateScopes(): string {
-        const env = process.env.ENV || 'sandbox';
+        const env = process.env.DANA_ENV || process.env.ENV || Env.SANDBOX;
         if (!env) {
             throw new RequiredError(
                 'generateScopes - generateOauthUrl',
-                'ENV is not defined'
+                'DANA_ENV or ENV is not defined'
             );
         }
 
-        if (env.toLowerCase() !== 'production') {
+        if (env.toLowerCase() !== Env.PRODUCTION) {
             return 'CASHIER,AGREEMENT_PAY,QUERY_BALANCE,DEFAULT_BASIC_PROFILE,MINI_DANA';
         } else {
             return 'CASHIER'
@@ -84,15 +85,15 @@ export class WidgetUtils {
      */
     static generateOauthUrl(data: Oauth2UrlData): string {
     
-    const env = process.env.ENV || 'sandbox';
+    const env = process.env.DANA_ENV || process.env.ENV || Env.SANDBOX;
     if (!env) {
         throw new RequiredError(
             'generateOauthUrl',
-            'ENV is not defined'
+            'DANA_ENV or ENV is not defined'
         );
     }
 
-    const baseUrl = env === 'sandbox' ? 'https://m.sandbox.dana.id/n/ipg/oauth' : 'https://m.dana.id/n/ipg/oauth';
+    const baseUrl = env !== Env.PRODUCTION ? 'https://m.sandbox.dana.id/n/ipg/oauth' : 'https://m.dana.id/n/ipg/oauth';
 
     const partnerId = process.env.X_PARTNER_ID;
     if (!partnerId) {

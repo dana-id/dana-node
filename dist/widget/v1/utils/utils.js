@@ -4,6 +4,7 @@ exports.WidgetUtils = void 0;
 require("dotenv/config");
 const runtime_1 = require("../../../runtime");
 const uuid_1 = require("uuid");
+const runtime_2 = require("../../../runtime");
 /**
  * Widget utility functions for the DANA Widget API
  */
@@ -34,11 +35,11 @@ class WidgetUtils {
      * @returns The scopes string
      */
     static generateScopes() {
-        const env = process.env.ENV || 'sandbox';
+        const env = process.env.DANA_ENV || process.env.ENV || runtime_2.Env.SANDBOX;
         if (!env) {
-            throw new runtime_1.RequiredError('generateScopes - generateOauthUrl', 'ENV is not defined');
+            throw new runtime_1.RequiredError('generateScopes - generateOauthUrl', 'DANA_ENV or ENV is not defined');
         }
-        if (env.toLowerCase() !== 'production') {
+        if (env.toLowerCase() !== runtime_2.Env.PRODUCTION) {
             return 'CASHIER,AGREEMENT_PAY,QUERY_BALANCE,DEFAULT_BASIC_PROFILE,MINI_DANA';
         }
         else {
@@ -72,11 +73,11 @@ class WidgetUtils {
      * @returns Fully constructed OAuth URL
      */
     static generateOauthUrl(data) {
-        const env = process.env.ENV || 'sandbox';
+        const env = process.env.DANA_ENV || process.env.ENV || runtime_2.Env.SANDBOX;
         if (!env) {
-            throw new runtime_1.RequiredError('generateOauthUrl', 'ENV is not defined');
+            throw new runtime_1.RequiredError('generateOauthUrl', 'DANA_ENV or ENV is not defined');
         }
-        const baseUrl = env === 'sandbox' ? 'https://m.sandbox.dana.id/n/ipg/oauth' : 'https://m.dana.id/n/ipg/oauth';
+        const baseUrl = env !== runtime_2.Env.PRODUCTION ? 'https://m.sandbox.dana.id/n/ipg/oauth' : 'https://m.dana.id/n/ipg/oauth';
         const partnerId = process.env.X_PARTNER_ID;
         if (!partnerId) {
             throw new runtime_1.RequiredError('generateOauthUrl', 'X_PARTNER_ID is not defined');

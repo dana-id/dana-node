@@ -31,7 +31,7 @@ export class Dana {
         partnerId = partnerId ? partnerId : process.env.X_PARTNER_ID;
         privateKey = privateKey ? privateKey : process.env.PRIVATE_KEY;
         origin = origin ? origin : process.env.ORIGIN;
-        env = env ? env : process.env.ENV;
+        env = env ? env : process.env.DANA_ENV || process.env.ENV || 'sandbox';
         clientSecret = clientSecret ? clientSecret : process.env.CLIENT_SECRET;
 
         if (!partnerId) {
@@ -43,7 +43,7 @@ export class Dana {
         }
 
         if (!env) {
-            throw new Error('Missing required environment variable: ENV. Please set ENV in your environment or .env file.');
+            throw new Error('Missing required environment variable: DANA_ENV or ENV. Please set DANA_ENV or ENV in your environment or .env file.');
         }
 
         this.opts = {

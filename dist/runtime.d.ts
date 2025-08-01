@@ -3,6 +3,10 @@
  * Do not edit the class manually.
  */
 export declare const BASE_PATH: string;
+export declare const Env: {
+    SANDBOX: string;
+    PRODUCTION: string;
+};
 export interface ConfigurationParameters {
     basePath?: string;
     fetchApi?: FetchAPI;

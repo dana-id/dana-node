@@ -6,7 +6,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DanaSignatureUtil = exports.DanaHeaderUtil = exports.ValidationUtil = exports.TextApiResponse = exports.BlobApiResponse = exports.VoidApiResponse = exports.JSONApiResponse = exports.COLLECTION_FORMATS = exports.ValidationError = exports.RequiredError = exports.FetchError = exports.ResponseError = exports.BaseAPI = exports.DefaultConfig = exports.Configuration = exports.BASE_PATH = void 0;
+exports.DanaSignatureUtil = exports.DanaHeaderUtil = exports.ValidationUtil = exports.TextApiResponse = exports.BlobApiResponse = exports.VoidApiResponse = exports.JSONApiResponse = exports.COLLECTION_FORMATS = exports.ValidationError = exports.RequiredError = exports.FetchError = exports.ResponseError = exports.BaseAPI = exports.DefaultConfig = exports.Configuration = exports.Env = exports.BASE_PATH = void 0;
 exports.getBasePathByEnv = getBasePathByEnv;
 exports.querystring = querystring;
 exports.exists = exists;
@@ -16,6 +16,10 @@ const node_crypto_1 = require("node:crypto");
 const date_fns_tz_1 = require("date-fns-tz");
 const uuid_1 = require("uuid");
 exports.BASE_PATH = "https://api.saas.dana.id".replace(/\/+$/, "");
+exports.Env = {
+    SANDBOX: 'sandbox',
+    PRODUCTION: 'production'
+};
 class Configuration {
     constructor(configuration = {}) {
         this.configuration = configuration;
