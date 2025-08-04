@@ -269,8 +269,14 @@ export class WidgetApi extends runtime.BaseAPI {
         const endpointUrl: string = `/v1.0/balance-inquiry.htm`;
 
         const requestBody: string = JSON.stringify(BalanceInquiryRequestToJSON(balanceInquiryRequest));
+        
+        const accessToken = balanceInquiryRequest.additionalInfo.accessToken;
+        const endUserIpAddress = balanceInquiryRequest.additionalInfo.endUserIpAddress;
+        const deviceId = balanceInquiryRequest.additionalInfo.deviceId;
+        const latitude = balanceInquiryRequest.additionalInfo.latitude;
+        const longitude = balanceInquiryRequest.additionalInfo.longitude;
 
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        runtime.DanaHeaderUtil.populateSnapAccountB2B2CScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, accessToken, endUserIpAddress, deviceId, latitude, longitude);
 
 
         const response = await this.request({

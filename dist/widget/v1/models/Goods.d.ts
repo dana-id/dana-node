@@ -11,6 +11,12 @@ import type { Money } from './Money';
  */
 export interface Goods {
     /**
+     * Goods name
+     * @type {string}
+     * @memberof Goods
+     */
+    name: string;
+    /**
      * Goods identifier provided by merchant
      * @type {string}
      * @memberof Goods

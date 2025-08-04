@@ -23,6 +23,12 @@ import {
  */
 export interface Goods {
     /**
+     * Goods name
+     * @type {string}
+     * @memberof Goods
+     */
+    name: string;
+    /**
      * Goods identifier provided by merchant
      * @type {string}
      * @memberof Goods
@@ -85,6 +91,7 @@ export interface Goods {
  * Check if a given object implements the Goods interface.
  */
 export function instanceOfGoods(value: object): value is Goods {
+    if (!('name' in value) || value['name'] === undefined) return false;
     if (!('merchantGoodsId' in value) || value['merchantGoodsId'] === undefined) return false;
     if (!('description' in value) || value['description'] === undefined) return false;
     if (!('category' in value) || value['category'] === undefined) return false;
@@ -103,6 +110,7 @@ export function GoodsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Goo
     }
     return {
         
+        'name': json['name'],
         'merchantGoodsId': json['merchantGoodsId'],
         'description': json['description'],
         'category': json['category'],
@@ -126,6 +134,7 @@ export function GoodsToJSONTyped(value?: Goods | null, ignoreDiscriminator: bool
 
     return {
         
+        'name': value['name'],
         'merchantGoodsId': value['merchantGoodsId'],
         'description': value['description'],
         'category': value['category'],
@@ -139,6 +148,9 @@ export function GoodsToJSONTyped(value?: Goods | null, ignoreDiscriminator: bool
 }
 
 const propertyValidationAttributesMap: { [property: string]: PropertyValidationAttribute } = {
+    name: {
+        maxLength: 64,
+    },
     merchantGoodsId: {
         maxLength: 64,
     },
@@ -171,6 +183,8 @@ export function validateGoods(value: Goods): ValidationErrorContext[] {
     if (value == null) {
         return validationErrorContexts;
     }
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('name', value.name, propertyValidationAttributesMap['name']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('merchantGoodsId', value.merchantGoodsId, propertyValidationAttributesMap['merchantGoodsId']));
 

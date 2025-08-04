@@ -18,6 +18,8 @@ const Money_1 = require("./Money");
  * Check if a given object implements the Goods interface.
  */
 function instanceOfGoods(value) {
+    if (!('name' in value) || value['name'] === undefined)
+        return false;
     if (!('merchantGoodsId' in value) || value['merchantGoodsId'] === undefined)
         return false;
     if (!('description' in value) || value['description'] === undefined)
@@ -38,6 +40,7 @@ function GoodsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
+        'name': json['name'],
         'merchantGoodsId': json['merchantGoodsId'],
         'description': json['description'],
         'category': json['category'],
@@ -57,6 +60,7 @@ function GoodsToJSONTyped(value, ignoreDiscriminator = false) {
         return value;
     }
     return {
+        'name': value['name'],
         'merchantGoodsId': value['merchantGoodsId'],
         'description': value['description'],
         'category': value['category'],
@@ -69,6 +73,9 @@ function GoodsToJSONTyped(value, ignoreDiscriminator = false) {
     };
 }
 const propertyValidationAttributesMap = {
+    name: {
+        maxLength: 64,
+    },
     merchantGoodsId: {
         maxLength: 64,
     },
@@ -99,6 +106,7 @@ function validateGoods(value) {
     if (value == null) {
         return validationErrorContexts;
     }
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('name', value.name, propertyValidationAttributesMap['name']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantGoodsId', value.merchantGoodsId, propertyValidationAttributesMap['merchantGoodsId']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('description', value.description, propertyValidationAttributesMap['description']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('category', value.category, propertyValidationAttributesMap['category']));

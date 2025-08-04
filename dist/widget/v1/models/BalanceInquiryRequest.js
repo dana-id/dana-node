@@ -18,6 +18,8 @@ const BalanceInquiryRequestAdditionalInfo_1 = require("./BalanceInquiryRequestAd
  * Check if a given object implements the BalanceInquiryRequest interface.
  */
 function instanceOfBalanceInquiryRequest(value) {
+    if (!('additionalInfo' in value) || value['additionalInfo'] === undefined)
+        return false;
     return true;
 }
 function BalanceInquiryRequestFromJSON(json) {
@@ -30,7 +32,7 @@ function BalanceInquiryRequestFromJSONTyped(json, ignoreDiscriminator) {
     return {
         'partnerReferenceNo': json['partnerReferenceNo'] == null ? undefined : json['partnerReferenceNo'],
         'balanceTypes': json['balanceTypes'] == null ? undefined : json['balanceTypes'],
-        'additionalInfo': json['additionalInfo'] == null ? undefined : (0, BalanceInquiryRequestAdditionalInfo_1.BalanceInquiryRequestAdditionalInfoFromJSON)(json['additionalInfo']),
+        'additionalInfo': (0, BalanceInquiryRequestAdditionalInfo_1.BalanceInquiryRequestAdditionalInfoFromJSON)(json['additionalInfo']),
     };
 }
 function BalanceInquiryRequestToJSON(json) {

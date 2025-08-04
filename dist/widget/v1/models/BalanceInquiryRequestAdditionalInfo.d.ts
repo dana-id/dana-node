@@ -4,18 +4,41 @@
  */
 import type { ValidationErrorContext } from '../../../runtime';
 /**
- * Additional information
+ *
  * @export
  * @interface BalanceInquiryRequestAdditionalInfo
  */
 export interface BalanceInquiryRequestAdditionalInfo {
     /**
-     * Contains customer token, which has been obtained from binding process, refer to Account Binding & Unbinding documentation
-     *
+     * Contains customer token, which has been obtained from binding process
      * @type {string}
      * @memberof BalanceInquiryRequestAdditionalInfo
      */
     accessToken: string;
+    /**
+     * IP address of the end user (customer) using IPv4 format
+     * @type {string}
+     * @memberof BalanceInquiryRequestAdditionalInfo
+     */
+    endUserIpAddress?: string;
+    /**
+     * Device identification on which the API services is currently being accessed by the end user (customer)
+     * @type {string}
+     * @memberof BalanceInquiryRequestAdditionalInfo
+     */
+    deviceId: string;
+    /**
+     * Location on which the API services is currently being accessed by the end user (customer), refer to ISO 6709 standard representation of geographic point location by coordinates
+     * @type {string}
+     * @memberof BalanceInquiryRequestAdditionalInfo
+     */
+    latitude?: string;
+    /**
+     * Location on which the API services is currently being accessed by the end user (customer), refer to ISO 6709 Standard representation of geographic point location by coordinates
+     * @type {string}
+     * @memberof BalanceInquiryRequestAdditionalInfo
+     */
+    longitude?: string;
 }
 /**
  * Check if a given object implements the BalanceInquiryRequestAdditionalInfo interface.

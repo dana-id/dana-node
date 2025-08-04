@@ -26,11 +26,11 @@ export interface BalanceInquiryRequest {
      */
     balanceTypes?: Array<string>;
     /**
-     *
+     * Additional information
      * @type {BalanceInquiryRequestAdditionalInfo}
      * @memberof BalanceInquiryRequest
      */
-    additionalInfo?: BalanceInquiryRequestAdditionalInfo;
+    additionalInfo: BalanceInquiryRequestAdditionalInfo;
 }
 /**
  * Check if a given object implements the BalanceInquiryRequest interface.

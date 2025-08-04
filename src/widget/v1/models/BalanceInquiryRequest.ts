@@ -38,17 +38,18 @@ export interface BalanceInquiryRequest {
      */
     balanceTypes?: Array<string>;
     /**
-     * 
+     * Additional information
      * @type {BalanceInquiryRequestAdditionalInfo}
      * @memberof BalanceInquiryRequest
      */
-    additionalInfo?: BalanceInquiryRequestAdditionalInfo;
+    additionalInfo: BalanceInquiryRequestAdditionalInfo;
 }
 
 /**
  * Check if a given object implements the BalanceInquiryRequest interface.
  */
 export function instanceOfBalanceInquiryRequest(value: object): value is BalanceInquiryRequest {
+    if (!('additionalInfo' in value) || value['additionalInfo'] === undefined) return false;
     return true;
 }
 
@@ -64,7 +65,7 @@ export function BalanceInquiryRequestFromJSONTyped(json: any, ignoreDiscriminato
         
         'partnerReferenceNo': json['partnerReferenceNo'] == null ? undefined : json['partnerReferenceNo'],
         'balanceTypes': json['balanceTypes'] == null ? undefined : json['balanceTypes'],
-        'additionalInfo': json['additionalInfo'] == null ? undefined : BalanceInquiryRequestAdditionalInfoFromJSON(json['additionalInfo']),
+        'additionalInfo': BalanceInquiryRequestAdditionalInfoFromJSON(json['additionalInfo']),
     };
 }
 
