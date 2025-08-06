@@ -121,6 +121,29 @@ class WidgetUtils {
         }
         return url;
     }
+    static generateCompletePaymentUrl(widgetPaymentResponse, applyOTTResponse) {
+        var _a;
+        // Check if both parameters are defined
+        if (!widgetPaymentResponse || !applyOTTResponse) {
+            return "";
+        }
+        // Check if webRedirectUrl exists
+        const webRedirectUrl = widgetPaymentResponse.webRedirectUrl;
+        if (!webRedirectUrl) {
+            return "";
+        }
+        // Check if userResources exists and has elements
+        if (!applyOTTResponse.userResources || applyOTTResponse.userResources.length === 0) {
+            return webRedirectUrl;
+        }
+        // Check if the first userResource has a value property
+        const ottValue = (_a = applyOTTResponse.userResources[0]) === null || _a === void 0 ? void 0 : _a.value;
+        if (!ottValue) {
+            return webRedirectUrl;
+        }
+        // Combine the URL with the OTT token
+        return `${webRedirectUrl}&ott=${ottValue}`;
+    }
 }
 exports.WidgetUtils = WidgetUtils;
 /**

@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-import { Oauth2UrlData } from "../models";
+import { Oauth2UrlData, WidgetPaymentResponse, ApplyOTTResponse } from "../models";
 import { RequiredError, DanaSignatureUtil } from "../../../runtime";
 import { v4 as uuidv4 } from 'uuid';
 import { Env } from "../../../runtime";
@@ -154,6 +154,33 @@ export class WidgetUtils {
     }
 
     return url;
+  }
+
+  static generateCompletePaymentUrl(widgetPaymentResponse?: WidgetPaymentResponse, applyOTTResponse?: ApplyOTTResponse): string {
+    // Check if both parameters are defined
+    if (!widgetPaymentResponse || !applyOTTResponse) {
+      return "";
+    }
+
+    // Check if webRedirectUrl exists
+    const webRedirectUrl = widgetPaymentResponse.webRedirectUrl;
+    if (!webRedirectUrl) {
+      return "";
+    }
+
+    // Check if userResources exists and has elements
+    if (!applyOTTResponse.userResources || applyOTTResponse.userResources.length === 0) {
+      return webRedirectUrl;
+    }
+
+    // Check if the first userResource has a value property
+    const ottValue = applyOTTResponse.userResources[0]?.value;
+    if (!ottValue) {
+      return webRedirectUrl;
+    }
+
+    // Combine the URL with the OTT token
+    return `${webRedirectUrl}&ott=${ottValue}`;
   }
 }
 

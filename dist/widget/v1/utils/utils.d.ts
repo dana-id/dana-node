@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { Oauth2UrlData } from "../models";
+import { Oauth2UrlData, WidgetPaymentResponse, ApplyOTTResponse } from "../models";
 /**
  * Widget utility functions for the DANA Widget API
  */
@@ -31,6 +31,7 @@ export declare class WidgetUtils {
      * @returns Fully constructed OAuth URL
      */
     static generateOauthUrl(data: Oauth2UrlData): string;
+    static generateCompletePaymentUrl(widgetPaymentResponse?: WidgetPaymentResponse, applyOTTResponse?: ApplyOTTResponse): string;
 }
 /**
  * Export all utility functions

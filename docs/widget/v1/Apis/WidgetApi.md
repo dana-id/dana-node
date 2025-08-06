@@ -18,6 +18,7 @@ const { WidgetApi } = danaClient;
 * [Enum Types](#enum-types) - List of available enum constants
 * [Webhook Parser](#webhookparser) - Webhook handling
 * [OAuth URL Generation](#oauth-url-generation) - Generate OAuth URLs for authorization
+* [Complete Payment URL Generation](#complete-payment-url-generation) - Generate URL to complete the payment by combining webRedirectUrl with OTT token
 
 
 All URIs are relative to *https://api.saas.dana.id*, except if the operation defines another base path (for sandbox it is http://api.sandbox.dana.id).
@@ -581,5 +582,33 @@ const oauth2UrlData = {
 const oauthUrl = WidgetUtils.generateOauthUrl(oauth2UrlData);
 console.log(oauthUrl);
 ```
-
 The generated URL can be used to redirect users to DANA's authorization page.
+
+## Payment URL Generation
+
+You can generate a payment URL by combining the webRedirectUrl from a WidgetPaymentResponse with an OTT token from an ApplyOTTResponse.
+
+```typescript
+import { Util } from 'dana-node/widget/v1';
+import { WidgetPaymentResponse, ApplyOTTResponse } from 'dana-node/widget/v1/models';
+
+// Example response from createWidgetPayment
+const widgetPaymentResponse = new WidgetPaymentResponse({
+  webRedirectUrl: 'https://example.com/payment?token=abc123'
+}); // this should be from createPayment Widget API
+
+// Example response from applyOTT
+const applyOTTResponse = new ApplyOTTResponse({
+  userResources: [
+    {
+      value: 'ott_token_value'
+    }
+  ]
+}); // this should be from applyOTT Widget API
+
+// Generate the payment URL
+const paymentUrl = Util.generateCompletePaymentUrl(widgetPaymentResponse, applyOTTResponse);
+```
+
+The payment URL can be used to pay the widget
+
