@@ -4,7 +4,7 @@ You can use the APIs below to interface with DANA's `DisbursementApi` API.
 To start using the API, you need to destruct instantiated DANA client. This client would be a singleton object that you can use across various api and operation.
 
 ```typescript
-import { Dana, DisbursementApi as DisbursementApiClient } from 'dana-node';
+import { Dana } from 'dana-node';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -44,6 +44,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { BankAccountInquiryRequest, BankAccountInquiryResponse } from 'dana-node/DisbursementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -72,6 +73,7 @@ const response: BankAccountInquiryResponse = await DisbursementApi.bankAccountIn
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { DanaAccountInquiryRequest, DanaAccountInquiryResponse } from 'dana-node/DisbursementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -100,6 +102,7 @@ const response: DanaAccountInquiryResponse = await DisbursementApi.danaAccountIn
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { TransferToBankRequest, TransferToBankResponse } from 'dana-node/DisbursementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -128,6 +131,7 @@ const response: TransferToBankResponse = await DisbursementApi.transferToBank(re
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { TransferToBankInquiryStatusRequest, TransferToBankInquiryStatusResponse } from 'dana-node/DisbursementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -156,6 +160,7 @@ const response: TransferToBankInquiryStatusResponse = await DisbursementApi.tran
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { TransferToDanaRequest, TransferToDanaResponse } from 'dana-node/DisbursementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -184,6 +189,7 @@ const response: TransferToDanaResponse = await DisbursementApi.transferToDana(re
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { TransferToDanaInquiryStatusRequest, TransferToDanaInquiryStatusResponse } from 'dana-node/DisbursementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID

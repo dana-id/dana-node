@@ -57,10 +57,10 @@ export interface DanaAccountInquiryResponse {
     customerName: string;
     /**
      * Limitation of transfer to DANA balance for customer per month
-     * @type {number}
+     * @type {string}
      * @memberof DanaAccountInquiryResponse
      */
-    customerMonthlyLimit?: number;
+    customerMonthlyInLimit?: string;
     /**
      * Minimal amount. Contains two sub-fields:<br>
      * 1. Value: Amount, including the cents<br>

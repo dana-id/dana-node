@@ -84,6 +84,7 @@ Find detailed API information and examples for each of our products by clicking 
 * [PaymentGatewayApi](docs/payment_gateway/v1/Apis/PaymentGatewayApi.md)
 * [WidgetApi](docs/widget/v1/Apis/WidgetApi.md)
 * [DisbursementApi](docs/disbursement/v1/Apis/DisbursementApi.md)
+* [MerchantManagementApi](docs/merchant_management/v1/Apis/MerchantManagementApi.md)
 
 ## Further Reading
 

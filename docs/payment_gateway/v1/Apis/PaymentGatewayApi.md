@@ -4,7 +4,7 @@ You can use the APIs below to interface with DANA's `PaymentGatewayApi` API.
 To start using the API, you need to destruct instantiated DANA client. This client would be a singleton object that you can use across various api and operation.
 
 ```typescript
-import { Dana, PaymentGatewayApi as PaymentGatewayApiClient } from 'dana-node';
+import { Dana } from 'dana-node';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -43,6 +43,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { CancelOrderRequest, CancelOrderResponse } from 'dana-node/PaymentGatewayApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -71,6 +72,7 @@ const response: CancelOrderResponse = await PaymentGatewayApi.cancelOrder(reques
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { ConsultPayRequest, ConsultPayResponse } from 'dana-node/PaymentGatewayApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -99,6 +101,7 @@ const response: ConsultPayResponse = await PaymentGatewayApi.consultPay(request)
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { CreateOrderRequest, CreateOrderResponse } from 'dana-node/PaymentGatewayApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -127,6 +130,7 @@ const response: CreateOrderResponse = await PaymentGatewayApi.createOrder(reques
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { QueryPaymentRequest, QueryPaymentResponse } from 'dana-node/PaymentGatewayApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -155,6 +159,7 @@ const response: QueryPaymentResponse = await PaymentGatewayApi.queryPayment(requ
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { RefundOrderRequest, RefundOrderResponse } from 'dana-node/PaymentGatewayApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID

@@ -4,7 +4,7 @@ You can use the APIs below to interface with DANA's `MerchantManagementApi` API.
 To start using the API, you need to destruct instantiated DANA client. This client would be a singleton object that you can use across various api and operation.
 
 ```typescript
-import { Dana, MerchantManagementApi as MerchantManagementApiClient } from 'dana-node';
+import { Dana } from 'dana-node';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -45,6 +45,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { CreateDivisionRequest, CreateDivisionResponse } from 'dana-node/MerchantManagementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -73,6 +74,7 @@ const response: CreateDivisionResponse = await MerchantManagementApi.createDivis
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { CreateShopRequest, CreateShopResponse } from 'dana-node/MerchantManagementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -101,6 +103,7 @@ const response: CreateShopResponse = await MerchantManagementApi.createShop(requ
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { QueryDivisionRequest, QueryDivisionResponse } from 'dana-node/MerchantManagementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -129,6 +132,7 @@ const response: QueryDivisionResponse = await MerchantManagementApi.queryDivisio
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { QueryMerchantResourceRequest, QueryMerchantResourceResponse } from 'dana-node/MerchantManagementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -157,6 +161,7 @@ const response: QueryMerchantResourceResponse = await MerchantManagementApi.quer
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { QueryShopRequest, QueryShopResponse } from 'dana-node/MerchantManagementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -185,6 +190,7 @@ const response: QueryShopResponse = await MerchantManagementApi.queryShop(reques
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { UpdateDivisionRequest, UpdateDivisionResponse } from 'dana-node/MerchantManagementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -213,6 +219,7 @@ const response: UpdateDivisionResponse = await MerchantManagementApi.updateDivis
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { UpdateShopRequest, UpdateShopResponse } from 'dana-node/MerchantManagementApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID

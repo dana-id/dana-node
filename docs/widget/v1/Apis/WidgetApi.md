@@ -4,7 +4,7 @@ You can use the APIs below to interface with DANA's `WidgetApi` API.
 To start using the API, you need to destruct instantiated DANA client. This client would be a singleton object that you can use across various api and operation.
 
 ```typescript
-import { Dana, WidgetApi as WidgetApiClient } from 'dana-node';
+import { Dana } from 'dana-node';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -49,6 +49,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { AccountUnbindingRequest, AccountUnbindingResponse } from 'dana-node/WidgetApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -77,6 +78,7 @@ const response: AccountUnbindingResponse = await WidgetApi.accountUnbinding(requ
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { ApplyOTTRequest, ApplyOTTResponse } from 'dana-node/WidgetApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -105,6 +107,7 @@ const response: ApplyOTTResponse = await WidgetApi.applyOTT(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { ApplyTokenRequest, ApplyTokenResponse } from 'dana-node/WidgetApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -133,6 +136,7 @@ const response: ApplyTokenResponse = await WidgetApi.applyToken(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { BalanceInquiryRequest, BalanceInquiryResponse } from 'dana-node/WidgetApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -161,6 +165,7 @@ const response: BalanceInquiryResponse = await WidgetApi.balanceInquiry(request)
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { CancelOrderRequest, CancelOrderResponse } from 'dana-node/WidgetApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -189,6 +194,7 @@ const response: CancelOrderResponse = await WidgetApi.cancelOrder(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { QueryPaymentRequest, QueryPaymentResponse } from 'dana-node/WidgetApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -217,6 +223,7 @@ const response: QueryPaymentResponse = await WidgetApi.queryPayment(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { QueryUserProfileRequest, QueryUserProfileResponse } from 'dana-node/WidgetApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -245,6 +252,7 @@ const response: QueryUserProfileResponse = await WidgetApi.queryUserProfile(requ
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { RefundOrderRequest, RefundOrderResponse } from 'dana-node/WidgetApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -273,6 +281,7 @@ const response: RefundOrderResponse = await WidgetApi.refundOrder(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
+import { WidgetPaymentRequest, WidgetPaymentResponse } from 'dana-node/WidgetApi/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -584,7 +593,7 @@ console.log(oauthUrl);
 ```
 The generated URL can be used to redirect users to DANA's authorization page.
 
-## Payment URL Generation
+## Complete Payment URL Generation
 
 You can generate a payment URL by combining the webRedirectUrl from a WidgetPaymentResponse with an OTT token from an ApplyOTTResponse.
 

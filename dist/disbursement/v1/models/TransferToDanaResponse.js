@@ -42,6 +42,7 @@ function TransferToDanaResponseFromJSONTyped(json, ignoreDiscriminator) {
         'partnerReferenceNo': json['partnerReferenceNo'],
         'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
         'customerNumber': json['customerNumber'] == null ? undefined : json['customerNumber'],
+        'customerName': json['customerName'] == null ? undefined : json['customerName'],
         'amount': (0, Money_1.MoneyFromJSON)(json['amount']),
         'additionalInfo': json['additionalInfo'] == null ? undefined : json['additionalInfo'],
     };
@@ -60,6 +61,7 @@ function TransferToDanaResponseToJSONTyped(value, ignoreDiscriminator = false) {
         'partnerReferenceNo': value['partnerReferenceNo'],
         'sessionId': value['sessionId'],
         'customerNumber': value['customerNumber'],
+        'customerName': value['customerName'],
         'amount': (0, Money_1.MoneyToJSON)(value['amount']),
         'additionalInfo': value['additionalInfo'],
     };
@@ -83,6 +85,9 @@ const propertyValidationAttributesMap = {
     customerNumber: {
         maxLength: 32,
     },
+    customerName: {
+        maxLength: 255,
+    },
 };
 function validateTransferToDanaResponse(value) {
     const validationErrorContexts = [];
@@ -95,6 +100,7 @@ function validateTransferToDanaResponse(value) {
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('partnerReferenceNo', value.partnerReferenceNo, propertyValidationAttributesMap['partnerReferenceNo']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('sessionId', value.sessionId, propertyValidationAttributesMap['sessionId']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('customerNumber', value.customerNumber, propertyValidationAttributesMap['customerNumber']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('customerName', value.customerName, propertyValidationAttributesMap['customerName']));
     validationErrorContexts.push(...(0, Money_1.validateMoney)(value.amount));
     return validationErrorContexts;
 }

@@ -69,10 +69,10 @@ export interface DanaAccountInquiryResponse {
     customerName: string;
     /**
      * Limitation of transfer to DANA balance for customer per month
-     * @type {number}
+     * @type {string}
      * @memberof DanaAccountInquiryResponse
      */
-    customerMonthlyLimit?: number;
+    customerMonthlyInLimit?: string;
     /**
      * Minimal amount. Contains two sub-fields:<br>
      * 1. Value: Amount, including the cents<br>
@@ -154,7 +154,7 @@ export function DanaAccountInquiryResponseFromJSONTyped(json: any, ignoreDiscrim
         'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
         'customerNumber': json['customerNumber'] == null ? undefined : json['customerNumber'],
         'customerName': json['customerName'],
-        'customerMonthlyLimit': json['customerMonthlyLimit'] == null ? undefined : json['customerMonthlyLimit'],
+        'customerMonthlyInLimit': json['customerMonthlyInLimit'] == null ? undefined : json['customerMonthlyInLimit'],
         'minAmount': MoneyFromJSON(json['minAmount']),
         'maxAmount': MoneyFromJSON(json['maxAmount']),
         'amount': MoneyFromJSON(json['amount']),
@@ -182,7 +182,7 @@ export function DanaAccountInquiryResponseToJSONTyped(value?: DanaAccountInquiry
         'sessionId': value['sessionId'],
         'customerNumber': value['customerNumber'],
         'customerName': value['customerName'],
-        'customerMonthlyLimit': value['customerMonthlyLimit'],
+        'customerMonthlyInLimit': value['customerMonthlyInLimit'],
         'minAmount': MoneyToJSON(value['minAmount']),
         'maxAmount': MoneyToJSON(value['maxAmount']),
         'amount': MoneyToJSON(value['amount']),
@@ -214,9 +214,8 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     customerName: {
         maxLength: 255,
     },
-    customerMonthlyLimit: {
-        maximum: 100000000000000000,
-        exclusiveMaximum: false,
+    customerMonthlyInLimit: {
+        maxLength: 17,
     },
     feeType: {
         maxLength: 25,
@@ -244,7 +243,7 @@ export function validateDanaAccountInquiryResponse(value: DanaAccountInquiryResp
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('customerName', value.customerName, propertyValidationAttributesMap['customerName']));
 
-    validationErrorContexts.push(...ValidationUtil.validateProperty('customerMonthlyLimit', value.customerMonthlyLimit, propertyValidationAttributesMap['customerMonthlyLimit']));
+    validationErrorContexts.push(...ValidationUtil.validateProperty('customerMonthlyInLimit', value.customerMonthlyInLimit, propertyValidationAttributesMap['customerMonthlyInLimit']));
 
     validationErrorContexts.push(...validateMoney(value.minAmount));
 

@@ -10,7 +10,7 @@
 | **sessionId** | **String** |  | Session identifier |
 | **customerNumber** | **String** |  | Customer account number, in format 628xxx |
 | **customerName** | **String** | ☑️ | Customer account name |
-| **customerMonthlyLimit** | **BigDecimal** |  | Limitation of transfer to DANA balance for customer per month |
+| **customerMonthlyInLimit** | **String** |  | Limitation of transfer to DANA balance for customer per month |
 | **minAmount** | [**Money**](Money.md) | ☑️ | Minimal amount. Contains two sub-fields:<br> 1. Value: Amount, including the cents<br> 2. Currency: Currency code based on ISO  |
 | **maxAmount** | [**Money**](Money.md) | ☑️ | Maximal amount. Contains two sub-fields:<br> 1. Value: Amount, including the cents<br> 2. Currency: Currency code based on ISO  |
 | **amount** | [**Money**](Money.md) | ☑️ | Amount. Contains two sub-fields:<br> 1. Value: Transaction amount, including the cents<br> 2. Currency: Currency code based on ISO  |

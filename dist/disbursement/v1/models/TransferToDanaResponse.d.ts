@@ -50,6 +50,12 @@ export interface TransferToDanaResponse {
      */
     customerNumber?: string;
     /**
+     * Customer account name
+     * @type {string}
+     * @memberof TransferToDanaResponse
+     */
+    customerName?: string;
+    /**
      * Amount. Contains two sub-fields:<br>
      * 1. Value: Transaction amount, including the cents<br>
      * 2. Currency: Currency code based on ISO

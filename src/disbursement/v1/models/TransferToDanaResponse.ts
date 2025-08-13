@@ -62,6 +62,12 @@ export interface TransferToDanaResponse {
      */
     customerNumber?: string;
     /**
+     * Customer account name
+     * @type {string}
+     * @memberof TransferToDanaResponse
+     */
+    customerName?: string;
+    /**
      * Amount. Contains two sub-fields:<br>
      * 1. Value: Transaction amount, including the cents<br>
      * 2. Currency: Currency code based on ISO
@@ -105,6 +111,7 @@ export function TransferToDanaResponseFromJSONTyped(json: any, ignoreDiscriminat
         'partnerReferenceNo': json['partnerReferenceNo'],
         'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
         'customerNumber': json['customerNumber'] == null ? undefined : json['customerNumber'],
+        'customerName': json['customerName'] == null ? undefined : json['customerName'],
         'amount': MoneyFromJSON(json['amount']),
         'additionalInfo': json['additionalInfo'] == null ? undefined : json['additionalInfo'],
     };
@@ -127,6 +134,7 @@ export function TransferToDanaResponseToJSONTyped(value?: TransferToDanaResponse
         'partnerReferenceNo': value['partnerReferenceNo'],
         'sessionId': value['sessionId'],
         'customerNumber': value['customerNumber'],
+        'customerName': value['customerName'],
         'amount': MoneyToJSON(value['amount']),
         'additionalInfo': value['additionalInfo'],
     };
@@ -151,6 +159,9 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     customerNumber: {
         maxLength: 32,
     },
+    customerName: {
+        maxLength: 255,
+    },
 }
 
 export function validateTransferToDanaResponse(value: TransferToDanaResponse): ValidationErrorContext[] {
@@ -171,6 +182,8 @@ export function validateTransferToDanaResponse(value: TransferToDanaResponse): V
     validationErrorContexts.push(...ValidationUtil.validateProperty('sessionId', value.sessionId, propertyValidationAttributesMap['sessionId']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('customerNumber', value.customerNumber, propertyValidationAttributesMap['customerNumber']));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('customerName', value.customerName, propertyValidationAttributesMap['customerName']));
 
     validationErrorContexts.push(...validateMoney(value.amount));
 

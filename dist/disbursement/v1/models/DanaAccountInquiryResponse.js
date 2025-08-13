@@ -49,7 +49,7 @@ function DanaAccountInquiryResponseFromJSONTyped(json, ignoreDiscriminator) {
         'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
         'customerNumber': json['customerNumber'] == null ? undefined : json['customerNumber'],
         'customerName': json['customerName'],
-        'customerMonthlyLimit': json['customerMonthlyLimit'] == null ? undefined : json['customerMonthlyLimit'],
+        'customerMonthlyInLimit': json['customerMonthlyInLimit'] == null ? undefined : json['customerMonthlyInLimit'],
         'minAmount': (0, Money_1.MoneyFromJSON)(json['minAmount']),
         'maxAmount': (0, Money_1.MoneyFromJSON)(json['maxAmount']),
         'amount': (0, Money_1.MoneyFromJSON)(json['amount']),
@@ -73,7 +73,7 @@ function DanaAccountInquiryResponseToJSONTyped(value, ignoreDiscriminator = fals
         'sessionId': value['sessionId'],
         'customerNumber': value['customerNumber'],
         'customerName': value['customerName'],
-        'customerMonthlyLimit': value['customerMonthlyLimit'],
+        'customerMonthlyInLimit': value['customerMonthlyInLimit'],
         'minAmount': (0, Money_1.MoneyToJSON)(value['minAmount']),
         'maxAmount': (0, Money_1.MoneyToJSON)(value['maxAmount']),
         'amount': (0, Money_1.MoneyToJSON)(value['amount']),
@@ -104,9 +104,8 @@ const propertyValidationAttributesMap = {
     customerName: {
         maxLength: 255,
     },
-    customerMonthlyLimit: {
-        maximum: 100000000000000000,
-        exclusiveMaximum: false,
+    customerMonthlyInLimit: {
+        maxLength: 17,
     },
     feeType: {
         maxLength: 25,
@@ -124,7 +123,7 @@ function validateDanaAccountInquiryResponse(value) {
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('sessionId', value.sessionId, propertyValidationAttributesMap['sessionId']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('customerNumber', value.customerNumber, propertyValidationAttributesMap['customerNumber']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('customerName', value.customerName, propertyValidationAttributesMap['customerName']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('customerMonthlyLimit', value.customerMonthlyLimit, propertyValidationAttributesMap['customerMonthlyLimit']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('customerMonthlyInLimit', value.customerMonthlyInLimit, propertyValidationAttributesMap['customerMonthlyInLimit']));
     validationErrorContexts.push(...(0, Money_1.validateMoney)(value.minAmount));
     validationErrorContexts.push(...(0, Money_1.validateMoney)(value.maxAmount));
     validationErrorContexts.push(...(0, Money_1.validateMoney)(value.amount));
