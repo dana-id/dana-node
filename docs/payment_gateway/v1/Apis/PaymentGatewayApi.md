@@ -12,7 +12,7 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { PaymentGatewayApi } = danaClient;
+const { paymentGatewayApi } = danaClient;
 ```
 ## Additional Documentation
 * [Enum Types](#enum-types) - List of available enum constants
@@ -43,7 +43,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { CancelOrderRequest, CancelOrderResponse } from 'dana-node/PaymentGatewayApi/v1';
+import { CancelOrderRequest, CancelOrderResponse } from 'dana-node/payment_gateway/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -51,13 +51,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { PaymentGatewayApi } = danaClient;
+const { paymentGatewayApi } = danaClient;
 
 const request: CancelOrderRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: CancelOrderResponse = await PaymentGatewayApi.cancelOrder(request);
+const response: CancelOrderResponse = await paymentGatewayApi.cancelOrder(request);
 ```
 <a name="consultPay"></a>
 ## `consultPay()` Function
@@ -72,7 +72,7 @@ const response: CancelOrderResponse = await PaymentGatewayApi.cancelOrder(reques
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { ConsultPayRequest, ConsultPayResponse } from 'dana-node/PaymentGatewayApi/v1';
+import { ConsultPayRequest, ConsultPayResponse } from 'dana-node/payment_gateway/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -80,13 +80,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { PaymentGatewayApi } = danaClient;
+const { paymentGatewayApi } = danaClient;
 
 const request: ConsultPayRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: ConsultPayResponse = await PaymentGatewayApi.consultPay(request);
+const response: ConsultPayResponse = await paymentGatewayApi.consultPay(request);
 ```
 <a name="createOrder"></a>
 ## `createOrder()` Function
@@ -101,7 +101,7 @@ const response: ConsultPayResponse = await PaymentGatewayApi.consultPay(request)
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { CreateOrderRequest, CreateOrderResponse } from 'dana-node/PaymentGatewayApi/v1';
+import { CreateOrderRequest, CreateOrderResponse } from 'dana-node/payment_gateway/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -109,13 +109,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { PaymentGatewayApi } = danaClient;
+const { paymentGatewayApi } = danaClient;
 
 const request: CreateOrderRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: CreateOrderResponse = await PaymentGatewayApi.createOrder(request);
+const response: CreateOrderResponse = await paymentGatewayApi.createOrder(request);
 ```
 <a name="queryPayment"></a>
 ## `queryPayment()` Function
@@ -130,7 +130,7 @@ const response: CreateOrderResponse = await PaymentGatewayApi.createOrder(reques
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { QueryPaymentRequest, QueryPaymentResponse } from 'dana-node/PaymentGatewayApi/v1';
+import { QueryPaymentRequest, QueryPaymentResponse } from 'dana-node/payment_gateway/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -138,13 +138,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { PaymentGatewayApi } = danaClient;
+const { paymentGatewayApi } = danaClient;
 
 const request: QueryPaymentRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: QueryPaymentResponse = await PaymentGatewayApi.queryPayment(request);
+const response: QueryPaymentResponse = await paymentGatewayApi.queryPayment(request);
 ```
 <a name="refundOrder"></a>
 ## `refundOrder()` Function
@@ -159,7 +159,7 @@ const response: QueryPaymentResponse = await PaymentGatewayApi.queryPayment(requ
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { RefundOrderRequest, RefundOrderResponse } from 'dana-node/PaymentGatewayApi/v1';
+import { RefundOrderRequest, RefundOrderResponse } from 'dana-node/payment_gateway/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -167,13 +167,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { PaymentGatewayApi } = danaClient;
+const { paymentGatewayApi } = danaClient;
 
 const request: RefundOrderRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: RefundOrderResponse = await PaymentGatewayApi.refundOrder(request);
+const response: RefundOrderResponse = await paymentGatewayApi.refundOrder(request);
 ```
 
 # Enum Types

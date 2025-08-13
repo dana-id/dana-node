@@ -12,7 +12,7 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { DisbursementApi } = danaClient;
+const { disbursementApi } = danaClient;
 ```
 ## Additional Documentation
 * [Enum Types](#enum-types) - List of available enum constants
@@ -44,7 +44,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { BankAccountInquiryRequest, BankAccountInquiryResponse } from 'dana-node/DisbursementApi/v1';
+import { BankAccountInquiryRequest, BankAccountInquiryResponse } from 'dana-node/disbursement/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -52,13 +52,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { DisbursementApi } = danaClient;
+const { disbursementApi } = danaClient;
 
 const request: BankAccountInquiryRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: BankAccountInquiryResponse = await DisbursementApi.bankAccountInquiry(request);
+const response: BankAccountInquiryResponse = await disbursementApi.bankAccountInquiry(request);
 ```
 <a name="danaAccountInquiry"></a>
 ## `danaAccountInquiry()` Function
@@ -73,7 +73,7 @@ const response: BankAccountInquiryResponse = await DisbursementApi.bankAccountIn
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { DanaAccountInquiryRequest, DanaAccountInquiryResponse } from 'dana-node/DisbursementApi/v1';
+import { DanaAccountInquiryRequest, DanaAccountInquiryResponse } from 'dana-node/disbursement/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -81,13 +81,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { DisbursementApi } = danaClient;
+const { disbursementApi } = danaClient;
 
 const request: DanaAccountInquiryRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: DanaAccountInquiryResponse = await DisbursementApi.danaAccountInquiry(request);
+const response: DanaAccountInquiryResponse = await disbursementApi.danaAccountInquiry(request);
 ```
 <a name="transferToBank"></a>
 ## `transferToBank()` Function
@@ -102,7 +102,7 @@ const response: DanaAccountInquiryResponse = await DisbursementApi.danaAccountIn
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { TransferToBankRequest, TransferToBankResponse } from 'dana-node/DisbursementApi/v1';
+import { TransferToBankRequest, TransferToBankResponse } from 'dana-node/disbursement/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -110,13 +110,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { DisbursementApi } = danaClient;
+const { disbursementApi } = danaClient;
 
 const request: TransferToBankRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: TransferToBankResponse = await DisbursementApi.transferToBank(request);
+const response: TransferToBankResponse = await disbursementApi.transferToBank(request);
 ```
 <a name="transferToBankInquiryStatus"></a>
 ## `transferToBankInquiryStatus()` Function
@@ -131,7 +131,7 @@ const response: TransferToBankResponse = await DisbursementApi.transferToBank(re
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { TransferToBankInquiryStatusRequest, TransferToBankInquiryStatusResponse } from 'dana-node/DisbursementApi/v1';
+import { TransferToBankInquiryStatusRequest, TransferToBankInquiryStatusResponse } from 'dana-node/disbursement/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -139,13 +139,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { DisbursementApi } = danaClient;
+const { disbursementApi } = danaClient;
 
 const request: TransferToBankInquiryStatusRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: TransferToBankInquiryStatusResponse = await DisbursementApi.transferToBankInquiryStatus(request);
+const response: TransferToBankInquiryStatusResponse = await disbursementApi.transferToBankInquiryStatus(request);
 ```
 <a name="transferToDana"></a>
 ## `transferToDana()` Function
@@ -160,7 +160,7 @@ const response: TransferToBankInquiryStatusResponse = await DisbursementApi.tran
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { TransferToDanaRequest, TransferToDanaResponse } from 'dana-node/DisbursementApi/v1';
+import { TransferToDanaRequest, TransferToDanaResponse } from 'dana-node/disbursement/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -168,13 +168,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { DisbursementApi } = danaClient;
+const { disbursementApi } = danaClient;
 
 const request: TransferToDanaRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: TransferToDanaResponse = await DisbursementApi.transferToDana(request);
+const response: TransferToDanaResponse = await disbursementApi.transferToDana(request);
 ```
 <a name="transferToDanaInquiryStatus"></a>
 ## `transferToDanaInquiryStatus()` Function
@@ -189,7 +189,7 @@ const response: TransferToDanaResponse = await DisbursementApi.transferToDana(re
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { TransferToDanaInquiryStatusRequest, TransferToDanaInquiryStatusResponse } from 'dana-node/DisbursementApi/v1';
+import { TransferToDanaInquiryStatusRequest, TransferToDanaInquiryStatusResponse } from 'dana-node/disbursement/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -197,13 +197,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { DisbursementApi } = danaClient;
+const { disbursementApi } = danaClient;
 
 const request: TransferToDanaInquiryStatusRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: TransferToDanaInquiryStatusResponse = await DisbursementApi.transferToDanaInquiryStatus(request);
+const response: TransferToDanaInquiryStatusResponse = await disbursementApi.transferToDanaInquiryStatus(request);
 ```
 
 # Enum Types

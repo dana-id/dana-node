@@ -12,7 +12,7 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { MerchantManagementApi } = danaClient;
+const { merchantManagementApi } = danaClient;
 ```
 ## Additional Documentation
 * [Enum Types](#enum-types) - List of available enum constants
@@ -45,7 +45,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { CreateDivisionRequest, CreateDivisionResponse } from 'dana-node/MerchantManagementApi/v1';
+import { CreateDivisionRequest, CreateDivisionResponse } from 'dana-node/merchant_management/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -53,13 +53,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { MerchantManagementApi } = danaClient;
+const { merchantManagementApi } = danaClient;
 
 const request: CreateDivisionRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: CreateDivisionResponse = await MerchantManagementApi.createDivision(request);
+const response: CreateDivisionResponse = await merchantManagementApi.createDivision(request);
 ```
 <a name="createShop"></a>
 ## `createShop()` Function
@@ -74,7 +74,7 @@ const response: CreateDivisionResponse = await MerchantManagementApi.createDivis
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { CreateShopRequest, CreateShopResponse } from 'dana-node/MerchantManagementApi/v1';
+import { CreateShopRequest, CreateShopResponse } from 'dana-node/merchant_management/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -82,13 +82,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { MerchantManagementApi } = danaClient;
+const { merchantManagementApi } = danaClient;
 
 const request: CreateShopRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: CreateShopResponse = await MerchantManagementApi.createShop(request);
+const response: CreateShopResponse = await merchantManagementApi.createShop(request);
 ```
 <a name="queryDivision"></a>
 ## `queryDivision()` Function
@@ -103,7 +103,7 @@ const response: CreateShopResponse = await MerchantManagementApi.createShop(requ
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { QueryDivisionRequest, QueryDivisionResponse } from 'dana-node/MerchantManagementApi/v1';
+import { QueryDivisionRequest, QueryDivisionResponse } from 'dana-node/merchant_management/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -111,13 +111,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { MerchantManagementApi } = danaClient;
+const { merchantManagementApi } = danaClient;
 
 const request: QueryDivisionRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: QueryDivisionResponse = await MerchantManagementApi.queryDivision(request);
+const response: QueryDivisionResponse = await merchantManagementApi.queryDivision(request);
 ```
 <a name="queryMerchantResource"></a>
 ## `queryMerchantResource()` Function
@@ -132,7 +132,7 @@ const response: QueryDivisionResponse = await MerchantManagementApi.queryDivisio
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { QueryMerchantResourceRequest, QueryMerchantResourceResponse } from 'dana-node/MerchantManagementApi/v1';
+import { QueryMerchantResourceRequest, QueryMerchantResourceResponse } from 'dana-node/merchant_management/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -140,13 +140,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { MerchantManagementApi } = danaClient;
+const { merchantManagementApi } = danaClient;
 
 const request: QueryMerchantResourceRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: QueryMerchantResourceResponse = await MerchantManagementApi.queryMerchantResource(request);
+const response: QueryMerchantResourceResponse = await merchantManagementApi.queryMerchantResource(request);
 ```
 <a name="queryShop"></a>
 ## `queryShop()` Function
@@ -161,7 +161,7 @@ const response: QueryMerchantResourceResponse = await MerchantManagementApi.quer
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { QueryShopRequest, QueryShopResponse } from 'dana-node/MerchantManagementApi/v1';
+import { QueryShopRequest, QueryShopResponse } from 'dana-node/merchant_management/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -169,13 +169,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { MerchantManagementApi } = danaClient;
+const { merchantManagementApi } = danaClient;
 
 const request: QueryShopRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: QueryShopResponse = await MerchantManagementApi.queryShop(request);
+const response: QueryShopResponse = await merchantManagementApi.queryShop(request);
 ```
 <a name="updateDivision"></a>
 ## `updateDivision()` Function
@@ -190,7 +190,7 @@ const response: QueryShopResponse = await MerchantManagementApi.queryShop(reques
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { UpdateDivisionRequest, UpdateDivisionResponse } from 'dana-node/MerchantManagementApi/v1';
+import { UpdateDivisionRequest, UpdateDivisionResponse } from 'dana-node/merchant_management/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -198,13 +198,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { MerchantManagementApi } = danaClient;
+const { merchantManagementApi } = danaClient;
 
 const request: UpdateDivisionRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: UpdateDivisionResponse = await MerchantManagementApi.updateDivision(request);
+const response: UpdateDivisionResponse = await merchantManagementApi.updateDivision(request);
 ```
 <a name="updateShop"></a>
 ## `updateShop()` Function
@@ -219,7 +219,7 @@ const response: UpdateDivisionResponse = await MerchantManagementApi.updateDivis
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { UpdateShopRequest, UpdateShopResponse } from 'dana-node/MerchantManagementApi/v1';
+import { UpdateShopRequest, UpdateShopResponse } from 'dana-node/merchant_management/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -227,13 +227,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { MerchantManagementApi } = danaClient;
+const { merchantManagementApi } = danaClient;
 
 const request: UpdateShopRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: UpdateShopResponse = await MerchantManagementApi.updateShop(request);
+const response: UpdateShopResponse = await merchantManagementApi.updateShop(request);
 ```
 
 # Enum Types

@@ -12,7 +12,7 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 ```
 ## Additional Documentation
 * [Enum Types](#enum-types) - List of available enum constants
@@ -49,7 +49,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { AccountUnbindingRequest, AccountUnbindingResponse } from 'dana-node/WidgetApi/v1';
+import { AccountUnbindingRequest, AccountUnbindingResponse } from 'dana-node/widget/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -57,13 +57,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 
 const request: AccountUnbindingRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: AccountUnbindingResponse = await WidgetApi.accountUnbinding(request);
+const response: AccountUnbindingResponse = await widgetApi.accountUnbinding(request);
 ```
 <a name="applyOTT"></a>
 ## `applyOTT()` Function
@@ -78,7 +78,7 @@ const response: AccountUnbindingResponse = await WidgetApi.accountUnbinding(requ
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { ApplyOTTRequest, ApplyOTTResponse } from 'dana-node/WidgetApi/v1';
+import { ApplyOTTRequest, ApplyOTTResponse } from 'dana-node/widget/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -86,13 +86,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 
 const request: ApplyOTTRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: ApplyOTTResponse = await WidgetApi.applyOTT(request);
+const response: ApplyOTTResponse = await widgetApi.applyOTT(request);
 ```
 <a name="applyToken"></a>
 ## `applyToken()` Function
@@ -107,7 +107,7 @@ const response: ApplyOTTResponse = await WidgetApi.applyOTT(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { ApplyTokenRequest, ApplyTokenResponse } from 'dana-node/WidgetApi/v1';
+import { ApplyTokenRequest, ApplyTokenResponse } from 'dana-node/widget/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -115,13 +115,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 
 const request: ApplyTokenRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: ApplyTokenResponse = await WidgetApi.applyToken(request);
+const response: ApplyTokenResponse = await widgetApi.applyToken(request);
 ```
 <a name="balanceInquiry"></a>
 ## `balanceInquiry()` Function
@@ -136,7 +136,7 @@ const response: ApplyTokenResponse = await WidgetApi.applyToken(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { BalanceInquiryRequest, BalanceInquiryResponse } from 'dana-node/WidgetApi/v1';
+import { BalanceInquiryRequest, BalanceInquiryResponse } from 'dana-node/widget/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -144,13 +144,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 
 const request: BalanceInquiryRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: BalanceInquiryResponse = await WidgetApi.balanceInquiry(request);
+const response: BalanceInquiryResponse = await widgetApi.balanceInquiry(request);
 ```
 <a name="cancelOrder"></a>
 ## `cancelOrder()` Function
@@ -165,7 +165,7 @@ const response: BalanceInquiryResponse = await WidgetApi.balanceInquiry(request)
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { CancelOrderRequest, CancelOrderResponse } from 'dana-node/WidgetApi/v1';
+import { CancelOrderRequest, CancelOrderResponse } from 'dana-node/widget/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -173,13 +173,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 
 const request: CancelOrderRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: CancelOrderResponse = await WidgetApi.cancelOrder(request);
+const response: CancelOrderResponse = await widgetApi.cancelOrder(request);
 ```
 <a name="queryPayment"></a>
 ## `queryPayment()` Function
@@ -194,7 +194,7 @@ const response: CancelOrderResponse = await WidgetApi.cancelOrder(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { QueryPaymentRequest, QueryPaymentResponse } from 'dana-node/WidgetApi/v1';
+import { QueryPaymentRequest, QueryPaymentResponse } from 'dana-node/widget/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -202,13 +202,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 
 const request: QueryPaymentRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: QueryPaymentResponse = await WidgetApi.queryPayment(request);
+const response: QueryPaymentResponse = await widgetApi.queryPayment(request);
 ```
 <a name="queryUserProfile"></a>
 ## `queryUserProfile()` Function
@@ -223,7 +223,7 @@ const response: QueryPaymentResponse = await WidgetApi.queryPayment(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { QueryUserProfileRequest, QueryUserProfileResponse } from 'dana-node/WidgetApi/v1';
+import { QueryUserProfileRequest, QueryUserProfileResponse } from 'dana-node/widget/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -231,13 +231,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 
 const request: QueryUserProfileRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: QueryUserProfileResponse = await WidgetApi.queryUserProfile(request);
+const response: QueryUserProfileResponse = await widgetApi.queryUserProfile(request);
 ```
 <a name="refundOrder"></a>
 ## `refundOrder()` Function
@@ -252,7 +252,7 @@ const response: QueryUserProfileResponse = await WidgetApi.queryUserProfile(requ
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { RefundOrderRequest, RefundOrderResponse } from 'dana-node/WidgetApi/v1';
+import { RefundOrderRequest, RefundOrderResponse } from 'dana-node/widget/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -260,13 +260,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 
 const request: RefundOrderRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: RefundOrderResponse = await WidgetApi.refundOrder(request);
+const response: RefundOrderResponse = await widgetApi.refundOrder(request);
 ```
 <a name="widgetPayment"></a>
 ## `widgetPayment()` Function
@@ -281,7 +281,7 @@ const response: RefundOrderResponse = await WidgetApi.refundOrder(request);
 ### Usage Example
 ```typescript
 import { Dana } from 'dana-node';
-import { WidgetPaymentRequest, WidgetPaymentResponse } from 'dana-node/WidgetApi/v1';
+import { WidgetPaymentRequest, WidgetPaymentResponse } from 'dana-node/widget/v1';
 
 const danaClient = new Dana({
     partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
@@ -289,13 +289,13 @@ const danaClient = new Dana({
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
 });
-const { WidgetApi } = danaClient;
+const { widgetApi } = danaClient;
 
 const request: WidgetPaymentRequest = {
     // Define the request parameters for the API call here
 };
 
-const response: WidgetPaymentResponse = await WidgetApi.widgetPayment(request);
+const response: WidgetPaymentResponse = await widgetApi.widgetPayment(request);
 ```
 
 # Enum Types
