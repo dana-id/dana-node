@@ -299,43 +299,44 @@ const response: WidgetPaymentResponse = await widgetApi.widgetPayment(request);
 ```
 
 # Enum Types
-# Enum Types
+In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-Example Usage:
-```node
-import { EnvInfoSourcePlatformEnum } from 'dana-node/dist/widget/v1';
+For example, to use the userResources enum from QueryUserProfileRequest:
 
-const ipg = EnvInfoSourcePlatformEnum.Ipg;
+```typescript
+import { QueryUserProfileRequestUserResourcesEnum } from 'dana-node/widget/v1';
+
+// Use the enum value
+const userResources = QueryUserProfileRequestUserResourcesEnum.Balance;
 ```
 
-## AcquirementStatusEnum (acquirementStatus)
+In this example the **QueryUserProfileRequest** is the parent model and **UserResources** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+
+## ApplyOTTRequestUserResourcesEnum (userResources)
 | Value | Description |
 |-------|-------------|
-| `Init` |  |
-| `Success` |  |
-| `Closed` |  |
-| `Paying` |  |
-| `MerchantAccept` |  |
-| `Cancelled` |  |
+| `Ott` |  |
 
 
-## ActorTypeEnum (actorType)
-| Value | Description |
-|-------|-------------|
-| `User` | User |
-| `Merchant` | Merchant<br |
-| `MerchantOperator` | Merchant operator |
-| `BackOffice` | Back office |
-| `System` | System |
-
-
-## GrantTypeEnum (grantType)
+## ApplyTokenAuthorizationCodeRequestGrantTypeEnum (grantType)
 | Value | Description |
 |-------|-------------|
 | `AuthorizationCode` |  |
 
 
-## OrderTerminalTypeEnum (orderTerminalType)
+## ApplyTokenRefreshTokenRequestGrantTypeEnum (grantType)
+| Value | Description |
+|-------|-------------|
+| `RefreshToken` |  |
+
+
+## EnvInfoSourcePlatformEnum (sourcePlatform)
+| Value | Description |
+|-------|-------------|
+| `Ipg` | The source platform is always independent payment gateway (IPG) |
+
+
+## EnvInfoTerminalTypeEnum (terminalType)
 | Value | Description |
 |-------|-------------|
 | `App` | Mobile Application |
@@ -344,7 +345,23 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `System` | System Call |
 
 
-## PayMethodEnum (payMethod)
+## EnvInfoOrderTerminalTypeEnum (orderTerminalType)
+| Value | Description |
+|-------|-------------|
+| `App` | Mobile Application |
+| `Web` | Browser Web |
+| `Wap` | Mobile Wap |
+| `System` | System Call |
+
+
+## Oauth2UrlDataModeEnum (mode)
+| Value | Description |
+|-------|-------------|
+| `Api` |  |
+| `Deeplink` |  |
+
+
+## PayOptionInfoPayMethodEnum (payMethod)
 | Value | Description |
 |-------|-------------|
 | `Balance` | Payment method with balance |
@@ -359,9 +376,10 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `OnlineCredit` | Payment method with online Credit |
 | `LoanCredit` | Payment method with DANA Cicil |
 | `NetworkPay` | Payment method with e-wallet |
+| `Card` | Payment method with Card |
 
 
-## PayOptionEnum (payOption)
+## PayOptionInfoPayOptionEnum (payOption)
 | Value | Description |
 |-------|-------------|
 | `NetworkPayPgSpay` | Payment method with ShopeePay e-wallet |
@@ -369,6 +387,7 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `NetworkPayPgGopay` | Payment method with GoPay e-wallet |
 | `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
 | `NetworkPayPgCard` | Payment method with Card |
+| `NetworkPayPcIndomaret` | Payment method with Indomaret |
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
@@ -378,7 +397,7 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
 
 
-## PromoTypeEnum (promoType)
+## PaymentPromoInfoPromoTypeEnum (promoType)
 | Value | Description |
 |-------|-------------|
 | `CashBack` |  |
@@ -387,7 +406,7 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `Point` |  |
 
 
-## ResourceTypeEnum (resourceType)
+## QueryUserProfileRequestUserResourcesEnum (userResources)
 | Value | Description |
 |-------|-------------|
 | `Balance` |  |
@@ -398,15 +417,37 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `UserKyc` |  |
 
 
-## ResultStatusEnum (resultStatus)
+## QueryUserProfileResponseResponseHeadFunctionEnum (function)
 | Value | Description |
 |-------|-------------|
-| `S` |  |
-| `F` |  |
-| `U` |  |
+| `Dana.member.query.queryuserprofile` |  |
 
 
-## ServiceScenarioEnum (serviceScenario)
+## RefundPromoInfoPromoTypeEnum (promoType)
+| Value | Description |
+|-------|-------------|
+| `CashBack` |  |
+| `Discount` |  |
+| `Voucher` |  |
+| `Point` |  |
+
+
+## ResultInfoResultStatusEnum (resultStatus)
+| Value | Description |
+|-------|-------------|
+| `S` | Success |
+| `F` | Failure |
+| `U` | Unknown |
+
+
+## ServiceInfoServiceTypeEnum (serviceType)
+| Value | Description |
+|-------|-------------|
+| `Parking` |  |
+| `Investment` |  |
+
+
+## ServiceInfoServiceScenarioEnum (serviceScenario)
 | Value | Description |
 |-------|-------------|
 | `ScanAndPay` |  |
@@ -414,34 +455,33 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `EmasPurchase` |  |
 
 
-## ServiceTypeEnum (serviceType)
+## StatusDetailAcquirementStatusEnum (acquirementStatus)
 | Value | Description |
 |-------|-------------|
-| `Parking` |  |
-| `Investment` |  |
+| `Init` | Order is created but not paid yet |
+| `Success` | Order is succeeded |
+| `Closed` | Order is closed |
+| `Paying` | Order is paid but not finish |
+| `MerchantAccept` | Order is accepted by merchant after order is paid for PAY-CONFIRM |
+| `Cancelled` | Order is cancelled |
 
 
-## SourcePlatformEnum (sourcePlatform)
-| Value | Description |
-|-------|-------------|
-| `Ipg` |  |
-
-
-## TerminalTypeEnum (terminalType)
-| Value | Description |
-|-------|-------------|
-| `App` | Mobile Application |
-| `Web` | Browser Web |
-| `Wap` | Mobile Wap |
-| `System` | System Call |
-
-
-## TypeEnum (type)
+## UrlParamTypeEnum (type)
 | Value | Description |
 |-------|-------------|
 | `PayReturn` | When finish payment, DANA will notify to the URL that has been defined by |
 | `Notification` | After the payment, the user will be redirected to merchant page, this is mandatory |
 
+
+## UserResourceInfoResourceTypeEnum (resourceType)
+| Value | Description |
+|-------|-------------|
+| `Balance` |  |
+| `TransactionUrl` |  |
+| `MaskDanaId` |  |
+| `TopupUrl` |  |
+| `Ott` |  |
+| `UserKyc` |  |
 
 
 
@@ -576,7 +616,7 @@ Model | Description
 You can generate OAuth URLs for widget authorization using the WidgetUtils helper:
 
 ```typescript
-import { WidgetUtils } from 'dana-node/widget/v1';
+import { WidgetUtils, Oauth2UrlDataModeEnum } from 'dana-node/widget/v1';
 
 // Generate OAuth URL
 const oauth2UrlData = {
@@ -585,7 +625,8 @@ const oauth2UrlData = {
     merchantId: process.env.MERCHANT_ID,
     seamlessData: {
         mobileNumber: '08xxxxxxxxx' // Optional
-    }
+    },
+    mode: Oauth2UrlDataModeEnum.Api // or Oauth2UrlDataModeEnum.Deeplink
 };
 
 const oauthUrl = WidgetUtils.generateOauthUrl(oauth2UrlData);

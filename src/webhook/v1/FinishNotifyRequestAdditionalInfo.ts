@@ -54,6 +54,12 @@ export interface FinishNotifyRequestAdditionalInfo {
      * @memberof FinishNotifyRequestAdditionalInfo
      */
     extendInfoClosedReason?: string;
+    /**
+     * Additional information of paid time
+     * @type {string}
+     * @memberof FinishNotifyRequestAdditionalInfo
+     */
+    paidTime?: string;
 }
 
 /**
@@ -72,11 +78,11 @@ export function FinishNotifyRequestAdditionalInfoFromJSONTyped(json: any, ignore
         return json;
     }
     return {
-        
         'paymentInfo': json['paymentInfo'] == null ? undefined : FinishNotifyPaymentInfoFromJSON(json['paymentInfo']),
         'shopInfo': json['shopInfo'] == null ? undefined : ShopInfoFromJSON(json['shopInfo']),
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
         'extendInfoClosedReason': json['extendInfo.closedReason'] == null ? undefined : json['extendInfo.closedReason'],
+        'paidTime': json['paidTime'] == null ? undefined : json['paidTime'],
     };
 }
 
@@ -90,11 +96,11 @@ export function FinishNotifyRequestAdditionalInfoToJSONTyped(value?: FinishNotif
     }
 
     return {
-        
         'paymentInfo': FinishNotifyPaymentInfoToJSON(value['paymentInfo']),
         'shopInfo': ShopInfoToJSON(value['shopInfo']),
         'extendInfo': value['extendInfo'],
         'extendInfo.closedReason': value['extendInfoClosedReason'],
+        'paidTime': value['paidTime'],
     };
 }
 
@@ -104,6 +110,10 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     },
     extendInfoClosedReason: {
         maxLength: 64,
+    },
+    paidTime: {
+        maxLength: 25,
+        pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
     },
 }
 
@@ -121,6 +131,8 @@ export function validateFinishNotifyRequestAdditionalInfo(value: FinishNotifyReq
     validationErrorContexts.push(...ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('extendInfoClosedReason', value.extendInfoClosedReason, propertyValidationAttributesMap['extendInfoClosedReason']));
+    
+    validationErrorContexts.push(...ValidationUtil.validateProperty('paidTime', value.paidTime, propertyValidationAttributesMap['paidTime']));
 
     return validationErrorContexts;
 }

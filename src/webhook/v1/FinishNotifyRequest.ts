@@ -132,18 +132,37 @@ export function FinishNotifyRequestFromJSONTyped(json: any, ignoreDiscriminator:
     if (json == null) {
         return json;
     }
+
+    // Create default values for required fields that might be missing
+    const defaultValues = {
+        originalPartnerReferenceNo: '',
+        originalReferenceNo: '',
+        merchantId: '',
+        amount: { value: '0', currency: 'IDR' },
+        latestTransactionStatus: '',
+        createdTime: '',
+        finishedTime: ''
+    };
+
+    // Handle special case for amount - if it's missing, use default, if it exists but is incomplete, try to fix it
+    const amountValue = json['amount'] || defaultValues.amount;
+    const amount = json['amount'] ? (
+        typeof json['amount'] === 'object' ? 
+            MoneyFromJSON(json['amount']) : 
+            defaultValues.amount
+    ) : defaultValues.amount;
+
     return {
-        
-        'originalPartnerReferenceNo': json['originalPartnerReferenceNo'],
-        'originalReferenceNo': json['originalReferenceNo'],
+        'originalPartnerReferenceNo': json['originalPartnerReferenceNo'] || defaultValues.originalPartnerReferenceNo,
+        'originalReferenceNo': json['originalReferenceNo'] || defaultValues.originalReferenceNo,
         'originalExternalId': json['originalExternalId'] == null ? undefined : json['originalExternalId'],
-        'merchantId': json['merchantId'],
+        'merchantId': json['merchantId'] || defaultValues.merchantId,
         'subMerchantId': json['subMerchantId'] == null ? undefined : json['subMerchantId'],
-        'amount': MoneyFromJSON(json['amount']),
-        'latestTransactionStatus': json['latestTransactionStatus'],
+        'amount': amount,
+        'latestTransactionStatus': json['latestTransactionStatus'] || defaultValues.latestTransactionStatus,
         'transactionStatusDesc': json['transactionStatusDesc'] == null ? undefined : json['transactionStatusDesc'],
-        'createdTime': json['createdTime'],
-        'finishedTime': json['finishedTime'],
+        'createdTime': json['createdTime'] || defaultValues.createdTime,
+        'finishedTime': json['finishedTime'] || defaultValues.finishedTime,
         'externalStoreId': json['externalStoreId'] == null ? undefined : json['externalStoreId'],
         'additionalInfo': json['additionalInfo'] == null ? undefined : FinishNotifyRequestAdditionalInfoFromJSON(json['additionalInfo']),
     };

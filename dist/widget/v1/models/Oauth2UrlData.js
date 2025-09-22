@@ -6,6 +6,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Oauth2UrlDataModeEnum = void 0;
 exports.instanceOfOauth2UrlData = instanceOfOauth2UrlData;
 exports.Oauth2UrlDataFromJSON = Oauth2UrlDataFromJSON;
 exports.Oauth2UrlDataFromJSONTyped = Oauth2UrlDataFromJSONTyped;
@@ -14,6 +15,13 @@ exports.Oauth2UrlDataToJSONTyped = Oauth2UrlDataToJSONTyped;
 exports.validateOauth2UrlData = validateOauth2UrlData;
 const runtime_1 = require("../../../runtime");
 const Oauth2UrlDataSeamlessData_1 = require("./Oauth2UrlDataSeamlessData");
+/**
+ * @export
+ */
+exports.Oauth2UrlDataModeEnum = {
+    Api: 'API',
+    Deeplink: 'DEEPLINK'
+};
 /**
  * Check if a given object implements the Oauth2UrlData interface.
  */
@@ -43,6 +51,7 @@ function Oauth2UrlDataFromJSONTyped(json, ignoreDiscriminator) {
         'state': json['state'] == null ? undefined : json['state'],
         'lang': json['lang'] == null ? undefined : json['lang'],
         'allowRegistration': json['allowRegistration'] == null ? undefined : json['allowRegistration'],
+        'mode': json['mode'] == null ? undefined : json['mode'],
     };
 }
 function Oauth2UrlDataToJSON(json) {
@@ -62,6 +71,7 @@ function Oauth2UrlDataToJSONTyped(value, ignoreDiscriminator = false) {
         'state': value['state'],
         'lang': value['lang'],
         'allowRegistration': value['allowRegistration'],
+        'mode': value['mode'],
     };
 }
 const propertyValidationAttributesMap = {

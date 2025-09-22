@@ -23,6 +23,8 @@ export interface RefundOptionBill {
      *   * DIRECT_DEBIT_DEBIT_CARD - Payment method with direct debit of debit card<br>
      *   * ONLINE_CREDIT - Payment method with online Credit<br>
      *   * LOAN_CREDIT - Payment method with DANA Cicil<br>
+     *   * NETWORK_PAY - Payment method with e-wallet<br>
+     *   * CARD - Payment method with card<br>
      *
      * @type {string}
      * @memberof RefundOptionBill
@@ -53,6 +55,8 @@ export declare const RefundOptionBillPayMethodEnum: {
     readonly DirectDebitDebitCard: "DIRECT_DEBIT_DEBIT_CARD";
     readonly OnlineCredit: "ONLINE_CREDIT";
     readonly LoanCredit: "LOAN_CREDIT";
+    readonly NetworkPay: "NETWORK_PAY";
+    readonly Card: "CARD";
 };
 export type RefundOptionBillPayMethodEnum = typeof RefundOptionBillPayMethodEnum[keyof typeof RefundOptionBillPayMethodEnum] | '';
 /**

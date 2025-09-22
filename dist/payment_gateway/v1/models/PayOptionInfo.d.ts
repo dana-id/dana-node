@@ -24,6 +24,7 @@ export interface PayOptionInfo {
      *   * ONLINE_CREDIT - Payment method with online Credit<br>
      *   * LOAN_CREDIT - Payment method with DANA Cicil<br>
      *   * NETWORK_PAY - Payment method with e-wallet
+     *   * CARD - Payment method with Card
      *
      * @type {string}
      * @memberof PayOptionInfo
@@ -36,6 +37,7 @@ export interface PayOptionInfo {
      *   * NETWORK_PAY_PG_GOPAY - Payment method with GoPay e-wallet<br>
      *   * NETWORK_PAY_PG_LINKAJA - Payment method with LinkAja e-wallet<br>
      *   * NETWORK_PAY_PG_CARD - Payment method with Card<br>
+     *   * NETWORK_PAY_PC_INDOMARET - Payment method with Indomaret<br>
      *   * VIRTUAL_ACCOUNT_BCA - Payment method with BCA virtual account<br>
      *   * VIRTUAL_ACCOUNT_BNI - Payment method with BNI virtual account<br>
      *   * VIRTUAL_ACCOUNT_MANDIRI - Payment method with Mandiri virtual account<br>
@@ -110,6 +112,7 @@ export declare const PayOptionInfoPayMethodEnum: {
     readonly OnlineCredit: "ONLINE_CREDIT";
     readonly LoanCredit: "LOAN_CREDIT";
     readonly NetworkPay: "NETWORK_PAY";
+    readonly Card: "CARD";
 };
 export type PayOptionInfoPayMethodEnum = typeof PayOptionInfoPayMethodEnum[keyof typeof PayOptionInfoPayMethodEnum] | '';
 /**
@@ -121,6 +124,7 @@ export declare const PayOptionInfoPayOptionEnum: {
     readonly NetworkPayPgGopay: "NETWORK_PAY_PG_GOPAY";
     readonly NetworkPayPgLinkaja: "NETWORK_PAY_PG_LINKAJA";
     readonly NetworkPayPgCard: "NETWORK_PAY_PG_CARD";
+    readonly NetworkPayPcIndomaret: "NETWORK_PAY_PC_INDOMARET";
     readonly VirtualAccountBca: "VIRTUAL_ACCOUNT_BCA";
     readonly VirtualAccountBni: "VIRTUAL_ACCOUNT_BNI";
     readonly VirtualAccountMandiri: "VIRTUAL_ACCOUNT_MANDIRI";

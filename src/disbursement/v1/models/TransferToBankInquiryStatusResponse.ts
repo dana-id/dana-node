@@ -74,7 +74,7 @@ export interface TransferToBankInquiryStatusResponse {
      * 02 - Paying<br>
      * 03 - Pending<br>
      * 04 - Refunded<br>
-     * 05 - Canceled<br>
+     * 05 - Cancelled<br>
      * 06 - Failed<br>
      * 07 - Not found
      * 

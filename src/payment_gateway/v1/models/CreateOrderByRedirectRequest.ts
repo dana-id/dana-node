@@ -78,7 +78,7 @@ export interface CreateOrderByRedirectRequest {
      */
     externalStoreId?: string;
     /**
-     * The time when the payment will be automatically expired, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
+     * The time when the payment will be automatically expired, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time) and cannot be more than one week in the future.
      * @type {string}
      * @memberof CreateOrderByRedirectRequest
      */
@@ -169,6 +169,7 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     validUpTo: {
         maxLength: 25,
         pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
+        maxDate: "week",
     },
     disabledPayMethods: {
         maxLength: 64,

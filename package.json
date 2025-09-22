@@ -1,6 +1,6 @@
 {
   "name": "dana-node",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "author": "dana-id",
   "repository": {
     "type": "git",
@@ -29,6 +29,16 @@
       "require": "./dist/disbursement/v1/index.js",
       "types": "./dist/disbursement/v1/index.d.ts"
     },
+    "./webhook/v1": {
+      "import": "./dist/webhook/v1/index.js",
+      "require": "./dist/webhook/v1/index.js",
+      "types": "./dist/webhook/v1/index.d.ts"
+    },
+    "./merchant_management/v1": {
+      "import": "./dist/merchant_management/v1/index.js",
+      "require": "./dist/merchant_management/v1/index.js",
+      "types": "./dist/merchant_management/v1/index.d.ts"
+    },
     "./runtime": {
       "import": "./dist/runtime.js",
       "require": "./dist/runtime.js",
@@ -40,6 +50,8 @@
       "payment_gateway/v1": ["./dist/payment_gateway/v1/index.d.ts"],
       "widget/v1": ["./dist/widget/v1/index.d.ts"],
       "disbursement/v1": ["./dist/disbursement/v1/index.d.ts"],
+      "webhook/v1": ["./dist/webhook/v1/index.d.ts"],
+      "merchant_management/v1": ["./dist/merchant_management/v1/index.d.ts"],
       "runtime": ["./dist/runtime.d.ts"],
       "index": ["./dist/index.d.ts"]
     }

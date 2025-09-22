@@ -33,6 +33,7 @@ function FinishNotifyRequestAdditionalInfoFromJSONTyped(json, ignoreDiscriminato
         'shopInfo': json['shopInfo'] == null ? undefined : (0, ShopInfo_1.ShopInfoFromJSON)(json['shopInfo']),
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
         'extendInfoClosedReason': json['extendInfo.closedReason'] == null ? undefined : json['extendInfo.closedReason'],
+        'paidTime': json['paidTime'] == null ? undefined : json['paidTime'],
     };
 }
 function FinishNotifyRequestAdditionalInfoToJSON(json) {
@@ -47,6 +48,7 @@ function FinishNotifyRequestAdditionalInfoToJSONTyped(value, ignoreDiscriminator
         'shopInfo': (0, ShopInfo_1.ShopInfoToJSON)(value['shopInfo']),
         'extendInfo': value['extendInfo'],
         'extendInfo.closedReason': value['extendInfoClosedReason'],
+        'paidTime': value['paidTime'],
     };
 }
 const propertyValidationAttributesMap = {
@@ -55,6 +57,10 @@ const propertyValidationAttributesMap = {
     },
     extendInfoClosedReason: {
         maxLength: 64,
+    },
+    paidTime: {
+        maxLength: 25,
+        pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
     },
 };
 function validateFinishNotifyRequestAdditionalInfo(value) {
@@ -66,5 +72,6 @@ function validateFinishNotifyRequestAdditionalInfo(value) {
     validationErrorContexts.push(...(0, ShopInfo_1.validateShopInfo)(value.shopInfo));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfoClosedReason', value.extendInfoClosedReason, propertyValidationAttributesMap['extendInfoClosedReason']));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('paidTime', value.paidTime, propertyValidationAttributesMap['paidTime']));
     return validationErrorContexts;
 }

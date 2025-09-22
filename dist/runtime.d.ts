@@ -159,6 +159,7 @@ export interface PropertyValidationAttribute {
     maxItems?: number;
     minItems?: number;
     uniqueItems?: boolean;
+    maxDate?: string;
 }
 export interface ValidationErrorContext {
     field: string;
@@ -227,6 +228,17 @@ export declare class DanaHeaderUtil {
      * @param partnerId - The partner ID.
      */
     static populateSnapB2BScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, origin: string, partnerId: string): void;
+    /**
+     * Populates the HTTP headers required for the Snap B2B scenario.
+     * @param headerParameters - The HTTP headers object to populate.
+     * @param httpMethod - The HTTP method (e.g., GET, POST).
+     * @param endpointUrl - The API endpoint URL.
+     * @param requestBody - The request body as object
+     * @param privateKey - The private key used for generating the signature.
+     * @param clientSecret - The client secret used for generating the signature.
+     * @param partnerId - The partner ID.
+     * @param functionName - The function name.
+     */
     static populateOpenApiScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: Record<string, any>, privateKey: string, clientSecret: string, partnerId: string, functionName: string): void;
     /**
      * Populates the HTTP headers required for the Snap Apply Token scenario.

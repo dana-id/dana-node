@@ -27,13 +27,13 @@ export interface FinishNotifyPaymentInfo {
      * @type {string}
      * @memberof FinishNotifyPaymentInfo
      */
-    cashierRequestId: string;
+    cashierRequestId?: string;
     /**
      * Information of paid time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
      * @type {string}
      * @memberof FinishNotifyPaymentInfo
      */
-    paidTime: string;
+    paidTime?: string;
     /**
      * Information of pay option. Refer to payOptionInfos for the detailed
      * @type {Array<PayOptionInfo>}
@@ -58,8 +58,6 @@ export interface FinishNotifyPaymentInfo {
  * Check if a given object implements the FinishNotifyPaymentInfo interface.
  */
 export function instanceOfFinishNotifyPaymentInfo(value: object): value is FinishNotifyPaymentInfo {
-    if (!('cashierRequestId' in value) || value['cashierRequestId'] === undefined) return false;
-    if (!('paidTime' in value) || value['paidTime'] === undefined) return false;
     if (!('payOptionInfos' in value) || value['payOptionInfos'] === undefined) return false;
     return true;
 }
@@ -73,10 +71,9 @@ export function FinishNotifyPaymentInfoFromJSONTyped(json: any, ignoreDiscrimina
         return json;
     }
     return {
-        
-        'cashierRequestId': json['cashierRequestId'],
-        'paidTime': json['paidTime'],
-        'payOptionInfos': ((json['payOptionInfos'] as Array<any>).map(PayOptionInfoFromJSON)),
+        'cashierRequestId': json['cashierRequestId'] == null ? undefined : json['cashierRequestId'],
+        'paidTime': json['paidTime'] == null ? undefined : json['paidTime'],
+        'payOptionInfos': json['payOptionInfos'] ? ((json['payOptionInfos'] as Array<any>).map(PayOptionInfoFromJSON)) : [],
         'payRequestExtendInfo': json['payRequestExtendInfo'] == null ? undefined : json['payRequestExtendInfo'],
         'extendInfo': json['extendInfo'] == null ? undefined : json['extendInfo'],
     };
@@ -92,7 +89,6 @@ export function FinishNotifyPaymentInfoToJSONTyped(value?: FinishNotifyPaymentIn
     }
 
     return {
-        
         'cashierRequestId': value['cashierRequestId'],
         'paidTime': value['paidTime'],
         'payOptionInfos': ((value['payOptionInfos'] as Array<any>).map(PayOptionInfoToJSON)),

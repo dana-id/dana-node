@@ -64,7 +64,21 @@ export interface Oauth2UrlData {
      * @memberof Oauth2UrlData
      */
     allowRegistration?: string;
+    /**
+     * Mode of the authorization. The possible values are API or DEEPLINK
+     * @type {string}
+     * @memberof Oauth2UrlData
+     */
+    mode?: Oauth2UrlDataModeEnum;
 }
+/**
+ * @export
+ */
+export declare const Oauth2UrlDataModeEnum: {
+    readonly Api: "API";
+    readonly Deeplink: "DEEPLINK";
+};
+export type Oauth2UrlDataModeEnum = typeof Oauth2UrlDataModeEnum[keyof typeof Oauth2UrlDataModeEnum] | '';
 /**
  * Check if a given object implements the Oauth2UrlData interface.
  */

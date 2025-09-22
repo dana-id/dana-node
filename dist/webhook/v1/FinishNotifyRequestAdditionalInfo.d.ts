@@ -35,6 +35,12 @@ export interface FinishNotifyRequestAdditionalInfo {
      * @memberof FinishNotifyRequestAdditionalInfo
      */
     extendInfoClosedReason?: string;
+    /**
+     * Additional information of paid time
+     * @type {string}
+     * @memberof FinishNotifyRequestAdditionalInfo
+     */
+    paidTime?: string;
 }
 /**
  * Check if a given object implements the FinishNotifyRequestAdditionalInfo interface.

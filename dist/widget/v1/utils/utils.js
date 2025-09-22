@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WidgetUtils = void 0;
 require("dotenv/config");
-const runtime_1 = require("../../../runtime");
+// Ensure uuid is installed: npm install uuid @types/uuid
 const uuid_1 = require("uuid");
+const models_1 = require("../models");
+const runtime_1 = require("../../../runtime");
 const runtime_2 = require("../../../runtime");
 /**
  * Widget utility functions for the DANA Widget API
@@ -70,14 +72,34 @@ class WidgetUtils {
     /**
      * Generates an OAuth URL for the DANA API using the provided data
      * @param data OAuth URL parameters
+     * @param privateKey Optional private key content
      * @returns Fully constructed OAuth URL
      */
-    static generateOauthUrl(data) {
+    static generateOauthUrl(data, privateKey) {
         const env = process.env.DANA_ENV || process.env.ENV || runtime_2.Env.SANDBOX;
         if (!env) {
             throw new runtime_1.RequiredError('generateOauthUrl', 'DANA_ENV or ENV is not defined');
         }
-        const baseUrl = env !== runtime_2.Env.PRODUCTION ? 'https://m.sandbox.dana.id/n/ipg/oauth' : 'https://m.dana.id/n/ipg/oauth';
+        // Determine mode, default to API
+        const mode = data.mode || models_1.Oauth2UrlDataModeEnum.Api;
+        // Set base URL based on mode and environment
+        let baseUrl;
+        if (mode === models_1.Oauth2UrlDataModeEnum.Deeplink) {
+            if (env === runtime_2.Env.PRODUCTION) {
+                baseUrl = 'https://link.dana.id/bindSnap';
+            }
+            else {
+                baseUrl = 'https://m.sandbox.dana.id/n/link/binding';
+            }
+        }
+        else { // Mode.API
+            if (env === runtime_2.Env.PRODUCTION) {
+                baseUrl = 'https://m.dana.id/n/ipg/oauth';
+            }
+            else {
+                baseUrl = 'https://m.sandbox.dana.id/n/ipg/oauth';
+            }
+        }
         const partnerId = process.env.X_PARTNER_ID;
         if (!partnerId) {
             throw new runtime_1.RequiredError('generateOauthUrl', 'X_PARTNER_ID is not defined');
@@ -86,40 +108,92 @@ class WidgetUtils {
         const state = data.state || (0, uuid_1.v4)();
         // Generate channel ID in Jakarta time format
         const channelId = WidgetUtils.generateChannelId();
-        const scopes = WidgetUtils.generateScopes();
+        const scopes = data.scopes || WidgetUtils.generateScopes();
         const externalId = WidgetUtils.generateExternalId(data.externalId);
         const merchantId = data.merchantId;
         // Always generate a fresh timestamp in Jakarta time format
         const timestamp = WidgetUtils.generateTimestamp();
-        // Build URL with required parameters
-        let url = `${baseUrl}?partnerId=${partnerId}&scopes=${scopes}&externalId=${externalId}&channelId=${channelId}&redirectUrl=${encodeURIComponent(data.redirectUrl)}&timestamp=${encodeURIComponent(timestamp)}&state=${state}&isSnapBI=true`;
-        if (merchantId) {
-            url += `&merchantId=${encodeURIComponent(merchantId)}`;
+        // URL parameters object to be built based on mode
+        let urlParams = {};
+        // Generate a request ID for DEEPLINK mode
+        let requestId;
+        if (mode === models_1.Oauth2UrlDataModeEnum.Deeplink) {
+            requestId = (0, uuid_1.v4)();
+            // Build DEEPLINK mode parameters
+            urlParams = {
+                partnerId,
+                scopes: typeof scopes === 'string' ? scopes : scopes.join(','),
+                terminalType: "WEB",
+                externalId,
+                requestId: requestId,
+                redirectUrl: data.redirectUrl || '',
+                state
+            };
         }
-        if (data.subMerchantId) {
-            url += `&subMerchantId=${encodeURIComponent(data.subMerchantId)}`;
+        else { // Mode.API
+            // Build API mode parameters
+            urlParams = {
+                partnerId,
+                scopes: typeof scopes === 'string' ? scopes : scopes.join(','),
+                externalId,
+                channelId,
+                redirectUrl: data.redirectUrl || '',
+                timestamp,
+                state,
+                isSnapBI: 'true'
+            };
+            // Add merchant ID if provided and in API mode
+            if (merchantId) {
+                urlParams.merchantId = merchantId;
+            }
+            // Add subMerchantId if provided and in API mode
+            if (data.subMerchantId) {
+                urlParams.subMerchantId = data.subMerchantId;
+            }
+            // Add lang if provided and in API mode
+            if (data.lang) {
+                urlParams.lang = data.lang;
+            }
+            // Add allowRegistration if provided and in API mode
+            if (data.allowRegistration !== undefined) {
+                urlParams.allowRegistration = data.allowRegistration.toString();
+            }
         }
-        if (data.lang) {
-            url += `&lang=${encodeURIComponent(data.lang)}`;
-        }
-        if (data.allowRegistration) {
-            url += `&allowRegistration=${encodeURIComponent(data.allowRegistration)}`;
-        }
+        // Handle seamless data if provided
         if (data.seamlessData) {
-            // Convert seamlessData object to JSON string and encode it
-            const seamlessDataStr = encodeURIComponent(JSON.stringify(data.seamlessData));
-            url += `&seamlessData=${seamlessDataStr}`;
-            // Get private key from environment
-            const privateKey = process.env.PRIVATE_KEY;
-            if (privateKey) {
+            // Deep clone the seamless data
+            let seamlessDataObj = JSON.parse(JSON.stringify(data.seamlessData));
+            // Process for DEEPLINK mode
+            if (mode === models_1.Oauth2UrlDataModeEnum.Deeplink && requestId) {
+                // Convert mobileNumber to mobile if needed
+                if (seamlessDataObj.mobileNumber) {
+                    seamlessDataObj.mobile = seamlessDataObj.mobileNumber;
+                    delete seamlessDataObj.mobileNumber;
+                }
+                // Add required fields for DEEPLINK mode
+                seamlessDataObj.externalUid = externalId;
+                seamlessDataObj.reqTime = timestamp;
+                seamlessDataObj.verifiedTime = "0";
+                seamlessDataObj.reqMsgId = requestId;
+            }
+            // Convert to JSON string
+            const seamlessDataStr = JSON.stringify(seamlessDataObj);
+            urlParams.seamlessData = seamlessDataStr;
+            // Get private key from parameter or environment
+            const pk = privateKey || process.env.PRIVATE_KEY;
+            if (pk) {
                 // Calculate the seamlessSign if private key is available
-                const seamlessSign = runtime_1.DanaSignatureUtil.generateSeamlessSign(data.seamlessData, privateKey);
+                const seamlessSign = runtime_1.DanaSignatureUtil.generateSeamlessSign(seamlessDataObj, pk);
                 if (seamlessSign) {
-                    url += `&seamlessSign=${seamlessSign}`;
+                    urlParams.seamlessSign = seamlessSign;
                 }
             }
         }
-        return url;
+        // Build the final URL
+        const queryString = Object.entries(urlParams)
+            .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+            .join('&');
+        return `${baseUrl}?${queryString}`;
     }
     static generateCompletePaymentUrl(widgetPaymentResponse, applyOTTResponse) {
         var _a;

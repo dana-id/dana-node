@@ -51,7 +51,7 @@ export interface TransferToBankResponse {
      * @type {string}
      * @memberof TransferToBankResponse
      */
-    referenceNumber: string;
+    referenceNumber?: string;
     /**
      * Additional information
      * @type {object}
@@ -66,7 +66,6 @@ export interface TransferToBankResponse {
 export function instanceOfTransferToBankResponse(value: object): value is TransferToBankResponse {
     if (!('responseCode' in value) || value['responseCode'] === undefined) return false;
     if (!('responseMessage' in value) || value['responseMessage'] === undefined) return false;
-    if (!('referenceNumber' in value) || value['referenceNumber'] === undefined) return false;
     return true;
 }
 
@@ -85,7 +84,7 @@ export function TransferToBankResponseFromJSONTyped(json: any, ignoreDiscriminat
         'referenceNo': json['referenceNo'] == null ? undefined : json['referenceNo'],
         'partnerReferenceNo': json['partnerReferenceNo'] == null ? undefined : json['partnerReferenceNo'],
         'transactionDate': json['transactionDate'] == null ? undefined : json['transactionDate'],
-        'referenceNumber': json['referenceNumber'],
+        'referenceNumber': json['referenceNumber'] == null ? undefined : json['referenceNumber'],
         'additionalInfo': json['additionalInfo'] == null ? undefined : json['additionalInfo'],
     };
 }

@@ -47,7 +47,7 @@ export interface TransferToBankResponse {
      * @type {string}
      * @memberof TransferToBankResponse
      */
-    referenceNumber: string;
+    referenceNumber?: string;
     /**
      * Additional information
      * @type {object}

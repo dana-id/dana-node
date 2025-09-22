@@ -177,27 +177,20 @@ const response: RefundOrderResponse = await paymentGatewayApi.refundOrder(reques
 ```
 
 # Enum Types
-# Enum Types
+In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-Example Usage:
-```node
-import { EnvInfoSourcePlatformEnum } from 'dana-node/dist/payment_gateway/v1';
+For example, to use the actorType enum from ActorContext:
 
-const ipg = EnvInfoSourcePlatformEnum.Ipg;
+```typescript
+import { ActorContextActorTypeEnum } from 'dana-node/payment_gateway/v1';
+
+// Use the enum value
+const actorType = ActorContextActorTypeEnum.User;
 ```
 
-## AcquirementStatusEnum (acquirementStatus)
-| Value | Description |
-|-------|-------------|
-| `Init` | Order is created but not paid yet |
-| `Success` | Order is succeeded |
-| `Closed` | Order is closed |
-| `Paying` | Order is paid but not finish |
-| `MerchantAccept` | Order is accepted by merchant after order is paid for PAY-CONFIRM |
-| `Cancelled` | Order is cancelled |
+In this example the **ActorContext** is the parent model and **ActorType** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
 
-
-## ActorTypeEnum (actorType)
+## ActorContextActorTypeEnum (actorType)
 | Value | Description |
 |-------|-------------|
 | `User` | User |
@@ -207,16 +200,7 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `System` | System |
 
 
-## OrderTerminalTypeEnum (orderTerminalType)
-| Value | Description |
-|-------|-------------|
-| `App` | Mobile Application |
-| `Web` | Browser Web |
-| `Wap` | Mobile Wap |
-| `System` | System Call |
-
-
-## PayMethodEnum (payMethod)
+## ConsultPayPaymentInfoPayMethodEnum (payMethod)
 | Value | Description |
 |-------|-------------|
 | `Balance` | Payment method with balance |
@@ -231,9 +215,10 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `OnlineCredit` | Payment method with online Credit |
 | `LoanCredit` | Payment method with DANA Cicil |
 | `NetworkPay` | Payment method with e-wallet |
+| `Card` | Payment method with card |
 
 
-## PayOptionEnum (payOption)
+## ConsultPayPaymentInfoPayOptionEnum (payOption)
 | Value | Description |
 |-------|-------------|
 | `NetworkPayPgSpay` | Payment method with ShopeePay e-wallet |
@@ -241,6 +226,7 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `NetworkPayPgGopay` | Payment method with GoPay e-wallet |
 | `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
 | `NetworkPayPgCard` | Payment method with Card |
+| `NetworkPayPcIndomaret` | Payment method with Indomaret |
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
@@ -250,19 +236,13 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
 
 
-## ScenarioEnum (scenario)
+## EnvInfoSourcePlatformEnum (sourcePlatform)
 | Value | Description |
 |-------|-------------|
-| `Redirect` |  |
+| `Ipg` | The source platform is always independent payment gateway (IPG) |
 
 
-## SourcePlatformEnum (sourcePlatform)
-| Value | Description |
-|-------|-------------|
-| `Ipg` |  |
-
-
-## TerminalTypeEnum (terminalType)
+## EnvInfoTerminalTypeEnum (terminalType)
 | Value | Description |
 |-------|-------------|
 | `App` | Mobile Application |
@@ -271,12 +251,144 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `System` | System Call |
 
 
-## TypeEnum (type)
+## EnvInfoOrderTerminalTypeEnum (orderTerminalType)
+| Value | Description |
+|-------|-------------|
+| `App` | Mobile Application |
+| `Web` | Browser Web |
+| `Wap` | Mobile Wap |
+| `System` | System Call |
+
+
+## OrderApiObjectScenarioEnum (scenario)
+| Value | Description |
+|-------|-------------|
+| `Api` |  |
+
+
+## OrderRedirectObjectScenarioEnum (scenario)
+| Value | Description |
+|-------|-------------|
+| `Redirect` |  |
+
+
+## PayOptionDetailPayMethodEnum (payMethod)
+| Value | Description |
+|-------|-------------|
+| `Balance` | Payment method with balance |
+| `Coupon` | Payment method with coupon |
+| `NetBanking` | Payment method with internet banking |
+| `CreditCard` | Payment method with credit card |
+| `DebitCard` | Payment method with debit card |
+| `VirtualAccount` | Payment method with virtual account |
+| `Otc` | Payment method with OTC |
+| `DirectDebitCreditCard` | Payment method with direct debit of credit card |
+| `DirectDebitDebitCard` | Payment method with direct debit of debit card |
+| `OnlineCredit` | Payment method with online Credit |
+| `LoanCredit` | Payment method with DANA Cicil |
+| `NetworkPay` | Payment method with e-wallet |
+| `Card` | Payment method with card |
+
+
+## PayOptionDetailPayOptionEnum (payOption)
+| Value | Description |
+|-------|-------------|
+| `NetworkPayPgSpay` | Payment method with ShopeePay e-wallet |
+| `NetworkPayPgOvo` | Payment method with OVO e-wallet |
+| `NetworkPayPgGopay` | Payment method with GoPay e-wallet |
+| `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
+| `NetworkPayPgCard` | Payment method with Card |
+| `NetworkPayPgQris` | Payment method with QRIS |
+| `NetworkPayPcIndomaret` | Payment method with Indomaret |
+| `VirtualAccountBca` | Payment method with BCA virtual account |
+| `VirtualAccountBni` | Payment method with BNI virtual account |
+| `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
+| `VirtualAccountBri` | Payment method with BRI virtual account |
+| `VirtualAccountBtpn` | Payment method with BTPN virtual account |
+| `VirtualAccountCimb` | Payment method with CIMB virtual account |
+| `VirtualAccountPermata` | Payment method with Permata virtual account |
+
+
+## PayOptionInfoPayMethodEnum (payMethod)
+| Value | Description |
+|-------|-------------|
+| `Balance` | Payment method with balance |
+| `Coupon` | Payment method with coupon |
+| `NetBanking` | Payment method with internet banking |
+| `CreditCard` | Payment method with credit card |
+| `DebitCard` | Payment method with debit card |
+| `VirtualAccount` | Payment method with virtual account |
+| `Otc` | Payment method with OTC |
+| `DirectDebitCreditCard` | Payment method with direct debit of credit card |
+| `DirectDebitDebitCard` | Payment method with direct debit of debit card |
+| `OnlineCredit` | Payment method with online Credit |
+| `LoanCredit` | Payment method with DANA Cicil |
+| `NetworkPay` | Payment method with e-wallet |
+| `Card` | Payment method with Card |
+
+
+## PayOptionInfoPayOptionEnum (payOption)
+| Value | Description |
+|-------|-------------|
+| `NetworkPayPgSpay` | Payment method with ShopeePay e-wallet |
+| `NetworkPayPgOvo` | Payment method with OVO e-wallet |
+| `NetworkPayPgGopay` | Payment method with GoPay e-wallet |
+| `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
+| `NetworkPayPgCard` | Payment method with Card |
+| `NetworkPayPcIndomaret` | Payment method with Indomaret |
+| `VirtualAccountBca` | Payment method with BCA virtual account |
+| `VirtualAccountBni` | Payment method with BNI virtual account |
+| `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
+| `VirtualAccountBri` | Payment method with BRI virtual account |
+| `VirtualAccountBtpn` | Payment method with BTPN virtual account |
+| `VirtualAccountCimb` | Payment method with CIMB virtual account |
+| `VirtualAccountPermata` | Payment method with Permata virtual account |
+
+
+## RefundOptionBillPayMethodEnum (payMethod)
+| Value | Description |
+|-------|-------------|
+| `Balance` | Payment method with balance |
+| `Coupon` | Payment method with coupon |
+| `NetBanking` | Payment method with internet banking |
+| `CreditCard` | Payment method with credit card |
+| `DebitCard` | Payment method with debit card |
+| `VirtualAccount` | Payment method with virtual account |
+| `Otc` | Payment method with OTC |
+| `DirectDebitCreditCard` | Payment method with direct debit of credit card |
+| `DirectDebitDebitCard` | Payment method with direct debit of debit card |
+| `OnlineCredit` | Payment method with online Credit |
+| `LoanCredit` | Payment method with DANA Cicil |
+| `NetworkPay` | Payment method with e-wallet |
+| `Card` | Payment method with card |
+
+
+## RefundOrderRequestAdditionalInfoActorTypeEnum (actorType)
+| Value | Description |
+|-------|-------------|
+| `User` | User |
+| `Merchant` | Merchant |
+| `MerchantOperator` | Merchant operator |
+| `BackOffice` | Back office |
+| `System` | System |
+
+
+## StatusDetailAcquirementStatusEnum (acquirementStatus)
+| Value | Description |
+|-------|-------------|
+| `Init` | Order is created but not paid yet |
+| `Success` | Order is succeeded |
+| `Closed` | Order is closed |
+| `Paying` | Order is paid but not finish |
+| `MerchantAccept` | Order is accepted by merchant after order is paid for PAY-CONFIRM |
+| `Cancelled` | Order is cancelled |
+
+
+## UrlParamTypeEnum (type)
 | Value | Description |
 |-------|-------------|
 | `PayReturn` | When finish payment, DANA will notify to the URL that has been defined by |
 | `Notification` | After the payment, the user will be redirected to merchant page, this is mandatory |
-
 
 
 

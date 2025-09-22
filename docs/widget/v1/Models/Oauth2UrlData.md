@@ -12,5 +12,6 @@
 | **state** | **String** |  | Random string for CSRF protection purposes |
 | **lang** | **String** |  | Service language code. ISO 639-1 |
 | **allowRegistration** | **String** |  | If value equals true, provider may enable registration process during binding. Default true |
+| **mode** | **String** |  | Mode of the authorization. The possible values are API or DEEPLINK |
 
 [[Back to README]](../../../../README.md)

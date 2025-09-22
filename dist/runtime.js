@@ -378,6 +378,32 @@ class ValidationUtil {
             if (attribute.pattern && !attribute.pattern.test(value)) {
                 validationErrorContexts.push({ field, message: 'must match required pattern' });
             }
+            if (attribute.maxDate && attribute.maxDate === 'week') {
+                try {
+                    // Create current date in Jakarta timezone (GMT+7)
+                    const currentDate = new Date();
+                    // Add 7 hours to get Jakarta time
+                    currentDate.setHours(currentDate.getHours() + 7);
+                    // Maximum allowed date (current date + 7 days)
+                    const maxDate = new Date(currentDate);
+                    maxDate.setDate(maxDate.getDate() + 7);
+                    // Parse the input date (assuming it's in ISO 8601 format)
+                    const inputDate = new Date(value);
+                    // Check if the input date exceeds the maximum allowed date
+                    if (inputDate > maxDate) {
+                        validationErrorContexts.push({
+                            field,
+                            message: 'date cannot be more than one week in the future'
+                        });
+                    }
+                }
+                catch (error) {
+                    validationErrorContexts.push({
+                        field,
+                        message: 'invalid date format'
+                    });
+                }
+            }
         }
         if (typeof value === 'number') {
             if (attribute.maximum !== undefined && value > attribute.maximum) {
@@ -440,6 +466,17 @@ class DanaHeaderUtil {
         headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
         headerParameters['CHANNEL-ID'] = partnerId + '-SERVER';
     }
+    /**
+     * Populates the HTTP headers required for the Snap B2B scenario.
+     * @param headerParameters - The HTTP headers object to populate.
+     * @param httpMethod - The HTTP method (e.g., GET, POST).
+     * @param endpointUrl - The API endpoint URL.
+     * @param requestBody - The request body as object
+     * @param privateKey - The private key used for generating the signature.
+     * @param clientSecret - The client secret used for generating the signature.
+     * @param partnerId - The partner ID.
+     * @param functionName - The function name.
+     */
     static populateOpenApiScenarioHeader(headerParameters, httpMethod, endpointUrl, requestBody, privateKey, clientSecret, partnerId, functionName) {
         const timestamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
         requestBody['request']['head'] = {
@@ -590,8 +627,14 @@ class DanaSignatureUtil {
         if (key.includes(header) && key.includes(footer)) {
             return key.replace(/\\n/g, delimiter);
         }
-        const body = this.splitStringIntoChunks(key, 64).join(delimiter);
-        return [header, body, footer].join(delimiter);
+        key = key.replace(/\\n/g, '');
+        const chunks = [];
+        for (let i = 0; i < key.length; i += 64) {
+            const end = Math.min(i + 64, key.length);
+            chunks.push(key.slice(i, end));
+        }
+        const body = chunks.join(delimiter);
+        return header + delimiter + body + delimiter + footer;
     }
     /**
      * Splits a string into chunks of a specified size.

@@ -29,7 +29,9 @@ exports.RefundOptionBillPayMethodEnum = {
     DirectDebitCreditCard: 'DIRECT_DEBIT_CREDIT_CARD',
     DirectDebitDebitCard: 'DIRECT_DEBIT_DEBIT_CARD',
     OnlineCredit: 'ONLINE_CREDIT',
-    LoanCredit: 'LOAN_CREDIT'
+    LoanCredit: 'LOAN_CREDIT',
+    NetworkPay: 'NETWORK_PAY',
+    Card: 'CARD'
 };
 /**
  * Check if a given object implements the RefundOptionBill interface.

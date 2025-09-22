@@ -11,6 +11,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { disbursementApi } = danaClient;
 ```
@@ -51,6 +52,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { disbursementApi } = danaClient;
 
@@ -80,6 +82,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { disbursementApi } = danaClient;
 
@@ -109,6 +112,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { disbursementApi } = danaClient;
 
@@ -138,6 +142,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { disbursementApi } = danaClient;
 
@@ -167,6 +172,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { disbursementApi } = danaClient;
 
@@ -196,6 +202,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { disbursementApi } = danaClient;
 
@@ -207,102 +214,71 @@ const response: TransferToDanaInquiryStatusResponse = await disbursementApi.tran
 ```
 
 # Enum Types
-# Enum Types
+In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-Example Usage:
-```node
-import { EnvInfoSourcePlatformEnum } from 'dana-node/dist/disbursement/v1';
+For example, to use the chargeTarget enum from DanaAccountInquiryRequestAdditionalInfo:
 
-const ipg = EnvInfoSourcePlatformEnum.Ipg;
+```typescript
+import { DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum } from 'dana-node/disbursement/v1';
+
+// Use the enum value
+const chargeTarget = DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum.Division;
 ```
 
-## ActorTypeEnum (actorType)
+In this example the **DanaAccountInquiryRequestAdditionalInfo** is the parent model and **ChargeTarget** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+
+## BankAccountInquiryRequestAdditionalInfoChargeTargetEnum (chargeTarget)
 | Value | Description |
 |-------|-------------|
-| `User` | User |
-| `Merchant` | Merchant<br |
-| `MerchantOperator` | Merchant operator |
-| `BackOffice` | Back office |
-| `System` | System |
+| `Division` |  |
+| `Merchant` |  |
 
 
-## LatestTransactionStatusEnum (latestTransactionStatus)
+## DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum (chargeTarget)
 | Value | Description |
 |-------|-------------|
-| `00` |  |
-| `01` |  |
-| `02` |  |
-| `03` |  |
-| `04` |  |
-| `05` |  |
-| `06` |  |
-| `07` |  |
+| `Division` |  |
+| `Merchant` |  |
 
 
-## OrderTerminalTypeEnum (orderTerminalType)
+## TransferToBankInquiryStatusResponseLatestTransactionStatusEnum (latestTransactionStatus)
 | Value | Description |
 |-------|-------------|
-| `App` | Mobile Application |
-| `Web` | Browser Web |
-| `Wap` | Mobile Wap |
-| `System` | System Call |
+| `00` | Success |
+| `01` | Initiated |
+| `02` | Paying |
+| `03` | Pending |
+| `04` | Refunded |
+| `05` | Cancelled |
+| `06` | Failed |
+| `07` | Not found |
 
 
-## PayMethodEnum (payMethod)
+## TransferToBankRequestAdditionalInfoChargeTargetEnum (chargeTarget)
 | Value | Description |
 |-------|-------------|
-| `Balance` | Payment method with balance |
-| `Coupon` | Payment method with coupon |
-| `NetBanking` | Payment method with internet banking |
-| `CreditCard` | Payment method with credit card |
-| `DebitCard` | Payment method with debit card |
-| `VirtualAccount` | Payment method with virtual account |
-| `Otc` | Payment method with OTC |
-| `DirectDebitCreditCard` | Payment method with direct debit of credit card |
-| `DirectDebitDebitCard` | Payment method with direct debit of debit card |
-| `OnlineCredit` | Payment method with online Credit |
-| `LoanCredit` | Payment method with DANA Cicil |
-| `NetworkPay` | Payment method with e-wallet |
+| `Division` |  |
+| `Merchant` |  |
 
 
-## PayOptionEnum (payOption)
+## TransferToDanaInquiryStatusResponseLatestTransactionStatusEnum (latestTransactionStatus)
 | Value | Description |
 |-------|-------------|
-| `NetworkPayPgSpay` | Payment method with ShopeePay e-wallet |
-| `NetworkPayPgOvo` | Payment method with OVO e-wallet |
-| `NetworkPayPgGopay` | Payment method with GoPay e-wallet |
-| `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
-| `NetworkPayPgCard` | Payment method with Card |
-| `VirtualAccountBca` | Payment method with BCA virtual account |
-| `VirtualAccountBni` | Payment method with BNI virtual account |
-| `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
-| `VirtualAccountBri` | Payment method with BRI virtual account |
-| `VirtualAccountBtpn` | Payment method with BTPN virtual account |
-| `VirtualAccountCimb` | Payment method with CIMB virtual account |
-| `VirtualAccountPermata` | Payment method with Permata virtual account |
+| `00` | Success |
+| `01` | Initiated |
+| `02` | Paying |
+| `03` | Pending |
+| `04` | Refunded |
+| `05` | Cancelled |
+| `06` | Failed |
+| `07` | Not found |
 
 
-## SourcePlatformEnum (sourcePlatform)
+## TransferToDanaRequestAdditionalInfoChargeTargetEnum (chargeTarget)
 | Value | Description |
 |-------|-------------|
-| `Ipg` |  |
-
-
-## TerminalTypeEnum (terminalType)
-| Value | Description |
-|-------|-------------|
-| `App` | Mobile Application |
-| `Web` | Browser Web |
-| `Wap` | Mobile Wap |
-| `System` | System Call |
-
-
-## TypeEnum (type)
-| Value | Description |
-|-------|-------------|
-| `PayReturn` | When finish payment, DANA will notify to the URL that has been defined by |
-| `Notification` | After the payment, the user will be redirected to merchant page, this is mandatory |
-
+| `Division` |  |
+| `Merchant` |  |
 
 
 

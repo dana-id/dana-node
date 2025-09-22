@@ -11,6 +11,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { merchantManagementApi } = danaClient;
 ```
@@ -52,6 +53,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { merchantManagementApi } = danaClient;
 
@@ -81,6 +83,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { merchantManagementApi } = danaClient;
 
@@ -110,6 +113,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { merchantManagementApi } = danaClient;
 
@@ -139,6 +143,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { merchantManagementApi } = danaClient;
 
@@ -168,6 +173,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { merchantManagementApi } = danaClient;
 
@@ -197,6 +203,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { merchantManagementApi } = danaClient;
 
@@ -226,6 +233,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
 });
 const { merchantManagementApi } = danaClient;
 
@@ -237,44 +245,37 @@ const response: UpdateShopResponse = await merchantManagementApi.updateShop(requ
 ```
 
 # Enum Types
-# Enum Types
+In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-Example Usage:
-```node
-import { EnvInfoSourcePlatformEnum } from 'dana-node/dist/merchant_management/v1';
+For example, to use the verified enum from MobileNoInfo:
 
-const ipg = EnvInfoSourcePlatformEnum.Ipg;
+```typescript
+import { MobileNoInfoVerifiedEnum } from 'dana-node/merchant_management/v1';
+
+// Use the enum value
+const verified = MobileNoInfoVerifiedEnum.True;
 ```
 
-## ActorTypeEnum (actorType)
+In this example the **MobileNoInfo** is the parent model and **Verified** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+
+## BusinessDocsDocTypeEnum (docType)
 | Value | Description |
 |-------|-------------|
-| `User` | User |
-| `Merchant` | Merchant<br |
-| `MerchantOperator` | Merchant operator |
-| `BackOffice` | Back office |
-| `System` | System |
+| `Ktp` |  |
+| `Sim` |  |
+| `Siup` |  |
+| `Nib` |  |
 
 
-## BusinessEntityEnum (businessEntity)
+## CreateDivisionRequestParentRoleTypeEnum (parentRoleType)
 | Value | Description |
 |-------|-------------|
-| `Pt` |  |
-| `Cv` |  |
-| `Individu` |  |
-| `UsahaDagang` |  |
-| `Yayasan` |  |
-| `Koperasi` |  |
+| `Merchant` |  |
+| `Division` |  |
+| `ExternalDivision` |  |
 
 
-## DivisionIdTypeEnum (divisionIdType)
-| Value | Description |
-|-------|-------------|
-| `InnerId` |  |
-| `ExternalId` |  |
-
-
-## DivisionTypeEnum (divisionType)
+## CreateDivisionRequestDivisionTypeEnum (divisionType)
 | Value | Description |
 |-------|-------------|
 | `Region` |  |
@@ -290,32 +291,18 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `VendingMachine` |  |
 
 
-## DocTypeEnum (docType)
+## CreateDivisionRequestBusinessEntityEnum (businessEntity)
 | Value | Description |
 |-------|-------------|
-| `Ktp` |  |
-| `Sim` |  |
-| `Siup` |  |
-| `Nib` |  |
+| `Pt` |  |
+| `Cv` |  |
+| `Individu` |  |
+| `UsahaDagang` |  |
+| `Yayasan` |  |
+| `Koperasi` |  |
 
 
-## LoyaltyEnum (loyalty)
-| Value | Description |
-|-------|-------------|
-| `True` |  |
-| `False` |  |
-
-
-## OrderTerminalTypeEnum (orderTerminalType)
-| Value | Description |
-|-------|-------------|
-| `App` | Mobile Application |
-| `Web` | Browser Web |
-| `Wap` | Mobile Wap |
-| `System` | System Call |
-
-
-## OwnerIdTypeEnum (ownerIdType)
+## CreateDivisionRequestOwnerIdTypeEnum (ownerIdType)
 | Value | Description |
 |-------|-------------|
 | `Ktp` |  |
@@ -325,93 +312,44 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `Nib` |  |
 
 
-## ParentRoleTypeEnum (parentRoleType)
+## CreateDivisionRequestSizeTypeEnum (sizeType)
 | Value | Description |
 |-------|-------------|
-| `Merchant` |  |
-| `Division` |  |
-| `ExternalDivision` |  |
+| `Umi` |  |
+| `Uke` |  |
+| `Ume` |  |
+| `Ube` |  |
+| `Ure` |  |
 
 
-## PayMethodEnum (payMethod)
-| Value | Description |
-|-------|-------------|
-| `Balance` | Payment method with balance |
-| `Coupon` | Payment method with coupon |
-| `NetBanking` | Payment method with internet banking |
-| `CreditCard` | Payment method with credit card |
-| `DebitCard` | Payment method with debit card |
-| `VirtualAccount` | Payment method with virtual account |
-| `Otc` | Payment method with OTC |
-| `DirectDebitCreditCard` | Payment method with direct debit of credit card |
-| `DirectDebitDebitCard` | Payment method with direct debit of debit card |
-| `OnlineCredit` | Payment method with online Credit |
-| `LoanCredit` | Payment method with DANA Cicil |
-| `NetworkPay` | Payment method with e-wallet |
-
-
-## PayOptionEnum (payOption)
-| Value | Description |
-|-------|-------------|
-| `NetworkPayPgSpay` | Payment method with ShopeePay e-wallet |
-| `NetworkPayPgOvo` | Payment method with OVO e-wallet |
-| `NetworkPayPgGopay` | Payment method with GoPay e-wallet |
-| `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
-| `NetworkPayPgCard` | Payment method with Card |
-| `VirtualAccountBca` | Payment method with BCA virtual account |
-| `VirtualAccountBni` | Payment method with BNI virtual account |
-| `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
-| `VirtualAccountBri` | Payment method with BRI virtual account |
-| `VirtualAccountBtpn` | Payment method with BTPN virtual account |
-| `VirtualAccountCimb` | Payment method with CIMB virtual account |
-| `VirtualAccountPermata` | Payment method with Permata virtual account |
-
-
-## PgDivisionFlagEnum (pgDivisionFlag)
+## CreateDivisionRequestPgDivisionFlagEnum (pgDivisionFlag)
 | Value | Description |
 |-------|-------------|
 | `True` |  |
 | `False` |  |
 
 
-## ResourceTypeEnum (resourceType)
+## CreateDivisionRequestExtInfoGOODSSOLDTYPEEnum (gOODSSOLDTYPE)
 | Value | Description |
 |-------|-------------|
-| `MerchantDepositBalance` |  |
-| `MerchantAvailableBalance` |  |
-| `MerchantTotalBalance` |  |
+| `Digital` |  |
+| `Physical` |  |
 
 
-## ResultStatusEnum (resultStatus)
+## CreateDivisionRequestExtInfoUSERPROFILINGEnum (uSERPROFILING)
 | Value | Description |
 |-------|-------------|
-| `S` |  |
-| `F` |  |
-| `U` |  |
+| `B2b` |  |
+| `B2c` |  |
 
 
-## ShopBizTypeEnum (shopBizType)
+## CreateDivisionResponseResponseHeadFunctionEnum (function)
 | Value | Description |
 |-------|-------------|
-| `Online` |  |
-| `Offline` |  |
+| `Dana.merchant.division.createdivision` |  |
 
 
-## ShopIdTypeEnum (shopIdType)
-| Value | Description |
-|-------|-------------|
-| `InnerId` |  |
-| `ExternalId` |  |
-
-
-## ShopOwningEnum (shopOwning)
-| Value | Description |
-|-------|-------------|
-| `DirectOwned` |  |
-| `Franchised` |  |
-
-
-## ShopParentTypeEnum (shopParentType)
+## CreateShopRequestShopParentTypeEnum (shopParentType)
 | Value | Description |
 |-------|-------------|
 | `Merchant` |  |
@@ -419,7 +357,7 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `ExternalDivision` |  |
 
 
-## SizeTypeEnum (sizeType)
+## CreateShopRequestSizeTypeEnum (sizeType)
 | Value | Description |
 |-------|-------------|
 | `Umi` |  |
@@ -428,34 +366,270 @@ const ipg = EnvInfoSourcePlatformEnum.Ipg;
 | `Ube` |  |
 
 
-## SourcePlatformEnum (sourcePlatform)
-| Value | Description |
-|-------|-------------|
-| `Ipg` |  |
-
-
-## TerminalTypeEnum (terminalType)
-| Value | Description |
-|-------|-------------|
-| `App` | Mobile Application |
-| `Web` | Browser Web |
-| `Wap` | Mobile Wap |
-| `System` | System Call |
-
-
-## TypeEnum (type)
-| Value | Description |
-|-------|-------------|
-| `PayReturn` | When finish payment, DANA will notify to the URL that has been defined by |
-| `Notification` | After the payment, the user will be redirected to merchant page, this is mandatory |
-
-
-## VerifiedEnum (verified)
+## CreateShopRequestLoyaltyEnum (loyalty)
 | Value | Description |
 |-------|-------------|
 | `True` |  |
 | `False` |  |
 
+
+## CreateShopRequestBusinessEntityEnum (businessEntity)
+| Value | Description |
+|-------|-------------|
+| `Pt` |  |
+| `Cv` |  |
+| `Individu` |  |
+| `UsahaDagang` |  |
+| `Yayasan` |  |
+| `Koperasi` |  |
+
+
+## CreateShopRequestOwnerIdTypeEnum (ownerIdType)
+| Value | Description |
+|-------|-------------|
+| `Ktp` |  |
+| `Sim` |  |
+| `Passport` |  |
+| `Siup` |  |
+| `Nib` |  |
+
+
+## CreateShopRequestShopOwningEnum (shopOwning)
+| Value | Description |
+|-------|-------------|
+| `DirectOwned` |  |
+| `Franchised` |  |
+
+
+## CreateShopResponseResponseHeadFunctionEnum (function)
+| Value | Description |
+|-------|-------------|
+| `Dana.merchant.shop.createshop` |  |
+
+
+## DivisionResourceInfoParentRoleTypeEnum (parentRoleType)
+| Value | Description |
+|-------|-------------|
+| `Merchant` |  |
+| `Division` |  |
+| `ExternalDivision` |  |
+
+
+## DivisionResourceInfoDivisionTypeEnum (divisionType)
+| Value | Description |
+|-------|-------------|
+| `Region` |  |
+| `Area` |  |
+| `Branch` |  |
+| `Outlet` |  |
+| `Store` |  |
+| `Kiosk` |  |
+| `Stall` |  |
+| `Counter` |  |
+| `Booth` |  |
+| `PointOfSale` |  |
+| `VendingMachine` |  |
+
+
+## DivisionResourceInfoPgDivisionFlagEnum (pgDivisionFlag)
+| Value | Description |
+|-------|-------------|
+| `True` |  |
+| `False` |  |
+
+
+## MerchantResourceInformationResourceTypeEnum (resourceType)
+| Value | Description |
+|-------|-------------|
+| `MerchantDepositBalance` |  |
+| `MerchantAvailableBalance` |  |
+| `MerchantTotalBalance` |  |
+
+
+## MobileNoInfoVerifiedEnum (verified)
+| Value | Description |
+|-------|-------------|
+| `True` |  |
+| `False` |  |
+
+
+## QueryDivisionRequestDivisionIdTypeEnum (divisionIdType)
+| Value | Description |
+|-------|-------------|
+| `InnerId` |  |
+| `ExternalId` |  |
+
+
+## QueryDivisionResponseResponseHeadFunctionEnum (function)
+| Value | Description |
+|-------|-------------|
+| `Dana.merchant.division.querydivision` |  |
+
+
+## QueryMerchantResourceRequestMerchantResourceInfoListEnum (merchantResourceInfoList)
+| Value | Description |
+|-------|-------------|
+| `MerchantDepositBalance` |  |
+| `MerchantAvailableBalance` |  |
+| `MerchantTotalBalance` |  |
+
+
+## QueryMerchantResourceResponseResponseHeadFunctionEnum (function)
+| Value | Description |
+|-------|-------------|
+| `Dana.merchant.querymerchantresource` |  |
+
+
+## QueryShopRequestShopIdTypeEnum (shopIdType)
+| Value | Description |
+|-------|-------------|
+| `InnerId` |  |
+| `ExternalId` |  |
+
+
+## QueryShopResponseResponseHeadFunctionEnum (function)
+| Value | Description |
+|-------|-------------|
+| `Dana.merchant.shop.queryshop` |  |
+
+
+## ResultInfoResultStatusEnum (resultStatus)
+| Value | Description |
+|-------|-------------|
+| `S` | Success |
+| `F` | Failure |
+| `U` | Unknown |
+
+
+## UpdateDivisionRequestDivisionTypeEnum (divisionType)
+| Value | Description |
+|-------|-------------|
+| `Region` |  |
+| `Area` |  |
+| `Branch` |  |
+| `Outlet` |  |
+| `Store` |  |
+| `Kiosk` |  |
+| `Stall` |  |
+| `Counter` |  |
+| `Booth` |  |
+| `PointOfSale` |  |
+| `VendingMachine` |  |
+
+
+## UpdateDivisionRequestDivisionIdTypeEnum (divisionIdType)
+| Value | Description |
+|-------|-------------|
+| `InnerId` |  |
+| `ExternalId` |  |
+
+
+## UpdateDivisionRequestBusinessEntityEnum (businessEntity)
+| Value | Description |
+|-------|-------------|
+| `Pt` |  |
+| `Cv` |  |
+| `Individu` |  |
+| `UsahaDagang` |  |
+| `Yayasan` |  |
+| `Koperasi` |  |
+
+
+## UpdateDivisionRequestOwnerIdTypeEnum (ownerIdType)
+| Value | Description |
+|-------|-------------|
+| `Ktp` |  |
+| `Sim` |  |
+| `Passport` |  |
+| `Siup` |  |
+| `Nib` |  |
+
+
+## UpdateDivisionRequestSizeTypeEnum (sizeType)
+| Value | Description |
+|-------|-------------|
+| `Umi` |  |
+| `Uke` |  |
+| `Ume` |  |
+| `Ube` |  |
+| `Ure` |  |
+
+
+## UpdateDivisionRequestPgDivisionFlagEnum (pgDivisionFlag)
+| Value | Description |
+|-------|-------------|
+| `True` |  |
+| `False` |  |
+
+
+## UpdateDivisionResponseResponseHeadFunctionEnum (function)
+| Value | Description |
+|-------|-------------|
+| `Dana.merchant.division.updatedivision` |  |
+
+
+## UpdateShopRequestShopIdTypeEnum (shopIdType)
+| Value | Description |
+|-------|-------------|
+| `InnerId` |  |
+| `ExternalId` |  |
+
+
+## UpdateShopRequestSizeTypeEnum (sizeType)
+| Value | Description |
+|-------|-------------|
+| `Umi` |  |
+| `Uke` |  |
+| `Ume` |  |
+| `Ube` |  |
+
+
+## UpdateShopRequestLoyaltyEnum (loyalty)
+| Value | Description |
+|-------|-------------|
+| `True` |  |
+| `False` |  |
+
+
+## UpdateShopRequestOwnerIdTypeEnum (ownerIdType)
+| Value | Description |
+|-------|-------------|
+| `Ktp` |  |
+| `Sim` |  |
+| `Passport` |  |
+| `Siup` |  |
+| `Nib` |  |
+
+
+## UpdateShopRequestBusinessEntityEnum (businessEntity)
+| Value | Description |
+|-------|-------------|
+| `Pt` |  |
+| `Cv` |  |
+| `Individu` |  |
+| `UsahaDagang` |  |
+| `Yayasan` |  |
+| `Koperasi` |  |
+
+
+## UpdateShopRequestShopOwningEnum (shopOwning)
+| Value | Description |
+|-------|-------------|
+| `DirectOwned` |  |
+| `Franchised` |  |
+
+
+## UpdateShopRequestShopBizTypeEnum (shopBizType)
+| Value | Description |
+|-------|-------------|
+| `Online` |  |
+| `Offline` |  |
+
+
+## UpdateShopResponseResponseHeadFunctionEnum (function)
+| Value | Description |
+|-------|-------------|
+| `Dana.merchant.shop.updateshop` |  |
 
 
 

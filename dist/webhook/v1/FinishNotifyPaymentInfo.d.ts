@@ -15,13 +15,13 @@ export interface FinishNotifyPaymentInfo {
      * @type {string}
      * @memberof FinishNotifyPaymentInfo
      */
-    cashierRequestId: string;
+    cashierRequestId?: string;
     /**
      * Information of paid time, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
      * @type {string}
      * @memberof FinishNotifyPaymentInfo
      */
-    paidTime: string;
+    paidTime?: string;
     /**
      * Information of pay option. Refer to payOptionInfos for the detailed
      * @type {Array<PayOptionInfo>}

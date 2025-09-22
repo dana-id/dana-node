@@ -21,8 +21,6 @@ function instanceOfTransferToBankResponse(value) {
         return false;
     if (!('responseMessage' in value) || value['responseMessage'] === undefined)
         return false;
-    if (!('referenceNumber' in value) || value['referenceNumber'] === undefined)
-        return false;
     return true;
 }
 function TransferToBankResponseFromJSON(json) {
@@ -38,7 +36,7 @@ function TransferToBankResponseFromJSONTyped(json, ignoreDiscriminator) {
         'referenceNo': json['referenceNo'] == null ? undefined : json['referenceNo'],
         'partnerReferenceNo': json['partnerReferenceNo'] == null ? undefined : json['partnerReferenceNo'],
         'transactionDate': json['transactionDate'] == null ? undefined : json['transactionDate'],
-        'referenceNumber': json['referenceNumber'],
+        'referenceNumber': json['referenceNumber'] == null ? undefined : json['referenceNumber'],
         'additionalInfo': json['additionalInfo'] == null ? undefined : json['additionalInfo'],
     };
 }

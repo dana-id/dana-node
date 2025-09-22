@@ -30,7 +30,8 @@ exports.PayOptionInfoPayMethodEnum = {
     DirectDebitDebitCard: 'DIRECT_DEBIT_DEBIT_CARD',
     OnlineCredit: 'ONLINE_CREDIT',
     LoanCredit: 'LOAN_CREDIT',
-    NetworkPay: 'NETWORK_PAY'
+    NetworkPay: 'NETWORK_PAY',
+    Card: 'CARD'
 };
 /**
  * @export
@@ -41,6 +42,7 @@ exports.PayOptionInfoPayOptionEnum = {
     NetworkPayPgGopay: 'NETWORK_PAY_PG_GOPAY',
     NetworkPayPgLinkaja: 'NETWORK_PAY_PG_LINKAJA',
     NetworkPayPgCard: 'NETWORK_PAY_PG_CARD',
+    NetworkPayPcIndomaret: 'NETWORK_PAY_PC_INDOMARET',
     VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
     VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
     VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',

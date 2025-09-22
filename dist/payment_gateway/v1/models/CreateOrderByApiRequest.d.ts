@@ -59,7 +59,7 @@ export interface CreateOrderByApiRequest {
      */
     externalStoreId?: string;
     /**
-     * The time when the payment will be automatically expired, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time)
+     * The time when the payment will be automatically expired, in format YYYY-MM-DDTHH:mm:ss+07:00. Time must be in GMT+7 (Jakarta time) and cannot be more than one week in the future.
      * @type {string}
      * @memberof CreateOrderByApiRequest
      */

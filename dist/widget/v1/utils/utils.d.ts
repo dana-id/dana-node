@@ -28,9 +28,10 @@ export declare class WidgetUtils {
     /**
      * Generates an OAuth URL for the DANA API using the provided data
      * @param data OAuth URL parameters
+     * @param privateKey Optional private key content
      * @returns Fully constructed OAuth URL
      */
-    static generateOauthUrl(data: Oauth2UrlData): string;
+    static generateOauthUrl(data: Oauth2UrlData, privateKey?: string): string;
     static generateCompletePaymentUrl(widgetPaymentResponse?: WidgetPaymentResponse, applyOTTResponse?: ApplyOTTResponse): string;
 }
 /**

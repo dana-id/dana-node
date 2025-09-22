@@ -64,8 +64,46 @@ class WebhookParser {
         }
         throw new Error('Invalid key format: incomplete PEM markers or unrecognised structure.');
     }
+    /**
+   * Ensures that a JSON string is minified, checking if it's already minified first
+   * to avoid unnecessary processing.
+   * @param jsonStr JSON string to minify
+   * @returns Minified JSON string
+   */
     static minifyJson(jsonStr) {
-        return JSON.stringify(JSON.parse(jsonStr));
+        try {
+            let processedStr = jsonStr;
+            processedStr = processedStr.replace(/"(\w+)":"(\{[^}]*\})"/g, (match, fieldName, jsonContent) => {
+                const fixedContent = jsonContent.replace(/"/g, '\\"');
+                return `"${fieldName}":"${fixedContent}"`;
+            });
+            if (WebhookParser.isJsonMinified(processedStr)) {
+                return processedStr;
+            }
+            return JSON.stringify(JSON.parse(processedStr));
+        }
+        catch (error) {
+            console.error(`Failed to minify JSON: ${error.message}`);
+            return jsonStr;
+        }
+    }
+    /**
+     * Performs a quick check to determine if JSON is already minified
+     * @param jsonStr JSON string to check
+     * @returns true if JSON appears to be minified
+     */
+    static isJsonMinified(jsonStr) {
+        // Check for common indicators of non-minified JSON
+        const indicators = [
+            ": ",
+            ", ",
+            "{ ",
+            "[ ",
+            "\n",
+            "\t",
+            "\r"
+        ];
+        return !indicators.some(indicator => jsonStr.includes(indicator));
     }
     static sha256LowerHex(data) {
         return (0, node_crypto_1.createHash)('sha256').update(data, 'utf8').digest('hex');
@@ -77,10 +115,11 @@ class WebhookParser {
     }
     /**
      * Verifies the webhook signature and deserialises the JSON payload.
+     * Uses the FinishNotifyRequestFromJSON function which now handles missing fields flexibly.
      */
     parseWebhook(httpMethod, relativePathUrl, headers, body) {
-        const xSignature = headers['X-SIGNATURE'] || headers['x-signature'];
-        const xTimestamp = headers['X-TIMESTAMP'] || headers['x-timestamp'];
+        const xSignature = headers['X-SIGNATURE'] || headers['x-signature'] || headers['X-Signature'] || headers['x-Signature'];
+        const xTimestamp = headers['X-TIMESTAMP'] || headers['x-timestamp'] || headers['X-Timestamp'] || headers['x-Timestamp'];
         if (!xSignature || !xTimestamp) {
             throw new Error('Missing X-SIGNATURE or X-TIMESTAMP header.');
         }
@@ -93,10 +132,14 @@ class WebhookParser {
             throw new Error('Signature verification failed.');
         }
         try {
-            return (0, FinishNotifyRequest_1.FinishNotifyRequestFromJSON)(JSON.parse(body));
+            let parseableBody = body.replace(/"(\w+)":"(\{[^}]*\})"/g, (match, fieldName, jsonContent) => {
+                const fixedContent = jsonContent.replace(/"/g, '\\"');
+                return `"${fieldName}":"${fixedContent}"`;
+            });
+            return (0, FinishNotifyRequest_1.FinishNotifyRequestFromJSON)(JSON.parse(parseableBody));
         }
-        catch (_a) {
-            throw new Error('Invalid JSON in request body.');
+        catch (error) {
+            throw new Error(`Failed to process request body: ${error.message}`);
         }
     }
 }

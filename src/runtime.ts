@@ -422,7 +422,8 @@ export interface PropertyValidationAttribute {
     multipleOf?: number,
     maxItems?: number,
     minItems?: number,
-    uniqueItems?: boolean
+    uniqueItems?: boolean,
+    maxDate?: string
 };
 
 export interface ValidationErrorContext {
@@ -510,6 +511,34 @@ export class ValidationUtil {
             if (attribute.pattern && !attribute.pattern.test(value)) {
                 validationErrorContexts.push({ field, message: 'must match required pattern' });
             }
+            if (attribute.maxDate && attribute.maxDate === 'week') {
+                try {
+                    // Create current date in Jakarta timezone (GMT+7)
+                    const currentDate = new Date();
+                    // Add 7 hours to get Jakarta time
+                    currentDate.setHours(currentDate.getHours() + 7);
+                    
+                    // Maximum allowed date (current date + 7 days)
+                    const maxDate = new Date(currentDate);
+                    maxDate.setDate(maxDate.getDate() + 7);
+                    
+                    // Parse the input date (assuming it's in ISO 8601 format)
+                    const inputDate = new Date(value);
+                    
+                    // Check if the input date exceeds the maximum allowed date
+                    if (inputDate > maxDate) {
+                        validationErrorContexts.push({ 
+                            field, 
+                            message: 'date cannot be more than one week in the future' 
+                        });
+                    }
+                } catch (error) {
+                    validationErrorContexts.push({ 
+                        field, 
+                        message: 'invalid date format' 
+                    });
+                }
+            }
         }
     
         if (typeof value === 'number') {
@@ -578,6 +607,17 @@ export class DanaHeaderUtil {
         headerParameters['CHANNEL-ID'] = partnerId + '-SERVER';
     }
 
+    /**
+     * Populates the HTTP headers required for the Snap B2B scenario.
+     * @param headerParameters - The HTTP headers object to populate.
+     * @param httpMethod - The HTTP method (e.g., GET, POST).
+     * @param endpointUrl - The API endpoint URL.
+     * @param requestBody - The request body as object
+     * @param privateKey - The private key used for generating the signature.
+     * @param clientSecret - The client secret used for generating the signature.
+     * @param partnerId - The partner ID.
+     * @param functionName - The function name.
+     */
     static populateOpenApiScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: Record<string,any>, privateKey: string, clientSecret: string, partnerId: string, functionName: string): void {
         const timestamp: string = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
         
@@ -748,8 +788,17 @@ export class DanaSignatureUtil {
             return key.replace(/\\n/g, delimiter);
         }
 
-        const body: string = this.splitStringIntoChunks(key, 64).join(delimiter);
-        return [header, body, footer].join(delimiter);
+        key = key.replace(/\\n/g, '');
+
+        const chunks: string[] = [];
+        for (let i = 0; i < key.length; i += 64) {
+            const end = Math.min(i + 64, key.length);
+            chunks.push(key.slice(i, end));
+        }
+
+        const body: string = chunks.join(delimiter);
+
+        return header + delimiter + body + delimiter + footer;
     }
 
     /**

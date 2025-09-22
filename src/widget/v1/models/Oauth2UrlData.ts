@@ -76,7 +76,24 @@ export interface Oauth2UrlData {
      * @memberof Oauth2UrlData
      */
     allowRegistration?: string;
+    /**
+     * Mode of the authorization. The possible values are API or DEEPLINK
+     * @type {string}
+     * @memberof Oauth2UrlData
+     */
+    mode?: Oauth2UrlDataModeEnum;
 }
+
+
+/**
+ * @export
+ */
+export const Oauth2UrlDataModeEnum = {
+    Api: 'API',
+    Deeplink: 'DEEPLINK'
+} as const;
+export type Oauth2UrlDataModeEnum = typeof Oauth2UrlDataModeEnum[keyof typeof Oauth2UrlDataModeEnum] | '';
+
 
 /**
  * Check if a given object implements the Oauth2UrlData interface.
@@ -107,6 +124,7 @@ export function Oauth2UrlDataFromJSONTyped(json: any, ignoreDiscriminator: boole
         'state': json['state'] == null ? undefined : json['state'],
         'lang': json['lang'] == null ? undefined : json['lang'],
         'allowRegistration': json['allowRegistration'] == null ? undefined : json['allowRegistration'],
+        'mode': json['mode'] == null ? undefined : json['mode'],
     };
 }
 
@@ -130,6 +148,7 @@ export function Oauth2UrlDataToJSONTyped(value?: Oauth2UrlData | null, ignoreDis
         'state': value['state'],
         'lang': value['lang'],
         'allowRegistration': value['allowRegistration'],
+        'mode': value['mode'],
     };
 }
 
