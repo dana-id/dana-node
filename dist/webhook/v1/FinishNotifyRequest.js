@@ -118,11 +118,9 @@ const propertyValidationAttributesMap = {
     },
     createdTime: {
         maxLength: 25,
-        pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
     },
     finishedTime: {
         maxLength: 25,
-        pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
     },
     externalStoreId: {
         maxLength: 64,

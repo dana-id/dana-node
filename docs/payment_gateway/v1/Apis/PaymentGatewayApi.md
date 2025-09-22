@@ -399,7 +399,7 @@ This document explains how to use the `WebhookParser` utility from the `` SDK to
 ## Example
 
 ```typescript
-import { WebhookParser } from 'dana-node/webhook'; // Adjust import path as needed
+import { WebhookParser } from 'dana-node/webhook/v1'; // Adjust import path as needed
 // Assuming you are in an Express.js route handler or similar framework context.
 // If using Express, you might import types like this:
 // import { Request, Response } from 'express';
