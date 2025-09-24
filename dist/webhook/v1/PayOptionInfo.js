@@ -106,9 +106,6 @@ const propertyValidationAttributesMap = {
     extendInfo: {
         maxLength: 4096,
     },
-    paymentCode: {
-        maxLength: 64,
-    },
 };
 function validatePayOptionInfo(value) {
     const validationErrorContexts = [];

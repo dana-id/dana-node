@@ -43,13 +43,15 @@ exports.PayOptionInfoPayOptionEnum = {
     NetworkPayPgLinkaja: 'NETWORK_PAY_PG_LINKAJA',
     NetworkPayPgCard: 'NETWORK_PAY_PG_CARD',
     NetworkPayPcIndomaret: 'NETWORK_PAY_PC_INDOMARET',
+    NetworkPayPgQris: 'NETWORK_PAY_PG_QRIS',
     VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
     VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
     VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',
     VirtualAccountBri: 'VIRTUAL_ACCOUNT_BRI',
     VirtualAccountBtpn: 'VIRTUAL_ACCOUNT_BTPN',
     VirtualAccountCimb: 'VIRTUAL_ACCOUNT_CIMB',
-    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA'
+    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA',
+    VirtualAccountPanin: 'VIRTUAL_ACCOUNT_PANIN'
 };
 /**
  * Check if a given object implements the PayOptionInfo interface.
@@ -108,9 +110,6 @@ const propertyValidationAttributesMap = {
     extendInfo: {
         maxLength: 4096,
     },
-    paymentCode: {
-        maxLength: 64,
-    },
 };
 function validatePayOptionInfo(value) {
     const validationErrorContexts = [];
@@ -124,6 +123,5 @@ function validatePayOptionInfo(value) {
     validationErrorContexts.push(...(0, Money_1.validateMoney)(value.chargeAmount));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('payOptionBillExtendInfo', value.payOptionBillExtendInfo, propertyValidationAttributesMap['payOptionBillExtendInfo']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('paymentCode', value.paymentCode, propertyValidationAttributesMap['paymentCode']));
     return validationErrorContexts;
 }

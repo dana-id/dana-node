@@ -50,9 +50,6 @@ const propertyValidationAttributesMap = {
     phoneNumber: {
         maxLength: 15,
     },
-    paymentCode: {
-        maxLength: 64,
-    },
 };
 function validatePayOptionAdditionalInfo(value) {
     const validationErrorContexts = [];
@@ -60,6 +57,5 @@ function validatePayOptionAdditionalInfo(value) {
         return validationErrorContexts;
     }
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('phoneNumber', value.phoneNumber, propertyValidationAttributesMap['phoneNumber']));
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('paymentCode', value.paymentCode, propertyValidationAttributesMap['paymentCode']));
     return validationErrorContexts;
 }

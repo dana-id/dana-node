@@ -50,6 +50,7 @@ export interface ConsultPayPaymentInfo {
      *   * NETWORK_PAY_PG_LINKAJA - Payment method with LinkAja e-wallet<br>
      *   * NETWORK_PAY_PG_CARD - Payment method with Card<br>
      *   * NETWORK_PAY_PC_INDOMARET - Payment method with Indomaret<br>
+     *   * NETWORK_PAY_PG_QRIS - Payment method with QRIS<br>
      *   * VIRTUAL_ACCOUNT_BCA - Payment method with BCA virtual account<br>
      *   * VIRTUAL_ACCOUNT_BNI - Payment method with BNI virtual account<br>
      *   * VIRTUAL_ACCOUNT_MANDIRI - Payment method with Mandiri virtual account<br>
@@ -57,6 +58,7 @@ export interface ConsultPayPaymentInfo {
      *   * VIRTUAL_ACCOUNT_BTPN - Payment method with BTPN virtual account<br>
      *   * VIRTUAL_ACCOUNT_CIMB - Payment method with CIMB virtual account<br>
      *   * VIRTUAL_ACCOUNT_PERMATA - Payment method with Permata virtual account<br>
+     *   * VIRTUAL_ACCOUNT_PANIN - Payment method with Panin virtual account<br>
      * 
      * @type {string}
      * @memberof ConsultPayPaymentInfo
@@ -101,13 +103,15 @@ export const ConsultPayPaymentInfoPayOptionEnum = {
     NetworkPayPgLinkaja: 'NETWORK_PAY_PG_LINKAJA',
     NetworkPayPgCard: 'NETWORK_PAY_PG_CARD',
     NetworkPayPcIndomaret: 'NETWORK_PAY_PC_INDOMARET',
+    NetworkPayPgQris: 'NETWORK_PAY_PG_QRIS',
     VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
     VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
     VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',
     VirtualAccountBri: 'VIRTUAL_ACCOUNT_BRI',
     VirtualAccountBtpn: 'VIRTUAL_ACCOUNT_BTPN',
     VirtualAccountCimb: 'VIRTUAL_ACCOUNT_CIMB',
-    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA'
+    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA',
+    VirtualAccountPanin: 'VIRTUAL_ACCOUNT_PANIN'
 } as const;
 export type ConsultPayPaymentInfoPayOptionEnum = typeof ConsultPayPaymentInfoPayOptionEnum[keyof typeof ConsultPayPaymentInfoPayOptionEnum] | '';
 

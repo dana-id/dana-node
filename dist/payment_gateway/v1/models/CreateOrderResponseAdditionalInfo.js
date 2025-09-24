@@ -12,7 +12,6 @@ exports.CreateOrderResponseAdditionalInfoFromJSONTyped = CreateOrderResponseAddi
 exports.CreateOrderResponseAdditionalInfoToJSON = CreateOrderResponseAdditionalInfoToJSON;
 exports.CreateOrderResponseAdditionalInfoToJSONTyped = CreateOrderResponseAdditionalInfoToJSONTyped;
 exports.validateCreateOrderResponseAdditionalInfo = validateCreateOrderResponseAdditionalInfo;
-const runtime_1 = require("../../../runtime");
 /**
  * Check if a given object implements the CreateOrderResponseAdditionalInfo interface.
  */
@@ -41,16 +40,11 @@ function CreateOrderResponseAdditionalInfoToJSONTyped(value, ignoreDiscriminator
         'paymentCode': value['paymentCode'],
     };
 }
-const propertyValidationAttributesMap = {
-    paymentCode: {
-        maxLength: 64,
-    },
-};
+const propertyValidationAttributesMap = {};
 function validateCreateOrderResponseAdditionalInfo(value) {
     const validationErrorContexts = [];
     if (value == null) {
         return validationErrorContexts;
     }
-    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('paymentCode', value.paymentCode, propertyValidationAttributesMap['paymentCode']));
     return validationErrorContexts;
 }

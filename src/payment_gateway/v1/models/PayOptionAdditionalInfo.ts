@@ -86,9 +86,6 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     phoneNumber: {
         maxLength: 15,
     },
-    paymentCode: {
-        maxLength: 64,
-    },
 }
 
 export function validatePayOptionAdditionalInfo(value: PayOptionAdditionalInfo): ValidationErrorContext[] {
@@ -99,8 +96,6 @@ export function validatePayOptionAdditionalInfo(value: PayOptionAdditionalInfo):
     }
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('phoneNumber', value.phoneNumber, propertyValidationAttributesMap['phoneNumber']));
-
-    validationErrorContexts.push(...ValidationUtil.validateProperty('paymentCode', value.paymentCode, propertyValidationAttributesMap['paymentCode']));
 
     return validationErrorContexts;
 }

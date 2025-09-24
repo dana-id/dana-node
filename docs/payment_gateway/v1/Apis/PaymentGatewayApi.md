@@ -227,6 +227,7 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
 | `NetworkPayPgCard` | Payment method with Card |
 | `NetworkPayPcIndomaret` | Payment method with Indomaret |
+| `NetworkPayPgQris` | Payment method with QRIS |
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
@@ -234,6 +235,7 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `VirtualAccountBtpn` | Payment method with BTPN virtual account |
 | `VirtualAccountCimb` | Payment method with CIMB virtual account |
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
+| `VirtualAccountPanin` | Payment method with Panin virtual account |
 
 
 ## EnvInfoSourcePlatformEnum (sourcePlatform)
@@ -307,6 +309,7 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `VirtualAccountBtpn` | Payment method with BTPN virtual account |
 | `VirtualAccountCimb` | Payment method with CIMB virtual account |
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
+| `VirtualAccountPanin` | Payment method with Panin virtual account |
 
 
 ## PayOptionInfoPayMethodEnum (payMethod)
@@ -336,6 +339,7 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
 | `NetworkPayPgCard` | Payment method with Card |
 | `NetworkPayPcIndomaret` | Payment method with Indomaret |
+| `NetworkPayPgQris` | Payment method with QRIS |
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
@@ -343,6 +347,7 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `VirtualAccountBtpn` | Payment method with BTPN virtual account |
 | `VirtualAccountCimb` | Payment method with CIMB virtual account |
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
+| `VirtualAccountPanin` | Payment method with Panin virtual account |
 
 
 ## RefundOptionBillPayMethodEnum (payMethod)

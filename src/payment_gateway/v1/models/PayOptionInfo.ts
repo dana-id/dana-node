@@ -50,6 +50,7 @@ export interface PayOptionInfo {
      *   * NETWORK_PAY_PG_LINKAJA - Payment method with LinkAja e-wallet<br>
      *   * NETWORK_PAY_PG_CARD - Payment method with Card<br>
      *   * NETWORK_PAY_PC_INDOMARET - Payment method with Indomaret<br>
+     *   * NETWORK_PAY_PG_QRIS - Payment method with QRIS<br>
      *   * VIRTUAL_ACCOUNT_BCA - Payment method with BCA virtual account<br>
      *   * VIRTUAL_ACCOUNT_BNI - Payment method with BNI virtual account<br>
      *   * VIRTUAL_ACCOUNT_MANDIRI - Payment method with Mandiri virtual account<br>
@@ -57,6 +58,7 @@ export interface PayOptionInfo {
      *   * VIRTUAL_ACCOUNT_BTPN - Payment method with BTPN virtual account<br>
      *   * VIRTUAL_ACCOUNT_CIMB - Payment method with CIMB virtual account<br>
      *   * VIRTUAL_ACCOUNT_PERMATA - Payment method with Permata virtual account<br>
+     *   * VIRTUAL_ACCOUNT_PANIN - Payment method with Panin virtual account<br>
      * 
      * @type {string}
      * @memberof PayOptionInfo
@@ -140,13 +142,15 @@ export const PayOptionInfoPayOptionEnum = {
     NetworkPayPgLinkaja: 'NETWORK_PAY_PG_LINKAJA',
     NetworkPayPgCard: 'NETWORK_PAY_PG_CARD',
     NetworkPayPcIndomaret: 'NETWORK_PAY_PC_INDOMARET',
+    NetworkPayPgQris: 'NETWORK_PAY_PG_QRIS',
     VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
     VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
     VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',
     VirtualAccountBri: 'VIRTUAL_ACCOUNT_BRI',
     VirtualAccountBtpn: 'VIRTUAL_ACCOUNT_BTPN',
     VirtualAccountCimb: 'VIRTUAL_ACCOUNT_CIMB',
-    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA'
+    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA',
+    VirtualAccountPanin: 'VIRTUAL_ACCOUNT_PANIN'
 } as const;
 export type PayOptionInfoPayOptionEnum = typeof PayOptionInfoPayOptionEnum[keyof typeof PayOptionInfoPayOptionEnum] | '';
 
@@ -215,9 +219,6 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     extendInfo: {
         maxLength: 4096,
     },
-    paymentCode: {
-        maxLength: 64,
-    },
 }
 
 export function validatePayOptionInfo(value: PayOptionInfo): ValidationErrorContext[] {
@@ -240,8 +241,6 @@ export function validatePayOptionInfo(value: PayOptionInfo): ValidationErrorCont
     validationErrorContexts.push(...ValidationUtil.validateProperty('payOptionBillExtendInfo', value.payOptionBillExtendInfo, propertyValidationAttributesMap['payOptionBillExtendInfo']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('extendInfo', value.extendInfo, propertyValidationAttributesMap['extendInfo']));
-
-    validationErrorContexts.push(...ValidationUtil.validateProperty('paymentCode', value.paymentCode, propertyValidationAttributesMap['paymentCode']));
 
     return validationErrorContexts;
 }

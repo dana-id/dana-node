@@ -38,6 +38,7 @@ export interface ConsultPayPaymentInfo {
      *   * NETWORK_PAY_PG_LINKAJA - Payment method with LinkAja e-wallet<br>
      *   * NETWORK_PAY_PG_CARD - Payment method with Card<br>
      *   * NETWORK_PAY_PC_INDOMARET - Payment method with Indomaret<br>
+     *   * NETWORK_PAY_PG_QRIS - Payment method with QRIS<br>
      *   * VIRTUAL_ACCOUNT_BCA - Payment method with BCA virtual account<br>
      *   * VIRTUAL_ACCOUNT_BNI - Payment method with BNI virtual account<br>
      *   * VIRTUAL_ACCOUNT_MANDIRI - Payment method with Mandiri virtual account<br>
@@ -45,6 +46,7 @@ export interface ConsultPayPaymentInfo {
      *   * VIRTUAL_ACCOUNT_BTPN - Payment method with BTPN virtual account<br>
      *   * VIRTUAL_ACCOUNT_CIMB - Payment method with CIMB virtual account<br>
      *   * VIRTUAL_ACCOUNT_PERMATA - Payment method with Permata virtual account<br>
+     *   * VIRTUAL_ACCOUNT_PANIN - Payment method with Panin virtual account<br>
      *
      * @type {string}
      * @memberof ConsultPayPaymentInfo
@@ -86,6 +88,7 @@ export declare const ConsultPayPaymentInfoPayOptionEnum: {
     readonly NetworkPayPgLinkaja: "NETWORK_PAY_PG_LINKAJA";
     readonly NetworkPayPgCard: "NETWORK_PAY_PG_CARD";
     readonly NetworkPayPcIndomaret: "NETWORK_PAY_PC_INDOMARET";
+    readonly NetworkPayPgQris: "NETWORK_PAY_PG_QRIS";
     readonly VirtualAccountBca: "VIRTUAL_ACCOUNT_BCA";
     readonly VirtualAccountBni: "VIRTUAL_ACCOUNT_BNI";
     readonly VirtualAccountMandiri: "VIRTUAL_ACCOUNT_MANDIRI";
@@ -93,6 +96,7 @@ export declare const ConsultPayPaymentInfoPayOptionEnum: {
     readonly VirtualAccountBtpn: "VIRTUAL_ACCOUNT_BTPN";
     readonly VirtualAccountCimb: "VIRTUAL_ACCOUNT_CIMB";
     readonly VirtualAccountPermata: "VIRTUAL_ACCOUNT_PERMATA";
+    readonly VirtualAccountPanin: "VIRTUAL_ACCOUNT_PANIN";
 };
 export type ConsultPayPaymentInfoPayOptionEnum = typeof ConsultPayPaymentInfoPayOptionEnum[keyof typeof ConsultPayPaymentInfoPayOptionEnum] | '';
 /**

@@ -47,6 +47,7 @@ export interface PayOptionDetail {
      *   * VIRTUAL_ACCOUNT_BTPN - Payment method with BTPN virtual account<br>
      *   * VIRTUAL_ACCOUNT_CIMB - Payment method with CIMB virtual account<br>
      *   * VIRTUAL_ACCOUNT_PERMATA - Payment method with Permata virtual account<br>
+     *   * VIRTUAL_ACCOUNT_PANIN - Payment method with Panin virtual account<br>
      *
      * @type {string}
      * @memberof PayOptionDetail
@@ -120,6 +121,7 @@ export declare const PayOptionDetailPayOptionEnum: {
     readonly VirtualAccountBtpn: "VIRTUAL_ACCOUNT_BTPN";
     readonly VirtualAccountCimb: "VIRTUAL_ACCOUNT_CIMB";
     readonly VirtualAccountPermata: "VIRTUAL_ACCOUNT_PERMATA";
+    readonly VirtualAccountPanin: "VIRTUAL_ACCOUNT_PANIN";
 };
 export type PayOptionDetailPayOptionEnum = typeof PayOptionDetailPayOptionEnum[keyof typeof PayOptionDetailPayOptionEnum] | '';
 /**

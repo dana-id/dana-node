@@ -388,6 +388,7 @@ In this example the **QueryUserProfileRequest** is the parent model and **UserRe
 | `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
 | `NetworkPayPgCard` | Payment method with Card |
 | `NetworkPayPcIndomaret` | Payment method with Indomaret |
+| `NetworkPayPgQris` | Payment method with QRIS |
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
@@ -395,6 +396,7 @@ In this example the **QueryUserProfileRequest** is the parent model and **UserRe
 | `VirtualAccountBtpn` | Payment method with BTPN virtual account |
 | `VirtualAccountCimb` | Payment method with CIMB virtual account |
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
+| `VirtualAccountPanin` | Payment method with Panin virtual account |
 
 
 ## PaymentPromoInfoPromoTypeEnum (promoType)

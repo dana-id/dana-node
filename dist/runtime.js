@@ -463,7 +463,7 @@ class DanaHeaderUtil {
         headerParameters['X-SIGNATURE'] = signature;
         headerParameters['ORIGIN'] = origin;
         headerParameters['X-PARTNER-ID'] = partnerId;
-        headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
+        headerParameters['X-EXTERNAL-ID'] = 'sdk' + (0, uuid_1.v4)().substring(3);
         headerParameters['CHANNEL-ID'] = partnerId + '-SERVER';
     }
     /**
@@ -485,7 +485,7 @@ class DanaHeaderUtil {
             'clientId': partnerId,
             'clientSecret': clientSecret,
             'reqTime': timestamp,
-            'reqMsgId': (0, uuid_1.v4)(),
+            'reqMsgId': 'sdk' + (0, uuid_1.v4)().substring(3),
             'reserve': {}
         };
         const signature = DanaSignatureUtil.generateOpenApiScenarioSignature(privateKey, JSON.stringify(requestBody["request"]));
@@ -527,7 +527,7 @@ class DanaHeaderUtil {
         headerParameters['X-SIGNATURE'] = signature;
         headerParameters['ORIGIN'] = origin;
         headerParameters['X-PARTNER-ID'] = partnerId;
-        headerParameters['X-EXTERNAL-ID'] = (0, uuid_1.v4)();
+        headerParameters['X-EXTERNAL-ID'] = 'sdk' + (0, uuid_1.v4)().substring(3);
         headerParameters['X-IP-ADDRESS'] = endUserIpAddress;
         headerParameters['X-DEVICE-ID'] = deviceId;
         headerParameters['X-LATITUDE'] = latitude;

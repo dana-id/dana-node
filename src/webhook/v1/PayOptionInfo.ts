@@ -211,9 +211,6 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     extendInfo: {
         maxLength: 4096,
     },
-    paymentCode: {
-        maxLength: 64,
-    },
 }
 
 export function validatePayOptionInfo(value: PayOptionInfo): ValidationErrorContext[] {

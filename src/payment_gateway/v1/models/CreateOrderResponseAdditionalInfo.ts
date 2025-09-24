@@ -58,9 +58,6 @@ export function CreateOrderResponseAdditionalInfoToJSONTyped(value?: CreateOrder
 }
 
 const propertyValidationAttributesMap: { [property: string]: PropertyValidationAttribute } = {
-    paymentCode: {
-        maxLength: 64,
-    },
 }
 
 export function validateCreateOrderResponseAdditionalInfo(value: CreateOrderResponseAdditionalInfo): ValidationErrorContext[] {
@@ -69,8 +66,6 @@ export function validateCreateOrderResponseAdditionalInfo(value: CreateOrderResp
     if (value == null) {
         return validationErrorContexts;
     }
-
-    validationErrorContexts.push(...ValidationUtil.validateProperty('paymentCode', value.paymentCode, propertyValidationAttributesMap['paymentCode']));
 
     return validationErrorContexts;
 }

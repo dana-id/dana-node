@@ -51,7 +51,8 @@ exports.PayOptionDetailPayOptionEnum = {
     VirtualAccountBri: 'VIRTUAL_ACCOUNT_BRI',
     VirtualAccountBtpn: 'VIRTUAL_ACCOUNT_BTPN',
     VirtualAccountCimb: 'VIRTUAL_ACCOUNT_CIMB',
-    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA'
+    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA',
+    VirtualAccountPanin: 'VIRTUAL_ACCOUNT_PANIN'
 };
 /**
  * Check if a given object implements the PayOptionDetail interface.

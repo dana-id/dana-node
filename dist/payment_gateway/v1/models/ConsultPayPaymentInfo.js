@@ -43,13 +43,15 @@ exports.ConsultPayPaymentInfoPayOptionEnum = {
     NetworkPayPgLinkaja: 'NETWORK_PAY_PG_LINKAJA',
     NetworkPayPgCard: 'NETWORK_PAY_PG_CARD',
     NetworkPayPcIndomaret: 'NETWORK_PAY_PC_INDOMARET',
+    NetworkPayPgQris: 'NETWORK_PAY_PG_QRIS',
     VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
     VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
     VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',
     VirtualAccountBri: 'VIRTUAL_ACCOUNT_BRI',
     VirtualAccountBtpn: 'VIRTUAL_ACCOUNT_BTPN',
     VirtualAccountCimb: 'VIRTUAL_ACCOUNT_CIMB',
-    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA'
+    VirtualAccountPermata: 'VIRTUAL_ACCOUNT_PERMATA',
+    VirtualAccountPanin: 'VIRTUAL_ACCOUNT_PANIN'
 };
 /**
  * Check if a given object implements the ConsultPayPaymentInfo interface.
