@@ -85,7 +85,7 @@ class WidgetUtils {
         // Set base URL based on mode and environment
         let baseUrl;
         if (mode === models_1.Oauth2UrlDataModeEnum.Deeplink) {
-            if (env === runtime_2.Env.PRODUCTION) {
+            if (env.toLowerCase() === runtime_2.Env.PRODUCTION) {
                 baseUrl = 'https://link.dana.id/bindSnap';
             }
             else {
@@ -93,7 +93,7 @@ class WidgetUtils {
             }
         }
         else { // Mode.API
-            if (env === runtime_2.Env.PRODUCTION) {
+            if (env.toLowerCase() === runtime_2.Env.PRODUCTION) {
                 baseUrl = 'https://m.dana.id/n/ipg/oauth';
             }
             else {

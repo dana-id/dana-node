@@ -396,7 +396,7 @@ In this example the **QueryUserProfileRequest** is the parent model and **UserRe
 | `VirtualAccountBtpn` | Payment method with BTPN virtual account |
 | `VirtualAccountCimb` | Payment method with CIMB virtual account |
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
-| `VirtualAccountPanin` | Payment method with Panin virtual account |
+| `VirtualAccountPani` | Payment method with Panin virtual account |
 
 
 ## PaymentPromoInfoPromoTypeEnum (promoType)

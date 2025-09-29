@@ -46,7 +46,7 @@ export interface ConsultPayPaymentInfo {
      *   * VIRTUAL_ACCOUNT_BTPN - Payment method with BTPN virtual account<br>
      *   * VIRTUAL_ACCOUNT_CIMB - Payment method with CIMB virtual account<br>
      *   * VIRTUAL_ACCOUNT_PERMATA - Payment method with Permata virtual account<br>
-     *   * VIRTUAL_ACCOUNT_PANIN - Payment method with Panin virtual account<br>
+     *   * VIRTUAL_ACCOUNT_PANI - Payment method with Panin virtual account<br>
      *
      * @type {string}
      * @memberof ConsultPayPaymentInfo
@@ -96,7 +96,7 @@ export declare const ConsultPayPaymentInfoPayOptionEnum: {
     readonly VirtualAccountBtpn: "VIRTUAL_ACCOUNT_BTPN";
     readonly VirtualAccountCimb: "VIRTUAL_ACCOUNT_CIMB";
     readonly VirtualAccountPermata: "VIRTUAL_ACCOUNT_PERMATA";
-    readonly VirtualAccountPanin: "VIRTUAL_ACCOUNT_PANIN";
+    readonly VirtualAccountPani: "VIRTUAL_ACCOUNT_PANI";
 };
 export type ConsultPayPaymentInfoPayOptionEnum = typeof ConsultPayPaymentInfoPayOptionEnum[keyof typeof ConsultPayPaymentInfoPayOptionEnum] | '';
 /**
