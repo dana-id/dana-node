@@ -301,16 +301,16 @@ const response: WidgetPaymentResponse = await widgetApi.widgetPayment(request);
 # Enum Types
 In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-For example, to use the userResources enum from QueryUserProfileRequest:
+For example, to use the promoType enum from PaymentPromoInfo:
 
 ```typescript
-import { QueryUserProfileRequestUserResourcesEnum } from 'dana-node/widget/v1';
+import { PaymentPromoInfoPromoTypeEnum } from 'dana-node/widget/v1';
 
 // Use the enum value
-const userResources = QueryUserProfileRequestUserResourcesEnum.Balance;
+const promoType = PaymentPromoInfoPromoTypeEnum.CashBack;
 ```
 
-In this example the **QueryUserProfileRequest** is the parent model and **UserResources** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+In this example the **PaymentPromoInfo** is the parent model and **PromoType** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
 
 ## ApplyOTTRequestUserResourcesEnum (userResources)
 | Value | Description |

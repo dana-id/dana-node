@@ -216,16 +216,16 @@ const response: TransferToDanaInquiryStatusResponse = await disbursementApi.tran
 # Enum Types
 In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-For example, to use the chargeTarget enum from DanaAccountInquiryRequestAdditionalInfo:
+For example, to use the chargeTarget enum from TransferToBankRequestAdditionalInfo:
 
 ```typescript
-import { DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum } from 'dana-node/disbursement/v1';
+import { TransferToBankRequestAdditionalInfoChargeTargetEnum } from 'dana-node/disbursement/v1';
 
 // Use the enum value
-const chargeTarget = DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum.Division;
+const chargeTarget = TransferToBankRequestAdditionalInfoChargeTargetEnum.Division;
 ```
 
-In this example the **DanaAccountInquiryRequestAdditionalInfo** is the parent model and **ChargeTarget** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+In this example the **TransferToBankRequestAdditionalInfo** is the parent model and **ChargeTarget** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
 
 ## BankAccountInquiryRequestAdditionalInfoChargeTargetEnum (chargeTarget)
 | Value | Description |
