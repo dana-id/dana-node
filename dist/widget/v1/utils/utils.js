@@ -94,10 +94,10 @@ class WidgetUtils {
         }
         else { // Mode.API
             if (env.toLowerCase() === runtime_2.Env.PRODUCTION) {
-                baseUrl = 'https://m.dana.id/n/ipg/oauth';
+                baseUrl = 'https://m.dana.id/v1.0/get-auth-code';
             }
             else {
-                baseUrl = 'https://m.sandbox.dana.id/n/ipg/oauth';
+                baseUrl = 'https://m.sandbox.dana.id/v1.0/get-auth-code';
             }
         }
         const partnerId = process.env.X_PARTNER_ID;
