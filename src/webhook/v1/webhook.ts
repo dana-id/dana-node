@@ -96,6 +96,9 @@ private static minifyJson(jsonStr: string): string {
     let processedStr = jsonStr;
     
     processedStr = processedStr.replace(/"(\w+)":"(\{[^}]*\})"/g, (match, fieldName, jsonContent) => {
+      if (jsonContent.includes('\\"')) {
+        return match;
+      }
       const fixedContent = jsonContent.replace(/"/g, '\\"');
       return `"${fieldName}":"${fixedContent}"`;
     });
@@ -117,7 +120,6 @@ private static minifyJson(jsonStr: string): string {
  * @returns true if JSON appears to be minified
  */
 private static isJsonMinified(jsonStr: string): boolean {
-  // Check for common indicators of non-minified JSON
   const indicators = [
     ": ",
     ", ",
@@ -170,20 +172,35 @@ private static isJsonMinified(jsonStr: string): boolean {
       xTimestamp,
     );
 
-    const verifier = createVerify('RSA-SHA256');
+    let verifier = createVerify('RSA-SHA256');
     verifier.update(strToVerify, 'utf8');
     verifier.end();
 
-    const valid = verifier.verify(
+    let valid = verifier.verify(
       this.publicKey,
       Buffer.from(xSignature, 'base64'),
     );
+
+    if (!valid) {
+      verifier = createVerify('SHA256');
+      verifier.update(strToVerify, 'utf8');
+      verifier.end();
+      
+      valid = verifier.verify(
+        this.publicKey,
+        Buffer.from(xSignature, 'base64'),
+      );
+    }
+
     if (!valid) {
       throw new Error('Signature verification failed.');
     }
 
     try {
       let parseableBody = body.replace(/"(\w+)":"(\{[^}]*\})"/g, (match, fieldName, jsonContent) => {
+        if (jsonContent.includes('\\"')) {
+          return match;
+        }
         const fixedContent = jsonContent.replace(/"/g, '\\"');
         return `"${fieldName}":"${fixedContent}"`;
       });

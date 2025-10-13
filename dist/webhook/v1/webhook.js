@@ -74,6 +74,9 @@ class WebhookParser {
         try {
             let processedStr = jsonStr;
             processedStr = processedStr.replace(/"(\w+)":"(\{[^}]*\})"/g, (match, fieldName, jsonContent) => {
+                if (jsonContent.includes('\\"')) {
+                    return match;
+                }
                 const fixedContent = jsonContent.replace(/"/g, '\\"');
                 return `"${fieldName}":"${fixedContent}"`;
             });
@@ -93,7 +96,6 @@ class WebhookParser {
      * @returns true if JSON appears to be minified
      */
     static isJsonMinified(jsonStr) {
-        // Check for common indicators of non-minified JSON
         const indicators = [
             ": ",
             ", ",
@@ -124,15 +126,24 @@ class WebhookParser {
             throw new Error('Missing X-SIGNATURE or X-TIMESTAMP header.');
         }
         const strToVerify = this.constructStringToVerify(httpMethod, relativePathUrl, body, xTimestamp);
-        const verifier = (0, node_crypto_1.createVerify)('RSA-SHA256');
+        let verifier = (0, node_crypto_1.createVerify)('RSA-SHA256');
         verifier.update(strToVerify, 'utf8');
         verifier.end();
-        const valid = verifier.verify(this.publicKey, Buffer.from(xSignature, 'base64'));
+        let valid = verifier.verify(this.publicKey, Buffer.from(xSignature, 'base64'));
+        if (!valid) {
+            verifier = (0, node_crypto_1.createVerify)('SHA256');
+            verifier.update(strToVerify, 'utf8');
+            verifier.end();
+            valid = verifier.verify(this.publicKey, Buffer.from(xSignature, 'base64'));
+        }
         if (!valid) {
             throw new Error('Signature verification failed.');
         }
         try {
             let parseableBody = body.replace(/"(\w+)":"(\{[^}]*\})"/g, (match, fieldName, jsonContent) => {
+                if (jsonContent.includes('\\"')) {
+                    return match;
+                }
                 const fixedContent = jsonContent.replace(/"/g, '\\"');
                 return `"${fieldName}":"${fixedContent}"`;
             });
