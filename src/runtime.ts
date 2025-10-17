@@ -595,7 +595,7 @@ export class DanaHeaderUtil {
      * @param origin - The origin of the request.
      * @param partnerId - The partner ID.
      */
-    static populateSnapB2BScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, origin: string, partnerId: string): void {
+    static populateSnapB2BScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, origin: string, partnerId: string, debugMode: boolean): void {
         const timestamp: string = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
         const signature = DanaSignatureUtil.generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, privateKey, timestamp);
 
@@ -605,6 +605,10 @@ export class DanaHeaderUtil {
         headerParameters['X-PARTNER-ID'] = partnerId;
         headerParameters['X-EXTERNAL-ID'] = 'sdk' + uuidv4().substring(3);
         headerParameters['CHANNEL-ID'] = partnerId + '-SERVER';
+
+        if (debugMode) {
+            headerParameters['X-Debug-Mode'] = 'true';
+        }
     }
 
     /**

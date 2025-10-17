@@ -13,12 +13,14 @@ export declare class DisbursementApi extends runtime.BaseAPI {
     origin: string;
     env: string;
     clientSecret: string;
-    constructor({ partnerId, privateKey, origin, env, clientSecret }: {
+    debugMode: string;
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }: {
         partnerId?: string;
         privateKey?: string;
         origin?: string;
         env?: string;
         clientSecret?: string;
+        debugMode?: string;
     });
     /**
      * This API is used for merchant to do inquiry Bank account info via DANA

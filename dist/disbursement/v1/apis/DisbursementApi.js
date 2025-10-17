@@ -13,7 +13,7 @@ const index_1 = require("../models/index");
  *
  */
 class DisbursementApi extends runtime.BaseAPI {
-    constructor({ partnerId, privateKey, origin, env, clientSecret }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }) {
         const basePath = runtime.getBasePathByEnv(env);
         const configuration = new runtime.Configuration({
             basePath: basePath,
@@ -24,17 +24,20 @@ class DisbursementApi extends runtime.BaseAPI {
         this.origin = "";
         this.env = "";
         this.clientSecret = "";
+        this.debugMode = "";
         this.partnerId = partnerId;
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
         this.clientSecret = clientSecret;
+        this.debugMode = debugMode;
     }
     /**
      * This API is used for merchant to do inquiry Bank account info via DANA
      * Transfer to Bank Account Inquiry
      */
     async bankAccountInquiry(bankAccountInquiryRequest, initOverrides) {
+        var _a, _b;
         if (bankAccountInquiryRequest == null) {
             throw new runtime.RequiredError('bankAccountInquiryRequest', 'Required parameter "bankAccountInquiryRequest" was null or undefined when calling bankAccountInquiry().');
         }
@@ -47,7 +50,11 @@ class DisbursementApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/emoney/bank-account-inquiry.htm`;
         const requestBody = JSON.stringify((0, index_1.BankAccountInquiryRequestToJSON)(bankAccountInquiryRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -62,6 +69,7 @@ class DisbursementApi extends runtime.BaseAPI {
      * DANA Account Inquiry
      */
     async danaAccountInquiry(danaAccountInquiryRequest, initOverrides) {
+        var _a, _b;
         if (danaAccountInquiryRequest == null) {
             throw new runtime.RequiredError('danaAccountInquiryRequest', 'Required parameter "danaAccountInquiryRequest" was null or undefined when calling danaAccountInquiry().');
         }
@@ -74,7 +82,11 @@ class DisbursementApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/emoney/account-inquiry.htm`;
         const requestBody = JSON.stringify((0, index_1.DanaAccountInquiryRequestToJSON)(danaAccountInquiryRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -89,6 +101,7 @@ class DisbursementApi extends runtime.BaseAPI {
      * Transfer to Bank
      */
     async transferToBank(transferToBankRequest, initOverrides) {
+        var _a, _b;
         if (transferToBankRequest == null) {
             throw new runtime.RequiredError('transferToBankRequest', 'Required parameter "transferToBankRequest" was null or undefined when calling transferToBank().');
         }
@@ -101,7 +114,11 @@ class DisbursementApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/emoney/transfer-bank.htm`;
         const requestBody = JSON.stringify((0, index_1.TransferToBankRequestToJSON)(transferToBankRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -116,6 +133,7 @@ class DisbursementApi extends runtime.BaseAPI {
      * Transfer to Bank Inquiry Status
      */
     async transferToBankInquiryStatus(transferToBankInquiryStatusRequest, initOverrides) {
+        var _a, _b;
         if (transferToBankInquiryStatusRequest == null) {
             throw new runtime.RequiredError('transferToBankInquiryStatusRequest', 'Required parameter "transferToBankInquiryStatusRequest" was null or undefined when calling transferToBankInquiryStatus().');
         }
@@ -128,7 +146,11 @@ class DisbursementApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/emoney/transfer-bank-status.htm`;
         const requestBody = JSON.stringify((0, index_1.TransferToBankInquiryStatusRequestToJSON)(transferToBankInquiryStatusRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -143,6 +165,7 @@ class DisbursementApi extends runtime.BaseAPI {
      * Transfer to DANA
      */
     async transferToDana(transferToDanaRequest, initOverrides) {
+        var _a, _b;
         if (transferToDanaRequest == null) {
             throw new runtime.RequiredError('transferToDanaRequest', 'Required parameter "transferToDanaRequest" was null or undefined when calling transferToDana().');
         }
@@ -155,7 +178,11 @@ class DisbursementApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/emoney/topup.htm`;
         const requestBody = JSON.stringify((0, index_1.TransferToDanaRequestToJSON)(transferToDanaRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -170,6 +197,7 @@ class DisbursementApi extends runtime.BaseAPI {
      * Transfer to DANA Inquiry Status
      */
     async transferToDanaInquiryStatus(transferToDanaInquiryStatusRequest, initOverrides) {
+        var _a, _b;
         if (transferToDanaInquiryStatusRequest == null) {
             throw new runtime.RequiredError('transferToDanaInquiryStatusRequest', 'Required parameter "transferToDanaInquiryStatusRequest" was null or undefined when calling transferToDanaInquiryStatus().');
         }
@@ -182,7 +210,11 @@ class DisbursementApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/emoney/topup-status.htm`;
         const requestBody = JSON.stringify((0, index_1.TransferToDanaInquiryStatusRequestToJSON)(transferToDanaInquiryStatusRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',

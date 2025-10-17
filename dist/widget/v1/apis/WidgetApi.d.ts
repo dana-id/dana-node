@@ -13,12 +13,14 @@ export declare class WidgetApi extends runtime.BaseAPI {
     origin: string;
     env: string;
     clientSecret: string;
-    constructor({ partnerId, privateKey, origin, env, clientSecret }: {
+    debugMode: string;
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }: {
         partnerId?: string;
         privateKey?: string;
         origin?: string;
         env?: string;
         clientSecret?: string;
+        debugMode?: string;
     });
     /**
      * This API is used to reverses the account binding process by revoking the accessToken and refreshToken

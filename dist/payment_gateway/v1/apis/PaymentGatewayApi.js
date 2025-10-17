@@ -13,7 +13,7 @@ const index_1 = require("../models/index");
  *
  */
 class PaymentGatewayApi extends runtime.BaseAPI {
-    constructor({ partnerId, privateKey, origin, env, clientSecret }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }) {
         const basePath = runtime.getBasePathByEnv(env);
         const configuration = new runtime.Configuration({
             basePath: basePath,
@@ -24,17 +24,20 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         this.origin = "";
         this.env = "";
         this.clientSecret = "";
+        this.debugMode = "";
         this.partnerId = partnerId;
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
         this.clientSecret = clientSecret;
+        this.debugMode = debugMode;
     }
     /**
      * This API is used to cancel the order from merchant\'s platform to DANA
      * Cancel Order - Payment Gateway
      */
     async cancelOrder(cancelOrderRequest, initOverrides) {
+        var _a, _b;
         if (cancelOrderRequest == null) {
             throw new runtime.RequiredError('cancelOrderRequest', 'Required parameter "cancelOrderRequest" was null or undefined when calling cancelOrder().');
         }
@@ -47,7 +50,11 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/payment-gateway/v1.0/debit/cancel.htm`;
         const requestBody = JSON.stringify((0, index_1.CancelOrderRequestToJSON)(cancelOrderRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -62,6 +69,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
      * Consult Pay - Payment Gateway
      */
     async consultPay(consultPayRequest, initOverrides) {
+        var _a, _b;
         if (consultPayRequest == null) {
             throw new runtime.RequiredError('consultPayRequest', 'Required parameter "consultPayRequest" was null or undefined when calling consultPay().');
         }
@@ -74,7 +82,11 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/payment-gateway/consult-pay.htm`;
         const requestBody = JSON.stringify((0, index_1.ConsultPayRequestToJSON)(consultPayRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -89,6 +101,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
      * Create Order - Payment Gateway
      */
     async createOrder(createOrderRequest, initOverrides) {
+        var _a, _b;
         if (createOrderRequest == null) {
             throw new runtime.RequiredError('createOrderRequest', 'Required parameter "createOrderRequest" was null or undefined when calling createOrder().');
         }
@@ -101,7 +114,11 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/payment-gateway/v1.0/debit/payment-host-to-host.htm`;
         const requestBody = JSON.stringify((0, index_1.CreateOrderRequestToJSON)(createOrderRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -116,6 +133,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
      * Query Payment - Payment Gateway
      */
     async queryPayment(queryPaymentRequest, initOverrides) {
+        var _a, _b;
         if (queryPaymentRequest == null) {
             throw new runtime.RequiredError('queryPaymentRequest', 'Required parameter "queryPaymentRequest" was null or undefined when calling queryPayment().');
         }
@@ -128,7 +146,11 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/payment-gateway/v1.0/debit/status.htm`;
         const requestBody = JSON.stringify((0, index_1.QueryPaymentRequestToJSON)(queryPaymentRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -143,6 +165,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
      * Refund Order - Payment Gateway
      */
     async refundOrder(refundOrderRequest, initOverrides) {
+        var _a, _b;
         if (refundOrderRequest == null) {
             throw new runtime.RequiredError('refundOrderRequest', 'Required parameter "refundOrderRequest" was null or undefined when calling refundOrder().');
         }
@@ -155,7 +178,11 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/payment-gateway/v1.0/debit/refund.htm`;
         const requestBody = JSON.stringify((0, index_1.RefundOrderRequestToJSON)(refundOrderRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',

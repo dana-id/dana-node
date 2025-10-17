@@ -77,8 +77,9 @@ export class MerchantManagementApi extends runtime.BaseAPI {
     origin: string = "";
     env: string = "";
     clientSecret: string = "";
+    debugMode: string = "";
 
-    constructor({ partnerId, privateKey, origin, env, clientSecret }: { partnerId?: string, privateKey?: string, origin?: string, env?: string, clientSecret?: string }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }: { partnerId?: string, privateKey?: string, origin?: string, env?: string, clientSecret?: string, debugMode?: string }) {
         const basePath = runtime.getBasePathByEnv(env);
 
         const configuration = new runtime.Configuration({
@@ -92,6 +93,7 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         this.origin = origin;
         this.env = env;
         this.clientSecret = clientSecret;
+        this.debugMode = debugMode;
     }
 
     /**

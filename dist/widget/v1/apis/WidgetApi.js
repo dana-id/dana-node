@@ -13,7 +13,7 @@ const index_1 = require("../models/index");
  *
  */
 class WidgetApi extends runtime.BaseAPI {
-    constructor({ partnerId, privateKey, origin, env, clientSecret }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }) {
         const basePath = runtime.getBasePathByEnv(env);
         const configuration = new runtime.Configuration({
             basePath: basePath,
@@ -24,11 +24,13 @@ class WidgetApi extends runtime.BaseAPI {
         this.origin = "";
         this.env = "";
         this.clientSecret = "";
+        this.debugMode = "";
         this.partnerId = partnerId;
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
         this.clientSecret = clientSecret;
+        this.debugMode = debugMode;
     }
     /**
      * This API is used to reverses the account binding process by revoking the accessToken and refreshToken
@@ -157,6 +159,7 @@ class WidgetApi extends runtime.BaseAPI {
      * Cancel Order - Widget
      */
     async cancelOrder(cancelOrderRequest, initOverrides) {
+        var _a, _b;
         if (cancelOrderRequest == null) {
             throw new runtime.RequiredError('cancelOrderRequest', 'Required parameter "cancelOrderRequest" was null or undefined when calling cancelOrder().');
         }
@@ -169,7 +172,11 @@ class WidgetApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/debit/cancel.htm`;
         const requestBody = JSON.stringify((0, index_1.CancelOrderRequestToJSON)(cancelOrderRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -184,6 +191,7 @@ class WidgetApi extends runtime.BaseAPI {
      * Query Payment - Widget
      */
     async queryPayment(queryPaymentRequest, initOverrides) {
+        var _a, _b;
         if (queryPaymentRequest == null) {
             throw new runtime.RequiredError('queryPaymentRequest', 'Required parameter "queryPaymentRequest" was null or undefined when calling queryPayment().');
         }
@@ -196,7 +204,11 @@ class WidgetApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/rest/v1.1/debit/status`;
         const requestBody = JSON.stringify((0, index_1.QueryPaymentRequestToJSON)(queryPaymentRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -242,6 +254,7 @@ class WidgetApi extends runtime.BaseAPI {
      * Refund Order - Widget
      */
     async refundOrder(refundOrderRequest, initOverrides) {
+        var _a, _b;
         if (refundOrderRequest == null) {
             throw new runtime.RequiredError('refundOrderRequest', 'Required parameter "refundOrderRequest" was null or undefined when calling refundOrder().');
         }
@@ -254,7 +267,11 @@ class WidgetApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/debit/refund.htm`;
         const requestBody = JSON.stringify((0, index_1.RefundOrderRequestToJSON)(refundOrderRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -269,6 +286,7 @@ class WidgetApi extends runtime.BaseAPI {
      * Widget Payment - Widget
      */
     async widgetPayment(widgetPaymentRequest, initOverrides) {
+        var _a, _b;
         if (widgetPaymentRequest == null) {
             throw new runtime.RequiredError('widgetPaymentRequest', 'Required parameter "widgetPaymentRequest" was null or undefined when calling widgetPayment().');
         }
@@ -281,7 +299,11 @@ class WidgetApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/rest/redirection/v1.0/debit/payment-host-to-host`;
         const requestBody = JSON.stringify((0, index_1.WidgetPaymentRequestToJSON)(widgetPaymentRequest));
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+            enableDebugMode = true;
+        }
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',

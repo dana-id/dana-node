@@ -18,6 +18,7 @@ export interface DanaOpts {
     origin?: string;
     env?: string;
     clientSecret?: string;
+    debugMode?: string;
 }
 
 export class Dana {
@@ -27,12 +28,13 @@ export class Dana {
     disbursementApi: DisbursementApi;
     merchantManagementApi: MerchantManagementApi
 
-    constructor({ partnerId, privateKey, origin, env, clientSecret }: DanaOpts = {}) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }: DanaOpts = {}) {
         partnerId = partnerId ? partnerId : process.env.X_PARTNER_ID;
         privateKey = privateKey ? privateKey : process.env.PRIVATE_KEY;
         origin = origin ? origin : process.env.ORIGIN;
         env = env ? env : process.env.DANA_ENV || process.env.ENV || 'sandbox';
         clientSecret = clientSecret ? clientSecret : process.env.CLIENT_SECRET;
+        debugMode = debugMode ? debugMode : process.env.X_DEBUG;
 
         if (!partnerId) {
             throw new Error('Missing required environment variable: X_PARTNER_ID. Please set X_PARTNER_ID in your environment or .env file.');
@@ -51,7 +53,8 @@ export class Dana {
             privateKey,
             origin,
             env,
-            clientSecret
+            clientSecret,
+            debugMode
         };
 
         this.paymentGatewayApi = new PaymentGatewayApi(this.opts);

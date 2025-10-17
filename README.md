@@ -54,16 +54,17 @@ TypeScript support is included in this package.
 
 Before using the SDK, please make sure to set the following environment variables (In .env):
 
-| Name                   | Description                                                                                   | Example Value                                                                   |
-| ---------------------- | ---------------------------------------------------------------------------------------       | ------------------------------------------------------------------------------- |
-| `ENV` or `DANA_ENV`    | Defines which environment the SDK will use. Possible values: `SANDBOX` or `PRODUCTION`.       | `SANDBOX`                                                                       |
-| `X_PARTNER_ID`         | Unique identifier for partner, provided by DANA, also known as `clientId`.                    | 1970010100000000000000                                                          |
-| `PRIVATE_KEY`          | Your private key string.                                                                      | `-----BEGIN PRIVATE KEY-----MIIBVgIBADANBg...LsvTqw==-----END PRIVATE KEY-----` |
-| `PRIVATE_KEY_PATH`     | Path to your private key file. If both are set, `PRIVATE_KEY_PATH` is used.                   | /path/to/your_private_key.pem                                                   |
-| `DANA_PUBLIC_KEY`      | DANA public key string for parsing webhook.                                                   | `-----BEGIN PUBLIC KEY-----MIIBIjANBgkq...Do/QIDAQAB-----END PUBLIC KEY-----`   |
-| `DANA_PUBLIC_KEY_PATH` | Path to DANA public key file for parsing webhook. If both set, `DANA_PUBLIC_KEY_PATH is used. | /path/to/dana_public_key.pem                                                    |
-| `ORIGIN`               | Origin domain.                                                                                | https://yourdomain.com                                                          |
-| `CLIENT_SECRET`        | Assigned client secret during registration. Must be set for DisbursementApi                   | your_client_secret                                                              |
+| Name                     | Description                                                                                                                   | Example Value                                                                   |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `ENV` or `DANA_ENV`      | Defines which environment the SDK will use. Possible values: `SANDBOX` or `PRODUCTION`.                                       | `SANDBOX`                                                                       |
+| `X_PARTNER_ID`           | Unique identifier for partner, provided by DANA, also known as `clientId`.                                                    | 1970010100000000000000                                                          |
+| `PRIVATE_KEY`            | Your private key string.                                                                                                      | `-----BEGIN PRIVATE KEY-----MIIBVgIBADANBg...LsvTqw==-----END PRIVATE KEY-----` |
+| `PRIVATE_KEY_PATH`       | Path to your private key file. If both are set, `PRIVATE_KEY_PATH` is used.                                                   | /path/to/your_private_key.pem                                                   |
+| `DANA_PUBLIC_KEY`        | DANA public key string for parsing webhook.                                                                                   | `-----BEGIN PUBLIC KEY-----MIIBIjANBgkq...Do/QIDAQAB-----END PUBLIC KEY-----`   |
+| `DANA_PUBLIC_KEY_PATH`   | Path to DANA public key file for parsing webhook. If both set, `DANA_PUBLIC_KEY_PATH is used.                                 | /path/to/dana_public_key.pem                                                    |
+| `ORIGIN`                 | Origin domain.                                                                                                                | https://yourdomain.com                                                          |
+| `CLIENT_SECRET`          | Assigned client secret during registration. Must be set for DisbursementApi.                                                  | your_client_secret                                                              |
+| `X_DEBUG`                | Enable debug mode if set to 'true'. Debug mode will show reason of failed request in additionalInfo.debugMessage in response. | true                                                                            |
 
 You can see these variables in .env.example, fill it, and change the file name to .env (remove the .example extension)
 

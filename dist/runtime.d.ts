@@ -227,7 +227,7 @@ export declare class DanaHeaderUtil {
      * @param origin - The origin of the request.
      * @param partnerId - The partner ID.
      */
-    static populateSnapB2BScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, origin: string, partnerId: string): void;
+    static populateSnapB2BScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: string, privateKey: string, origin: string, partnerId: string, debugMode: boolean): void;
     /**
      * Populates the HTTP headers required for the Snap B2B scenario.
      * @param headerParameters - The HTTP headers object to populate.

@@ -456,7 +456,7 @@ class DanaHeaderUtil {
      * @param origin - The origin of the request.
      * @param partnerId - The partner ID.
      */
-    static populateSnapB2BScenarioHeader(headerParameters, httpMethod, endpointUrl, requestBody, privateKey, origin, partnerId) {
+    static populateSnapB2BScenarioHeader(headerParameters, httpMethod, endpointUrl, requestBody, privateKey, origin, partnerId, debugMode) {
         const timestamp = (0, date_fns_tz_1.format)(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
         const signature = DanaSignatureUtil.generateSnapB2BScenarioSignature(httpMethod, endpointUrl, requestBody, privateKey, timestamp);
         headerParameters['X-TIMESTAMP'] = timestamp;
@@ -465,6 +465,9 @@ class DanaHeaderUtil {
         headerParameters['X-PARTNER-ID'] = partnerId;
         headerParameters['X-EXTERNAL-ID'] = 'sdk' + (0, uuid_1.v4)().substring(3);
         headerParameters['CHANNEL-ID'] = partnerId + '-SERVER';
+        if (debugMode) {
+            headerParameters['X-Debug-Mode'] = 'true';
+        }
     }
     /**
      * Populates the HTTP headers required for the Snap B2B scenario.

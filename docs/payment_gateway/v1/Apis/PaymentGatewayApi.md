@@ -11,6 +11,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    debugMode: "true", // process.env.X_DEBUG
 });
 const { paymentGatewayApi } = danaClient;
 ```
@@ -50,6 +51,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    debugMode: "true", // process.env.X_DEBUG
 });
 const { paymentGatewayApi } = danaClient;
 
@@ -79,6 +81,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    debugMode: "true", // process.env.X_DEBUG
 });
 const { paymentGatewayApi } = danaClient;
 
@@ -108,6 +111,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    debugMode: "true", // process.env.X_DEBUG
 });
 const { paymentGatewayApi } = danaClient;
 
@@ -137,6 +141,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    debugMode: "true", // process.env.X_DEBUG
 });
 const { paymentGatewayApi } = danaClient;
 
@@ -166,6 +171,7 @@ const danaClient = new Dana({
     privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
     origin: "YOUR_ORIGIN", // process.env.ORIGIN
     env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    debugMode: "true", // process.env.X_DEBUG
 });
 const { paymentGatewayApi } = danaClient;
 

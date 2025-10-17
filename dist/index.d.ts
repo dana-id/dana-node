@@ -10,6 +10,7 @@ export interface DanaOpts {
     origin?: string;
     env?: string;
     clientSecret?: string;
+    debugMode?: string;
 }
 export declare class Dana {
     opts: DanaOpts;
@@ -17,6 +18,6 @@ export declare class Dana {
     widgetApi: WidgetApi;
     disbursementApi: DisbursementApi;
     merchantManagementApi: MerchantManagementApi;
-    constructor({ partnerId, privateKey, origin, env, clientSecret }?: DanaOpts);
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }?: DanaOpts);
 }
 export default Dana;

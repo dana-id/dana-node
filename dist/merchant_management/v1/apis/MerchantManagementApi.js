@@ -13,7 +13,7 @@ const index_1 = require("../models/index");
  *
  */
 class MerchantManagementApi extends runtime.BaseAPI {
-    constructor({ partnerId, privateKey, origin, env, clientSecret }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }) {
         const basePath = runtime.getBasePathByEnv(env);
         const configuration = new runtime.Configuration({
             basePath: basePath,
@@ -24,11 +24,13 @@ class MerchantManagementApi extends runtime.BaseAPI {
         this.origin = "";
         this.env = "";
         this.clientSecret = "";
+        this.debugMode = "";
         this.partnerId = partnerId;
         this.privateKey = privateKey;
         this.origin = origin;
         this.env = env;
         this.clientSecret = clientSecret;
+        this.debugMode = debugMode;
     }
     /**
      * This API is used to create a new division

@@ -93,8 +93,9 @@ export class WidgetApi extends runtime.BaseAPI {
     origin: string = "";
     env: string = "";
     clientSecret: string = "";
+    debugMode: string = "";
 
-    constructor({ partnerId, privateKey, origin, env, clientSecret }: { partnerId?: string, privateKey?: string, origin?: string, env?: string, clientSecret?: string }) {
+    constructor({ partnerId, privateKey, origin, env, clientSecret, debugMode }: { partnerId?: string, privateKey?: string, origin?: string, env?: string, clientSecret?: string, debugMode?: string }) {
         const basePath = runtime.getBasePathByEnv(env);
 
         const configuration = new runtime.Configuration({
@@ -108,6 +109,7 @@ export class WidgetApi extends runtime.BaseAPI {
         this.origin = origin;
         this.env = env;
         this.clientSecret = clientSecret;
+        this.debugMode = debugMode;
     }
 
     /**
@@ -317,7 +319,12 @@ export class WidgetApi extends runtime.BaseAPI {
 
         const requestBody: string = JSON.stringify(CancelOrderRequestToJSON(cancelOrderRequest));
 
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (this.debugMode?.toLowerCase() === 'true' && this.env?.toLowerCase() === 'sandbox') {
+            enableDebugMode = true;
+        }
+
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
 
 
         const response = await this.request({
@@ -358,7 +365,12 @@ export class WidgetApi extends runtime.BaseAPI {
 
         const requestBody: string = JSON.stringify(QueryPaymentRequestToJSON(queryPaymentRequest));
 
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (this.debugMode?.toLowerCase() === 'true' && this.env?.toLowerCase() === 'sandbox') {
+            enableDebugMode = true;
+        }
+
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
 
 
         const response = await this.request({
@@ -444,7 +456,12 @@ export class WidgetApi extends runtime.BaseAPI {
 
         const requestBody: string = JSON.stringify(RefundOrderRequestToJSON(refundOrderRequest));
 
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (this.debugMode?.toLowerCase() === 'true' && this.env?.toLowerCase() === 'sandbox') {
+            enableDebugMode = true;
+        }
+
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
 
 
         const response = await this.request({
@@ -485,7 +502,12 @@ export class WidgetApi extends runtime.BaseAPI {
 
         const requestBody: string = JSON.stringify(WidgetPaymentRequestToJSON(widgetPaymentRequest));
 
-        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId);
+        let enableDebugMode = false;
+        if (this.debugMode?.toLowerCase() === 'true' && this.env?.toLowerCase() === 'sandbox') {
+            enableDebugMode = true;
+        }
+
+        runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
 
 
         const response = await this.request({
