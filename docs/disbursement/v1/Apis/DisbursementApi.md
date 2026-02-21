@@ -25,11 +25,11 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**bankAccountInquiry**](DisbursementApi.md#bankAccountInquiry) | **POST** /v1.0/emoney/bank-account-inquiry.htm | This API is used for merchant to do inquiry Bank account info via DANA |
-| [**danaAccountInquiry**](DisbursementApi.md#danaAccountInquiry) | **POST** /v1.0/emoney/account-inquiry.htm | This API is used for merchant to do account inquiry to DANA |
+| [**danaAccountInquiry**](DisbursementApi.md#danaAccountInquiry) | **POST** /rest/v1.0/emoney/account-inquiry | This API is used for merchant to do account inquiry to DANA |
 | [**transferToBank**](DisbursementApi.md#transferToBank) | **POST** /v1.0/emoney/transfer-bank.htm | This API is used for merchant to do transfer to Bank request via DANA |
 | [**transferToBankInquiryStatus**](DisbursementApi.md#transferToBankInquiryStatus) | **POST** /v1.0/emoney/transfer-bank-status.htm | This API is used for merchant to do inquiry status transfer to Bank transaction to DANA |
-| [**transferToDana**](DisbursementApi.md#transferToDana) | **POST** /v1.0/emoney/topup.htm | This API is used for merchant to do top up request to DANA |
-| [**transferToDanaInquiryStatus**](DisbursementApi.md#transferToDanaInquiryStatus) | **POST** /v1.0/emoney/topup-status.htm | This API is used for merchant to do inquiry status top up transaction to DANA |
+| [**transferToDana**](DisbursementApi.md#transferToDana) | **POST** /rest/v1.0/emoney/topup | This API is used for merchant to do top up request to DANA |
+| [**transferToDanaInquiryStatus**](DisbursementApi.md#transferToDanaInquiryStatus) | **POST** /rest/v1.0/emoney/topup-status | This API is used for merchant to do inquiry status top up transaction to DANA |
 
 
 <a name="bankAccountInquiry"></a>
@@ -216,16 +216,16 @@ const response: TransferToDanaInquiryStatusResponse = await disbursementApi.tran
 # Enum Types
 In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-For example, to use the chargeTarget enum from DanaAccountInquiryRequestAdditionalInfo:
+For example, to use the chargeTarget enum from TransferToBankRequestAdditionalInfo:
 
 ```typescript
-import { DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum } from 'dana-node/disbursement/v1';
+import { TransferToBankRequestAdditionalInfoChargeTargetEnum } from 'dana-node/disbursement/v1';
 
 // Use the enum value
-const chargeTarget = DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum.Division;
+const chargeTarget = TransferToBankRequestAdditionalInfoChargeTargetEnum.Division;
 ```
 
-In this example the **DanaAccountInquiryRequestAdditionalInfo** is the parent model and **ChargeTarget** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+In this example the **TransferToBankRequestAdditionalInfo** is the parent model and **ChargeTarget** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
 
 ## BankAccountInquiryRequestAdditionalInfoChargeTargetEnum (chargeTarget)
 | Value | Description |
@@ -279,8 +279,6 @@ In this example the **DanaAccountInquiryRequestAdditionalInfo** is the parent mo
 |-------|-------------|
 | `Division` |  |
 | `Merchant` |  |
-
-
 
 # Webhook Verification
 

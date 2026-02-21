@@ -37,7 +37,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
      * Cancel Order - Payment Gateway
      */
     async cancelOrder(cancelOrderRequest, initOverrides) {
-        var _a, _b;
+        var _a, _b, _c;
         if (cancelOrderRequest == null) {
             throw new runtime.RequiredError('cancelOrderRequest', 'Required parameter "cancelOrderRequest" was null or undefined when calling cancelOrder().');
         }
@@ -45,13 +45,29 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
         }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(cancelOrderRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/payment-gateway/v1.0/debit/cancel.htm`;
         const requestBody = JSON.stringify((0, index_1.CancelOrderRequestToJSON)(cancelOrderRequest));
         let enableDebugMode = false;
-        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+        if (((_b = this.debugMode) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'true' && ((_c = this.env) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === 'sandbox') {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
@@ -69,7 +85,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
      * Consult Pay - Payment Gateway
      */
     async consultPay(consultPayRequest, initOverrides) {
-        var _a, _b;
+        var _a, _b, _c;
         if (consultPayRequest == null) {
             throw new runtime.RequiredError('consultPayRequest', 'Required parameter "consultPayRequest" was null or undefined when calling consultPay().');
         }
@@ -77,13 +93,29 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
         }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(consultPayRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/payment-gateway/consult-pay.htm`;
         const requestBody = JSON.stringify((0, index_1.ConsultPayRequestToJSON)(consultPayRequest));
         let enableDebugMode = false;
-        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+        if (((_b = this.debugMode) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'true' && ((_c = this.env) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === 'sandbox') {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
@@ -101,7 +133,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
      * Create Order - Payment Gateway
      */
     async createOrder(createOrderRequest, initOverrides) {
-        var _a, _b;
+        var _a, _b, _c;
         if (createOrderRequest == null) {
             throw new runtime.RequiredError('createOrderRequest', 'Required parameter "createOrderRequest" was null or undefined when calling createOrder().');
         }
@@ -109,13 +141,29 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
         }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(createOrderRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/payment-gateway/v1.0/debit/payment-host-to-host.htm`;
         const requestBody = JSON.stringify((0, index_1.CreateOrderRequestToJSON)(createOrderRequest));
         let enableDebugMode = false;
-        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+        if (((_b = this.debugMode) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'true' && ((_c = this.env) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === 'sandbox') {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
@@ -133,7 +181,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
      * Query Payment - Payment Gateway
      */
     async queryPayment(queryPaymentRequest, initOverrides) {
-        var _a, _b;
+        var _a, _b, _c;
         if (queryPaymentRequest == null) {
             throw new runtime.RequiredError('queryPaymentRequest', 'Required parameter "queryPaymentRequest" was null or undefined when calling queryPayment().');
         }
@@ -141,13 +189,29 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
         }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryPaymentRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/payment-gateway/v1.0/debit/status.htm`;
         const requestBody = JSON.stringify((0, index_1.QueryPaymentRequestToJSON)(queryPaymentRequest));
         let enableDebugMode = false;
-        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+        if (((_b = this.debugMode) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'true' && ((_c = this.env) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === 'sandbox') {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
@@ -165,7 +229,7 @@ class PaymentGatewayApi extends runtime.BaseAPI {
      * Refund Order - Payment Gateway
      */
     async refundOrder(refundOrderRequest, initOverrides) {
-        var _a, _b;
+        var _a, _b, _c;
         if (refundOrderRequest == null) {
             throw new runtime.RequiredError('refundOrderRequest', 'Required parameter "refundOrderRequest" was null or undefined when calling refundOrder().');
         }
@@ -173,13 +237,29 @@ class PaymentGatewayApi extends runtime.BaseAPI {
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
         }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(refundOrderRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/payment-gateway/v1.0/debit/refund.htm`;
         const requestBody = JSON.stringify((0, index_1.RefundOrderRequestToJSON)(refundOrderRequest));
         let enableDebugMode = false;
-        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+        if (((_b = this.debugMode) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'true' && ((_c = this.env) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === 'sandbox') {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);

@@ -35,7 +35,7 @@ export interface ConsultPayRequestAdditionalInfo {
      * @type {Buyer}
      * @memberof ConsultPayRequestAdditionalInfo
      */
-    buyer: Buyer;
+    buyer?: Buyer;
     /**
      * Additional information of environment info
      * @type {EnvInfo}
@@ -54,7 +54,6 @@ export interface ConsultPayRequestAdditionalInfo {
  * Check if a given object implements the ConsultPayRequestAdditionalInfo interface.
  */
 export function instanceOfConsultPayRequestAdditionalInfo(value: object): value is ConsultPayRequestAdditionalInfo {
-    if (!('buyer' in value) || value['buyer'] === undefined) return false;
     if (!('envInfo' in value) || value['envInfo'] === undefined) return false;
     return true;
 }
@@ -69,7 +68,7 @@ export function ConsultPayRequestAdditionalInfoFromJSONTyped(json: any, ignoreDi
     }
     return {
         
-        'buyer': BuyerFromJSON(json['buyer']),
+        'buyer': json['buyer'] == null ? undefined : BuyerFromJSON(json['buyer']),
         'envInfo': EnvInfoFromJSON(json['envInfo']),
         'merchantTransType': json['merchantTransType'] == null ? undefined : json['merchantTransType'],
     };

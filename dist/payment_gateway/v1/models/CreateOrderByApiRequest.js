@@ -13,6 +13,7 @@ exports.CreateOrderByApiRequestToJSON = CreateOrderByApiRequestToJSON;
 exports.CreateOrderByApiRequestToJSONTyped = CreateOrderByApiRequestToJSONTyped;
 exports.validateCreateOrderByApiRequest = validateCreateOrderByApiRequest;
 const runtime_1 = require("../../../runtime");
+const DateValidation_1 = require("../../../utils/DateValidation");
 const Money_1 = require("./Money");
 const UrlParam_1 = require("./UrlParam");
 const CreateOrderByApiAdditionalInfo_1 = require("./CreateOrderByApiAdditionalInfo");
@@ -28,6 +29,8 @@ function instanceOfCreateOrderByApiRequest(value) {
     if (!('merchantId' in value) || value['merchantId'] === undefined)
         return false;
     if (!('amount' in value) || value['amount'] === undefined)
+        return false;
+    if (!('validUpTo' in value) || value['validUpTo'] === undefined)
         return false;
     if (!('urlParams' in value) || value['urlParams'] === undefined)
         return false;
@@ -48,7 +51,7 @@ function CreateOrderByApiRequestFromJSONTyped(json, ignoreDiscriminator) {
         'subMerchantId': json['subMerchantId'] == null ? undefined : json['subMerchantId'],
         'amount': (0, Money_1.MoneyFromJSON)(json['amount']),
         'externalStoreId': json['externalStoreId'] == null ? undefined : json['externalStoreId'],
-        'validUpTo': json['validUpTo'] == null ? undefined : json['validUpTo'],
+        'validUpTo': json['validUpTo'],
         'disabledPayMethods': json['disabledPayMethods'] == null ? undefined : json['disabledPayMethods'],
         'urlParams': (json['urlParams'].map(UrlParam_1.UrlParamFromJSON)),
     };
@@ -107,6 +110,18 @@ function validateCreateOrderByApiRequest(value) {
     validationErrorContexts.push(...(0, Money_1.validateMoney)(value.amount));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('externalStoreId', value.externalStoreId, propertyValidationAttributesMap['externalStoreId']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('validUpTo', value.validUpTo, propertyValidationAttributesMap['validUpTo']));
+    // Validate that validUpTo date is not more than 30 minutes in the future (sandbox only)
+    if (value.validUpTo != null) {
+        try {
+            (0, DateValidation_1.validateValidUpToDate)(value.validUpTo);
+        }
+        catch (error) {
+            validationErrorContexts.push({
+                field: 'validUpTo',
+                message: 'validUpTo validation failed: ' + ((error === null || error === void 0 ? void 0 : error.message) || String(error))
+            });
+        }
+    }
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('disabledPayMethods', value.disabledPayMethods, propertyValidationAttributesMap['disabledPayMethods']));
     return validationErrorContexts;
 }

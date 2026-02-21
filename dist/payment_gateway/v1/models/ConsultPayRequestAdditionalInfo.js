@@ -19,8 +19,6 @@ const EnvInfo_1 = require("./EnvInfo");
  * Check if a given object implements the ConsultPayRequestAdditionalInfo interface.
  */
 function instanceOfConsultPayRequestAdditionalInfo(value) {
-    if (!('buyer' in value) || value['buyer'] === undefined)
-        return false;
     if (!('envInfo' in value) || value['envInfo'] === undefined)
         return false;
     return true;
@@ -33,7 +31,7 @@ function ConsultPayRequestAdditionalInfoFromJSONTyped(json, ignoreDiscriminator)
         return json;
     }
     return {
-        'buyer': (0, Buyer_1.BuyerFromJSON)(json['buyer']),
+        'buyer': json['buyer'] == null ? undefined : (0, Buyer_1.BuyerFromJSON)(json['buyer']),
         'envInfo': (0, EnvInfo_1.EnvInfoFromJSON)(json['envInfo']),
         'merchantTransType': json['merchantTransType'] == null ? undefined : json['merchantTransType'],
     };

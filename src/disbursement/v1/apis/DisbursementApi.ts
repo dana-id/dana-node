@@ -6,6 +6,7 @@
  */
 
 import * as runtime from '../../../runtime';
+import { Env } from "../../../runtime";
 import type {
   BankAccountInquiryRequest,
   BankAccountInquiryResponse,
@@ -105,6 +106,22 @@ export class DisbursementApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(bankAccountInquiryRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -138,6 +155,22 @@ export class DisbursementApi extends runtime.BaseAPI {
      * This API is used for merchant to do account inquiry to DANA
      * DANA Account Inquiry
      */
+    /**
+     * Get the account inquiry path based on environment.
+     * This method ONLY returns paths for the Disbursement account-inquiry endpoint.
+     * Uses exact path matching to ensure no other endpoints are affected.
+     * 
+     * @returns The path for account inquiry endpoint
+     * - Sandbox: /rest/v1.0/emoney/account-inquiry
+     * - Production: /v1.0/emoney/account-inquiry.htm
+     */
+    private getAccountInquiryPath(): string {
+        const env = this.env || process.env.DANA_ENV || process.env.ENV || Env.SANDBOX;
+        return (env.toLowerCase() === Env.PRODUCTION.toLowerCase()) 
+            ? '/v1.0/emoney/account-inquiry.htm' 
+            : '/rest/v1.0/emoney/account-inquiry';
+    }
+
     async danaAccountInquiry(danaAccountInquiryRequest: DanaAccountInquiryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DanaAccountInquiryResponse> {
         if (danaAccountInquiryRequest == null) {
             throw new runtime.RequiredError(
@@ -151,13 +184,29 @@ export class DisbursementApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(danaAccountInquiryRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const endpointUrl: string = `/v1.0/emoney/account-inquiry.htm`;
+        const endpointUrl: string = this.getAccountInquiryPath();
 
         const requestBody: string = JSON.stringify(DanaAccountInquiryRequestToJSON(danaAccountInquiryRequest));
 
@@ -195,6 +244,22 @@ export class DisbursementApi extends runtime.BaseAPI {
         const validationErrorContexts: runtime.ValidationErrorContext[] = validateTransferToBankRequest(transferToBankRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(transferToBankRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
         }
 
         const queryParameters: any = {};
@@ -243,6 +308,22 @@ export class DisbursementApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(transferToBankInquiryStatusRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -289,13 +370,29 @@ export class DisbursementApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(transferToDanaRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const endpointUrl: string = `/v1.0/emoney/topup.htm`;
+        const endpointUrl: string = `/rest/v1.0/emoney/topup`;
 
         const requestBody: string = JSON.stringify(TransferToDanaRequestToJSON(transferToDanaRequest));
 
@@ -335,13 +432,29 @@ export class DisbursementApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(transferToDanaInquiryStatusRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const endpointUrl: string = `/v1.0/emoney/topup-status.htm`;
+        const endpointUrl: string = `/rest/v1.0/emoney/topup-status`;
 
         const requestBody: string = JSON.stringify(TransferToDanaInquiryStatusRequestToJSON(transferToDanaInquiryStatusRequest));
 

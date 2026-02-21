@@ -301,16 +301,16 @@ const response: WidgetPaymentResponse = await widgetApi.widgetPayment(request);
 # Enum Types
 In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-For example, to use the userResources enum from QueryUserProfileRequest:
+For example, to use the promoType enum from PaymentPromoInfo:
 
 ```typescript
-import { QueryUserProfileRequestUserResourcesEnum } from 'dana-node/widget/v1';
+import { PaymentPromoInfoPromoTypeEnum } from 'dana-node/widget/v1';
 
 // Use the enum value
-const userResources = QueryUserProfileRequestUserResourcesEnum.Balance;
+const promoType = PaymentPromoInfoPromoTypeEnum.CashBack;
 ```
 
-In this example the **QueryUserProfileRequest** is the parent model and **UserResources** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+In this example the **PaymentPromoInfo** is the parent model and **PromoType** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
 
 ## ApplyOTTRequestUserResourcesEnum (userResources)
 | Value | Description |
@@ -389,6 +389,7 @@ In this example the **QueryUserProfileRequest** is the parent model and **UserRe
 | `NetworkPayPgCard` | Payment method with Card |
 | `NetworkPayPcIndomaret` | Payment method with Indomaret |
 | `NetworkPayPgQris` | Payment method with QRIS |
+| `NetworkPayPlIndodana` | Payment method with Paylater Indodana |
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
@@ -471,8 +472,8 @@ In this example the **QueryUserProfileRequest** is the parent model and **UserRe
 ## UrlParamTypeEnum (type)
 | Value | Description |
 |-------|-------------|
-| `PayReturn` | When finish payment, DANA will notify to the URL that has been defined by |
-| `Notification` | After the payment, the user will be redirected to merchant page, this is mandatory |
+| `PayReturn` | After the payment, the user will be redirected to merchant page, this is mandatory |
+| `Notification` | When finish payment, DANA will notify to the URL that has been defined by user |
 
 
 ## UserResourceInfoResourceTypeEnum (resourceType)
@@ -484,8 +485,6 @@ In this example the **QueryUserProfileRequest** is the parent model and **UserRe
 | `TopupUrl` |  |
 | `Ott` |  |
 | `UserKyc` |  |
-
-
 
 # Webhook Verification
 

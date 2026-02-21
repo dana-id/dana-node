@@ -38,6 +38,7 @@ function ConsultPayRequestFromJSONTyped(json, ignoreDiscriminator) {
         'merchantId': json['merchantId'],
         'amount': (0, Money_1.MoneyFromJSON)(json['amount']),
         'additionalInfo': (0, ConsultPayRequestAdditionalInfo_1.ConsultPayRequestAdditionalInfoFromJSON)(json['additionalInfo']),
+        'externalStoreId': json['externalStoreId'] == null ? undefined : json['externalStoreId'],
     };
 }
 function ConsultPayRequestToJSON(json) {
@@ -51,10 +52,14 @@ function ConsultPayRequestToJSONTyped(value, ignoreDiscriminator = false) {
         'merchantId': value['merchantId'],
         'amount': (0, Money_1.MoneyToJSON)(value['amount']),
         'additionalInfo': (0, ConsultPayRequestAdditionalInfo_1.ConsultPayRequestAdditionalInfoToJSON)(value['additionalInfo']),
+        'externalStoreId': value['externalStoreId'],
     };
 }
 const propertyValidationAttributesMap = {
     merchantId: {
+        maxLength: 64,
+    },
+    externalStoreId: {
         maxLength: 64,
     },
 };
@@ -66,5 +71,6 @@ function validateConsultPayRequest(value) {
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('merchantId', value.merchantId, propertyValidationAttributesMap['merchantId']));
     validationErrorContexts.push(...(0, Money_1.validateMoney)(value.amount));
     validationErrorContexts.push(...(0, ConsultPayRequestAdditionalInfo_1.validateConsultPayRequestAdditionalInfo)(value.additionalInfo));
+    validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('externalStoreId', value.externalStoreId, propertyValidationAttributesMap['externalStoreId']));
     return validationErrorContexts;
 }

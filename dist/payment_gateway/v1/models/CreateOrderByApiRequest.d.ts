@@ -63,7 +63,7 @@ export interface CreateOrderByApiRequest {
      * @type {string}
      * @memberof CreateOrderByApiRequest
      */
-    validUpTo?: string;
+    validUpTo: string;
     /**
      * Payment method(s) that cannot be used for this
      * @type {string}

@@ -39,6 +39,7 @@ export interface PayOptionDetail {
      *   * NETWORK_PAY_PG_LINKAJA - Payment method with LinkAja e-wallet<br>
      *   * NETWORK_PAY_PG_CARD - Payment method with Card<br>
      *   * NETWORK_PAY_PG_QRIS - Payment method with QRIS<br>
+     *   * NETWORK_PAY_PL_INDODANA - Payment method with Paylater Indodana<br>
      *   * NETWORK_PAY_PC_INDOMARET - Payment method with Indomaret<br>
      *   * VIRTUAL_ACCOUNT_BCA - Payment method with BCA virtual account<br>
      *   * VIRTUAL_ACCOUNT_BNI - Payment method with BNI virtual account<br>
@@ -113,6 +114,7 @@ export declare const PayOptionDetailPayOptionEnum: {
     readonly NetworkPayPgLinkaja: "NETWORK_PAY_PG_LINKAJA";
     readonly NetworkPayPgCard: "NETWORK_PAY_PG_CARD";
     readonly NetworkPayPgQris: "NETWORK_PAY_PG_QRIS";
+    readonly NetworkPayPlIndodana: "NETWORK_PAY_PL_INDODANA";
     readonly NetworkPayPcIndomaret: "NETWORK_PAY_PC_INDOMARET";
     readonly VirtualAccountBca: "VIRTUAL_ACCOUNT_BCA";
     readonly VirtualAccountBni: "VIRTUAL_ACCOUNT_BNI";

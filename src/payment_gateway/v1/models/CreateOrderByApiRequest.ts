@@ -7,6 +7,7 @@
 
 import type { PropertyValidationAttribute, ValidationErrorContext } from '../../../runtime';
 import { mapValues, ValidationUtil } from '../../../runtime';
+import { validateValidUpToDate } from '../../../utils/DateValidation';
 import type { Money } from './Money';
 import {
     validateMoney,
@@ -96,7 +97,7 @@ export interface CreateOrderByApiRequest {
      * @type {string}
      * @memberof CreateOrderByApiRequest
      */
-    validUpTo?: string;
+    validUpTo: string;
     /**
      * Payment method(s) that cannot be used for this
      * @type {string}
@@ -119,6 +120,7 @@ export function instanceOfCreateOrderByApiRequest(value: object): value is Creat
     if (!('partnerReferenceNo' in value) || value['partnerReferenceNo'] === undefined) return false;
     if (!('merchantId' in value) || value['merchantId'] === undefined) return false;
     if (!('amount' in value) || value['amount'] === undefined) return false;
+    if (!('validUpTo' in value) || value['validUpTo'] === undefined) return false;
     if (!('urlParams' in value) || value['urlParams'] === undefined) return false;
     return true;
 }
@@ -140,7 +142,7 @@ export function CreateOrderByApiRequestFromJSONTyped(json: any, ignoreDiscrimina
         'subMerchantId': json['subMerchantId'] == null ? undefined : json['subMerchantId'],
         'amount': MoneyFromJSON(json['amount']),
         'externalStoreId': json['externalStoreId'] == null ? undefined : json['externalStoreId'],
-        'validUpTo': json['validUpTo'] == null ? undefined : json['validUpTo'],
+        'validUpTo': json['validUpTo'],
         'disabledPayMethods': json['disabledPayMethods'] == null ? undefined : json['disabledPayMethods'],
         'urlParams': ((json['urlParams'] as Array<any>).map(UrlParamFromJSON)),
     };
@@ -213,6 +215,18 @@ export function validateCreateOrderByApiRequest(value: CreateOrderByApiRequest):
     validationErrorContexts.push(...ValidationUtil.validateProperty('externalStoreId', value.externalStoreId, propertyValidationAttributesMap['externalStoreId']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('validUpTo', value.validUpTo, propertyValidationAttributesMap['validUpTo']));
+
+    // Validate that validUpTo date is not more than 30 minutes in the future (sandbox only)
+    if (value.validUpTo != null) {
+        try {
+            validateValidUpToDate(value.validUpTo);
+        } catch (error: any) {
+            validationErrorContexts.push({
+                field: 'validUpTo',
+                message: 'validUpTo validation failed: ' + (error?.message || String(error))
+            });
+        }
+    }
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('disabledPayMethods', value.disabledPayMethods, propertyValidationAttributesMap['disabledPayMethods']));
 

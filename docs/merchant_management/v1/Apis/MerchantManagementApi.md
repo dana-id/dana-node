@@ -247,16 +247,16 @@ const response: UpdateShopResponse = await merchantManagementApi.updateShop(requ
 # Enum Types
 In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-For example, to use the verified enum from MobileNoInfo:
+For example, to use the parentRoleType enum from DivisionResourceInfo:
 
 ```typescript
-import { MobileNoInfoVerifiedEnum } from 'dana-node/merchant_management/v1';
+import { DivisionResourceInfoParentRoleTypeEnum } from 'dana-node/merchant_management/v1';
 
 // Use the enum value
-const verified = MobileNoInfoVerifiedEnum.True;
+const parentRoleType = DivisionResourceInfoParentRoleTypeEnum.Merchant;
 ```
 
-In this example the **MobileNoInfo** is the parent model and **Verified** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+In this example the **DivisionResourceInfo** is the parent model and **ParentRoleType** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
 
 ## BusinessDocsDocTypeEnum (docType)
 | Value | Description |
@@ -630,8 +630,6 @@ In this example the **MobileNoInfo** is the parent model and **Verified** is the
 | Value | Description |
 |-------|-------------|
 | `Dana.merchant.shop.updateshop` |  |
-
-
 
 # Webhook Verification
 

@@ -32,6 +32,12 @@ export interface ConsultPayRequest {
      * @memberof ConsultPayRequest
      */
     additionalInfo: ConsultPayRequestAdditionalInfo;
+    /**
+     * Store identifier to indicate to which store this payment belongs to. Need to be provided to show QRIS payment method.
+     * @type {string}
+     * @memberof ConsultPayRequest
+     */
+    externalStoreId?: string;
 }
 /**
  * Check if a given object implements the ConsultPayRequest interface.

@@ -51,6 +51,7 @@ export interface ConsultPayPaymentInfo {
      *   * NETWORK_PAY_PG_CARD - Payment method with Card<br>
      *   * NETWORK_PAY_PC_INDOMARET - Payment method with Indomaret<br>
      *   * NETWORK_PAY_PG_QRIS - Payment method with QRIS<br>
+     *   * NETWORK_PAY_PL_INDODANA - Payment method with Paylater Indodana<br>
      *   * VIRTUAL_ACCOUNT_BCA - Payment method with BCA virtual account<br>
      *   * VIRTUAL_ACCOUNT_BNI - Payment method with BNI virtual account<br>
      *   * VIRTUAL_ACCOUNT_MANDIRI - Payment method with Mandiri virtual account<br>
@@ -104,6 +105,7 @@ export const ConsultPayPaymentInfoPayOptionEnum = {
     NetworkPayPgCard: 'NETWORK_PAY_PG_CARD',
     NetworkPayPcIndomaret: 'NETWORK_PAY_PC_INDOMARET',
     NetworkPayPgQris: 'NETWORK_PAY_PG_QRIS',
+    NetworkPayPlIndodana: 'NETWORK_PAY_PL_INDODANA',
     VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
     VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
     VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',

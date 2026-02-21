@@ -234,6 +234,7 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `NetworkPayPgCard` | Payment method with Card |
 | `NetworkPayPcIndomaret` | Payment method with Indomaret |
 | `NetworkPayPgQris` | Payment method with QRIS |
+| `NetworkPayPlIndodana` | Payment method with Paylater Indodana |
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
@@ -307,6 +308,7 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `NetworkPayPgLinkaja` | Payment method with LinkAja e-wallet |
 | `NetworkPayPgCard` | Payment method with Card |
 | `NetworkPayPgQris` | Payment method with QRIS |
+| `NetworkPayPlIndodana` | Payment method with Paylater Indodana |
 | `NetworkPayPcIndomaret` | Payment method with Indomaret |
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
@@ -346,6 +348,7 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `NetworkPayPgCard` | Payment method with Card |
 | `NetworkPayPcIndomaret` | Payment method with Indomaret |
 | `NetworkPayPgQris` | Payment method with QRIS |
+| `NetworkPayPlIndodana` | Payment method with Paylater Indodana |
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
@@ -398,10 +401,8 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 ## UrlParamTypeEnum (type)
 | Value | Description |
 |-------|-------------|
-| `PayReturn` | When finish payment, DANA will notify to the URL that has been defined by |
-| `Notification` | After the payment, the user will be redirected to merchant page, this is mandatory |
-
-
+| `PayReturn` | After the payment, the user will be redirected to merchant page, this is mandatory |
+| `Notification` | When finish payment, DANA will notify to the URL that has been defined by user |
 
 # Webhook Verification
 

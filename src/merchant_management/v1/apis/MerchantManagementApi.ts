@@ -113,6 +113,22 @@ export class MerchantManagementApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(createDivisionRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -156,6 +172,22 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const validationErrorContexts: runtime.ValidationErrorContext[] = validateCreateShopRequest(createShopRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(createShopRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
         }
 
         const queryParameters: any = {};
@@ -203,6 +235,22 @@ export class MerchantManagementApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryDivisionRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -246,6 +294,22 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const validationErrorContexts: runtime.ValidationErrorContext[] = validateQueryMerchantResourceRequest(queryMerchantResourceRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryMerchantResourceRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
         }
 
         const queryParameters: any = {};
@@ -293,6 +357,22 @@ export class MerchantManagementApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryShopRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -338,6 +418,22 @@ export class MerchantManagementApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(updateDivisionRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -381,6 +477,22 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const validationErrorContexts: runtime.ValidationErrorContext[] = validateUpdateShopRequest(updateShopRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(updateShopRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
         }
 
         const queryParameters: any = {};

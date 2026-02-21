@@ -31,6 +31,16 @@ export declare class DisbursementApi extends runtime.BaseAPI {
      * This API is used for merchant to do account inquiry to DANA
      * DANA Account Inquiry
      */
+    /**
+     * Get the account inquiry path based on environment.
+     * This method ONLY returns paths for the Disbursement account-inquiry endpoint.
+     * Uses exact path matching to ensure no other endpoints are affected.
+     *
+     * @returns The path for account inquiry endpoint
+     * - Sandbox: /rest/v1.0/emoney/account-inquiry
+     * - Production: /v1.0/emoney/account-inquiry.htm
+     */
+    private getAccountInquiryPath;
     danaAccountInquiry(danaAccountInquiryRequest: DanaAccountInquiryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DanaAccountInquiryResponse>;
     /**
      * This API is used for merchant to do transfer to Bank request via DANA

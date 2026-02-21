@@ -37,12 +37,29 @@ class MerchantManagementApi extends runtime.BaseAPI {
      * Create Division
      */
     async createDivision(createDivisionRequest, initOverrides) {
+        var _a;
         if (createDivisionRequest == null) {
             throw new runtime.RequiredError('createDivisionRequest', 'Required parameter "createDivisionRequest" was null or undefined when calling createDivision().');
         }
         const validationErrorContexts = (0, index_1.validateCreateDivisionRequest)(createDivisionRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(createDivisionRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -68,12 +85,29 @@ class MerchantManagementApi extends runtime.BaseAPI {
      * Member – Create Shop
      */
     async createShop(createShopRequest, initOverrides) {
+        var _a;
         if (createShopRequest == null) {
             throw new runtime.RequiredError('createShopRequest', 'Required parameter "createShopRequest" was null or undefined when calling createShop().');
         }
         const validationErrorContexts = (0, index_1.validateCreateShopRequest)(createShopRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(createShopRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -99,12 +133,29 @@ class MerchantManagementApi extends runtime.BaseAPI {
      * Query Division
      */
     async queryDivision(queryDivisionRequest, initOverrides) {
+        var _a;
         if (queryDivisionRequest == null) {
             throw new runtime.RequiredError('queryDivisionRequest', 'Required parameter "queryDivisionRequest" was null or undefined when calling queryDivision().');
         }
         const validationErrorContexts = (0, index_1.validateQueryDivisionRequest)(queryDivisionRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryDivisionRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -130,12 +181,29 @@ class MerchantManagementApi extends runtime.BaseAPI {
      * Member – Merchant Open API Check Disbursement Account
      */
     async queryMerchantResource(queryMerchantResourceRequest, initOverrides) {
+        var _a;
         if (queryMerchantResourceRequest == null) {
             throw new runtime.RequiredError('queryMerchantResourceRequest', 'Required parameter "queryMerchantResourceRequest" was null or undefined when calling queryMerchantResource().');
         }
         const validationErrorContexts = (0, index_1.validateQueryMerchantResourceRequest)(queryMerchantResourceRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryMerchantResourceRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -161,12 +229,29 @@ class MerchantManagementApi extends runtime.BaseAPI {
      * Member – Query Shop
      */
     async queryShop(queryShopRequest, initOverrides) {
+        var _a;
         if (queryShopRequest == null) {
             throw new runtime.RequiredError('queryShopRequest', 'Required parameter "queryShopRequest" was null or undefined when calling queryShop().');
         }
         const validationErrorContexts = (0, index_1.validateQueryShopRequest)(queryShopRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryShopRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -192,12 +277,29 @@ class MerchantManagementApi extends runtime.BaseAPI {
      * Update Division
      */
     async updateDivision(updateDivisionRequest, initOverrides) {
+        var _a;
         if (updateDivisionRequest == null) {
             throw new runtime.RequiredError('updateDivisionRequest', 'Required parameter "updateDivisionRequest" was null or undefined when calling updateDivision().');
         }
         const validationErrorContexts = (0, index_1.validateUpdateDivisionRequest)(updateDivisionRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(updateDivisionRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -223,12 +325,29 @@ class MerchantManagementApi extends runtime.BaseAPI {
      * Update Shop
      */
     async updateShop(updateShopRequest, initOverrides) {
+        var _a;
         if (updateShopRequest == null) {
             throw new runtime.RequiredError('updateShopRequest', 'Required parameter "updateShopRequest" was null or undefined when calling updateShop().');
         }
         const validationErrorContexts = (0, index_1.validateUpdateShopRequest)(updateShopRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(updateShopRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};

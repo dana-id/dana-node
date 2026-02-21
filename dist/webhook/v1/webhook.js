@@ -4,6 +4,16 @@ exports.WebhookParser = void 0;
 const node_crypto_1 = require("node:crypto");
 const fs = require("node:fs");
 const FinishNotifyRequest_1 = require("./FinishNotifyRequest");
+/** Sandbox gateway public key used for webhook verification when DANA_ENV/ENV is sandbox. */
+const SANDBOX_WEBHOOK_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnaKVGRbin4Wh4KN35OPh
+ytJBjYTz7QZKSZjmHfiHxFmulfT87rta+IvGJ0rCBgg+1EtKk1hX8G5gPGJs1htJ
+5jHa3/jCk9l+luzjnuT9UVlwJahvzmFw+IoDoM7hIPjsLtnIe04SgYo0tZBpEmkQ
+vUGhmHPqYnUGSSMIpDLJDvbyr8gtwluja1SbRphgDCoYVXq+uUJ5HzPS049aaxTS
+nfXh/qXuDoB9EzCrgppLDS2ubmk21+dr7WaO/3RFjnwx5ouv6w+iC1XOJKar3CTk
+X6JV1OSST1C9sbPGzMHZ8AGB51BM0mok7davD/5irUk+f0C25OgzkwtxAt80dkDo
+/QIDAQAB
+-----END PUBLIC KEY-----`;
 class WebhookParser {
     /**
      * @param publicKey      A key in any of the supported string formats.
@@ -11,8 +21,13 @@ class WebhookParser {
      * @throws Error if the key cannot be read / normalised / parsed.
      */
     constructor(publicKey, publicKeyPath) {
+        var _a, _b;
         let keySource;
-        if (publicKeyPath) {
+        const env = ((_b = (_a = process.env.DANA_ENV) !== null && _a !== void 0 ? _a : process.env.ENV) !== null && _b !== void 0 ? _b : '').trim().toLowerCase();
+        if (env === 'sandbox' || env === '') {
+            keySource = SANDBOX_WEBHOOK_PUBLIC_KEY;
+        }
+        else if (publicKeyPath) {
             try {
                 keySource = fs.readFileSync(publicKeyPath, 'utf8').trim();
             }

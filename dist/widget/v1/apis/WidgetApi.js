@@ -37,12 +37,29 @@ class WidgetApi extends runtime.BaseAPI {
      * Account unbinding - Binding
      */
     async accountUnbinding(accountUnbindingRequest, initOverrides) {
+        var _a;
         if (accountUnbindingRequest == null) {
             throw new runtime.RequiredError('accountUnbindingRequest', 'Required parameter "accountUnbindingRequest" was null or undefined when calling accountUnbinding().');
         }
         const validationErrorContexts = (0, index_1.validateAccountUnbindingRequest)(accountUnbindingRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(accountUnbindingRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -69,12 +86,29 @@ class WidgetApi extends runtime.BaseAPI {
      * Apply OTT - Widget
      */
     async applyOTT(applyOTTRequest, initOverrides) {
+        var _a;
         if (applyOTTRequest == null) {
             throw new runtime.RequiredError('applyOTTRequest', 'Required parameter "applyOTTRequest" was null or undefined when calling applyOTT().');
         }
         const validationErrorContexts = (0, index_1.validateApplyOTTRequest)(applyOTTRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(applyOTTRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -101,12 +135,29 @@ class WidgetApi extends runtime.BaseAPI {
      * Apply Token, required by Apply OTT - Binding
      */
     async applyToken(applyTokenRequest, initOverrides) {
+        var _a;
         if (applyTokenRequest == null) {
             throw new runtime.RequiredError('applyTokenRequest', 'Required parameter "applyTokenRequest" was null or undefined when calling applyToken().');
         }
         const validationErrorContexts = (0, index_1.validateApplyTokenRequest)(applyTokenRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(applyTokenRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -127,12 +178,29 @@ class WidgetApi extends runtime.BaseAPI {
      * Balance Inquiry
      */
     async balanceInquiry(balanceInquiryRequest, initOverrides) {
+        var _a;
         if (balanceInquiryRequest == null) {
             throw new runtime.RequiredError('balanceInquiryRequest', 'Required parameter "balanceInquiryRequest" was null or undefined when calling balanceInquiry().');
         }
         const validationErrorContexts = (0, index_1.validateBalanceInquiryRequest)(balanceInquiryRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(balanceInquiryRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -159,7 +227,7 @@ class WidgetApi extends runtime.BaseAPI {
      * Cancel Order - Widget
      */
     async cancelOrder(cancelOrderRequest, initOverrides) {
-        var _a, _b;
+        var _a, _b, _c;
         if (cancelOrderRequest == null) {
             throw new runtime.RequiredError('cancelOrderRequest', 'Required parameter "cancelOrderRequest" was null or undefined when calling cancelOrder().');
         }
@@ -167,13 +235,29 @@ class WidgetApi extends runtime.BaseAPI {
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
         }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(cancelOrderRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/debit/cancel.htm`;
         const requestBody = JSON.stringify((0, index_1.CancelOrderRequestToJSON)(cancelOrderRequest));
         let enableDebugMode = false;
-        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+        if (((_b = this.debugMode) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'true' && ((_c = this.env) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === 'sandbox') {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
@@ -191,7 +275,7 @@ class WidgetApi extends runtime.BaseAPI {
      * Query Payment - Widget
      */
     async queryPayment(queryPaymentRequest, initOverrides) {
-        var _a, _b;
+        var _a, _b, _c;
         if (queryPaymentRequest == null) {
             throw new runtime.RequiredError('queryPaymentRequest', 'Required parameter "queryPaymentRequest" was null or undefined when calling queryPayment().');
         }
@@ -199,13 +283,29 @@ class WidgetApi extends runtime.BaseAPI {
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
         }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryPaymentRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/rest/v1.1/debit/status`;
         const requestBody = JSON.stringify((0, index_1.QueryPaymentRequestToJSON)(queryPaymentRequest));
         let enableDebugMode = false;
-        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+        if (((_b = this.debugMode) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'true' && ((_c = this.env) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === 'sandbox') {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
@@ -223,12 +323,29 @@ class WidgetApi extends runtime.BaseAPI {
      * Query User Profile
      */
     async queryUserProfile(queryUserProfileRequest, initOverrides) {
+        var _a;
         if (queryUserProfileRequest == null) {
             throw new runtime.RequiredError('queryUserProfileRequest', 'Required parameter "queryUserProfileRequest" was null or undefined when calling queryUserProfile().');
         }
         const validationErrorContexts = (0, index_1.validateQueryUserProfileRequest)(queryUserProfileRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryUserProfileRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -254,7 +371,7 @@ class WidgetApi extends runtime.BaseAPI {
      * Refund Order - Widget
      */
     async refundOrder(refundOrderRequest, initOverrides) {
-        var _a, _b;
+        var _a, _b, _c;
         if (refundOrderRequest == null) {
             throw new runtime.RequiredError('refundOrderRequest', 'Required parameter "refundOrderRequest" was null or undefined when calling refundOrder().');
         }
@@ -262,13 +379,29 @@ class WidgetApi extends runtime.BaseAPI {
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
         }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(refundOrderRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/v1.0/debit/refund.htm`;
         const requestBody = JSON.stringify((0, index_1.RefundOrderRequestToJSON)(refundOrderRequest));
         let enableDebugMode = false;
-        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+        if (((_b = this.debugMode) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'true' && ((_c = this.env) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === 'sandbox') {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
@@ -286,7 +419,7 @@ class WidgetApi extends runtime.BaseAPI {
      * Widget Payment - Widget
      */
     async widgetPayment(widgetPaymentRequest, initOverrides) {
-        var _a, _b;
+        var _a, _b, _c;
         if (widgetPaymentRequest == null) {
             throw new runtime.RequiredError('widgetPaymentRequest', 'Required parameter "widgetPaymentRequest" was null or undefined when calling widgetPayment().');
         }
@@ -294,13 +427,29 @@ class WidgetApi extends runtime.BaseAPI {
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
         }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(widgetPaymentRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
         const queryParameters = {};
         const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
         const endpointUrl = `/rest/redirection/v1.0/debit/payment-host-to-host`;
         const requestBody = JSON.stringify((0, index_1.WidgetPaymentRequestToJSON)(widgetPaymentRequest));
         let enableDebugMode = false;
-        if (((_a = this.debugMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'true' && ((_b = this.env) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'sandbox') {
+        if (((_b = this.debugMode) === null || _b === void 0 ? void 0 : _b.toLowerCase()) === 'true' && ((_c = this.env) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === 'sandbox') {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);

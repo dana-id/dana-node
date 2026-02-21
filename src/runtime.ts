@@ -512,31 +512,35 @@ export class ValidationUtil {
                 validationErrorContexts.push({ field, message: 'must match required pattern' });
             }
             if (attribute.maxDate && attribute.maxDate === 'week') {
-                try {
-                    // Create current date in Jakarta timezone (GMT+7)
-                    const currentDate = new Date();
-                    // Add 7 hours to get Jakarta time
-                    currentDate.setHours(currentDate.getHours() + 7);
-                    
-                    // Maximum allowed date (current date + 7 days)
-                    const maxDate = new Date(currentDate);
-                    maxDate.setDate(maxDate.getDate() + 7);
-                    
-                    // Parse the input date (assuming it's in ISO 8601 format)
-                    const inputDate = new Date(value);
-                    
-                    // Check if the input date exceeds the maximum allowed date
-                    if (inputDate > maxDate) {
+                // Only validate in sandbox environment
+                const env = process.env.DANA_ENV || process.env.ENV || 'sandbox';
+                if (env.toLowerCase() === 'sandbox') {
+                    try {
+                        // Create current date in Jakarta timezone (GMT+7)
+                        const currentDate = new Date();
+                        // Add 7 hours to get Jakarta time
+                        currentDate.setHours(currentDate.getHours() + 7);
+                        
+                        // Maximum allowed date (current date + 30 minutes)
+                        const maxDate = new Date(currentDate);
+                        maxDate.setMinutes(maxDate.getMinutes() + 30);
+                        
+                        // Parse the input date (assuming it's in ISO 8601 format)
+                        const inputDate = new Date(value);
+                        
+                        // Check if the input date exceeds the maximum allowed date
+                        if (inputDate > maxDate) {
+                            validationErrorContexts.push({ 
+                                field, 
+                                message: 'date cannot be more than 30 minutes in the future' 
+                            });
+                        }
+                    } catch (error) {
                         validationErrorContexts.push({ 
                             field, 
-                            message: 'date cannot be more than one week in the future' 
+                            message: 'invalid date format' 
                         });
                     }
-                } catch (error) {
-                    validationErrorContexts.push({ 
-                        field, 
-                        message: 'invalid date format' 
-                    });
                 }
             }
         }
@@ -778,21 +782,28 @@ export class DanaSignatureUtil {
 
     /**
      * Converts a private/public key to PEM format.
+     * Normalizes line endings (CRLF/CR to LF) and escaped \\n for consistency across environments.
      * @param key - The key.
      * @param keyType - The type of key (e.g., PRIVATE, PUBLIC).
      * @returns The PEM-formatted key.
      */
-    private static convertToPEM(key: string, keyType: string): string {
+    static convertToPEM(key: string, keyType: string): string {
         const header: string = `-----BEGIN ${keyType} KEY-----`;
         const footer: string = `-----END ${keyType} KEY-----`;
         const delimiter: string = '\n';
 
+        key = key.trim();
+        // Replace escaped newlines with real newlines
+        key = key.replace(/\\n/g, delimiter);
+        // Normalize Windows CRLF and CR to LF
+        key = key.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
         // Check if the key is already in PEM format
         if (key.includes(header) && key.includes(footer)) {
-            return key.replace(/\\n/g, delimiter);
+            return key;
         }
 
-        key = key.replace(/\\n/g, '');
+        key = key.replace(/\n/g, '');
 
         const chunks: string[] = [];
         for (let i = 0; i < key.length; i += 64) {

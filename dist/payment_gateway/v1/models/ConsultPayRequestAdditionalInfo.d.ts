@@ -16,7 +16,7 @@ export interface ConsultPayRequestAdditionalInfo {
      * @type {Buyer}
      * @memberof ConsultPayRequestAdditionalInfo
      */
-    buyer: Buyer;
+    buyer?: Buyer;
     /**
      * Additional information of environment info
      * @type {EnvInfo}

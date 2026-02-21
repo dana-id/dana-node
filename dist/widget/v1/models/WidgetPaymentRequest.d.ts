@@ -48,7 +48,7 @@ export interface WidgetPaymentRequest {
      * @type {string}
      * @memberof WidgetPaymentRequest
      */
-    validUpTo?: string;
+    validUpTo: string;
     /**
      * Used for getting more info regarding source of request of the user
      * @type {string}

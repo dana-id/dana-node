@@ -21,8 +21,8 @@ export interface UrlParam {
     url: string;
     /**
      * Url param. The enums:<br>
-     * * PAY_RETURN - When finish payment, DANA will notify to the URL that has been defined by<br>
-     * * NOTIFICATION - After the payment, the user will be redirected to merchant page, this is mandatory<br>
+     * * PAY_RETURN - After the payment, the user will be redirected to merchant page, this is mandatory<br>
+     * * NOTIFICATION - When finish payment, DANA will notify to the URL that has been defined by user<br>
      * 
      * @type {string}
      * @memberof UrlParam

@@ -49,7 +49,7 @@ export interface CreateOrderBaseRequest {
      * @type {string}
      * @memberof CreateOrderBaseRequest
      */
-    validUpTo?: string;
+    validUpTo: string;
     /**
      * Payment method(s) that cannot be used for this
      * @type {string}

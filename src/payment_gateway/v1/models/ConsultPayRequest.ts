@@ -51,6 +51,12 @@ export interface ConsultPayRequest {
      * @memberof ConsultPayRequest
      */
     additionalInfo: ConsultPayRequestAdditionalInfo;
+    /**
+     * Store identifier to indicate to which store this payment belongs to. Need to be provided to show QRIS payment method.
+     * @type {string}
+     * @memberof ConsultPayRequest
+     */
+    externalStoreId?: string;
 }
 
 /**
@@ -76,6 +82,7 @@ export function ConsultPayRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'merchantId': json['merchantId'],
         'amount': MoneyFromJSON(json['amount']),
         'additionalInfo': ConsultPayRequestAdditionalInfoFromJSON(json['additionalInfo']),
+        'externalStoreId': json['externalStoreId'] == null ? undefined : json['externalStoreId'],
     };
 }
 
@@ -93,11 +100,15 @@ export function ConsultPayRequestToJSONTyped(value?: ConsultPayRequest | null, i
         'merchantId': value['merchantId'],
         'amount': MoneyToJSON(value['amount']),
         'additionalInfo': ConsultPayRequestAdditionalInfoToJSON(value['additionalInfo']),
+        'externalStoreId': value['externalStoreId'],
     };
 }
 
 const propertyValidationAttributesMap: { [property: string]: PropertyValidationAttribute } = {
     merchantId: {
+        maxLength: 64,
+    },
+    externalStoreId: {
         maxLength: 64,
     },
 }
@@ -114,6 +125,8 @@ export function validateConsultPayRequest(value: ConsultPayRequest): ValidationE
     validationErrorContexts.push(...validateMoney(value.amount));
 
     validationErrorContexts.push(...validateConsultPayRequestAdditionalInfo(value.additionalInfo));
+
+    validationErrorContexts.push(...ValidationUtil.validateProperty('externalStoreId', value.externalStoreId, propertyValidationAttributesMap['externalStoreId']));
 
     return validationErrorContexts;
 }

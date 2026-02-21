@@ -34,7 +34,7 @@ export class Dana {
         origin = origin ? origin : process.env.ORIGIN;
         env = env ? env : process.env.DANA_ENV || process.env.ENV || 'sandbox';
         clientSecret = clientSecret ? clientSecret : process.env.CLIENT_SECRET;
-        debugMode = debugMode ? debugMode : process.env.X_DEBUG;
+        debugMode = debugMode ? debugMode : (process.env.X_DEBUG !== undefined && process.env.X_DEBUG !== '' ? process.env.X_DEBUG : (env === 'sandbox' ? 'true' : undefined));
 
         if (!partnerId) {
             throw new Error('Missing required environment variable: X_PARTNER_ID. Please set X_PARTNER_ID in your environment or .env file.');

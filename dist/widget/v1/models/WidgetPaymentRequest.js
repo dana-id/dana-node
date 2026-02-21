@@ -13,6 +13,7 @@ exports.WidgetPaymentRequestToJSON = WidgetPaymentRequestToJSON;
 exports.WidgetPaymentRequestToJSONTyped = WidgetPaymentRequestToJSONTyped;
 exports.validateWidgetPaymentRequest = validateWidgetPaymentRequest;
 const runtime_1 = require("../../../runtime");
+const DateValidation_1 = require("../../../utils/DateValidation");
 const Money_1 = require("./Money");
 const UrlParam_1 = require("./UrlParam");
 const WidgetPaymentRequestAdditionalInfo_1 = require("./WidgetPaymentRequestAdditionalInfo");
@@ -26,6 +27,8 @@ function instanceOfWidgetPaymentRequest(value) {
     if (!('merchantId' in value) || value['merchantId'] === undefined)
         return false;
     if (!('amount' in value) || value['amount'] === undefined)
+        return false;
+    if (!('validUpTo' in value) || value['validUpTo'] === undefined)
         return false;
     if (!('additionalInfo' in value) || value['additionalInfo'] === undefined)
         return false;
@@ -44,7 +47,7 @@ function WidgetPaymentRequestFromJSONTyped(json, ignoreDiscriminator) {
         'subMerchantId': json['subMerchantId'] == null ? undefined : json['subMerchantId'],
         'amount': (0, Money_1.MoneyFromJSON)(json['amount']),
         'externalStoreId': json['externalStoreId'] == null ? undefined : json['externalStoreId'],
-        'validUpTo': json['validUpTo'] == null ? undefined : json['validUpTo'],
+        'validUpTo': json['validUpTo'],
         'pointOfInitiation': json['pointOfInitiation'] == null ? undefined : json['pointOfInitiation'],
         'disabledPayMethods': json['disabledPayMethods'] == null ? undefined : json['disabledPayMethods'],
         'payOptionDetails': json['payOptionDetails'] == null ? undefined : (json['payOptionDetails'].map(PayOptionDetail_1.PayOptionDetailFromJSON)),
@@ -88,6 +91,7 @@ const propertyValidationAttributesMap = {
     },
     validUpTo: {
         pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
+        maxDate: "week",
     },
     pointOfInitiation: {
         maxLength: 20,
@@ -107,6 +111,18 @@ function validateWidgetPaymentRequest(value) {
     validationErrorContexts.push(...(0, Money_1.validateMoney)(value.amount));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('externalStoreId', value.externalStoreId, propertyValidationAttributesMap['externalStoreId']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('validUpTo', value.validUpTo, propertyValidationAttributesMap['validUpTo']));
+    // Validate that validUpTo date is not more than 30 minutes in the future (sandbox only)
+    if (value.validUpTo != null) {
+        try {
+            (0, DateValidation_1.validateValidUpToDate)(value.validUpTo);
+        }
+        catch (error) {
+            validationErrorContexts.push({
+                field: 'validUpTo',
+                message: 'validUpTo validation failed: ' + ((error === null || error === void 0 ? void 0 : error.message) || String(error))
+            });
+        }
+    }
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('pointOfInitiation', value.pointOfInitiation, propertyValidationAttributesMap['pointOfInitiation']));
     validationErrorContexts.push(...runtime_1.ValidationUtil.validateProperty('disabledPayMethods', value.disabledPayMethods, propertyValidationAttributesMap['disabledPayMethods']));
     validationErrorContexts.push(...(0, WidgetPaymentRequestAdditionalInfo_1.validateWidgetPaymentRequestAdditionalInfo)(value.additionalInfo));

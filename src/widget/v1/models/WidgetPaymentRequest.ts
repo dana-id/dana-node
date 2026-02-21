@@ -7,6 +7,7 @@
 
 import type { PropertyValidationAttribute, ValidationErrorContext } from '../../../runtime';
 import { mapValues, ValidationUtil } from '../../../runtime';
+import { validateValidUpToDate } from '../../../utils/DateValidation';
 import type { Money } from './Money';
 import {
     validateMoney,
@@ -81,7 +82,7 @@ export interface WidgetPaymentRequest {
      * @type {string}
      * @memberof WidgetPaymentRequest
      */
-    validUpTo?: string;
+    validUpTo: string;
     /**
      * Used for getting more info regarding source of request of the user
      * @type {string}
@@ -121,6 +122,7 @@ export function instanceOfWidgetPaymentRequest(value: object): value is WidgetPa
     if (!('partnerReferenceNo' in value) || value['partnerReferenceNo'] === undefined) return false;
     if (!('merchantId' in value) || value['merchantId'] === undefined) return false;
     if (!('amount' in value) || value['amount'] === undefined) return false;
+    if (!('validUpTo' in value) || value['validUpTo'] === undefined) return false;
     if (!('additionalInfo' in value) || value['additionalInfo'] === undefined) return false;
     return true;
 }
@@ -140,7 +142,7 @@ export function WidgetPaymentRequestFromJSONTyped(json: any, ignoreDiscriminator
         'subMerchantId': json['subMerchantId'] == null ? undefined : json['subMerchantId'],
         'amount': MoneyFromJSON(json['amount']),
         'externalStoreId': json['externalStoreId'] == null ? undefined : json['externalStoreId'],
-        'validUpTo': json['validUpTo'] == null ? undefined : json['validUpTo'],
+        'validUpTo': json['validUpTo'],
         'pointOfInitiation': json['pointOfInitiation'] == null ? undefined : json['pointOfInitiation'],
         'disabledPayMethods': json['disabledPayMethods'] == null ? undefined : json['disabledPayMethods'],
         'payOptionDetails': json['payOptionDetails'] == null ? undefined : ((json['payOptionDetails'] as Array<any>).map(PayOptionDetailFromJSON)),
@@ -189,6 +191,7 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
     },
     validUpTo: {
         pattern: new RegExp('/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+07:00$/'.slice(1, -1)),
+        maxDate: "week",
     },
     pointOfInitiation: {
         maxLength: 20,
@@ -216,6 +219,18 @@ export function validateWidgetPaymentRequest(value: WidgetPaymentRequest): Valid
     validationErrorContexts.push(...ValidationUtil.validateProperty('externalStoreId', value.externalStoreId, propertyValidationAttributesMap['externalStoreId']));
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('validUpTo', value.validUpTo, propertyValidationAttributesMap['validUpTo']));
+
+    // Validate that validUpTo date is not more than 30 minutes in the future (sandbox only)
+    if (value.validUpTo != null) {
+        try {
+            validateValidUpToDate(value.validUpTo);
+        } catch (error: any) {
+            validationErrorContexts.push({
+                field: 'validUpTo',
+                message: 'validUpTo validation failed: ' + (error?.message || String(error))
+            });
+        }
+    }
 
     validationErrorContexts.push(...ValidationUtil.validateProperty('pointOfInitiation', value.pointOfInitiation, propertyValidationAttributesMap['pointOfInitiation']));
 

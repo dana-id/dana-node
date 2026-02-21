@@ -129,6 +129,22 @@ export class WidgetApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(accountUnbindingRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -174,6 +190,22 @@ export class WidgetApi extends runtime.BaseAPI {
         const validationErrorContexts: runtime.ValidationErrorContext[] = validateApplyOTTRequest(applyOTTRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(applyOTTRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
         }
 
         const queryParameters: any = {};
@@ -223,6 +255,22 @@ export class WidgetApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(applyTokenRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -260,6 +308,22 @@ export class WidgetApi extends runtime.BaseAPI {
         const validationErrorContexts: runtime.ValidationErrorContext[] = validateBalanceInquiryRequest(balanceInquiryRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(balanceInquiryRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
         }
 
         const queryParameters: any = {};
@@ -309,6 +373,22 @@ export class WidgetApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(cancelOrderRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -353,6 +433,22 @@ export class WidgetApi extends runtime.BaseAPI {
         const validationErrorContexts: runtime.ValidationErrorContext[] = validateQueryPaymentRequest(queryPaymentRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryPaymentRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
         }
 
         const queryParameters: any = {};
@@ -401,6 +497,22 @@ export class WidgetApi extends runtime.BaseAPI {
             throw new runtime.ValidationError(validationErrorContexts);
         }
 
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryUserProfileRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -444,6 +556,22 @@ export class WidgetApi extends runtime.BaseAPI {
         const validationErrorContexts: runtime.ValidationErrorContext[] = validateRefundOrderRequest(refundOrderRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(refundOrderRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
         }
 
         const queryParameters: any = {};
@@ -490,6 +618,22 @@ export class WidgetApi extends runtime.BaseAPI {
         const validationErrorContexts: runtime.ValidationErrorContext[] = validateWidgetPaymentRequest(widgetPaymentRequest);
         if (validationErrorContexts.length > 0) {
             throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(widgetPaymentRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
         }
 
         const queryParameters: any = {};

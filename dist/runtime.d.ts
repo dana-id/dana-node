@@ -300,11 +300,12 @@ export declare class DanaSignatureUtil {
     private static generateAsymmetricSignature;
     /**
      * Converts a private/public key to PEM format.
+     * Normalizes line endings (CRLF/CR to LF) and escaped \\n for consistency across environments.
      * @param key - The key.
      * @param keyType - The type of key (e.g., PRIVATE, PUBLIC).
      * @returns The PEM-formatted key.
      */
-    private static convertToPEM;
+    static convertToPEM(key: string, keyType: string): string;
     /**
      * Splits a string into chunks of a specified size.
      * @param input - The input string.

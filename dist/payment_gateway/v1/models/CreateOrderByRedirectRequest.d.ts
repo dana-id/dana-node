@@ -56,7 +56,7 @@ export interface CreateOrderByRedirectRequest {
      * @type {string}
      * @memberof CreateOrderByRedirectRequest
      */
-    validUpTo?: string;
+    validUpTo: string;
     /**
      * Payment method(s) that cannot be used for this
      * @type {string}
