@@ -19,17 +19,28 @@ const runtime_1 = require("../../../runtime");
  */
 exports.QueryUserProfileRequestUserResourcesEnum = {
     Balance: 'BALANCE',
-    TransactionUrl: 'TRANSACTION_URL',
-    MaskDanaId: 'MASK_DANA_ID',
     TopupUrl: 'TOPUP_URL',
+    TransactionUrl: 'TRANSACTION_URL',
     Ott: 'OTT',
-    UserKyc: 'USER_KYC'
+    MaskDanaId: 'MASK_DANA_ID',
+    UserKyc: 'USER_KYC',
+    LoginId: 'LOGIN_ID',
+    ClearTextDanaId: 'CLEAR_TEXT_DANA_ID',
+    Nickname: 'NICKNAME',
+    Fullname: 'FULLNAME',
+    KtpNumber: 'KTP_NUMBER',
+    KtpPhotoData: 'KTP_PHOTO_DATA',
+    SelfiePhotoData: 'SELFIE_PHOTO_DATA',
+    AvatarUrl: 'AVATAR_URL',
+    MaskedFullname: 'MASKED_FULLNAME'
 };
 /**
  * Check if a given object implements the QueryUserProfileRequest interface.
  */
 function instanceOfQueryUserProfileRequest(value) {
     if (!('userResources' in value) || value['userResources'] === undefined)
+        return false;
+    if (!('accessToken' in value) || value['accessToken'] === undefined)
         return false;
     return true;
 }
@@ -42,6 +53,7 @@ function QueryUserProfileRequestFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'userResources': json['userResources'],
+        'accessToken': json['accessToken'],
     };
 }
 function QueryUserProfileRequestToJSON(json) {
@@ -53,6 +65,7 @@ function QueryUserProfileRequestToJSONTyped(value, ignoreDiscriminator = false) 
     }
     return {
         'userResources': value['userResources'],
+        'accessToken': value['accessToken'],
     };
 }
 const propertyValidationAttributesMap = {

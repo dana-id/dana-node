@@ -138,14 +138,30 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const endpointUrl: string = `/dana/merchant/division/createDivision.htm`;
 
 
-        const requestBody = {
-            "request":{"head":{}, "body":createDivisionRequest},
-            "signature":""
-        }
-        
         const functionName = "dana.merchant.division.createDivision"
 
-        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = createDivisionRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = createDivisionRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":CreateDivisionRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -199,14 +215,30 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const endpointUrl: string = `/dana/merchant/shop/createShop.htm`;
 
 
-        const requestBody = {
-            "request":{"head":{}, "body":createShopRequest},
-            "signature":""
-        }
-        
         const functionName = "dana.merchant.shop.createShop"
 
-        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = createShopRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = createShopRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":CreateShopRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -260,14 +292,30 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const endpointUrl: string = `/dana/merchant/division/queryDivision.htm`;
 
 
-        const requestBody = {
-            "request":{"head":{}, "body":queryDivisionRequest},
-            "signature":""
-        }
-        
         const functionName = "dana.merchant.division.queryDivision"
 
-        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = queryDivisionRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = queryDivisionRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":QueryDivisionRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -321,14 +369,30 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const endpointUrl: string = `/dana/merchant/queryMerchantResource.htm`;
 
 
-        const requestBody = {
-            "request":{"head":{}, "body":queryMerchantResourceRequest},
-            "signature":""
-        }
-        
         const functionName = "dana.merchant.queryMerchantResource"
 
-        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = queryMerchantResourceRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = queryMerchantResourceRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":QueryMerchantResourceRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -382,14 +446,30 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const endpointUrl: string = `/dana/merchant/shop/queryShop.htm`;
 
 
-        const requestBody = {
-            "request":{"head":{}, "body":queryShopRequest},
-            "signature":""
-        }
-        
         const functionName = "dana.merchant.shop.queryShop"
 
-        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = queryShopRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = queryShopRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":QueryShopRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -443,14 +523,30 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const endpointUrl: string = `/dana/merchant/division/updateDivision.htm`;
 
 
-        const requestBody = {
-            "request":{"head":{}, "body":updateDivisionRequest},
-            "signature":""
-        }
-        
         const functionName = "dana.merchant.division.updateDivision"
 
-        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = updateDivisionRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = updateDivisionRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":UpdateDivisionRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',
@@ -504,14 +600,30 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         const endpointUrl: string = `/dana/merchant/shop/updateShop.htm`;
 
 
-        const requestBody = {
-            "request":{"head":{}, "body":updateShopRequest},
-            "signature":""
-        }
-        
         const functionName = "dana.merchant.shop.updateShop"
 
-        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = updateShopRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = updateShopRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":UpdateShopRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',

@@ -19,6 +19,12 @@ export interface QueryUserProfileRequest {
      * @memberof QueryUserProfileRequest
      */
     userResources: Array<QueryUserProfileRequestUserResourcesEnum>;
+    /**
+     * Access token required for user profile query
+     * @type {string}
+     * @memberof QueryUserProfileRequest
+     */
+    accessToken: string;
 }
 
 
@@ -27,11 +33,20 @@ export interface QueryUserProfileRequest {
  */
 export const QueryUserProfileRequestUserResourcesEnum = {
     Balance: 'BALANCE',
-    TransactionUrl: 'TRANSACTION_URL',
-    MaskDanaId: 'MASK_DANA_ID',
     TopupUrl: 'TOPUP_URL',
+    TransactionUrl: 'TRANSACTION_URL',
     Ott: 'OTT',
-    UserKyc: 'USER_KYC'
+    MaskDanaId: 'MASK_DANA_ID',
+    UserKyc: 'USER_KYC',
+    LoginId: 'LOGIN_ID',
+    ClearTextDanaId: 'CLEAR_TEXT_DANA_ID',
+    Nickname: 'NICKNAME',
+    Fullname: 'FULLNAME',
+    KtpNumber: 'KTP_NUMBER',
+    KtpPhotoData: 'KTP_PHOTO_DATA',
+    SelfiePhotoData: 'SELFIE_PHOTO_DATA',
+    AvatarUrl: 'AVATAR_URL',
+    MaskedFullname: 'MASKED_FULLNAME'
 } as const;
 export type QueryUserProfileRequestUserResourcesEnum = typeof QueryUserProfileRequestUserResourcesEnum[keyof typeof QueryUserProfileRequestUserResourcesEnum] | '';
 
@@ -41,6 +56,7 @@ export type QueryUserProfileRequestUserResourcesEnum = typeof QueryUserProfileRe
  */
 export function instanceOfQueryUserProfileRequest(value: object): value is QueryUserProfileRequest {
     if (!('userResources' in value) || value['userResources'] === undefined) return false;
+    if (!('accessToken' in value) || value['accessToken'] === undefined) return false;
     return true;
 }
 
@@ -55,6 +71,7 @@ export function QueryUserProfileRequestFromJSONTyped(json: any, ignoreDiscrimina
     return {
         
         'userResources': json['userResources'],
+        'accessToken': json['accessToken'],
     };
 }
 
@@ -70,6 +87,7 @@ export function QueryUserProfileRequestToJSONTyped(value?: QueryUserProfileReque
     return {
         
         'userResources': value['userResources'],
+        'accessToken': value['accessToken'],
     };
 }
 

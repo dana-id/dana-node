@@ -15,17 +15,32 @@ export interface QueryUserProfileRequest {
      * @memberof QueryUserProfileRequest
      */
     userResources: Array<QueryUserProfileRequestUserResourcesEnum>;
+    /**
+     * Access token required for user profile query
+     * @type {string}
+     * @memberof QueryUserProfileRequest
+     */
+    accessToken: string;
 }
 /**
  * @export
  */
 export declare const QueryUserProfileRequestUserResourcesEnum: {
     readonly Balance: "BALANCE";
-    readonly TransactionUrl: "TRANSACTION_URL";
-    readonly MaskDanaId: "MASK_DANA_ID";
     readonly TopupUrl: "TOPUP_URL";
+    readonly TransactionUrl: "TRANSACTION_URL";
     readonly Ott: "OTT";
+    readonly MaskDanaId: "MASK_DANA_ID";
     readonly UserKyc: "USER_KYC";
+    readonly LoginId: "LOGIN_ID";
+    readonly ClearTextDanaId: "CLEAR_TEXT_DANA_ID";
+    readonly Nickname: "NICKNAME";
+    readonly Fullname: "FULLNAME";
+    readonly KtpNumber: "KTP_NUMBER";
+    readonly KtpPhotoData: "KTP_PHOTO_DATA";
+    readonly SelfiePhotoData: "SELFIE_PHOTO_DATA";
+    readonly AvatarUrl: "AVATAR_URL";
+    readonly MaskedFullname: "MASKED_FULLNAME";
 };
 export type QueryUserProfileRequestUserResourcesEnum = typeof QueryUserProfileRequestUserResourcesEnum[keyof typeof QueryUserProfileRequestUserResourcesEnum] | '';
 /**

@@ -413,11 +413,20 @@ In this example the **PaymentPromoInfo** is the parent model and **PromoType** i
 | Value | Description |
 |-------|-------------|
 | `Balance` |  |
-| `TransactionUrl` |  |
-| `MaskDanaId` |  |
 | `TopupUrl` |  |
+| `TransactionUrl` |  |
 | `Ott` |  |
+| `MaskDanaId` |  |
 | `UserKyc` |  |
+| `LoginId` |  |
+| `ClearTextDanaId` |  |
+| `Nickname` |  |
+| `Fullname` |  |
+| `KtpNumber` |  |
+| `KtpPhotoData` |  |
+| `SelfiePhotoData` |  |
+| `AvatarUrl` |  |
+| `MaskedFullname` |  |
 
 
 ## QueryUserProfileResponseResponseHeadFunctionEnum (function)
@@ -479,12 +488,21 @@ In this example the **PaymentPromoInfo** is the parent model and **PromoType** i
 ## UserResourceInfoResourceTypeEnum (resourceType)
 | Value | Description |
 |-------|-------------|
-| `Balance` |  |
-| `TransactionUrl` |  |
-| `MaskDanaId` |  |
-| `TopupUrl` |  |
-| `Ott` |  |
-| `UserKyc` |  |
+| `Balance` | Query balance of user in DANA |
+| `TopupUrl` | Obtain the top up URL for merchant to redirect |
+| `TransactionUrl` | Obtain the transaction URL for merchant to redirect |
+| `Ott` | Obtain the OTT of URLs including TOPUP/TRANSACTION/CASHIER/CHECKOUT_URL |
+| `MaskDanaId` | The masked identifier from DANA side |
+| `UserKyc` | KYC level. 00 = KYC level 0, 02 = KYC level 2 |
+| `LoginId` | Login identifier of the user, currently it's only set to phone number |
+| `ClearTextDanaId` | The unmasked identifier from DANA side |
+| `Nickname` | Nickname of the user in DANA |
+| `Fullname` | Full name of the user in DANA |
+| `KtpNumber` | KTP number of the user in DANA |
+| `KtpPhotoData` | KTP photo binary data in base64 of the user in DANA |
+| `SelfiePhotoData` | Selfie photo binary data in base64 of the user in DANA |
+| `AvatarUrl` | Location of avatar photo of the user in DANA |
+| `MaskedFullname` | Masked full name of the user in DANA |
 
 # Webhook Verification
 

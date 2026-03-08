@@ -11,6 +11,30 @@ const runtime_1 = require("../../runtime");
 const DateValidation_1 = require("../../utils/DateValidation");
 const index_1 = require("./models/index");
 const index_2 = require("./models/index");
+/** In sandbox, only these payMethods are available (Payment Gateway). */
+const SANDBOX_ALLOWED_PAY_METHODS = new Set([
+    'BALANCE', 'CREDIT_CARD', 'DEBIT_CARD', 'VIRTUAL_ACCOUNT', 'NETWORK_PAY'
+]);
+/** In sandbox, only these payOptions are available (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI). */
+const SANDBOX_ALLOWED_PAY_OPTIONS = new Set([
+    'CARD', 'QRIS', 'BRI', 'PANIN', 'CIMB', 'MANDIRI', 'BTPN'
+]);
+function isSandbox() {
+    const env = (process.env.DANA_ENV || process.env.ENV || 'sandbox').toLowerCase();
+    return env === 'sandbox';
+}
+function payOptionAllowedInSandbox(value) {
+    const s = (value || '').trim();
+    if (!s)
+        return false;
+    if (SANDBOX_ALLOWED_PAY_OPTIONS.has(s))
+        return true;
+    for (const opt of SANDBOX_ALLOWED_PAY_OPTIONS) {
+        if (s.endsWith('_' + opt))
+            return true;
+    }
+    return false;
+}
 /**
  * Validate externalStoreId is required when payOption is NETWORK_PAY_PG_QRIS
  *
@@ -87,6 +111,43 @@ function validateMoneyValuePattern(request) {
     }
 }
 /**
+ * In sandbox, only certain payMethod and payOption values are available.
+ * payMethod: BALANCE, CREDIT_CARD, DEBIT_CARD, VIRTUAL_ACCOUNT, NETWORK_PAY.
+ * payOption: CARD, QRIS, BRI, PANIN, CIMB, MANDIRI, BTPN (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI).
+ */
+function validateSandboxPayMethodAndPayOption(request) {
+    if (request === null || request === undefined || !isSandbox()) {
+        return;
+    }
+    const payOptionDetails = request.payOptionDetails;
+    if (!payOptionDetails || !Array.isArray(payOptionDetails)) {
+        return;
+    }
+    for (let i = 0; i < payOptionDetails.length; i++) {
+        const detail = payOptionDetails[i];
+        if (!detail)
+            continue;
+        const payMethod = (detail.payMethod != null ? String(detail.payMethod) : '').trim();
+        if (payMethod && !SANDBOX_ALLOWED_PAY_METHODS.has(payMethod)) {
+            throw new runtime_1.ValidationError([
+                {
+                    field: `payOptionDetails[${i}].payMethod`,
+                    message: `In sandbox, payMethod must be one of [${[...SANDBOX_ALLOWED_PAY_METHODS].sort().join(', ')}]; got ${payMethod}`
+                }
+            ]);
+        }
+        const payOption = (detail.payOption != null ? String(detail.payOption) : '').trim();
+        if (payOption && !payOptionAllowedInSandbox(payOption)) {
+            throw new runtime_1.ValidationError([
+                {
+                    field: `payOptionDetails[${i}].payOption`,
+                    message: `In sandbox, payOption must be one of [${[...SANDBOX_ALLOWED_PAY_OPTIONS].sort().join(', ')}] (or suffix like VIRTUAL_ACCOUNT_BRI); got ${payOption}`
+                }
+            ]);
+        }
+    }
+}
+/**
  * Validation registry maps request type names to their validation functions
  */
 const validationRegistry = {
@@ -95,11 +156,13 @@ const validationRegistry = {
         validateMoneyValuePattern,
         validateValidUpToCreateOrderRequest,
         validateExternalStoreIdForQris,
+        validateSandboxPayMethodAndPayOption,
     ],
     'CreateOrderByRedirectRequest': [
         validateAdditionalInfoRequired,
         validateMoneyValuePattern,
         validateValidUpToCreateOrderRequest,
+        validateSandboxPayMethodAndPayOption,
     ],
     // Add more request types and their validations here as needed
 };

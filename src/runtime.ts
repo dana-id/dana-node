@@ -625,19 +625,31 @@ export class DanaHeaderUtil {
      * @param clientSecret - The client secret used for generating the signature.
      * @param partnerId - The partner ID.
      * @param functionName - The function name.
+     * @param accessToken - Optional access token to include in headers (widget-specific).
      */
-    static populateOpenApiScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: Record<string,any>, privateKey: string, clientSecret: string, partnerId: string, functionName: string): void {
-        const timestamp: string = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
+    static populateOpenApiScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: Record<string,any>, privateKey: string, clientSecret: string, partnerId: string, functionName: string, accessToken?: string): void {
+        // Use Jakarta timezone (GMT+7) like Go implementation
+        const jakartaOffset = 7 * 60 * 60 * 1000; // 7 hours in milliseconds
+        const jakartaTime = new Date(Date.now() + jakartaOffset);
+        const timestamp: string = format(jakartaTime, "yyyy-MM-dd'T'HH:mm:ss") + "+07:00";
         
-        requestBody['request']['head'] = {
+        const headParams: any = {
             'version': "2.0",
             'function': functionName,
             'clientId': partnerId,
             'clientSecret': clientSecret,
             'reqTime': timestamp,
             'reqMsgId': 'sdk' + uuidv4().substring(3),
-            'reserve': {}
+            'reserve': "{}"
+        };
+
+        // Add accessToken to headers if provided (widget-specific)
+        if (accessToken) {
+            headParams['accessToken'] = accessToken;
         }
+
+        requestBody['request']['head'] = headParams;
+
         const signature = DanaSignatureUtil.generateOpenApiScenarioSignature(privateKey, JSON.stringify(requestBody["request"]));
         requestBody['signature'] = signature;
     }
@@ -748,10 +760,12 @@ export class DanaSignatureUtil {
         try {
             const seamlessDataStr = JSON.stringify(seamlessData);
             
+            const pemKey = this.convertToPEM(privateKey, 'PRIVATE');
+            
             const signer = createSign('RSA-SHA256');
             signer.update(seamlessDataStr);
             const signature = signer.sign({
-                key: this.convertToPEM(privateKey, 'PRIVATE'),
+                key: pemKey,
                 padding: cryptoConstants.RSA_PKCS1_PADDING,
             });
             
@@ -770,14 +784,57 @@ export class DanaSignatureUtil {
      * @returns The Base64-encoded signature.
      */
     private static generateAsymmetricSignature(stringToSign: string, privateKey: string): string {
-        // Create an RSA-SHA256 signer and sign the string
-        const sign: ReturnType<typeof createSign> = createSign('RSA-SHA256');
-        sign.update(stringToSign);
-        sign.end();
+        try {
+            // Convert the private key to PEM format
+            const pemKey: string = this.convertToPEM(privateKey, 'PRIVATE');
+            
+            // Create an RSA-SHA256 signer and sign the string
+            const sign: ReturnType<typeof createSign> = createSign('RSA-SHA256');
+            sign.update(stringToSign);
+            sign.end();
 
-        // Convert the private key to PEM format and sign the string
-        const pemKey: string = this.convertToPEM(privateKey, 'PRIVATE');
-        return sign.sign(pemKey, 'base64');
+            // Try signing with different approaches
+            try {
+                return sign.sign(pemKey, 'base64');
+            } catch (signError: any) {
+                if (signError.code === 'ERR_OSSL_UNSUPPORTED' || signError.message.includes('DECODER')) {
+                    
+                    // Method 2: Try with explicit key object for PKCS#8
+                    try {
+                        const sign2 = createSign('RSA-SHA256');
+                        sign2.update(stringToSign);
+                        return sign2.sign({
+                            key: pemKey,
+                            format: 'pem',
+                            type: 'pkcs8'
+                        }, 'base64');
+                    } catch (pkcs8Error) {
+                        // Method 3: Try with PKCS#1 format
+                        try {
+                            const sign3 = createSign('RSA-SHA256');
+                            sign3.update(stringToSign);
+                            return sign3.sign({
+                                key: pemKey,
+                                format: 'pem',
+                                type: 'pkcs1'
+                            }, 'base64');
+                        } catch (pkcs1Error) {
+                            // Method 4: Try without explicit padding
+                            try {
+                                const sign4 = createSign('RSA-SHA256');
+                                sign4.update(stringToSign);
+                                return sign4.sign(pemKey, 'base64');
+                            } catch (finalError) {
+                                throw signError; // Throw original error
+                            }
+                        }
+                    }
+                }
+                throw signError;
+            }
+        } catch (error: any) {
+            throw new Error(`Failed to generate signature: ${error.message}`);
+        }
     }
 
     /**
@@ -788,11 +845,16 @@ export class DanaSignatureUtil {
      * @returns The PEM-formatted key.
      */
     static convertToPEM(key: string, keyType: string): string {
+        if (!key || typeof key !== 'string') {
+            throw new Error(`${keyType} key is required and must be a string`);
+        }
+
         const header: string = `-----BEGIN ${keyType} KEY-----`;
         const footer: string = `-----END ${keyType} KEY-----`;
         const delimiter: string = '\n';
 
         key = key.trim();
+        
         // Replace escaped newlines with real newlines
         key = key.replace(/\\n/g, delimiter);
         // Normalize Windows CRLF and CR to LF
@@ -800,11 +862,47 @@ export class DanaSignatureUtil {
 
         // Check if the key is already in PEM format
         if (key.includes(header) && key.includes(footer)) {
-            return key;
+            // Validate that the key has proper line structure
+            const lines = key.split('\n');
+            if (lines.length >= 3 && lines[0].trim() === header && lines[lines.length - 1].trim() === footer) {
+                return key;
+            }
         }
 
-        key = key.replace(/\n/g, '');
+        // Handle different key headers - keep original format
+        const altHeaders = [
+            // Private key formats
+            'BEGIN RSA PRIVATE KEY',
+            'BEGIN PRIVATE KEY', 
+            'BEGIN ENCRYPTED PRIVATE KEY',
+            // Public key formats
+            'BEGIN RSA PUBLIC KEY',
+            'BEGIN PUBLIC KEY'
+        ];
+        
+        for (const altHeader of altHeaders) {
+            const altHeaderFull = `-----${altHeader}-----`;
+            const altFooterFull = `-----END ${altHeader.replace('BEGIN ', '')}-----`;
+            if (key.includes(altHeaderFull) && key.includes(altFooterFull)) {
+                return key; // Keep original format - don't convert between PKCS formats
+            }
+        }
 
+        // Strip any existing headers/footers and whitespace
+        key = key.replace(/-----BEGIN[^-]+-----/g, '');
+        key = key.replace(/-----END[^-]+-----/g, '');
+        key = key.replace(/\s/g, '');
+
+        // Validate base64 content
+        if (!/^[A-Za-z0-9+/]*={0,2}$/.test(key)) {
+            throw new Error('Invalid private key format: not valid base64');
+        }
+
+        if (key.length === 0) {
+            throw new Error('Private key content is empty after processing');
+        }
+
+        // Split into 64-character lines
         const chunks: string[] = [];
         for (let i = 0; i < key.length; i += 64) {
             const end = Math.min(i + 64, key.length);

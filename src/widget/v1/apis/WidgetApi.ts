@@ -522,14 +522,30 @@ export class WidgetApi extends runtime.BaseAPI {
         const endpointUrl: string = `/dana/member/query/queryUserProfile.htm`;
 
 
-        const requestBody = {
-            "request":{"head":{}, "body":queryUserProfileRequest},
-            "signature":""
-        }
-        
         const functionName = "dana.member.query.queryUserProfile"
 
-        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName);
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = queryUserProfileRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = queryUserProfileRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":QueryUserProfileRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
         const response = await this.request({
             path: endpointUrl,
             method: 'POST',

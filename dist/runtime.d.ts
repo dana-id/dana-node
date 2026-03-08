@@ -238,8 +238,9 @@ export declare class DanaHeaderUtil {
      * @param clientSecret - The client secret used for generating the signature.
      * @param partnerId - The partner ID.
      * @param functionName - The function name.
+     * @param accessToken - Optional access token to include in headers (widget-specific).
      */
-    static populateOpenApiScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: Record<string, any>, privateKey: string, clientSecret: string, partnerId: string, functionName: string): void;
+    static populateOpenApiScenarioHeader(headerParameters: HTTPHeaders, httpMethod: string, endpointUrl: string, requestBody: Record<string, any>, privateKey: string, clientSecret: string, partnerId: string, functionName: string, accessToken?: string): void;
     /**
      * Populates the HTTP headers required for the Snap Apply Token scenario.
      * @param headerParameters - The HTTP headers object to populate.
