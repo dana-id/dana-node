@@ -16,7 +16,12 @@ const validationRegistry = {
     'WidgetPaymentRequest': [
         validateValidUpToWidgetPaymentRequest,
     ],
-    // Add more request types and their validations here as needed
+    'ApplyTokenAuthorizationCodeRequest': [
+        validateApplyTokenAuthCodeNotFromQueryStringAuthorizationCode,
+    ],
+    'ApplyTokenRefreshTokenRequest': [
+        validateApplyTokenAuthCodeNotFromQueryStringRefreshToken,
+    ],
 };
 /**
  * Perform custom validations on the request based on its type
@@ -31,16 +36,43 @@ function customValidation(request) {
     if (request === null || request === undefined) {
         return;
     }
-    // Check for WidgetPaymentRequest by checking if it has validUpTo and partnerReferenceNo
+    // Determine request kind (heuristic checks so it works with both direct struct creation and runtime models)
+    let kind = null;
+    // WidgetPaymentRequest
     if (request.validUpTo !== undefined && request.partnerReferenceNo !== undefined && request.merchantId !== undefined) {
-        if (validationRegistry['WidgetPaymentRequest']) {
-            for (const validator of validationRegistry['WidgetPaymentRequest']) {
-                validator(request);
-            }
-        }
+        kind = 'WidgetPaymentRequest';
+    }
+    // ApplyToken (oneOf)
+    if (kind === null && request.grantType === 'AUTHORIZATION_CODE' && request.authCode !== undefined) {
+        kind = 'ApplyTokenAuthorizationCodeRequest';
+    }
+    if (kind === null && request.grantType === 'REFRESH_TOKEN' && request.refreshToken !== undefined) {
+        kind = 'ApplyTokenRefreshTokenRequest';
+    }
+    if (!kind) {
         return;
     }
-    // Add more type checks here as needed
+    const validators = validationRegistry[kind];
+    if (!validators || validators.length === 0) {
+        return;
+    }
+    // Error aggregation: run all validators and collect all ValidationError contexts
+    const aggregatedContexts = [];
+    for (const validator of validators) {
+        try {
+            validator(request);
+        }
+        catch (error) {
+            if (error instanceof runtime_1.ValidationError && Array.isArray(error.validationErrorContexts)) {
+                aggregatedContexts.push(...error.validationErrorContexts);
+                continue;
+            }
+            throw error;
+        }
+    }
+    if (aggregatedContexts.length > 0) {
+        throw new runtime_1.ValidationError(aggregatedContexts);
+    }
 }
 /**
  * Validate validUpTo field in WidgetPaymentRequest
@@ -64,5 +96,51 @@ function validateValidUpToWidgetPaymentRequest(request) {
                 }
             ]);
         }
+    }
+}
+function containsForbiddenAuthCodeDelimiters(authCode) {
+    // Merchants must not paste URL query parameters into authCode
+    return authCode.includes('&') || authCode.includes('=');
+}
+/**
+ * ApplyTokenAuthorizationCodeRequest.authCode must not contain '&' or '='.
+ */
+function validateApplyTokenAuthCodeNotFromQueryStringAuthorizationCode(request) {
+    var _a;
+    if (request === null || request === undefined) {
+        return;
+    }
+    const authCode = (_a = request.authCode) !== null && _a !== void 0 ? _a : '';
+    if (authCode && containsForbiddenAuthCodeDelimiters(authCode)) {
+        throw new runtime_1.ValidationError([
+            {
+                field: 'authCode',
+                message: "authCode must not contain URL query delimiter characters ('&' or '=')",
+            },
+        ]);
+    }
+}
+/**
+ * ApplyTokenRefreshTokenRequest: only validate if authCode is non-nil and non-empty after trimming.
+ */
+function validateApplyTokenAuthCodeNotFromQueryStringRefreshToken(request) {
+    if (request === null || request === undefined) {
+        return;
+    }
+    const authCode = request.authCode;
+    if (authCode === null || authCode === undefined) {
+        return;
+    }
+    const trimmed = authCode.trim();
+    if (!trimmed) {
+        return;
+    }
+    if (containsForbiddenAuthCodeDelimiters(trimmed)) {
+        throw new runtime_1.ValidationError([
+            {
+                field: 'authCode',
+                message: "authCode must not contain URL query delimiter characters ('&' or '=')",
+            },
+        ]);
     }
 }

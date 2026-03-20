@@ -172,8 +172,19 @@ class BaseAPI {
             // do not handle correctly sometimes.
             url += '?' + this.configuration.queryParamsStringify(context.query);
         }
-        const headers = Object.assign({}, this.configuration.headers, context.headers);
-        Object.keys(headers).forEach(key => headers[key] === undefined ? delete headers[key] : {});
+        const headers = {};
+        const baseHeaders = this.configuration.headers || {};
+        for (const [key, value] of Object.entries(baseHeaders)) {
+            if (value !== undefined) {
+                headers[key] = value;
+            }
+        }
+        const reqHeaders = context.headers || {};
+        for (const [key, value] of Object.entries(reqHeaders)) {
+            if (value !== undefined) {
+                headers[key] = value;
+            }
+        }
         const initOverrideFn = typeof initOverrides === "function"
             ? initOverrides
             : async () => initOverrides;

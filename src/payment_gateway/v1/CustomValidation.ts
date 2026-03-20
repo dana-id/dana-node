@@ -9,16 +9,30 @@ import { ValidationError } from '../../runtime';
 import { validateValidUpToDate } from '../../utils/DateValidation';
 import type { CreateOrderByApiRequest, CreateOrderByRedirectRequest } from './models/index';
 import { instanceOfCreateOrderByApiRequest, instanceOfCreateOrderByRedirectRequest } from './models/index';
-import { PayOptionDetailPayOptionEnum } from './models/index';
+import {
+    PayOptionDetailPayMethodEnum,
+    PayOptionDetailPayOptionEnum,
+} from './models/index';
 
 /** In sandbox, only these payMethods are available (Payment Gateway). */
 const SANDBOX_ALLOWED_PAY_METHODS = new Set<string>([
-    'BALANCE', 'CREDIT_CARD', 'DEBIT_CARD', 'VIRTUAL_ACCOUNT', 'NETWORK_PAY'
+    PayOptionDetailPayMethodEnum.Balance,
+    PayOptionDetailPayMethodEnum.CreditCard,
+    PayOptionDetailPayMethodEnum.DebitCard,
+    PayOptionDetailPayMethodEnum.VirtualAccount,
+    PayOptionDetailPayMethodEnum.NetworkPay,
 ]);
 
 /** In sandbox, only these payOptions are available (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI). */
+const payOptionSuffix = (v: string): string => v.split('_').pop() ?? v;
 const SANDBOX_ALLOWED_PAY_OPTIONS = new Set<string>([
-    'CARD', 'QRIS', 'BRI', 'PANIN', 'CIMB', 'MANDIRI', 'BTPN'
+    payOptionSuffix(PayOptionDetailPayOptionEnum.NetworkPayPgCard), // CARD
+    payOptionSuffix(PayOptionDetailPayOptionEnum.NetworkPayPgQris), // QRIS
+    payOptionSuffix(PayOptionDetailPayOptionEnum.VirtualAccountBri), // BRI
+    payOptionSuffix(PayOptionDetailPayOptionEnum.VirtualAccountPani), // PANI (Panin)
+    payOptionSuffix(PayOptionDetailPayOptionEnum.VirtualAccountCimb), // CIMB
+    payOptionSuffix(PayOptionDetailPayOptionEnum.VirtualAccountMandiri), // MANDIRI
+    payOptionSuffix(PayOptionDetailPayOptionEnum.VirtualAccountBtpn), // BTPN
 ]);
 
 function isSandbox(): boolean {
@@ -35,6 +49,24 @@ function payOptionAllowedInSandbox(value: string): boolean {
     }
     return false;
 }
+
+function runeLen(s: string): number {
+    // Properly count Unicode code points (not just UTF-16 code units)
+    return Array.from(s).length;
+}
+
+const NETWORK_PAY_PG_QRIS = PayOptionDetailPayOptionEnum.NetworkPayPgQris;
+const NETWORK_PAY_PG_CARD = PayOptionDetailPayOptionEnum.NetworkPayPgCard;
+const CREDIT_DEBIT_CARD_PAY_METHODS = new Set<string>([
+    PayOptionDetailPayMethodEnum.CreditCard,
+    PayOptionDetailPayMethodEnum.DebitCard,
+]);
+const EWALLET_PAY_OPTIONS = new Set<string>([
+    PayOptionDetailPayOptionEnum.NetworkPayPgSpay,
+    PayOptionDetailPayOptionEnum.NetworkPayPgOvo,
+    PayOptionDetailPayOptionEnum.NetworkPayPgGopay,
+    PayOptionDetailPayOptionEnum.NetworkPayPgLinkaja,
+]);
 
 /**
  * Validate externalStoreId is required when payOption is NETWORK_PAY_PG_QRIS
@@ -56,7 +88,7 @@ function validateExternalStoreIdForQris(request: CreateOrderByApiRequest): void 
     // Check if any payOption is NETWORK_PAY_PG_QRIS
     let hasQris = false;
     for (const payOptionDetail of payOptionDetails) {
-        if (payOptionDetail && payOptionDetail.payOption === PayOptionDetailPayOptionEnum.NetworkPayPgQris) {
+        if (payOptionDetail && String(payOptionDetail.payOption) === NETWORK_PAY_PG_QRIS) {
             hasQris = true;
             break;
         }
@@ -155,59 +187,132 @@ function validateSandboxPayMethodAndPayOption(request: CreateOrderByApiRequest |
     }
 }
 
-/**
- * Validation registry maps request type names to their validation functions
- */
-const validationRegistry: { [key: string]: Array<(request: any) => void> } = {
-    'CreateOrderByApiRequest': [
-        validateAdditionalInfoRequired,
-        validateMoneyValuePattern,
-        validateValidUpToCreateOrderRequest,
-        validateExternalStoreIdForQris,
-        validateSandboxPayMethodAndPayOption,
-    ],
-    'CreateOrderByRedirectRequest': [
-        validateAdditionalInfoRequired,
-        validateMoneyValuePattern,
-        validateValidUpToCreateOrderRequest,
-        validateSandboxPayMethodAndPayOption,
-    ],
-    // Add more request types and their validations here as needed
-};
-
-/**
- * Perform custom validations on the request based on its type
- *
- * This function checks the request structure to determine the request type and runs
- * the appropriate validations from the registry.
- *
- * @param request The request object to validate (can be any type)
- * @throws ValidationError if validation fails
- */
-export function customValidation(request: any): void {
+function validateConditionalPayOptionAdditionalInfoCreateOrderRequest(request: any): void {
     if (request === null || request === undefined) {
         return;
     }
 
-    // Use type guards to determine the request type and run appropriate validations
-    if (instanceOfCreateOrderByApiRequest(request)) {
-        const validators = validationRegistry['CreateOrderByApiRequest'];
-        if (validators) {
-            for (const validator of validators) {
-                validator(request);
-            }
-        }
+    const payOptionDetails = request.payOptionDetails;
+    if (!payOptionDetails || !Array.isArray(payOptionDetails)) {
         return;
     }
 
-    if (instanceOfCreateOrderByRedirectRequest(request)) {
-        const validators = validationRegistry['CreateOrderByRedirectRequest'];
-        if (validators) {
-            for (const validator of validators) {
-                validator(request);
+    const validationContexts: any[] = [];
+
+    for (let i = 0; i < payOptionDetails.length; i++) {
+        const detail = payOptionDetails[i];
+        if (!detail) continue;
+
+        const payMethod = (detail.payMethod != null ? String(detail.payMethod) : '').trim();
+        const payOption = (detail.payOption != null ? String(detail.payOption) : '').trim();
+        const additionalInfo = detail.additionalInfo ?? {};
+
+        const phoneNumberRaw = additionalInfo?.phoneNumber;
+        const phoneNumber = typeof phoneNumberRaw === 'string' ? phoneNumberRaw.trim() : '';
+
+        const isCardPayment = CREDIT_DEBIT_CARD_PAY_METHODS.has(payMethod) || payOption === NETWORK_PAY_PG_CARD;
+        const isEwalletPayment = EWALLET_PAY_OPTIONS.has(payOption);
+
+        // Card & e-wallet require phoneNumber
+        if (isCardPayment || isEwalletPayment) {
+            if (!phoneNumber) {
+                validationContexts.push({
+                    field: `payOptionDetails[${i}].additionalInfo.phoneNumber`,
+                    message: `phoneNumber is required for card/e-wallet payment (payOptionDetails[${i}])`,
+                });
+            } else {
+                const len = runeLen(phoneNumber);
+                if (len < 1 || len > 15) {
+                    validationContexts.push({
+                        field: `payOptionDetails[${i}].additionalInfo.phoneNumber`,
+                        message: `phoneNumber must be between 1 and 15 characters (payOptionDetails[${i}])`,
+                    });
+                }
             }
         }
+    }
+
+    if (validationContexts.length > 0) {
+        throw new ValidationError(validationContexts);
+    }
+}
+
+function validateOptionalFieldsWithRequiredNestedCreateOrderRequest(request: any): void {
+    if (request === null || request === undefined) {
         return;
+    }
+
+    const order = request?.additionalInfo?.order;
+    if (!order) {
+        return;
+    }
+
+    const validationContexts: any[] = [];
+
+    // Buyer: externalUserType/externalUserId are mutually dependent (when one is provided, the other is required)
+    const buyer = order?.buyer;
+    if (buyer) {
+        const externalUserTypeRaw = buyer?.externalUserType;
+        const externalUserType = typeof externalUserTypeRaw === 'string' ? externalUserTypeRaw.trim() : '';
+
+        const externalUserIdRaw = buyer?.externalUserId;
+        const externalUserId = typeof externalUserIdRaw === 'string' ? externalUserIdRaw.trim() : '';
+
+        const hasType = !!externalUserType;
+        const hasId = !!externalUserId;
+
+        if (hasId && !hasType) {
+            validationContexts.push({
+                field: 'additionalInfo.order.buyer.externalUserType',
+                message: 'externalUserType is required when externalUserId is filled',
+            });
+        }
+        if (hasType && !hasId) {
+            validationContexts.push({
+                field: 'additionalInfo.order.buyer.externalUserId',
+                message: 'externalUserId is required when externalUserType is filled',
+            });
+        }
+    }
+
+    // Goods: when goods is filled, each item requires name
+    const goods = Array.isArray(order?.goods) ? order.goods : [];
+    if (goods.length > 0) {
+        for (let i = 0; i < goods.length; i++) {
+            const g = goods[i];
+            if (!g) continue;
+            const nameRaw = g?.name;
+            const name = typeof nameRaw === 'string' ? nameRaw.trim() : '';
+
+            if (!name) {
+                validationContexts.push({
+                    field: `additionalInfo.order.goods[${i}].name`,
+                    message: 'name is required when goods is filled',
+                });
+            }
+        }
+    }
+
+    // ShippingInfo: when shippingInfo is filled, each item requires firstName
+    const shippingInfo = Array.isArray(order?.shippingInfo) ? order.shippingInfo : [];
+    if (shippingInfo.length > 0) {
+        for (let i = 0; i < shippingInfo.length; i++) {
+            const s = shippingInfo[i];
+            if (!s) continue;
+            const firstNameRaw = s?.firstName;
+            const firstName = typeof firstNameRaw === 'string' ? firstNameRaw.trim() : '';
+
+            if (!firstName) {
+                validationContexts.push({
+                    field: `additionalInfo.order.shippingInfo[${i}].firstName`,
+                    message: 'firstName is required when shippingInfo is filled',
+                });
+            }
+        }
+    }
+
+    if (validationContexts.length > 0) {
+        throw new ValidationError(validationContexts);
     }
 }
 
@@ -221,7 +326,7 @@ export function customValidation(request: any): void {
  * @param request The request to validate
  * @throws ValidationError if validation fails
  */
-function validateValidUpToCreateOrderRequest(request: CreateOrderByApiRequest | CreateOrderByRedirectRequest): void {
+function validateValidUpToCreateOrderRequest(request: any): void {
     if (request === null || request === undefined) {
         return;
     }
@@ -239,3 +344,75 @@ function validateValidUpToCreateOrderRequest(request: CreateOrderByApiRequest | 
         }
     }
 }
+
+const validationRegistry: { [key: string]: Array<(request: any) => void> } = {
+    'CreateOrderByApiRequest': [
+        validateAdditionalInfoRequired,
+        validateMoneyValuePattern,
+        validateValidUpToCreateOrderRequest,
+        validateExternalStoreIdForQris,
+        validateSandboxPayMethodAndPayOption,
+        validateConditionalPayOptionAdditionalInfoCreateOrderRequest,
+        validateOptionalFieldsWithRequiredNestedCreateOrderRequest,
+    ],
+    'CreateOrderByRedirectRequest': [
+        validateAdditionalInfoRequired,
+        validateMoneyValuePattern,
+        validateValidUpToCreateOrderRequest,
+        validateSandboxPayMethodAndPayOption,
+        validateConditionalPayOptionAdditionalInfoCreateOrderRequest,
+        validateOptionalFieldsWithRequiredNestedCreateOrderRequest,
+    ],
+};
+
+/**
+ * Perform custom validations on the request based on its type
+ *
+ * This function checks the request structure to determine the request type and runs
+ * the appropriate validations from the registry.
+ *
+ * @param request The request object to validate (can be any type)
+ * @throws ValidationError if validation fails
+ */
+export function customValidation(request: any): void {
+    if (request === null || request === undefined) {
+        return;
+    }
+
+    // Determine request kind using type guards (registry pattern)
+    let kind: string | null = null;
+    if (instanceOfCreateOrderByApiRequest(request)) {
+        kind = 'CreateOrderByApiRequest';
+    } else if (instanceOfCreateOrderByRedirectRequest(request)) {
+        kind = 'CreateOrderByRedirectRequest';
+    }
+
+    if (!kind) {
+        return;
+    }
+
+    const validators = validationRegistry[kind];
+    if (!validators || validators.length === 0) {
+        return;
+    }
+
+    // Error aggregation: run all validators and collect ValidationError contexts
+    const aggregatedContexts: any[] = [];
+    for (const validator of validators) {
+        try {
+            validator(request);
+        } catch (error: any) {
+            if (error instanceof ValidationError && Array.isArray((error as any).validationErrorContexts)) {
+                aggregatedContexts.push(...(error as any).validationErrorContexts);
+                continue;
+            }
+            throw error;
+        }
+    }
+
+    if (aggregatedContexts.length > 0) {
+        throw new ValidationError(aggregatedContexts);
+    }
+}
+
+

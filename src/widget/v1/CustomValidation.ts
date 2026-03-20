@@ -7,7 +7,7 @@
 
 import { ValidationError } from '../../runtime';
 import { validateValidUpToDate } from '../../utils/DateValidation';
-import type { WidgetPaymentRequest } from './models/index';
+import type { WidgetPaymentRequest, ApplyTokenAuthorizationCodeRequest, ApplyTokenRefreshTokenRequest } from './models/index';
 
 /**
  * Validation registry maps request class names to their validation functions
@@ -16,7 +16,12 @@ const validationRegistry: { [key: string]: Array<(request: any) => void> } = {
     'WidgetPaymentRequest': [
         validateValidUpToWidgetPaymentRequest,
     ],
-    // Add more request types and their validations here as needed
+    'ApplyTokenAuthorizationCodeRequest': [
+        validateApplyTokenAuthCodeNotFromQueryStringAuthorizationCode,
+    ],
+    'ApplyTokenRefreshTokenRequest': [
+        validateApplyTokenAuthCodeNotFromQueryStringRefreshToken,
+    ],
 };
 
 /**
@@ -33,17 +38,49 @@ export function customValidation(request: any): void {
         return;
     }
 
-    // Check for WidgetPaymentRequest by checking if it has validUpTo and partnerReferenceNo
+    // Determine request kind (heuristic checks so it works with both direct struct creation and runtime models)
+    let kind: string | null = null;
+
+    // WidgetPaymentRequest
     if (request.validUpTo !== undefined && request.partnerReferenceNo !== undefined && request.merchantId !== undefined) {
-        if (validationRegistry['WidgetPaymentRequest']) {
-            for (const validator of validationRegistry['WidgetPaymentRequest']) {
-                validator(request);
-            }
-        }
+        kind = 'WidgetPaymentRequest';
+    }
+
+    // ApplyToken (oneOf)
+    if (kind === null && request.grantType === 'AUTHORIZATION_CODE' && request.authCode !== undefined) {
+        kind = 'ApplyTokenAuthorizationCodeRequest';
+    }
+
+    if (kind === null && request.grantType === 'REFRESH_TOKEN' && request.refreshToken !== undefined) {
+        kind = 'ApplyTokenRefreshTokenRequest';
+    }
+
+    if (!kind) {
         return;
     }
 
-    // Add more type checks here as needed
+    const validators = validationRegistry[kind];
+    if (!validators || validators.length === 0) {
+        return;
+    }
+
+    // Error aggregation: run all validators and collect all ValidationError contexts
+    const aggregatedContexts: any[] = [];
+    for (const validator of validators) {
+        try {
+            validator(request);
+        } catch (error: any) {
+            if (error instanceof ValidationError && Array.isArray((error as any).validationErrorContexts)) {
+                aggregatedContexts.push(...(error as any).validationErrorContexts);
+                continue;
+            }
+            throw error;
+        }
+    }
+
+    if (aggregatedContexts.length > 0) {
+        throw new ValidationError(aggregatedContexts);
+    }
 }
 
 /**
@@ -68,5 +105,57 @@ function validateValidUpToWidgetPaymentRequest(request: WidgetPaymentRequest): v
                 }
             ]);
         }
+    }
+}
+
+function containsForbiddenAuthCodeDelimiters(authCode: string): boolean {
+    // Merchants must not paste URL query parameters into authCode
+    return authCode.includes('&') || authCode.includes('=');
+}
+
+/**
+ * ApplyTokenAuthorizationCodeRequest.authCode must not contain '&' or '='.
+ */
+function validateApplyTokenAuthCodeNotFromQueryStringAuthorizationCode(request: ApplyTokenAuthorizationCodeRequest): void {
+    if (request === null || request === undefined) {
+        return;
+    }
+
+    const authCode = request.authCode ?? '';
+    if (authCode && containsForbiddenAuthCodeDelimiters(authCode)) {
+        throw new ValidationError([
+            {
+                field: 'authCode',
+                message: "authCode must not contain URL query delimiter characters ('&' or '=')",
+            },
+        ]);
+    }
+}
+
+/**
+ * ApplyTokenRefreshTokenRequest: only validate if authCode is non-nil and non-empty after trimming.
+ */
+function validateApplyTokenAuthCodeNotFromQueryStringRefreshToken(request: ApplyTokenRefreshTokenRequest): void {
+    if (request === null || request === undefined) {
+        return;
+    }
+
+    const authCode = request.authCode;
+    if (authCode === null || authCode === undefined) {
+        return;
+    }
+
+    const trimmed = authCode.trim();
+    if (!trimmed) {
+        return;
+    }
+
+    if (containsForbiddenAuthCodeDelimiters(trimmed)) {
+        throw new ValidationError([
+            {
+                field: 'authCode',
+                message: "authCode must not contain URL query delimiter characters ('&' or '=')",
+            },
+        ]);
     }
 }
