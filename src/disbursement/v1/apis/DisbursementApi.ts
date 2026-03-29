@@ -157,17 +157,13 @@ export class DisbursementApi extends runtime.BaseAPI {
      */
     /**
      * Get the account inquiry path based on environment.
-     * This method ONLY returns paths for the Disbursement account-inquiry endpoint.
-     * Uses exact path matching to ensure no other endpoints are affected.
-     * 
-     * @returns The path for account inquiry endpoint
      * - Sandbox: /rest/v1.0/emoney/account-inquiry
      * - Production: /v1.0/emoney/account-inquiry.htm
      */
     private getAccountInquiryPath(): string {
         const env = this.env || process.env.DANA_ENV || process.env.ENV || Env.SANDBOX;
-        return (env.toLowerCase() === Env.PRODUCTION.toLowerCase()) 
-            ? '/v1.0/emoney/account-inquiry.htm' 
+        return (env.toLowerCase() === Env.PRODUCTION.toLowerCase())
+            ? '/v1.0/emoney/account-inquiry.htm'
             : '/rest/v1.0/emoney/account-inquiry';
     }
 
@@ -357,6 +353,18 @@ export class DisbursementApi extends runtime.BaseAPI {
      * This API is used for merchant to do top up request to DANA
      * Transfer to DANA
      */
+    /**
+     * Transfer to DANA (topup) path based on environment.
+     * - Sandbox: /rest/v1.0/emoney/topup
+     * - Production: /v1.0/emoney/topup.htm
+     */
+    private getTransferToDanaPath(): string {
+        const env = this.env || process.env.DANA_ENV || process.env.ENV || Env.SANDBOX;
+        return (env.toLowerCase() === Env.PRODUCTION.toLowerCase())
+            ? '/v1.0/emoney/topup.htm'
+            : '/rest/v1.0/emoney/topup';
+    }
+
     async transferToDana(transferToDanaRequest: TransferToDanaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransferToDanaResponse> {
         if (transferToDanaRequest == null) {
             throw new runtime.RequiredError(
@@ -392,7 +400,7 @@ export class DisbursementApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const endpointUrl: string = `/rest/v1.0/emoney/topup`;
+        const endpointUrl: string = this.getTransferToDanaPath();
 
         const requestBody: string = JSON.stringify(TransferToDanaRequestToJSON(transferToDanaRequest));
 
@@ -419,6 +427,18 @@ export class DisbursementApi extends runtime.BaseAPI {
      * This API is used for merchant to do inquiry status top up transaction to DANA
      * Transfer to DANA Inquiry Status
      */
+    /**
+     * Transfer to DANA inquiry status (topup-status) path based on environment.
+     * - Sandbox: /rest/v1.0/emoney/topup-status
+     * - Production: /v1.0/emoney/topup-status.htm
+     */
+    private getTransferToDanaInquiryStatusPath(): string {
+        const env = this.env || process.env.DANA_ENV || process.env.ENV || Env.SANDBOX;
+        return (env.toLowerCase() === Env.PRODUCTION.toLowerCase())
+            ? '/v1.0/emoney/topup-status.htm'
+            : '/rest/v1.0/emoney/topup-status';
+    }
+
     async transferToDanaInquiryStatus(transferToDanaInquiryStatusRequest: TransferToDanaInquiryStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransferToDanaInquiryStatusResponse> {
         if (transferToDanaInquiryStatusRequest == null) {
             throw new runtime.RequiredError(
@@ -454,7 +474,7 @@ export class DisbursementApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const endpointUrl: string = `/rest/v1.0/emoney/topup-status`;
+        const endpointUrl: string = this.getTransferToDanaInquiryStatusPath();
 
         const requestBody: string = JSON.stringify(TransferToDanaInquiryStatusRequestToJSON(transferToDanaInquiryStatusRequest));
 

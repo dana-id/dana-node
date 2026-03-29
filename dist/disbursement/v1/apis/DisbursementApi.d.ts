@@ -33,10 +33,6 @@ export declare class DisbursementApi extends runtime.BaseAPI {
      */
     /**
      * Get the account inquiry path based on environment.
-     * This method ONLY returns paths for the Disbursement account-inquiry endpoint.
-     * Uses exact path matching to ensure no other endpoints are affected.
-     *
-     * @returns The path for account inquiry endpoint
      * - Sandbox: /rest/v1.0/emoney/account-inquiry
      * - Production: /v1.0/emoney/account-inquiry.htm
      */
@@ -56,10 +52,22 @@ export declare class DisbursementApi extends runtime.BaseAPI {
      * This API is used for merchant to do top up request to DANA
      * Transfer to DANA
      */
+    /**
+     * Transfer to DANA (topup) path based on environment.
+     * - Sandbox: /rest/v1.0/emoney/topup
+     * - Production: /v1.0/emoney/topup.htm
+     */
+    private getTransferToDanaPath;
     transferToDana(transferToDanaRequest: TransferToDanaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransferToDanaResponse>;
     /**
      * This API is used for merchant to do inquiry status top up transaction to DANA
      * Transfer to DANA Inquiry Status
      */
+    /**
+     * Transfer to DANA inquiry status (topup-status) path based on environment.
+     * - Sandbox: /rest/v1.0/emoney/topup-status
+     * - Production: /v1.0/emoney/topup-status.htm
+     */
+    private getTransferToDanaInquiryStatusPath;
     transferToDanaInquiryStatus(transferToDanaInquiryStatusRequest: TransferToDanaInquiryStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransferToDanaInquiryStatusResponse>;
 }
