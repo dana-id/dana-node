@@ -43,6 +43,7 @@ export interface ConsultPayPaymentInfo {
      *   * VIRTUAL_ACCOUNT_BCA - Payment method with BCA virtual account<br>
      *   * VIRTUAL_ACCOUNT_BNI - Payment method with BNI virtual account<br>
      *   * VIRTUAL_ACCOUNT_MANDIRI - Payment method with Mandiri virtual account<br>
+     *   * VIRTUAL_ACCOUNT_BSI_PAYMENT - Payment method with BSI virtual account<br>
      *   * VIRTUAL_ACCOUNT_BRI - Payment method with BRI virtual account<br>
      *   * VIRTUAL_ACCOUNT_BTPN - Payment method with BTPN virtual account<br>
      *   * VIRTUAL_ACCOUNT_CIMB - Payment method with CIMB virtual account<br>
@@ -94,6 +95,7 @@ export declare const ConsultPayPaymentInfoPayOptionEnum: {
     readonly VirtualAccountBca: "VIRTUAL_ACCOUNT_BCA";
     readonly VirtualAccountBni: "VIRTUAL_ACCOUNT_BNI";
     readonly VirtualAccountMandiri: "VIRTUAL_ACCOUNT_MANDIRI";
+    readonly VirtualAccountBsiPayment: "VIRTUAL_ACCOUNT_BSI_PAYMENT";
     readonly VirtualAccountBri: "VIRTUAL_ACCOUNT_BRI";
     readonly VirtualAccountBtpn: "VIRTUAL_ACCOUNT_BTPN";
     readonly VirtualAccountCimb: "VIRTUAL_ACCOUNT_CIMB";

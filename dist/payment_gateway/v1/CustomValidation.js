@@ -29,6 +29,7 @@ const SANDBOX_ALLOWED_PAY_OPTIONS = new Set([
     payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountCimb), // CIMB
     payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountMandiri), // MANDIRI
     payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountBtpn), // BTPN
+    payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountBsiPayment), // BSI
 ]);
 function isSandbox() {
     const env = (process.env.DANA_ENV || process.env.ENV || 'sandbox').toLowerCase();
@@ -140,7 +141,7 @@ function validateMoneyValuePattern(request) {
 /**
  * In sandbox, only certain payMethod and payOption values are available.
  * payMethod: BALANCE, CREDIT_CARD, DEBIT_CARD, VIRTUAL_ACCOUNT, NETWORK_PAY.
- * payOption: CARD, QRIS, BRI, PANIN, CIMB, MANDIRI, BTPN (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI).
+ * payOption: CARD, QRIS, BRI, PANIN, CIMB, MANDIRI, BTPN, BSI (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI).
  */
 function validateSandboxPayMethodAndPayOption(request) {
     if (request === null || request === undefined || !isSandbox()) {

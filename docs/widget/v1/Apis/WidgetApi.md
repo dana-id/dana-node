@@ -398,6 +398,7 @@ In this example the **PaymentPromoInfo** is the parent model and **PromoType** i
 | `VirtualAccountCimb` | Payment method with CIMB virtual account |
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
 | `VirtualAccountPani` | Payment method with Panin virtual account |
+| `VirtualAccountBsiPayment` |  |
 
 
 ## PaymentPromoInfoPromoTypeEnum (promoType)

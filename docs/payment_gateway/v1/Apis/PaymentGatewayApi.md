@@ -238,11 +238,12 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
-| `VirtualAccountBri` | Payment method with BRI virtual account |
-| `VirtualAccountBtpn` | Payment method with BTPN virtual account |
-| `VirtualAccountCimb` | Payment method with CIMB virtual account |
-| `VirtualAccountPermata` | Payment method with Permata virtual account |
-| `VirtualAccountPani` | Payment method with Panin virtual account |
+| `VirtualAccountBsiPayment` | Payment method with BRI virtual account |
+| `VirtualAccountBri` | Payment method with BTPN virtual account |
+| `VirtualAccountBtpn` | Payment method with CIMB virtual account |
+| `VirtualAccountCimb` | Payment method with Permata virtual account |
+| `VirtualAccountPermata` | Payment method with Panin virtual account |
+| `VirtualAccountPani` |  |
 
 
 ## EnvInfoSourcePlatformEnum (sourcePlatform)
@@ -313,11 +314,12 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `VirtualAccountBca` | Payment method with BCA virtual account |
 | `VirtualAccountBni` | Payment method with BNI virtual account |
 | `VirtualAccountMandiri` | Payment method with Mandiri virtual account |
-| `VirtualAccountBri` | Payment method with BRI virtual account |
-| `VirtualAccountBtpn` | Payment method with BTPN virtual account |
-| `VirtualAccountCimb` | Payment method with CIMB virtual account |
-| `VirtualAccountPermata` | Payment method with Permata virtual account |
-| `VirtualAccountPani` | Payment method with Panin virtual account |
+| `VirtualAccountBsiPayment` | Payment method with BRI virtual account |
+| `VirtualAccountBri` | Payment method with BTPN virtual account |
+| `VirtualAccountBtpn` | Payment method with CIMB virtual account |
+| `VirtualAccountCimb` | Payment method with Permata virtual account |
+| `VirtualAccountPermata` | Payment method with Panin virtual account |
+| `VirtualAccountPani` |  |
 
 
 ## PayOptionInfoPayMethodEnum (payMethod)
@@ -357,6 +359,7 @@ In this example the **ActorContext** is the parent model and **ActorType** is th
 | `VirtualAccountCimb` | Payment method with CIMB virtual account |
 | `VirtualAccountPermata` | Payment method with Permata virtual account |
 | `VirtualAccountPani` | Payment method with Panin virtual account |
+| `VirtualAccountBsiPayment` |  |
 
 
 ## RefundOptionBillPayMethodEnum (payMethod)

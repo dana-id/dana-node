@@ -63,6 +63,7 @@ export interface PayOptionDetail {
      *   * VIRTUAL_ACCOUNT_BCA - Payment method with BCA virtual account<br>
      *   * VIRTUAL_ACCOUNT_BNI - Payment method with BNI virtual account<br>
      *   * VIRTUAL_ACCOUNT_MANDIRI - Payment method with Mandiri virtual account<br>
+     *   * VIRTUAL_ACCOUNT_BSI_PAYMENT - Payment method with BSI virtual account<br>
      *   * VIRTUAL_ACCOUNT_BRI - Payment method with BRI virtual account<br>
      *   * VIRTUAL_ACCOUNT_BTPN - Payment method with BTPN virtual account<br>
      *   * VIRTUAL_ACCOUNT_CIMB - Payment method with CIMB virtual account<br>
@@ -141,6 +142,7 @@ export const PayOptionDetailPayOptionEnum = {
     VirtualAccountBca: 'VIRTUAL_ACCOUNT_BCA',
     VirtualAccountBni: 'VIRTUAL_ACCOUNT_BNI',
     VirtualAccountMandiri: 'VIRTUAL_ACCOUNT_MANDIRI',
+    VirtualAccountBsiPayment: 'VIRTUAL_ACCOUNT_BSI_PAYMENT',
     VirtualAccountBri: 'VIRTUAL_ACCOUNT_BRI',
     VirtualAccountBtpn: 'VIRTUAL_ACCOUNT_BTPN',
     VirtualAccountCimb: 'VIRTUAL_ACCOUNT_CIMB',

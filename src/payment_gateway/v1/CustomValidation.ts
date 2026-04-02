@@ -33,6 +33,7 @@ const SANDBOX_ALLOWED_PAY_OPTIONS = new Set<string>([
     payOptionSuffix(PayOptionDetailPayOptionEnum.VirtualAccountCimb), // CIMB
     payOptionSuffix(PayOptionDetailPayOptionEnum.VirtualAccountMandiri), // MANDIRI
     payOptionSuffix(PayOptionDetailPayOptionEnum.VirtualAccountBtpn), // BTPN
+    payOptionSuffix(PayOptionDetailPayOptionEnum.VirtualAccountBsiPayment), // BSI
 ]);
 
 function isSandbox(): boolean {
@@ -153,7 +154,7 @@ function validateMoneyValuePattern(request: CreateOrderByApiRequest | CreateOrde
 /**
  * In sandbox, only certain payMethod and payOption values are available.
  * payMethod: BALANCE, CREDIT_CARD, DEBIT_CARD, VIRTUAL_ACCOUNT, NETWORK_PAY.
- * payOption: CARD, QRIS, BRI, PANIN, CIMB, MANDIRI, BTPN (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI).
+ * payOption: CARD, QRIS, BRI, PANIN, CIMB, MANDIRI, BTPN, BSI (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI).
  */
 function validateSandboxPayMethodAndPayOption(request: CreateOrderByApiRequest | CreateOrderByRedirectRequest): void {
     if (request === null || request === undefined || !isSandbox()) {
