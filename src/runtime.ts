@@ -677,6 +677,7 @@ export class DanaHeaderUtil {
 
         headerParameters['X-TIMESTAMP'] = timestamp;
         headerParameters['X-CLIENT-KEY'] = partnerId;
+        headerParameters['X-PARTNER-ID'] = partnerId;
         headerParameters['X-SIGNATURE'] = signature;
     }
 
