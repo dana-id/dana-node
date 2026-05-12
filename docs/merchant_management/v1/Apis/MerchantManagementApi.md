@@ -26,6 +26,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 | ------------- | ------------- | ------------- |
 | [**createDivision**](MerchantManagementApi.md#createDivision) | **POST** /dana/merchant/division/createDivision.htm | This API is used to create a new division |
 | [**createShop**](MerchantManagementApi.md#createShop) | **POST** /dana/merchant/shop/createShop.htm | Create shop under merchant or division |
+| [**queryAssetCardList**](MerchantManagementApi.md#queryAssetCardList) | **POST** /dana/member/asset/queryAssetCardList.htm | Query member asset cards filtered by contact business type and asset type. JSON envelope uses &#x60;request.head&#x60;, &#x60;request.body&#x60;, and root &#x60;signature&#x60; (same Open API pattern as other &#x60;.htm&#x60; endpoints).  |
 | [**queryDivision**](MerchantManagementApi.md#queryDivision) | **POST** /dana/merchant/division/queryDivision.htm | This API is used to obtain information of division |
 | [**queryMerchantResource**](MerchantManagementApi.md#queryMerchantResource) | **POST** /dana/merchant/queryMerchantResource.htm | The interface is check merchant resource info (account balance merchant) |
 | [**queryShop**](MerchantManagementApi.md#queryShop) | **POST** /dana/merchant/shop/queryShop.htm | This API is used to obtain information of shop information |
@@ -92,6 +93,36 @@ const request: CreateShopRequest = {
 };
 
 const response: CreateShopResponse = await merchantManagementApi.createShop(request);
+```
+<a name="queryAssetCardList"></a>
+## `queryAssetCardList()` Function
+
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `queryAssetCardList` |
+| Request Parameters | [**QueryAssetCardListRequest**](../Models/QueryAssetCardListRequest.md) |
+| Return Type | [**QueryAssetCardListResponse**](../Models/QueryAssetCardListResponse.md) |
+
+### Usage Example
+```typescript
+import { Dana } from 'dana-node';
+import { QueryAssetCardListRequest, QueryAssetCardListResponse } from 'dana-node/merchant_management/v1';
+
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
+});
+const { merchantManagementApi } = danaClient;
+
+const request: QueryAssetCardListRequest = {
+    // Define the request parameters for the API call here
+};
+
+const response: QueryAssetCardListResponse = await merchantManagementApi.queryAssetCardList(request);
 ```
 <a name="queryDivision"></a>
 ## `queryDivision()` Function
@@ -257,6 +288,66 @@ const parentRoleType = DivisionResourceInfoParentRoleTypeEnum.Merchant;
 ```
 
 In this example the **DivisionResourceInfo** is the parent model and **ParentRoleType** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+
+## AssetCardListItemContactBizTypeEnum (contactBizType)
+| Value | Description |
+|-------|-------------|
+| `TransferHis` | History of transfer transaction |
+| `DirectTransfer` | Transfer from virtual bank card |
+| `GeneralCard` | Bank card used for general purpose |
+| `DirectpayCard` | Bank card used for direct payment |
+| `PaymentCard` | Bank card for payment card |
+| `CashoutCard` | Bank card used for cashout |
+| `ImpsAccount` | Bank card used for BCA |
+| `InvestmentAccount` | Investment account |
+
+
+## AssetCardListItemAssetTypeEnum (assetType)
+| Value | Description |
+|-------|-------------|
+| `CheckingAccount` | Checking account |
+| `SavingsAccount` | User's savings account |
+| `LoanAccount` | User's loan account |
+| `ImpsAccount` | Immediate payment service account |
+| `DebitCard` | User's debit card |
+| `CreditCard` | User's credit card |
+| `SecuredCreditCard` | Secured credit card |
+| `VaAccount` | Virtual account |
+| `OtcAccount` | On the counter account |
+| `RefundAccount` | User's refund account |
+| `CreditAccount` | User's credit account |
+| `Loan` | User's loan account paylater |
+| `MutualFundsAccount` | User's mutual fund account |
+| `Investment` | User's investment account |
+
+
+## AssetCardListItemVerifiedEnum (verified)
+| Value | Description |
+|-------|-------------|
+| `True` |  |
+| `False` |  |
+
+
+## AssetCardListItemDefaultAssetEnum (defaultAsset)
+| Value | Description |
+|-------|-------------|
+| `True` |  |
+| `False` |  |
+
+
+## AssetCardListItemEnableStatusEnum (enableStatus)
+| Value | Description |
+|-------|-------------|
+| `True` |  |
+| `False` |  |
+
+
+## AssetCardListItemDirectDebitEnum (directDebit)
+| Value | Description |
+|-------|-------------|
+| `True` |  |
+| `False` |  |
+
 
 ## BusinessDocsDocTypeEnum (docType)
 | Value | Description |
@@ -438,6 +529,14 @@ In this example the **DivisionResourceInfo** is the parent model and **ParentRol
 | `False` |  |
 
 
+## MemberAssetResultInfoResultStatusEnum (resultStatus)
+| Value | Description |
+|-------|-------------|
+| `S` | Success |
+| `F` | Failure |
+| `U` | Unknown |
+
+
 ## MerchantResourceInformationResourceTypeEnum (resourceType)
 | Value | Description |
 |-------|-------------|
@@ -451,6 +550,51 @@ In this example the **DivisionResourceInfo** is the parent model and **ParentRol
 |-------|-------------|
 | `True` |  |
 | `False` |  |
+
+
+## QueryAssetCardListRequestEnableOnlyEnum (enableOnly)
+| Value | Description |
+|-------|-------------|
+| `True` |  |
+| `False` |  |
+
+
+## QueryAssetCardListRequestContactBizTypeListEnum (contactBizTypeList)
+| Value | Description |
+|-------|-------------|
+| `TransferHis` |  |
+| `DirectTransfer` |  |
+| `GeneralCard` |  |
+| `DirectpayCard` |  |
+| `PaymentCard` |  |
+| `CashoutCard` |  |
+| `ImpsAccount` |  |
+| `InvestmentAccount` |  |
+
+
+## QueryAssetCardListRequestAssetTypeListEnum (assetTypeList)
+| Value | Description |
+|-------|-------------|
+| `CheckingAccount` |  |
+| `SavingsAccount` |  |
+| `LoanAccount` |  |
+| `ImpsAccount` |  |
+| `DebitCard` |  |
+| `CreditCard` |  |
+| `SecuredCreditCard` |  |
+| `VaAccount` |  |
+| `OtcAccount` |  |
+| `RefundAccount` |  |
+| `CreditAccount` |  |
+| `Loan` |  |
+| `MutualFundsAccount` |  |
+| `Investment` |  |
+
+
+## QueryAssetCardListResponseResponseHeadFunctionEnum (function)
+| Value | Description |
+|-------|-------------|
+| `Dana.member.asset.queryassetcardlist` |  |
 
 
 ## QueryDivisionRequestDivisionIdTypeEnum (divisionIdType)

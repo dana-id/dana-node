@@ -3,7 +3,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../../../runtime';
-import type { CreateDivisionRequest, CreateDivisionResponse, CreateShopRequest, CreateShopResponse, QueryDivisionRequest, QueryDivisionResponse, QueryMerchantResourceRequest, QueryMerchantResourceResponse, QueryShopRequest, QueryShopResponse, UpdateDivisionRequest, UpdateDivisionResponse, UpdateShopRequest, UpdateShopResponse } from '../models/index';
+import type { CreateDivisionRequest, CreateDivisionResponse, CreateShopRequest, CreateShopResponse, QueryAssetCardListRequest, QueryAssetCardListResponse, QueryDivisionRequest, QueryDivisionResponse, QueryMerchantResourceRequest, QueryMerchantResourceResponse, QueryShopRequest, QueryShopResponse, UpdateDivisionRequest, UpdateDivisionResponse, UpdateShopRequest, UpdateShopResponse } from '../models/index';
 /**
  *
  */
@@ -32,6 +32,11 @@ export declare class MerchantManagementApi extends runtime.BaseAPI {
      * Member – Create Shop
      */
     createShop(createShopRequest: CreateShopRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateShopResponse>;
+    /**
+     * Query member asset cards filtered by contact business type and asset type. JSON envelope uses `request.head`, `request.body`, and root `signature` (same Open API pattern as other `.htm` endpoints).
+     * Member – Query asset card list
+     */
+    queryAssetCardList(queryAssetCardListRequest: QueryAssetCardListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryAssetCardListResponse>;
     /**
      * This API is used to obtain information of division
      * Query Division

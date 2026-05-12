@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './AddressInfo';
+export * from './AssetCardListItem';
 export * from './BusinessDocs';
 export * from './CreateDivisionRequest';
 export * from './CreateDivisionRequestExtInfo';
@@ -14,9 +15,15 @@ export * from './CreateShopResponseResponse';
 export * from './CreateShopResponseResponseBody';
 export * from './CreateShopResponseResponseHead';
 export * from './DivisionResourceInfo';
+export * from './MemberAssetResultInfo';
 export * from './MerchantResourceInformation';
 export * from './MobileNoInfo';
 export * from './PicInfo';
+export * from './QueryAssetCardListRequest';
+export * from './QueryAssetCardListResponse';
+export * from './QueryAssetCardListResponseResponse';
+export * from './QueryAssetCardListResponseResponseBody';
+export * from './QueryAssetCardListResponseResponseHead';
 export * from './QueryDivisionRequest';
 export * from './QueryDivisionResponse';
 export * from './QueryDivisionResponseResponse';

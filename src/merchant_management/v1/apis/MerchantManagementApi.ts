@@ -11,6 +11,8 @@ import type {
   CreateDivisionResponse,
   CreateShopRequest,
   CreateShopResponse,
+  QueryAssetCardListRequest,
+  QueryAssetCardListResponse,
   QueryDivisionRequest,
   QueryDivisionResponse,
   QueryMerchantResourceRequest,
@@ -35,6 +37,12 @@ import {
     validateCreateShopResponse,
     CreateShopResponseFromJSON,
     CreateShopResponseToJSON,
+    validateQueryAssetCardListRequest,
+    QueryAssetCardListRequestFromJSON,
+    QueryAssetCardListRequestToJSON,
+    validateQueryAssetCardListResponse,
+    QueryAssetCardListResponseFromJSON,
+    QueryAssetCardListResponseToJSON,
     validateQueryDivisionRequest,
     QueryDivisionRequestFromJSON,
     QueryDivisionRequestToJSON,
@@ -248,6 +256,83 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CreateShopResponseFromJSON(jsonValue)).value();
+    }
+
+    /**
+     * Query member asset cards filtered by contact business type and asset type. JSON envelope uses `request.head`, `request.body`, and root `signature` (same Open API pattern as other `.htm` endpoints). 
+     * Member – Query asset card list
+     */
+    async queryAssetCardList(queryAssetCardListRequest: QueryAssetCardListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryAssetCardListResponse> {
+        if (queryAssetCardListRequest == null) {
+            throw new runtime.RequiredError(
+                'queryAssetCardListRequest',
+                'Required parameter "queryAssetCardListRequest" was null or undefined when calling queryAssetCardList().'
+            );
+        }
+
+        const validationErrorContexts: runtime.ValidationErrorContext[] = validateQueryAssetCardListRequest(queryAssetCardListRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryAssetCardListRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const endpointUrl: string = `/dana/member/asset/queryAssetCardList.htm`;
+
+
+        const functionName = "dana.member.asset.queryAssetCardList"
+
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = queryAssetCardListRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = queryAssetCardListRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":QueryAssetCardListRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
+        const response = await this.request({
+            path: endpointUrl,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestBody,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => QueryAssetCardListResponseFromJSON(jsonValue)).value();
     }
 
     /**

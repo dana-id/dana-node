@@ -49,9 +49,8 @@ export class WidgetUtils {
 
         if (env.toLowerCase() !== Env.PRODUCTION) {
             return 'CASHIER,AGREEMENT_PAY,QUERY_BALANCE,DEFAULT_BASIC_PROFILE,MINI_DANA';
-        } else {
-            return 'CASHIER'
         }
+        return 'MINI_DANA,CASHIER,QUERY_BALANCE,DEFAULT_BASIC_PROFILE';
     }
 
     /**
@@ -102,7 +101,7 @@ export class WidgetUtils {
     let baseUrl: string;
     if (mode === Oauth2UrlDataModeEnum.Deeplink) {
         if (env.toLowerCase() === Env.PRODUCTION) {
-            baseUrl = 'https://link.dana.id/bindSnap';
+            baseUrl = 'https://m.dana.id/n/link/bind';
         } else {
             baseUrl = 'https://m.sandbox.dana.id/n/link/binding';
         }
@@ -255,8 +254,14 @@ export class WidgetUtils {
       return webRedirectUrl;
     }
 
-    // Combine the URL with the OTT token
-    return `${webRedirectUrl}&ott=${ottValue}`;
+    try {
+      const u = new URL(webRedirectUrl);
+      u.searchParams.set('ott', String(ottValue));
+      return u.toString();
+    } catch {
+      const sep = webRedirectUrl.includes('?') ? '&' : '?';
+      return `${webRedirectUrl}${sep}ott=${encodeURIComponent(String(ottValue))}`;
+    }
   }
 }
 

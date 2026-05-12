@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* tslint:disable */
 /* eslint-disable */
 __exportStar(require("./AddressInfo"), exports);
+__exportStar(require("./AssetCardListItem"), exports);
 __exportStar(require("./BusinessDocs"), exports);
 __exportStar(require("./CreateDivisionRequest"), exports);
 __exportStar(require("./CreateDivisionRequestExtInfo"), exports);
@@ -30,9 +31,15 @@ __exportStar(require("./CreateShopResponseResponse"), exports);
 __exportStar(require("./CreateShopResponseResponseBody"), exports);
 __exportStar(require("./CreateShopResponseResponseHead"), exports);
 __exportStar(require("./DivisionResourceInfo"), exports);
+__exportStar(require("./MemberAssetResultInfo"), exports);
 __exportStar(require("./MerchantResourceInformation"), exports);
 __exportStar(require("./MobileNoInfo"), exports);
 __exportStar(require("./PicInfo"), exports);
+__exportStar(require("./QueryAssetCardListRequest"), exports);
+__exportStar(require("./QueryAssetCardListResponse"), exports);
+__exportStar(require("./QueryAssetCardListResponseResponse"), exports);
+__exportStar(require("./QueryAssetCardListResponseResponseBody"), exports);
+__exportStar(require("./QueryAssetCardListResponseResponseHead"), exports);
 __exportStar(require("./QueryDivisionRequest"), exports);
 __exportStar(require("./QueryDivisionResponse"), exports);
 __exportStar(require("./QueryDivisionResponseResponse"), exports);
