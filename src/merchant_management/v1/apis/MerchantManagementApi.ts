@@ -15,6 +15,8 @@ import type {
   QueryAssetCardListResponse,
   QueryDivisionRequest,
   QueryDivisionResponse,
+  QueryMerchantInfoRequest,
+  QueryMerchantInfoResponse,
   QueryMerchantResourceRequest,
   QueryMerchantResourceResponse,
   QueryShopRequest,
@@ -49,6 +51,12 @@ import {
     validateQueryDivisionResponse,
     QueryDivisionResponseFromJSON,
     QueryDivisionResponseToJSON,
+    validateQueryMerchantInfoRequest,
+    QueryMerchantInfoRequestFromJSON,
+    QueryMerchantInfoRequestToJSON,
+    validateQueryMerchantInfoResponse,
+    QueryMerchantInfoResponseFromJSON,
+    QueryMerchantInfoResponseToJSON,
     validateQueryMerchantResourceRequest,
     QueryMerchantResourceRequestFromJSON,
     QueryMerchantResourceRequestToJSON,
@@ -410,6 +418,83 @@ export class MerchantManagementApi extends runtime.BaseAPI {
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QueryDivisionResponseFromJSON(jsonValue)).value();
+    }
+
+    /**
+     * Query merchant profile information by login identifier (for example mobile number). JSON envelope uses `request.head`, `request.body`, and root `signature` (same Open API pattern as other `.htm` endpoints). 
+     * Member – Query Merchant Info
+     */
+    async queryMerchantInfo(queryMerchantInfoRequest: QueryMerchantInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryMerchantInfoResponse> {
+        if (queryMerchantInfoRequest == null) {
+            throw new runtime.RequiredError(
+                'queryMerchantInfoRequest',
+                'Required parameter "queryMerchantInfoRequest" was null or undefined when calling queryMerchantInfo().'
+            );
+        }
+
+        const validationErrorContexts: runtime.ValidationErrorContext[] = validateQueryMerchantInfoRequest(queryMerchantInfoRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
+        }
+
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryMerchantInfoRequest);
+            }
+        } catch (error: any) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if (error?.code !== 'MODULE_NOT_FOUND' && !error?.message?.includes('Cannot find module')) {
+                throw error;
+            }
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const endpointUrl: string = `/dana/member/merchant/queryMerchantInfo.htm`;
+
+
+        const functionName = "dana.ap.bizprod.biz.service.openapi.merchant.queryMerchantInfo"
+
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken: string | undefined = undefined;
+        let bodyWithoutAccessToken = queryMerchantInfoRequest;
+        
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = queryMerchantInfoRequest as any;
+            
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _, ...bodyWithoutToken } = requestParam;
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+
+        const requestBody = {
+            "request":{"head":{}, "body":QueryMerchantInfoRequestToJSON(bodyWithoutAccessToken)},
+            "signature":""
+        }
+
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
+        const response = await this.request({
+            path: endpointUrl,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestBody,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => QueryMerchantInfoResponseFromJSON(jsonValue)).value();
     }
 
     /**

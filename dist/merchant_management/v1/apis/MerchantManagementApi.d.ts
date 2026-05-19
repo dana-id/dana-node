@@ -3,7 +3,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../../../runtime';
-import type { CreateDivisionRequest, CreateDivisionResponse, CreateShopRequest, CreateShopResponse, QueryAssetCardListRequest, QueryAssetCardListResponse, QueryDivisionRequest, QueryDivisionResponse, QueryMerchantResourceRequest, QueryMerchantResourceResponse, QueryShopRequest, QueryShopResponse, UpdateDivisionRequest, UpdateDivisionResponse, UpdateShopRequest, UpdateShopResponse } from '../models/index';
+import type { CreateDivisionRequest, CreateDivisionResponse, CreateShopRequest, CreateShopResponse, QueryAssetCardListRequest, QueryAssetCardListResponse, QueryDivisionRequest, QueryDivisionResponse, QueryMerchantInfoRequest, QueryMerchantInfoResponse, QueryMerchantResourceRequest, QueryMerchantResourceResponse, QueryShopRequest, QueryShopResponse, UpdateDivisionRequest, UpdateDivisionResponse, UpdateShopRequest, UpdateShopResponse } from '../models/index';
 /**
  *
  */
@@ -42,6 +42,11 @@ export declare class MerchantManagementApi extends runtime.BaseAPI {
      * Query Division
      */
     queryDivision(queryDivisionRequest: QueryDivisionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryDivisionResponse>;
+    /**
+     * Query merchant profile information by login identifier (for example mobile number). JSON envelope uses `request.head`, `request.body`, and root `signature` (same Open API pattern as other `.htm` endpoints).
+     * Member – Query Merchant Info
+     */
+    queryMerchantInfo(queryMerchantInfoRequest: QueryMerchantInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QueryMerchantInfoResponse>;
     /**
      * The interface is check merchant resource info (account balance merchant)
      * Member – Merchant Open API Check Disbursement Account

@@ -28,6 +28,7 @@ All URIs are relative to *https://api.saas.dana.id*, except if the operation def
 | [**createShop**](MerchantManagementApi.md#createShop) | **POST** /dana/merchant/shop/createShop.htm | Create shop under merchant or division |
 | [**queryAssetCardList**](MerchantManagementApi.md#queryAssetCardList) | **POST** /dana/member/asset/queryAssetCardList.htm | Query member asset cards filtered by contact business type and asset type. JSON envelope uses &#x60;request.head&#x60;, &#x60;request.body&#x60;, and root &#x60;signature&#x60; (same Open API pattern as other &#x60;.htm&#x60; endpoints).  |
 | [**queryDivision**](MerchantManagementApi.md#queryDivision) | **POST** /dana/merchant/division/queryDivision.htm | This API is used to obtain information of division |
+| [**queryMerchantInfo**](MerchantManagementApi.md#queryMerchantInfo) | **POST** /dana/member/merchant/queryMerchantInfo.htm | Query merchant profile information by login identifier (for example mobile number). JSON envelope uses &#x60;request.head&#x60;, &#x60;request.body&#x60;, and root &#x60;signature&#x60; (same Open API pattern as other &#x60;.htm&#x60; endpoints).  |
 | [**queryMerchantResource**](MerchantManagementApi.md#queryMerchantResource) | **POST** /dana/merchant/queryMerchantResource.htm | The interface is check merchant resource info (account balance merchant) |
 | [**queryShop**](MerchantManagementApi.md#queryShop) | **POST** /dana/merchant/shop/queryShop.htm | This API is used to obtain information of shop information |
 | [**updateDivision**](MerchantManagementApi.md#updateDivision) | **POST** /dana/merchant/division/updateDivision.htm | This API is used to update the division information |
@@ -154,6 +155,36 @@ const request: QueryDivisionRequest = {
 
 const response: QueryDivisionResponse = await merchantManagementApi.queryDivision(request);
 ```
+<a name="queryMerchantInfo"></a>
+## `queryMerchantInfo()` Function
+
+### Function Signature
+| Name | Value |
+| ------------- | ------------- |
+| Function Name | `queryMerchantInfo` |
+| Request Parameters | [**QueryMerchantInfoRequest**](../Models/QueryMerchantInfoRequest.md) |
+| Return Type | [**QueryMerchantInfoResponse**](../Models/QueryMerchantInfoResponse.md) |
+
+### Usage Example
+```typescript
+import { Dana } from 'dana-node';
+import { QueryMerchantInfoRequest, QueryMerchantInfoResponse } from 'dana-node/merchant_management/v1';
+
+const danaClient = new Dana({
+    partnerId: "YOUR_PARTNER_ID", // process.env.X_PARTNER_ID
+    privateKey: "YOUR_PRIVATE_KEY", // process.env.X_PRIVATE_KEY
+    origin: "YOUR_ORIGIN", // process.env.ORIGIN
+    env: "sandbox", // process.env.DANA_ENV or process.env.ENV or "sandbox" or "production"
+    clientSecret: "YOUR_CLIENT_SECRET", // process.env.X_CLIENT_SECRET
+});
+const { merchantManagementApi } = danaClient;
+
+const request: QueryMerchantInfoRequest = {
+    // Define the request parameters for the API call here
+};
+
+const response: QueryMerchantInfoResponse = await merchantManagementApi.queryMerchantInfo(request);
+```
 <a name="queryMerchantResource"></a>
 ## `queryMerchantResource()` Function
 
@@ -278,16 +309,16 @@ const response: UpdateShopResponse = await merchantManagementApi.updateShop(requ
 # Enum Types
 In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-For example, to use the parentRoleType enum from DivisionResourceInfo:
+For example, to use the function enum from QueryMerchantInfoResponseResponseHead:
 
 ```typescript
-import { DivisionResourceInfoParentRoleTypeEnum } from 'dana-node/merchant_management/v1';
+import { QueryMerchantInfoResponseResponseHeadFunctionEnum } from 'dana-node/merchant_management/v1';
 
 // Use the enum value
-const parentRoleType = DivisionResourceInfoParentRoleTypeEnum.Merchant;
+const function = QueryMerchantInfoResponseResponseHeadFunctionEnum.DanaApBizprodBizServiceOpenapiMerchantQueryMerchantInfo;
 ```
 
-In this example the **DivisionResourceInfo** is the parent model and **ParentRoleType** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+In this example the **QueryMerchantInfoResponseResponseHead** is the parent model and **Function** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
 
 ## AssetCardListItemContactBizTypeEnum (contactBizType)
 | Value | Description |
@@ -537,6 +568,79 @@ In this example the **DivisionResourceInfo** is the parent model and **ParentRol
 | `U` | Unknown |
 
 
+## MerchantAccountInfoStatusEnum (status)
+| Value | Description |
+|-------|-------------|
+| `Enable` |  |
+| `Frozen` |  |
+| `Close` |  |
+
+
+## MerchantAccountInfoDebitFreezeStatusEnum (debitFreezeStatus)
+| Value | Description |
+|-------|-------------|
+| `Enable` |  |
+| `Frozen` |  |
+| `Close` |  |
+
+
+## MerchantAccountInfoCreditFreezeStatusEnum (creditFreezeStatus)
+| Value | Description |
+|-------|-------------|
+| `Enable` |  |
+| `Frozen` |  |
+| `Close` |  |
+
+
+## MerchantAccountInfoAccountTypeEnum (accountType)
+| Value | Description |
+|-------|-------------|
+| `MerchantSettlementAccount` | Settlement account |
+| `MerchantPayableAccount` | Payable account |
+| `MerchantDepositAccount` | Deposit account |
+
+
+## MerchantContactAddressContactAddressTypeEnum (contactAddressType)
+| Value | Description |
+|-------|-------------|
+| `OfficeAdd` | Office address |
+| `RegAdd` | Registered address |
+| `HomeAdd` | Home address |
+
+
+## MerchantInformationMerchantTypeEnum (merchantType)
+| Value | Description |
+|-------|-------------|
+| `Individual` | Individual merchant |
+| `Corporation` | Corporation merchant |
+| `FinancialInst` | Financial institution merchant |
+
+
+## MerchantInformationMerchantSubTypeEnum (merchantSubType)
+| Value | Description |
+|-------|-------------|
+| `CompanyType22` | Unit Perusahaan Tidak Berbadan Hukum |
+| `CompanyType31` | Rumah Tangga Industri dan Komersial Perorangan |
+| `CompanyType41` | Instansi Pemerintah |
+
+
+## MerchantInformationMerchantStatusEnum (merchantStatus)
+| Value | Description |
+|-------|-------------|
+| `Pending` |  |
+| `Active` |  |
+| `Frozen` |  |
+
+
+## MerchantInformationSizeTypeEnum (sizeType)
+| Value | Description |
+|-------|-------------|
+| `Umi` |  |
+| `Uke` |  |
+| `Ume` |  |
+| `Ube` |  |
+
+
 ## MerchantResourceInformationResourceTypeEnum (resourceType)
 | Value | Description |
 |-------|-------------|
@@ -608,6 +712,19 @@ In this example the **DivisionResourceInfo** is the parent model and **ParentRol
 | Value | Description |
 |-------|-------------|
 | `Dana.merchant.division.querydivision` |  |
+
+
+## QueryMerchantInfoRequestLoginTypeEnum (loginType)
+| Value | Description |
+|-------|-------------|
+| `Role` |  |
+| `MobileNo` |  |
+
+
+## QueryMerchantInfoResponseResponseHeadFunctionEnum (function)
+| Value | Description |
+|-------|-------------|
+| `Dana.ap.bizprod.biz.service.openapi.merchant.querymerchantinfo` |  |
 
 
 ## QueryMerchantResourceRequestMerchantResourceInfoListEnum (merchantResourceInfoList)

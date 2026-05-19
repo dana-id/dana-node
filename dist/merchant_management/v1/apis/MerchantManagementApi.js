@@ -284,6 +284,66 @@ class MerchantManagementApi extends runtime.BaseAPI {
         return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.QueryDivisionResponseFromJSON)(jsonValue)).value();
     }
     /**
+     * Query merchant profile information by login identifier (for example mobile number). JSON envelope uses `request.head`, `request.body`, and root `signature` (same Open API pattern as other `.htm` endpoints).
+     * Member – Query Merchant Info
+     */
+    async queryMerchantInfo(queryMerchantInfoRequest, initOverrides) {
+        var _a;
+        if (queryMerchantInfoRequest == null) {
+            throw new runtime.RequiredError('queryMerchantInfoRequest', 'Required parameter "queryMerchantInfoRequest" was null or undefined when calling queryMerchantInfo().');
+        }
+        const validationErrorContexts = (0, index_1.validateQueryMerchantInfoRequest)(queryMerchantInfoRequest);
+        if (validationErrorContexts.length > 0) {
+            throw new runtime.ValidationError(validationErrorContexts);
+        }
+        // Run custom validations (e.g., validUpTo date validation)
+        // This validation runs even when structs are created directly (bypassing setters)
+        try {
+            // Try to import CustomValidation - it may not exist for all domains
+            const customValidationModule = require('../CustomValidation');
+            if (customValidationModule && customValidationModule.customValidation) {
+                customValidationModule.customValidation(queryMerchantInfoRequest);
+            }
+        }
+        catch (error) {
+            // If CustomValidation doesn't exist for this domain, skip it
+            // This allows the template to work for all domains
+            if ((error === null || error === void 0 ? void 0 : error.code) !== 'MODULE_NOT_FOUND' && !((_a = error === null || error === void 0 ? void 0 : error.message) === null || _a === void 0 ? void 0 : _a.includes('Cannot find module'))) {
+                throw error;
+            }
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const endpointUrl = `/dana/member/merchant/queryMerchantInfo.htm`;
+        const functionName = "dana.ap.bizprod.biz.service.openapi.merchant.queryMerchantInfo";
+        // Extract and remove accessToken from request body if available (widget-specific)
+        let accessToken = undefined;
+        let bodyWithoutAccessToken = queryMerchantInfoRequest;
+        if (functionName && functionName.includes('queryUserProfile')) {
+            const requestParam = queryMerchantInfoRequest;
+            if (requestParam && typeof requestParam === 'object' && 'accessToken' in requestParam && requestParam['accessToken']) {
+                accessToken = requestParam['accessToken'];
+                // Create a copy of the request without accessToken for the body
+                const { accessToken: _ } = requestParam, bodyWithoutToken = __rest(requestParam, ["accessToken"]);
+                bodyWithoutAccessToken = bodyWithoutToken;
+            }
+        }
+        const requestBody = {
+            "request": { "head": {}, "body": (0, index_1.QueryMerchantInfoRequestToJSON)(bodyWithoutAccessToken) },
+            "signature": ""
+        };
+        runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
+        const response = await this.request({
+            path: endpointUrl,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestBody,
+        }, initOverrides);
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.QueryMerchantInfoResponseFromJSON)(jsonValue)).value();
+    }
+    /**
      * The interface is check merchant resource info (account balance merchant)
      * Member – Merchant Open API Check Disbursement Account
      */
