@@ -39,7 +39,7 @@ export interface ShopResourceInfo {
      * @type {string}
      * @memberof ShopResourceInfo
      */
-    sizeType?: string;
+    sizeType?: ShopResourceInfoSizeTypeEnum;
     /**
      *
      * @type {AddressInfo}
@@ -85,6 +85,17 @@ export interface ShopResourceInfo {
      */
     nmid?: string;
 }
+/**
+ * @export
+ */
+export declare const ShopResourceInfoSizeTypeEnum: {
+    readonly Umi: "UMI";
+    readonly Uke: "UKE";
+    readonly Ume: "UME";
+    readonly Ube: "UBE";
+    readonly Ure: "URE";
+};
+export type ShopResourceInfoSizeTypeEnum = typeof ShopResourceInfoSizeTypeEnum[keyof typeof ShopResourceInfoSizeTypeEnum] | '';
 /**
  * Check if a given object implements the ShopResourceInfo interface.
  */

@@ -227,6 +227,7 @@ export declare const UpdateShopRequestSizeTypeEnum: {
     readonly Uke: "UKE";
     readonly Ume: "UME";
     readonly Ube: "UBE";
+    readonly Ure: "URE";
 };
 export type UpdateShopRequestSizeTypeEnum = typeof UpdateShopRequestSizeTypeEnum[keyof typeof UpdateShopRequestSizeTypeEnum] | '';
 /**

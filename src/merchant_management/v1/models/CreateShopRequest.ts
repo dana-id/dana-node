@@ -260,7 +260,8 @@ export const CreateShopRequestSizeTypeEnum = {
     Umi: 'UMI',
     Uke: 'UKE',
     Ume: 'UME',
-    Ube: 'UBE'
+    Ube: 'UBE',
+    Ure: 'URE'
 } as const;
 export type CreateShopRequestSizeTypeEnum = typeof CreateShopRequestSizeTypeEnum[keyof typeof CreateShopRequestSizeTypeEnum] | '';
 

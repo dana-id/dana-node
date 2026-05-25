@@ -52,7 +52,8 @@ exports.MerchantInformationSizeTypeEnum = {
     Umi: 'UMI',
     Uke: 'UKE',
     Ume: 'UME',
-    Ube: 'UBE'
+    Ube: 'UBE',
+    Ure: 'URE'
 };
 /**
  * Check if a given object implements the MerchantInformation interface.

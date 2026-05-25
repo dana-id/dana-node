@@ -6,6 +6,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ShopResourceInfoSizeTypeEnum = void 0;
 exports.instanceOfShopResourceInfo = instanceOfShopResourceInfo;
 exports.ShopResourceInfoFromJSON = ShopResourceInfoFromJSON;
 exports.ShopResourceInfoFromJSONTyped = ShopResourceInfoFromJSONTyped;
@@ -13,6 +14,16 @@ exports.ShopResourceInfoToJSON = ShopResourceInfoToJSON;
 exports.ShopResourceInfoToJSONTyped = ShopResourceInfoToJSONTyped;
 exports.validateShopResourceInfo = validateShopResourceInfo;
 const AddressInfo_1 = require("./AddressInfo");
+/**
+ * @export
+ */
+exports.ShopResourceInfoSizeTypeEnum = {
+    Umi: 'UMI',
+    Uke: 'UKE',
+    Ume: 'UME',
+    Ube: 'UBE',
+    Ure: 'URE'
+};
 /**
  * Check if a given object implements the ShopResourceInfo interface.
  */

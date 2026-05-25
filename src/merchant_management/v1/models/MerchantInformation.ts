@@ -304,7 +304,8 @@ export const MerchantInformationSizeTypeEnum = {
     Umi: 'UMI',
     Uke: 'UKE',
     Ume: 'UME',
-    Ube: 'UBE'
+    Ube: 'UBE',
+    Ure: 'URE'
 } as const;
 export type MerchantInformationSizeTypeEnum = typeof MerchantInformationSizeTypeEnum[keyof typeof MerchantInformationSizeTypeEnum] | '';
 

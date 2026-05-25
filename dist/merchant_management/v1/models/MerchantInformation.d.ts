@@ -248,6 +248,7 @@ export declare const MerchantInformationSizeTypeEnum: {
     readonly Uke: "UKE";
     readonly Ume: "UME";
     readonly Ube: "UBE";
+    readonly Ure: "URE";
 };
 export type MerchantInformationSizeTypeEnum = typeof MerchantInformationSizeTypeEnum[keyof typeof MerchantInformationSizeTypeEnum] | '';
 /**

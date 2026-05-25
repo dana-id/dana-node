@@ -309,16 +309,16 @@ const response: UpdateShopResponse = await merchantManagementApi.updateShop(requ
 # Enum Types
 In Node.js, enums are located within each model class rather than being centralized in a separate enum file. Each enum is named after its parent model.
 
-For example, to use the function enum from QueryMerchantInfoResponseResponseHead:
+For example, to use the sizeType enum from ShopResourceInfo:
 
 ```typescript
-import { QueryMerchantInfoResponseResponseHeadFunctionEnum } from 'dana-node/merchant_management/v1';
+import { ShopResourceInfoSizeTypeEnum } from 'dana-node/merchant_management/v1';
 
 // Use the enum value
-const function = QueryMerchantInfoResponseResponseHeadFunctionEnum.DanaApBizprodBizServiceOpenapiMerchantQueryMerchantInfo;
+const sizeType = ShopResourceInfoSizeTypeEnum.Umi;
 ```
 
-In this example the **QueryMerchantInfoResponseResponseHead** is the parent model and **Function** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
+In this example the **ShopResourceInfo** is the parent model and **SizeType** is the enum name. In below list, the enums are listed in format of **{ParentModel}{EnumName}** (**Enum Field**).
 
 ## AssetCardListItemContactBizTypeEnum (contactBizType)
 | Value | Description |
@@ -486,6 +486,7 @@ In this example the **QueryMerchantInfoResponseResponseHead** is the parent mode
 | `Uke` |  |
 | `Ume` |  |
 | `Ube` |  |
+| `Ure` |  |
 
 
 ## CreateShopRequestLoyaltyEnum (loyalty)
@@ -639,6 +640,7 @@ In this example the **QueryMerchantInfoResponseResponseHead** is the parent mode
 | `Uke` |  |
 | `Ume` |  |
 | `Ube` |  |
+| `Ure` |  |
 
 
 ## MerchantResourceInformationResourceTypeEnum (resourceType)
@@ -762,6 +764,16 @@ In this example the **QueryMerchantInfoResponseResponseHead** is the parent mode
 | `U` | Unknown |
 
 
+## ShopResourceInfoSizeTypeEnum (sizeType)
+| Value | Description |
+|-------|-------------|
+| `Umi` |  |
+| `Uke` |  |
+| `Ume` |  |
+| `Ube` |  |
+| `Ure` |  |
+
+
 ## UpdateDivisionRequestDivisionTypeEnum (divisionType)
 | Value | Description |
 |-------|-------------|
@@ -843,6 +855,7 @@ In this example the **QueryMerchantInfoResponseResponseHead** is the parent mode
 | `Uke` |  |
 | `Ume` |  |
 | `Ube` |  |
+| `Ure` |  |
 
 
 ## UpdateShopRequestLoyaltyEnum (loyalty)

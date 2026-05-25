@@ -222,6 +222,7 @@ export declare const CreateShopRequestSizeTypeEnum: {
     readonly Uke: "UKE";
     readonly Ume: "UME";
     readonly Ube: "UBE";
+    readonly Ure: "URE";
 };
 export type CreateShopRequestSizeTypeEnum = typeof CreateShopRequestSizeTypeEnum[keyof typeof CreateShopRequestSizeTypeEnum] | '';
 /**
