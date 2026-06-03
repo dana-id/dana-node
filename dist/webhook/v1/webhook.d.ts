@@ -11,21 +11,20 @@ export declare class WebhookParser {
      * Converts any of the accepted key formats into a standard PEM string.
      */
     private static normalizePemKey;
-    /**
-   * Ensures that a JSON string is minified, checking if it's already minified first
-   * to avoid unnecessary processing.
-   * @param jsonStr JSON string to minify
-   * @returns Minified JSON string
-   */
-    private static minifyJson;
-    /**
-     * Performs a quick check to determine if JSON is already minified
-     * @param jsonStr JSON string to check
-     * @returns true if JSON appears to be minified
-     */
+    private static hasTripleEscapedJsonStringField;
+    private static processOverEscapedMinifiedJson;
+    private static processNestedJSONFields;
+    private static isValidJson;
+    private static collapseTripleBackslashQuotes;
+    private static collapseDoubleBackslashQuotes;
+    private static removeColonSpaceBeforeQuotedValue;
+    private static normalizeOverEscapedQuotes;
+    private static ensureMinifiedJson;
+    private static bodyFormsForSignature;
     private static isJsonMinified;
     private static sha256LowerHex;
     private constructStringToVerify;
+    private verifySignature;
     /**
      * Verifies the webhook signature and deserialises the JSON payload.
      * Uses the FinishNotifyRequestFromJSON function which now handles missing fields flexibly.
