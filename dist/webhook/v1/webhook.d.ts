@@ -19,6 +19,7 @@ export declare class WebhookParser {
     private static collapseDoubleBackslashQuotes;
     private static removeColonSpaceBeforeQuotedValue;
     private static normalizeOverEscapedQuotes;
+    private static removeSpacesInJSONKeyNames;
     private static ensureMinifiedJson;
     private static bodyFormsForSignature;
     private static isJsonMinified;

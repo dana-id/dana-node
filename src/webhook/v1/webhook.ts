@@ -160,6 +160,16 @@ export class WebhookParser {
     return s;
   }
 
+  private static removeSpacesInJSONKeyNames(s: string): string {
+    const re = /(\\*)"(\w+(?:\s+\w+)+)(\\*)":/g;
+    if (!re.test(s)) {
+      return s;
+    }
+    return s.replace(/(\\*)"(\w+(?:\s+\w+)+)(\\*)":/g, (_, pre, key, post) => {
+      return `${pre}"${(key as string).replace(/\s+/g, '')}${post}":`;
+    });
+  }
+
   private static ensureMinifiedJson(jsonStr: string): string {
     if (WebhookParser.isJsonMinified(jsonStr) && !WebhookParser.hasTripleEscapedJsonStringField(jsonStr)) {
       return jsonStr;
@@ -230,6 +240,18 @@ export class WebhookParser {
     const normalized = WebhookParser.normalizeOverEscapedQuotes(requestBody);
     if (normalized !== requestBody && WebhookParser.isJsonMinified(normalized) && WebhookParser.isValidJson(normalized)) {
       add(normalized);
+    }
+
+    // Transport/display artefact: a space was inserted inside a JSON key name (e.g. ngrok
+    // line-wrap turning "qrInfoCacheIndex" into "q rInfoCacheIndex"). Try removing such spaces.
+    const noSpaceKeys = WebhookParser.removeSpacesInJSONKeyNames(requestBody);
+    if (noSpaceKeys !== requestBody && WebhookParser.isValidJson(noSpaceKeys)) {
+      add(noSpaceKeys);
+    }
+
+    const noSpaceKeysCollapsed = WebhookParser.removeSpacesInJSONKeyNames(WebhookParser.collapseTripleBackslashQuotes(requestBody));
+    if (noSpaceKeysCollapsed !== requestBody && WebhookParser.isValidJson(noSpaceKeysCollapsed)) {
+      add(noSpaceKeysCollapsed);
     }
 
     try {
