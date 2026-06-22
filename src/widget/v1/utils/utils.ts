@@ -101,7 +101,7 @@ export class WidgetUtils {
     let baseUrl: string;
     if (mode === Oauth2UrlDataModeEnum.Deeplink) {
         if (env.toLowerCase() === Env.PRODUCTION) {
-            baseUrl = 'https://m.dana.id/n/link/bind';
+            baseUrl = 'https://m.dana.id/n/link/binding';
         } else {
             baseUrl = 'https://m.sandbox.dana.id/n/link/binding';
         }
