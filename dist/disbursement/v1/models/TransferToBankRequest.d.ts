@@ -28,10 +28,11 @@ export interface TransferToBankRequest {
     customerNumber: string;
     /**
      * Customer account type
+     *
      * @type {string}
      * @memberof TransferToBankRequest
      */
-    accountType?: string;
+    accountType?: TransferToBankRequestAccountTypeEnum;
     /**
      * Beneficiary account number
      * @type {string}
@@ -60,6 +61,15 @@ export interface TransferToBankRequest {
      */
     additionalInfo: TransferToBankRequestAdditionalInfo;
 }
+/**
+ * @export
+ */
+export declare const TransferToBankRequestAccountTypeEnum: {
+    readonly MerchantDepositAccount: "MERCHANT_DEPOSIT_ACCOUNT";
+    readonly SettlementAccount: "SETTLEMENT_ACCOUNT";
+    readonly DivisionDepositAccount: "DIVISION_DEPOSIT_ACCOUNT";
+};
+export type TransferToBankRequestAccountTypeEnum = typeof TransferToBankRequestAccountTypeEnum[keyof typeof TransferToBankRequestAccountTypeEnum] | '';
 /**
  * Check if a given object implements the TransferToBankRequest interface.
  */

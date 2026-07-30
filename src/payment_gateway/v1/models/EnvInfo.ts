@@ -56,11 +56,11 @@ export interface EnvInfo {
      */
     sdkVersion?: string;
     /**
-     * The source platform is always independent payment gateway (IPG)
+     * The source platform is always independent payment gateway (IPG). Defaults to IPG when omitted.
      * @type {string}
      * @memberof EnvInfo
      */
-    sourcePlatform: EnvInfoSourcePlatformEnum;
+    sourcePlatform?: EnvInfoSourcePlatformEnum;
     /**
      * Order operating system type
      * @type {string}
@@ -145,7 +145,6 @@ export type EnvInfoOrderTerminalTypeEnum = typeof EnvInfoOrderTerminalTypeEnum[k
  * Check if a given object implements the EnvInfo interface.
  */
 export function instanceOfEnvInfo(value: object): value is EnvInfo {
-    if (!('sourcePlatform' in value) || value['sourcePlatform'] === undefined) return false;
     if (!('terminalType' in value) || value['terminalType'] === undefined) return false;
     return true;
 }
@@ -167,7 +166,7 @@ export function EnvInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): E
         'osType': json['osType'] == null ? undefined : json['osType'],
         'appVersion': json['appVersion'] == null ? undefined : json['appVersion'],
         'sdkVersion': json['sdkVersion'] == null ? undefined : json['sdkVersion'],
-        'sourcePlatform': json['sourcePlatform'],
+        'sourcePlatform': json['sourcePlatform'] == null ? undefined : json['sourcePlatform'],
         'orderOsType': json['orderOsType'] == null ? undefined : json['orderOsType'],
         'merchantAppVersion': json['merchantAppVersion'] == null ? undefined : json['merchantAppVersion'],
         'terminalType': json['terminalType'],

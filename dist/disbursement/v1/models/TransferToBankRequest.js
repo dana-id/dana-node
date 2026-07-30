@@ -6,6 +6,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TransferToBankRequestAccountTypeEnum = void 0;
 exports.instanceOfTransferToBankRequest = instanceOfTransferToBankRequest;
 exports.TransferToBankRequestFromJSON = TransferToBankRequestFromJSON;
 exports.TransferToBankRequestFromJSONTyped = TransferToBankRequestFromJSONTyped;
@@ -15,6 +16,14 @@ exports.validateTransferToBankRequest = validateTransferToBankRequest;
 const runtime_1 = require("../../../runtime");
 const Money_1 = require("./Money");
 const TransferToBankRequestAdditionalInfo_1 = require("./TransferToBankRequestAdditionalInfo");
+/**
+ * @export
+ */
+exports.TransferToBankRequestAccountTypeEnum = {
+    MerchantDepositAccount: 'MERCHANT_DEPOSIT_ACCOUNT',
+    SettlementAccount: 'SETTLEMENT_ACCOUNT',
+    DivisionDepositAccount: 'DIVISION_DEPOSIT_ACCOUNT'
+};
 /**
  * Check if a given object implements the TransferToBankRequest interface.
  */
@@ -73,7 +82,7 @@ const propertyValidationAttributesMap = {
         maxLength: 32,
     },
     accountType: {
-        maxLength: 25,
+        maxLength: 64,
     },
     beneficiaryAccountNumber: {
         maxLength: 32,

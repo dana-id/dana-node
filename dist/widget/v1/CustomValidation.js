@@ -9,11 +9,98 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.customValidation = customValidation;
 const runtime_1 = require("../../runtime");
 const DateValidation_1 = require("../../utils/DateValidation");
+const index_1 = require("./models/index");
+/** Sandbox maximum amount (major units) for Widget payment. */
+const SANDBOX_MAX_AMOUNT = 10000000;
+function isSandbox() {
+    const env = (process.env.DANA_ENV || process.env.ENV || 'sandbox').toLowerCase();
+    return env === 'sandbox';
+}
+/**
+ * Default envInfo.sourcePlatform to IPG when missing/empty.
+ */
+function defaultSourcePlatform(request) {
+    var _a;
+    if (request === null || request === undefined) {
+        return;
+    }
+    const additionalInfo = request.additionalInfo;
+    if (!additionalInfo || !additionalInfo.envInfo) {
+        return;
+    }
+    const sourcePlatform = additionalInfo.envInfo.sourcePlatform;
+    if (typeof sourcePlatform !== 'string' || sourcePlatform.trim() === '') {
+        additionalInfo.envInfo.sourcePlatform = (_a = index_1.EnvInfoSourcePlatformEnum.Ipg) !== null && _a !== void 0 ? _a : 'IPG';
+    }
+}
+/**
+ * Reject empty strings for required additionalInfo fields (productCode, envInfo.terminalType).
+ * Note: mcc may be an empty string for Widget.
+ */
+function validateRequiredAdditionalInfoFieldsNotEmpty(request) {
+    var _a;
+    if (request === null || request === undefined) {
+        return;
+    }
+    const additionalInfo = request.additionalInfo;
+    if (!additionalInfo) {
+        return;
+    }
+    const contexts = [];
+    const productCode = additionalInfo.productCode;
+    if (typeof productCode !== 'string' || productCode.trim() === '') {
+        contexts.push({
+            field: 'additionalInfo.productCode',
+            message: 'additionalInfo.productCode is required and cannot be empty',
+        });
+    }
+    const terminalType = (_a = additionalInfo.envInfo) === null || _a === void 0 ? void 0 : _a.terminalType;
+    if (typeof terminalType !== 'string' || terminalType.trim() === '') {
+        contexts.push({
+            field: 'additionalInfo.envInfo.terminalType',
+            message: 'additionalInfo.envInfo.terminalType is required and cannot be empty',
+        });
+    }
+    if (contexts.length > 0) {
+        throw new runtime_1.ValidationError(contexts);
+    }
+}
+/**
+ * In sandbox, amount.value must not exceed SANDBOX_MAX_AMOUNT.
+ */
+function validateSandboxAmount(request) {
+    if (request === null || request === undefined || !isSandbox()) {
+        return;
+    }
+    const amount = request.amount;
+    if (amount === null || amount === undefined) {
+        return;
+    }
+    const value = amount.value;
+    if (typeof value !== 'string' || value.trim() === '') {
+        return;
+    }
+    const parsed = Number(value);
+    if (Number.isNaN(parsed)) {
+        return;
+    }
+    if (parsed > SANDBOX_MAX_AMOUNT) {
+        throw new runtime_1.ValidationError([
+            {
+                field: 'amount.value',
+                message: `in sandbox, amount.value must not exceed ${SANDBOX_MAX_AMOUNT}; got ${value}`,
+            },
+        ]);
+    }
+}
 /**
  * Validation registry maps request class names to their validation functions
  */
 const validationRegistry = {
     'WidgetPaymentRequest': [
+        defaultSourcePlatform,
+        validateRequiredAdditionalInfoFieldsNotEmpty,
+        validateSandboxAmount,
         validateValidUpToWidgetPaymentRequest,
     ],
     'ApplyTokenAuthorizationCodeRequest': [
@@ -71,7 +158,14 @@ function customValidation(request) {
         }
     }
     if (aggregatedContexts.length > 0) {
-        throw new runtime_1.ValidationError(aggregatedContexts);
+        const err = new runtime_1.ValidationError(aggregatedContexts);
+        const joined = aggregatedContexts.map((c) => c.message).join('; ');
+        Object.defineProperty(err, 'message', {
+            value: `validation failed: ${joined}`,
+            writable: true,
+            configurable: true,
+        });
+        throw err;
     }
 }
 /**
@@ -115,7 +209,7 @@ function validateApplyTokenAuthCodeNotFromQueryStringAuthorizationCode(request) 
         throw new runtime_1.ValidationError([
             {
                 field: 'authCode',
-                message: "authCode must not contain URL query delimiter characters ('&' or '=')",
+                message: "authCode must not contain '&' or '='; paste only the authorization code value, not the full URL query string or including other parameters",
             },
         ]);
     }
@@ -139,7 +233,7 @@ function validateApplyTokenAuthCodeNotFromQueryStringRefreshToken(request) {
         throw new runtime_1.ValidationError([
             {
                 field: 'authCode',
-                message: "authCode must not contain URL query delimiter characters ('&' or '=')",
+                message: "authCode must not contain '&' or '='; paste only the authorization code value, not the full URL query string or including other parameters",
             },
         ]);
     }

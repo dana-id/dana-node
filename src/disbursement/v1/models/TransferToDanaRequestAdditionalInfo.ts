@@ -21,10 +21,11 @@ export interface TransferToDanaRequestAdditionalInfo {
     extendInfo?: string;
     /**
      * Additional information of account type
+     * 
      * @type {string}
      * @memberof TransferToDanaRequestAdditionalInfo
      */
-    accountType?: string;
+    accountType?: TransferToDanaRequestAdditionalInfoAccountTypeEnum;
     /**
      * Additional information of transfer to DANA fund type, i.e.<br>
      * AGENT_TOPUP_FOR_USER_SETTLE
@@ -71,6 +72,16 @@ export interface TransferToDanaRequestAdditionalInfo {
     customerId?: string;
 }
 
+
+/**
+ * @export
+ */
+export const TransferToDanaRequestAdditionalInfoAccountTypeEnum = {
+    MerchantDepositAccount: 'MERCHANT_DEPOSIT_ACCOUNT',
+    SettlementAccount: 'SETTLEMENT_ACCOUNT',
+    DivisionDepositAccount: 'DIVISION_DEPOSIT_ACCOUNT'
+} as const;
+export type TransferToDanaRequestAdditionalInfoAccountTypeEnum = typeof TransferToDanaRequestAdditionalInfoAccountTypeEnum[keyof typeof TransferToDanaRequestAdditionalInfoAccountTypeEnum] | '';
 
 /**
  * @export

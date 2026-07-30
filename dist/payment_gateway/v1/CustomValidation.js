@@ -7,6 +7,8 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.customValidation = customValidation;
+exports.customValidationResponse = customValidationResponse;
+exports.enrichCreateOrderError = enrichCreateOrderError;
 const runtime_1 = require("../../runtime");
 const DateValidation_1 = require("../../utils/DateValidation");
 const index_1 = require("./models/index");
@@ -20,20 +22,45 @@ const SANDBOX_ALLOWED_PAY_METHODS = new Set([
     index_2.PayOptionDetailPayMethodEnum.NetworkPay,
 ]);
 /** In sandbox, only these payOptions are available (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI). */
-const payOptionSuffix = (v) => { var _a; return (_a = v.split('_').pop()) !== null && _a !== void 0 ? _a : v; };
 const SANDBOX_ALLOWED_PAY_OPTIONS = new Set([
-    payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.NetworkPayPgCard), // CARD
-    payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.NetworkPayPgQris), // QRIS
-    payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountBri), // BRI
-    payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountPani), // PANI (Panin)
-    payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountCimb), // CIMB
-    payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountMandiri), // MANDIRI
-    payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountBtpn), // BTPN
-    payOptionSuffix(index_2.PayOptionDetailPayOptionEnum.VirtualAccountBsiPayment), // BSI
+    'CARD',
+    'QRIS',
+    'BRI',
+    'PANI',
+    'CIMB',
+    'BTPN',
+    'BSI_PAYMENT',
 ]);
 function isSandbox() {
     const env = (process.env.DANA_ENV || process.env.ENV || 'sandbox').toLowerCase();
     return env === 'sandbox';
+}
+/** Sandbox maximum amount (major units) for Payment Gateway create order. */
+const SANDBOX_MAX_AMOUNT = 10000000;
+function validateSandboxAmount(request) {
+    if (request === null || request === undefined || !isSandbox()) {
+        return;
+    }
+    const amount = request.amount;
+    if (amount === null || amount === undefined) {
+        return;
+    }
+    const value = amount.value;
+    if (typeof value !== 'string' || value.trim() === '') {
+        return;
+    }
+    const parsed = Number(value);
+    if (Number.isNaN(parsed)) {
+        return;
+    }
+    if (parsed > SANDBOX_MAX_AMOUNT) {
+        throw new runtime_1.ValidationError([
+            {
+                field: 'amount.value',
+                message: `in sandbox, amount.value must not exceed ${SANDBOX_MAX_AMOUNT}; got ${value}`,
+            },
+        ]);
+    }
 }
 function payOptionAllowedInSandbox(value) {
     const s = (value || '').trim();
@@ -54,8 +81,8 @@ function runeLen(s) {
 const NETWORK_PAY_PG_QRIS = index_2.PayOptionDetailPayOptionEnum.NetworkPayPgQris;
 const NETWORK_PAY_PG_CARD = index_2.PayOptionDetailPayOptionEnum.NetworkPayPgCard;
 const CREDIT_DEBIT_CARD_PAY_METHODS = new Set([
+    index_2.PayOptionDetailPayMethodEnum.Card,
     index_2.PayOptionDetailPayMethodEnum.CreditCard,
-    index_2.PayOptionDetailPayMethodEnum.DebitCard,
 ]);
 const EWALLET_PAY_OPTIONS = new Set([
     index_2.PayOptionDetailPayOptionEnum.NetworkPayPgSpay,
@@ -99,6 +126,33 @@ function validateExternalStoreIdForQris(request) {
         }
     }
 }
+function validatePartnerReferenceNoForQris(request) {
+    if (request === null || request === undefined) {
+        return;
+    }
+    const payOptionDetails = request.payOptionDetails;
+    if (!payOptionDetails || !Array.isArray(payOptionDetails)) {
+        return;
+    }
+    let hasQris = false;
+    for (const payOptionDetail of payOptionDetails) {
+        if (payOptionDetail && String(payOptionDetail.payOption) === NETWORK_PAY_PG_QRIS) {
+            hasQris = true;
+            break;
+        }
+    }
+    if (hasQris) {
+        const partnerReferenceNo = String(request.partnerReferenceNo || '').trim();
+        if (partnerReferenceNo.length > 25) {
+            throw new runtime_1.ValidationError([
+                {
+                    field: 'partnerReferenceNo',
+                    message: 'partnerReferenceNo must be at most 25 characters when payOption is NETWORK_PAY_PG_QRIS'
+                }
+            ]);
+        }
+    }
+}
 /** Money value pattern: digits (1-16) + "." + exactly 2 digits (e.g. 10000.00) */
 const MONEY_VALUE_PATTERN = /^\d{1,16}\.\d{2}$/;
 /**
@@ -113,6 +167,54 @@ function validateAdditionalInfoRequired(request) {
         throw new runtime_1.ValidationError([
             { field: 'additionalInfo', message: 'additionalInfo is required' }
         ]);
+    }
+}
+/**
+ * Default envInfo.sourcePlatform to IPG when missing/empty.
+ */
+function defaultSourcePlatform(request) {
+    var _a;
+    if (request === null || request === undefined) {
+        return;
+    }
+    const additionalInfo = request.additionalInfo;
+    if (!additionalInfo || !additionalInfo.envInfo) {
+        return;
+    }
+    const sourcePlatform = additionalInfo.envInfo.sourcePlatform;
+    if (typeof sourcePlatform !== 'string' || sourcePlatform.trim() === '') {
+        additionalInfo.envInfo.sourcePlatform = (_a = index_1.EnvInfoSourcePlatformEnum.Ipg) !== null && _a !== void 0 ? _a : 'IPG';
+    }
+}
+/**
+ * Reject empty strings for required additionalInfo fields (mcc, envInfo.terminalType).
+ */
+function validateRequiredAdditionalInfoFieldsNotEmpty(request) {
+    var _a;
+    if (request === null || request === undefined) {
+        return;
+    }
+    const additionalInfo = request.additionalInfo;
+    if (!additionalInfo) {
+        return;
+    }
+    const contexts = [];
+    const mcc = additionalInfo.mcc;
+    if (typeof mcc !== 'string' || mcc.trim() === '') {
+        contexts.push({
+            field: 'additionalInfo.mcc',
+            message: 'additionalInfo.mcc is required and cannot be empty',
+        });
+    }
+    const terminalType = (_a = additionalInfo.envInfo) === null || _a === void 0 ? void 0 : _a.terminalType;
+    if (typeof terminalType !== 'string' || terminalType.trim() === '') {
+        contexts.push({
+            field: 'additionalInfo.envInfo.terminalType',
+            message: 'additionalInfo.envInfo.terminalType is required and cannot be empty',
+        });
+    }
+    if (contexts.length > 0) {
+        throw new runtime_1.ValidationError(contexts);
     }
 }
 /**
@@ -141,7 +243,7 @@ function validateMoneyValuePattern(request) {
 /**
  * In sandbox, only certain payMethod and payOption values are available.
  * payMethod: BALANCE, CREDIT_CARD, DEBIT_CARD, VIRTUAL_ACCOUNT, NETWORK_PAY.
- * payOption: CARD, QRIS, BRI, PANIN, CIMB, MANDIRI, BTPN, BSI (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI).
+ * payOption: CARD, QRIS, BRI, PANIN, CIMB, BTPN, BSI (exact or suffix e.g. VIRTUAL_ACCOUNT_BRI).
  */
 function validateSandboxPayMethodAndPayOption(request) {
     if (request === null || request === undefined || !isSandbox()) {
@@ -220,7 +322,7 @@ function validateConditionalPayOptionAdditionalInfoCreateOrderRequest(request) {
     }
 }
 function validateOptionalFieldsWithRequiredNestedCreateOrderRequest(request) {
-    var _a;
+    var _a, _b, _c;
     if (request === null || request === undefined) {
         return;
     }
@@ -251,37 +353,85 @@ function validateOptionalFieldsWithRequiredNestedCreateOrderRequest(request) {
             });
         }
     }
-    // Goods: when goods is filled, each item requires name
+    // Goods: when goods is filled, each item requires all Goods required fields
     const goods = Array.isArray(order === null || order === void 0 ? void 0 : order.goods) ? order.goods : [];
     if (goods.length > 0) {
         for (let i = 0; i < goods.length; i++) {
             const g = goods[i];
             if (!g)
                 continue;
-            const nameRaw = g === null || g === void 0 ? void 0 : g.name;
-            const name = typeof nameRaw === 'string' ? nameRaw.trim() : '';
-            if (!name) {
+            const prefix = `additionalInfo.order.goods[${i}]`;
+            const trim = (v) => (typeof v === 'string' ? v.trim() : '');
+            if (!trim(g === null || g === void 0 ? void 0 : g.name)) {
                 validationContexts.push({
-                    field: `additionalInfo.order.goods[${i}].name`,
+                    field: `${prefix}.name`,
                     message: 'name is required when goods is filled',
+                });
+            }
+            if (!trim(g === null || g === void 0 ? void 0 : g.merchantGoodsId)) {
+                validationContexts.push({
+                    field: `${prefix}.merchantGoodsId`,
+                    message: 'merchantGoodsId is required when goods is filled',
+                });
+            }
+            if (!trim(g === null || g === void 0 ? void 0 : g.description)) {
+                validationContexts.push({
+                    field: `${prefix}.description`,
+                    message: 'description is required when goods is filled',
+                });
+            }
+            if (!trim(g === null || g === void 0 ? void 0 : g.category)) {
+                validationContexts.push({
+                    field: `${prefix}.category`,
+                    message: 'category is required when goods is filled',
+                });
+            }
+            if (!trim(g === null || g === void 0 ? void 0 : g.quantity)) {
+                validationContexts.push({
+                    field: `${prefix}.quantity`,
+                    message: 'quantity is required when goods is filled',
+                });
+            }
+            if (!trim((_b = g === null || g === void 0 ? void 0 : g.price) === null || _b === void 0 ? void 0 : _b.value)) {
+                validationContexts.push({
+                    field: `${prefix}.price.value`,
+                    message: 'price.value is required when goods is filled',
+                });
+            }
+            if (!trim((_c = g === null || g === void 0 ? void 0 : g.price) === null || _c === void 0 ? void 0 : _c.currency)) {
+                validationContexts.push({
+                    field: `${prefix}.price.currency`,
+                    message: 'price.currency is required when goods is filled',
                 });
             }
         }
     }
-    // ShippingInfo: when shippingInfo is filled, each item requires firstName
+    // ShippingInfo: when shippingInfo is filled, each item requires full required fields
     const shippingInfo = Array.isArray(order === null || order === void 0 ? void 0 : order.shippingInfo) ? order.shippingInfo : [];
     if (shippingInfo.length > 0) {
         for (let i = 0; i < shippingInfo.length; i++) {
             const s = shippingInfo[i];
             if (!s)
                 continue;
-            const firstNameRaw = s === null || s === void 0 ? void 0 : s.firstName;
-            const firstName = typeof firstNameRaw === 'string' ? firstNameRaw.trim() : '';
-            if (!firstName) {
-                validationContexts.push({
-                    field: `additionalInfo.order.shippingInfo[${i}].firstName`,
-                    message: 'firstName is required when shippingInfo is filled',
-                });
+            const prefix = `additionalInfo.order.shippingInfo[${i}]`;
+            const requiredFields = [
+                ['merchantShippingId', s === null || s === void 0 ? void 0 : s.merchantShippingId],
+                ['countryName', s === null || s === void 0 ? void 0 : s.countryName],
+                ['stateName', s === null || s === void 0 ? void 0 : s.stateName],
+                ['cityName', s === null || s === void 0 ? void 0 : s.cityName],
+                ['address1', s === null || s === void 0 ? void 0 : s.address1],
+                ['firstName', s === null || s === void 0 ? void 0 : s.firstName],
+                ['lastName', s === null || s === void 0 ? void 0 : s.lastName],
+                ['zipCode', s === null || s === void 0 ? void 0 : s.zipCode],
+            ];
+            for (const [field, raw] of requiredFields) {
+                const value = typeof raw === 'string' ? raw.trim() : '';
+                if (!value) {
+                    validationContexts.push({
+                        field: `${prefix}.${field}`,
+                        message: `${field} is required when shippingInfo is filled`,
+                    });
+                }
             }
         }
     }
@@ -319,17 +469,24 @@ function validateValidUpToCreateOrderRequest(request) {
 }
 const validationRegistry = {
     'CreateOrderByApiRequest': [
+        defaultSourcePlatform,
         validateAdditionalInfoRequired,
+        validateRequiredAdditionalInfoFieldsNotEmpty,
         validateMoneyValuePattern,
+        validateSandboxAmount,
         validateValidUpToCreateOrderRequest,
         validateExternalStoreIdForQris,
+        validatePartnerReferenceNoForQris,
         validateSandboxPayMethodAndPayOption,
         validateConditionalPayOptionAdditionalInfoCreateOrderRequest,
         validateOptionalFieldsWithRequiredNestedCreateOrderRequest,
     ],
     'CreateOrderByRedirectRequest': [
+        defaultSourcePlatform,
         validateAdditionalInfoRequired,
+        validateRequiredAdditionalInfoFieldsNotEmpty,
         validateMoneyValuePattern,
+        validateSandboxAmount,
         validateValidUpToCreateOrderRequest,
         validateSandboxPayMethodAndPayOption,
         validateConditionalPayOptionAdditionalInfoCreateOrderRequest,
@@ -357,6 +514,13 @@ function customValidation(request) {
     else if ((0, index_1.instanceOfCreateOrderByRedirectRequest)(request)) {
         kind = 'CreateOrderByRedirectRequest';
     }
+    else if (request.payOptionDetails !== undefined) {
+        // Heuristic fallback when plain objects don't satisfy generated instanceOf guards
+        kind = 'CreateOrderByApiRequest';
+    }
+    else if (request.partnerReferenceNo !== undefined && request.urlParams !== undefined) {
+        kind = 'CreateOrderByRedirectRequest';
+    }
     if (!kind) {
         return;
     }
@@ -371,14 +535,120 @@ function customValidation(request) {
             validator(request);
         }
         catch (error) {
-            if (error instanceof runtime_1.ValidationError && Array.isArray(error.validationErrorContexts)) {
-                aggregatedContexts.push(...error.validationErrorContexts);
+            const contexts = error === null || error === void 0 ? void 0 : error.validationErrorContexts;
+            if (Array.isArray(contexts) && (error instanceof runtime_1.ValidationError || (error === null || error === void 0 ? void 0 : error.name) === 'ValidationError')) {
+                aggregatedContexts.push(...contexts);
                 continue;
             }
             throw error;
         }
     }
     if (aggregatedContexts.length > 0) {
-        throw new runtime_1.ValidationError(aggregatedContexts);
+        const err = new runtime_1.ValidationError(aggregatedContexts);
+        const joined = aggregatedContexts.map((c) => c.message).join('; ');
+        Object.defineProperty(err, 'message', {
+            value: `validation failed: ${joined}`,
+            writable: true,
+            configurable: true,
+        });
+        throw err;
     }
+}
+const SANDBOX_QRIS_GUIDANCE_HINT_SUCCESS = 'If you want to use QRIS and it is not showing in payment methods, make sure you already fill externalStoreId. See https://dashboard.dana.id/sandbox/submerchants in the external shop id section.';
+const SANDBOX_QRIS_GUIDANCE_HINT_ERROR = 'If you want to use QRIS, make sure you fill externalStoreId. See https://dashboard.dana.id/sandbox/submerchants in the external shop id section. For QRIS, partnerReferenceNo max is 25 chars.';
+const SANDBOX_SUB_MERCHANT_ID_GUIDANCE_HINT = 'Make sure your subMerchantId exists. You can see it at https://dashboard.dana.id/sandbox/submerchants in the External Division ID section.';
+function appendSandboxHint(responseMessage, hint, ...alreadyPresentMarkers) {
+    const msg = (responseMessage !== null && responseMessage !== void 0 ? responseMessage : '').trim();
+    const lowerMsg = msg.toLowerCase();
+    for (const marker of alreadyPresentMarkers) {
+        if (marker && lowerMsg.includes(marker.toLowerCase())) {
+            return msg;
+        }
+    }
+    if (!msg) {
+        return hint;
+    }
+    if (msg.endsWith('.')) {
+        return `${msg} ${hint}`;
+    }
+    return `${msg}. ${hint}`;
+}
+function isBusinessErrorResponse(responseCode) {
+    const code = String(responseCode !== null && responseCode !== void 0 ? responseCode : '').trim();
+    return code === '' || !code.startsWith('200');
+}
+/**
+ * True redirect Create Order only (not API).
+ * API payloads also satisfy the loose Redirect instanceOf guard because they share
+ * base fields; payOptionDetails is the discriminator (matches Go/PHP typed checks).
+ */
+function isCreateOrderByRedirectKind(request) {
+    if (request == null) {
+        return false;
+    }
+    if ((0, index_1.instanceOfCreateOrderByApiRequest)(request) || request.payOptionDetails !== undefined) {
+        return false;
+    }
+    return (0, index_1.instanceOfCreateOrderByRedirectRequest)(request)
+        || (request.partnerReferenceNo !== undefined && request.urlParams !== undefined);
+}
+/**
+ * Augment CreateOrder responses in sandbox (QRIS / subMerchantId guidance).
+ */
+function customValidationResponse(request, response) {
+    if (!isSandbox() || request == null || response == null) {
+        return;
+    }
+    // SUCCESS QRIS externalStoreId hint is Redirect-only (not CreateOrderApi).
+    if (isCreateOrderByRedirectKind(request)) {
+        const externalStoreId = request.externalStoreId;
+        if (!(typeof externalStoreId === 'string' && externalStoreId.trim() !== '')) {
+            response.responseMessage = appendSandboxHint(response.responseMessage, SANDBOX_QRIS_GUIDANCE_HINT_SUCCESS, 'externalstoreid');
+        }
+    }
+    const subMerchantId = request === null || request === void 0 ? void 0 : request.subMerchantId;
+    if (typeof subMerchantId === 'string' && subMerchantId.trim() !== '') {
+        if (isBusinessErrorResponse(response === null || response === void 0 ? void 0 : response.responseCode)) {
+            response.responseMessage = appendSandboxHint(response.responseMessage, SANDBOX_SUB_MERCHANT_ID_GUIDANCE_HINT, 'submerchantid', 'externaldivisionid');
+        }
+    }
+}
+/**
+ * Enrich CreateOrder HTTP errors in sandbox (keeps error; updates rawResponse / message).
+ * Mirrors Go EnrichCreateOrderError / PHP enrichCreateOrderError.
+ */
+function enrichCreateOrderError(request, error) {
+    var _a;
+    if (!isSandbox() || request == null || error == null) {
+        return error;
+    }
+    const raw = error.rawResponse;
+    if (raw == null || typeof raw !== 'object') {
+        return error;
+    }
+    const response = {
+        responseCode: raw.responseCode != null ? String(raw.responseCode) : '',
+        responseMessage: raw.responseMessage != null ? String(raw.responseMessage) : '',
+        partnerReferenceNo: raw.partnerReferenceNo != null ? String(raw.partnerReferenceNo) : '',
+    };
+    customValidationResponse(request, response);
+    // ERROR QRIS hint (incl. partnerReferenceNo max 25) is Redirect-only.
+    if (isCreateOrderByRedirectKind(request)) {
+        const externalStoreId = request.externalStoreId;
+        if (!(typeof externalStoreId === 'string' && externalStoreId.trim() !== '')) {
+            const hinted = appendSandboxHint('', SANDBOX_QRIS_GUIDANCE_HINT_ERROR, 'externalstoreid', 'partnerreferenceno');
+            const status = (_a = error.status) !== null && _a !== void 0 ? _a : '';
+            Object.defineProperty(error, 'message', {
+                value: `${status}: ${hinted}`,
+                writable: true,
+                configurable: true,
+            });
+            if (error.errorMessage !== undefined) {
+                error.errorMessage = hinted;
+            }
+        }
+    }
+    // Keep enriched response on the error for callers that inspect rawResponse.
+    error.rawResponse = Object.assign(Object.assign({}, raw), { responseCode: response.responseCode || raw.responseCode, responseMessage: response.responseMessage, partnerReferenceNo: response.partnerReferenceNo || raw.partnerReferenceNo });
+    return error;
 }

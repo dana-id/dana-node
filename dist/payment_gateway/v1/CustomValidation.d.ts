@@ -14,3 +14,12 @@
  * @throws ValidationError if validation fails
  */
 export declare function customValidation(request: any): void;
+/**
+ * Augment CreateOrder responses in sandbox (QRIS / subMerchantId guidance).
+ */
+export declare function customValidationResponse(request: any, response: any): void;
+/**
+ * Enrich CreateOrder HTTP errors in sandbox (keeps error; updates rawResponse / message).
+ * Mirrors Go EnrichCreateOrderError / PHP enrichCreateOrderError.
+ */
+export declare function enrichCreateOrderError(request: any, error: any): any;

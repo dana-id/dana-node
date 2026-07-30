@@ -52,11 +52,11 @@ export interface EnvInfo {
      */
     sdkVersion?: string;
     /**
-     * The source platform is always independent payment gateway (IPG)
+     * The source platform is always independent payment gateway (IPG). Defaults to IPG when omitted.
      * @type {string}
      * @memberof EnvInfo
      */
-    sourcePlatform: EnvInfoSourcePlatformEnum;
+    sourcePlatform?: EnvInfoSourcePlatformEnum;
     /**
      * Order operating system type
      * @type {string}

@@ -6,7 +6,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = void 0;
+exports.BankAccountInquiryRequestAdditionalInfoAccountTypeEnum = exports.BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = void 0;
 exports.instanceOfBankAccountInquiryRequestAdditionalInfo = instanceOfBankAccountInquiryRequestAdditionalInfo;
 exports.BankAccountInquiryRequestAdditionalInfoFromJSON = BankAccountInquiryRequestAdditionalInfoFromJSON;
 exports.BankAccountInquiryRequestAdditionalInfoFromJSONTyped = BankAccountInquiryRequestAdditionalInfoFromJSONTyped;
@@ -20,6 +20,14 @@ const runtime_1 = require("../../../runtime");
 exports.BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = {
     Division: 'DIVISION',
     Merchant: 'MERCHANT'
+};
+/**
+ * @export
+ */
+exports.BankAccountInquiryRequestAdditionalInfoAccountTypeEnum = {
+    MerchantDepositAccount: 'MERCHANT_DEPOSIT_ACCOUNT',
+    SettlementAccount: 'SETTLEMENT_ACCOUNT',
+    DivisionDepositAccount: 'DIVISION_DEPOSIT_ACCOUNT'
 };
 /**
  * Check if a given object implements the BankAccountInquiryRequestAdditionalInfo interface.

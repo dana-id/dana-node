@@ -161,13 +161,13 @@ class WidgetUtils {
         if (data.seamlessData) {
             // Deep clone the seamless data
             let seamlessDataObj = JSON.parse(JSON.stringify(data.seamlessData));
+            // Convert mobileNumber to mobile if needed
+            if (seamlessDataObj.mobileNumber) {
+                seamlessDataObj.mobile = seamlessDataObj.mobileNumber;
+                delete seamlessDataObj.mobileNumber;
+            }
             // Process for DEEPLINK mode
             if (mode === models_1.Oauth2UrlDataModeEnum.Deeplink && requestId) {
-                // Convert mobileNumber to mobile if needed
-                if (seamlessDataObj.mobileNumber) {
-                    seamlessDataObj.mobile = seamlessDataObj.mobileNumber;
-                    delete seamlessDataObj.mobileNumber;
-                }
                 // Add required fields for DEEPLINK mode
                 seamlessDataObj.externalUid = externalId;
                 seamlessDataObj.reqTime = timestamp;

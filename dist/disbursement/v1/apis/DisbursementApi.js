@@ -37,7 +37,7 @@ class DisbursementApi extends runtime.BaseAPI {
      * Transfer to Bank Account Inquiry
      */
     async bankAccountInquiry(bankAccountInquiryRequest, initOverrides) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         if (bankAccountInquiryRequest == null) {
             throw new runtime.RequiredError('bankAccountInquiryRequest', 'Required parameter "bankAccountInquiryRequest" was null or undefined when calling bankAccountInquiry().');
         }
@@ -71,21 +71,55 @@ class DisbursementApi extends runtime.BaseAPI {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
-        const response = await this.request({
-            path: endpointUrl,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: (0, index_1.BankAccountInquiryRequestToJSON)(bankAccountInquiryRequest),
-        }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.BankAccountInquiryResponseFromJSON)(jsonValue)).value();
+        let response;
+        try {
+            response = await this.request({
+                path: endpointUrl,
+                method: 'POST',
+                headers: headerParameters,
+                query: queryParameters,
+                body: (0, index_1.BankAccountInquiryRequestToJSON)(bankAccountInquiryRequest),
+            }, initOverrides);
+        }
+        catch (error) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(bankAccountInquiryRequest, error);
+                }
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(bankAccountInquiryRequest, error);
+                }
+            }
+            catch (enrichError) {
+                if ((enrichError === null || enrichError === void 0 ? void 0 : enrichError.code) !== 'MODULE_NOT_FOUND' && !((_d = enrichError === null || enrichError === void 0 ? void 0 : enrichError.message) === null || _d === void 0 ? void 0 : _d.includes('Cannot find module'))) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.BankAccountInquiryResponseFromJSON)(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.customValidationResponse) {
+                    customValidationModule.customValidationResponse(bankAccountInquiryRequest, __danaApiResult);
+                }
+            }
+            catch (hookError) {
+                if ((hookError === null || hookError === void 0 ? void 0 : hookError.code) !== 'MODULE_NOT_FOUND' && !((_e = hookError === null || hookError === void 0 ? void 0 : hookError.message) === null || _e === void 0 ? void 0 : _e.includes('Cannot find module'))) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
     /**
      * This API is used for merchant to do account inquiry to DANA
      * DANA Account Inquiry
      */
     async danaAccountInquiry(danaAccountInquiryRequest, initOverrides) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         if (danaAccountInquiryRequest == null) {
             throw new runtime.RequiredError('danaAccountInquiryRequest', 'Required parameter "danaAccountInquiryRequest" was null or undefined when calling danaAccountInquiry().');
         }
@@ -119,21 +153,55 @@ class DisbursementApi extends runtime.BaseAPI {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
-        const response = await this.request({
-            path: endpointUrl,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: (0, index_1.DanaAccountInquiryRequestToJSON)(danaAccountInquiryRequest),
-        }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.DanaAccountInquiryResponseFromJSON)(jsonValue)).value();
+        let response;
+        try {
+            response = await this.request({
+                path: endpointUrl,
+                method: 'POST',
+                headers: headerParameters,
+                query: queryParameters,
+                body: (0, index_1.DanaAccountInquiryRequestToJSON)(danaAccountInquiryRequest),
+            }, initOverrides);
+        }
+        catch (error) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(danaAccountInquiryRequest, error);
+                }
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(danaAccountInquiryRequest, error);
+                }
+            }
+            catch (enrichError) {
+                if ((enrichError === null || enrichError === void 0 ? void 0 : enrichError.code) !== 'MODULE_NOT_FOUND' && !((_d = enrichError === null || enrichError === void 0 ? void 0 : enrichError.message) === null || _d === void 0 ? void 0 : _d.includes('Cannot find module'))) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.DanaAccountInquiryResponseFromJSON)(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.customValidationResponse) {
+                    customValidationModule.customValidationResponse(danaAccountInquiryRequest, __danaApiResult);
+                }
+            }
+            catch (hookError) {
+                if ((hookError === null || hookError === void 0 ? void 0 : hookError.code) !== 'MODULE_NOT_FOUND' && !((_e = hookError === null || hookError === void 0 ? void 0 : hookError.message) === null || _e === void 0 ? void 0 : _e.includes('Cannot find module'))) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
     /**
      * This API is used for merchant to do transfer to Bank request via DANA
      * Transfer to Bank
      */
     async transferToBank(transferToBankRequest, initOverrides) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         if (transferToBankRequest == null) {
             throw new runtime.RequiredError('transferToBankRequest', 'Required parameter "transferToBankRequest" was null or undefined when calling transferToBank().');
         }
@@ -167,21 +235,55 @@ class DisbursementApi extends runtime.BaseAPI {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
-        const response = await this.request({
-            path: endpointUrl,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: (0, index_1.TransferToBankRequestToJSON)(transferToBankRequest),
-        }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.TransferToBankResponseFromJSON)(jsonValue)).value();
+        let response;
+        try {
+            response = await this.request({
+                path: endpointUrl,
+                method: 'POST',
+                headers: headerParameters,
+                query: queryParameters,
+                body: (0, index_1.TransferToBankRequestToJSON)(transferToBankRequest),
+            }, initOverrides);
+        }
+        catch (error) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(transferToBankRequest, error);
+                }
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(transferToBankRequest, error);
+                }
+            }
+            catch (enrichError) {
+                if ((enrichError === null || enrichError === void 0 ? void 0 : enrichError.code) !== 'MODULE_NOT_FOUND' && !((_d = enrichError === null || enrichError === void 0 ? void 0 : enrichError.message) === null || _d === void 0 ? void 0 : _d.includes('Cannot find module'))) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.TransferToBankResponseFromJSON)(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.customValidationResponse) {
+                    customValidationModule.customValidationResponse(transferToBankRequest, __danaApiResult);
+                }
+            }
+            catch (hookError) {
+                if ((hookError === null || hookError === void 0 ? void 0 : hookError.code) !== 'MODULE_NOT_FOUND' && !((_e = hookError === null || hookError === void 0 ? void 0 : hookError.message) === null || _e === void 0 ? void 0 : _e.includes('Cannot find module'))) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
     /**
      * This API is used for merchant to do inquiry status transfer to Bank transaction to DANA
      * Transfer to Bank Inquiry Status
      */
     async transferToBankInquiryStatus(transferToBankInquiryStatusRequest, initOverrides) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         if (transferToBankInquiryStatusRequest == null) {
             throw new runtime.RequiredError('transferToBankInquiryStatusRequest', 'Required parameter "transferToBankInquiryStatusRequest" was null or undefined when calling transferToBankInquiryStatus().');
         }
@@ -215,21 +317,55 @@ class DisbursementApi extends runtime.BaseAPI {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
-        const response = await this.request({
-            path: endpointUrl,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: (0, index_1.TransferToBankInquiryStatusRequestToJSON)(transferToBankInquiryStatusRequest),
-        }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.TransferToBankInquiryStatusResponseFromJSON)(jsonValue)).value();
+        let response;
+        try {
+            response = await this.request({
+                path: endpointUrl,
+                method: 'POST',
+                headers: headerParameters,
+                query: queryParameters,
+                body: (0, index_1.TransferToBankInquiryStatusRequestToJSON)(transferToBankInquiryStatusRequest),
+            }, initOverrides);
+        }
+        catch (error) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(transferToBankInquiryStatusRequest, error);
+                }
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(transferToBankInquiryStatusRequest, error);
+                }
+            }
+            catch (enrichError) {
+                if ((enrichError === null || enrichError === void 0 ? void 0 : enrichError.code) !== 'MODULE_NOT_FOUND' && !((_d = enrichError === null || enrichError === void 0 ? void 0 : enrichError.message) === null || _d === void 0 ? void 0 : _d.includes('Cannot find module'))) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.TransferToBankInquiryStatusResponseFromJSON)(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.customValidationResponse) {
+                    customValidationModule.customValidationResponse(transferToBankInquiryStatusRequest, __danaApiResult);
+                }
+            }
+            catch (hookError) {
+                if ((hookError === null || hookError === void 0 ? void 0 : hookError.code) !== 'MODULE_NOT_FOUND' && !((_e = hookError === null || hookError === void 0 ? void 0 : hookError.message) === null || _e === void 0 ? void 0 : _e.includes('Cannot find module'))) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
     /**
      * This API is used for merchant to do top up request to DANA
      * Transfer to DANA
      */
     async transferToDana(transferToDanaRequest, initOverrides) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         if (transferToDanaRequest == null) {
             throw new runtime.RequiredError('transferToDanaRequest', 'Required parameter "transferToDanaRequest" was null or undefined when calling transferToDana().');
         }
@@ -263,21 +399,55 @@ class DisbursementApi extends runtime.BaseAPI {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
-        const response = await this.request({
-            path: endpointUrl,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: (0, index_1.TransferToDanaRequestToJSON)(transferToDanaRequest),
-        }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.TransferToDanaResponseFromJSON)(jsonValue)).value();
+        let response;
+        try {
+            response = await this.request({
+                path: endpointUrl,
+                method: 'POST',
+                headers: headerParameters,
+                query: queryParameters,
+                body: (0, index_1.TransferToDanaRequestToJSON)(transferToDanaRequest),
+            }, initOverrides);
+        }
+        catch (error) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(transferToDanaRequest, error);
+                }
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(transferToDanaRequest, error);
+                }
+            }
+            catch (enrichError) {
+                if ((enrichError === null || enrichError === void 0 ? void 0 : enrichError.code) !== 'MODULE_NOT_FOUND' && !((_d = enrichError === null || enrichError === void 0 ? void 0 : enrichError.message) === null || _d === void 0 ? void 0 : _d.includes('Cannot find module'))) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.TransferToDanaResponseFromJSON)(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.customValidationResponse) {
+                    customValidationModule.customValidationResponse(transferToDanaRequest, __danaApiResult);
+                }
+            }
+            catch (hookError) {
+                if ((hookError === null || hookError === void 0 ? void 0 : hookError.code) !== 'MODULE_NOT_FOUND' && !((_e = hookError === null || hookError === void 0 ? void 0 : hookError.message) === null || _e === void 0 ? void 0 : _e.includes('Cannot find module'))) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
     /**
      * This API is used for merchant to do inquiry status top up transaction to DANA
      * Transfer to DANA Inquiry Status
      */
     async transferToDanaInquiryStatus(transferToDanaInquiryStatusRequest, initOverrides) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         if (transferToDanaInquiryStatusRequest == null) {
             throw new runtime.RequiredError('transferToDanaInquiryStatusRequest', 'Required parameter "transferToDanaInquiryStatusRequest" was null or undefined when calling transferToDanaInquiryStatus().');
         }
@@ -311,14 +481,48 @@ class DisbursementApi extends runtime.BaseAPI {
             enableDebugMode = true;
         }
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
-        const response = await this.request({
-            path: endpointUrl,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: (0, index_1.TransferToDanaInquiryStatusRequestToJSON)(transferToDanaInquiryStatusRequest),
-        }, initOverrides);
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.TransferToDanaInquiryStatusResponseFromJSON)(jsonValue)).value();
+        let response;
+        try {
+            response = await this.request({
+                path: endpointUrl,
+                method: 'POST',
+                headers: headerParameters,
+                query: queryParameters,
+                body: (0, index_1.TransferToDanaInquiryStatusRequestToJSON)(transferToDanaInquiryStatusRequest),
+            }, initOverrides);
+        }
+        catch (error) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(transferToDanaInquiryStatusRequest, error);
+                }
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(transferToDanaInquiryStatusRequest, error);
+                }
+            }
+            catch (enrichError) {
+                if ((enrichError === null || enrichError === void 0 ? void 0 : enrichError.code) !== 'MODULE_NOT_FOUND' && !((_d = enrichError === null || enrichError === void 0 ? void 0 : enrichError.message) === null || _d === void 0 ? void 0 : _d.includes('Cannot find module'))) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => (0, index_1.TransferToDanaInquiryStatusResponseFromJSON)(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.customValidationResponse) {
+                    customValidationModule.customValidationResponse(transferToDanaInquiryStatusRequest, __danaApiResult);
+                }
+            }
+            catch (hookError) {
+                if ((hookError === null || hookError === void 0 ? void 0 : hookError.code) !== 'MODULE_NOT_FOUND' && !((_e = hookError === null || hookError === void 0 ? void 0 : hookError.message) === null || _e === void 0 ? void 0 : _e.includes('Cannot find module'))) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 }
 exports.DisbursementApi = DisbursementApi;

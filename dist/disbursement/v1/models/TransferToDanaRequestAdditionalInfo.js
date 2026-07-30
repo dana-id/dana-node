@@ -6,7 +6,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransferToDanaRequestAdditionalInfoChargeTargetEnum = void 0;
+exports.TransferToDanaRequestAdditionalInfoChargeTargetEnum = exports.TransferToDanaRequestAdditionalInfoAccountTypeEnum = void 0;
 exports.instanceOfTransferToDanaRequestAdditionalInfo = instanceOfTransferToDanaRequestAdditionalInfo;
 exports.TransferToDanaRequestAdditionalInfoFromJSON = TransferToDanaRequestAdditionalInfoFromJSON;
 exports.TransferToDanaRequestAdditionalInfoFromJSONTyped = TransferToDanaRequestAdditionalInfoFromJSONTyped;
@@ -14,6 +14,14 @@ exports.TransferToDanaRequestAdditionalInfoToJSON = TransferToDanaRequestAdditio
 exports.TransferToDanaRequestAdditionalInfoToJSONTyped = TransferToDanaRequestAdditionalInfoToJSONTyped;
 exports.validateTransferToDanaRequestAdditionalInfo = validateTransferToDanaRequestAdditionalInfo;
 const runtime_1 = require("../../../runtime");
+/**
+ * @export
+ */
+exports.TransferToDanaRequestAdditionalInfoAccountTypeEnum = {
+    MerchantDepositAccount: 'MERCHANT_DEPOSIT_ACCOUNT',
+    SettlementAccount: 'SETTLEMENT_ACCOUNT',
+    DivisionDepositAccount: 'DIVISION_DEPOSIT_ACCOUNT'
+};
 /**
  * @export
  */

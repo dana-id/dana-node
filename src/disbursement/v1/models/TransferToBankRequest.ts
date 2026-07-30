@@ -47,10 +47,11 @@ export interface TransferToBankRequest {
     customerNumber: string;
     /**
      * Customer account type
+     * 
      * @type {string}
      * @memberof TransferToBankRequest
      */
-    accountType?: string;
+    accountType?: TransferToBankRequestAccountTypeEnum;
     /**
      * Beneficiary account number
      * @type {string}
@@ -79,6 +80,18 @@ export interface TransferToBankRequest {
      */
     additionalInfo: TransferToBankRequestAdditionalInfo;
 }
+
+
+/**
+ * @export
+ */
+export const TransferToBankRequestAccountTypeEnum = {
+    MerchantDepositAccount: 'MERCHANT_DEPOSIT_ACCOUNT',
+    SettlementAccount: 'SETTLEMENT_ACCOUNT',
+    DivisionDepositAccount: 'DIVISION_DEPOSIT_ACCOUNT'
+} as const;
+export type TransferToBankRequestAccountTypeEnum = typeof TransferToBankRequestAccountTypeEnum[keyof typeof TransferToBankRequestAccountTypeEnum] | '';
+
 
 /**
  * Check if a given object implements the TransferToBankRequest interface.
@@ -141,7 +154,7 @@ const propertyValidationAttributesMap: { [property: string]: PropertyValidationA
         maxLength: 32,
     },
     accountType: {
-        maxLength: 25,
+        maxLength: 64,
     },
     beneficiaryAccountNumber: {
         maxLength: 32,

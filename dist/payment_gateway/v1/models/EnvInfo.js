@@ -42,8 +42,6 @@ exports.EnvInfoOrderTerminalTypeEnum = {
  * Check if a given object implements the EnvInfo interface.
  */
 function instanceOfEnvInfo(value) {
-    if (!('sourcePlatform' in value) || value['sourcePlatform'] === undefined)
-        return false;
     if (!('terminalType' in value) || value['terminalType'] === undefined)
         return false;
     return true;
@@ -63,7 +61,7 @@ function EnvInfoFromJSONTyped(json, ignoreDiscriminator) {
         'osType': json['osType'] == null ? undefined : json['osType'],
         'appVersion': json['appVersion'] == null ? undefined : json['appVersion'],
         'sdkVersion': json['sdkVersion'] == null ? undefined : json['sdkVersion'],
-        'sourcePlatform': json['sourcePlatform'],
+        'sourcePlatform': json['sourcePlatform'] == null ? undefined : json['sourcePlatform'],
         'orderOsType': json['orderOsType'] == null ? undefined : json['orderOsType'],
         'merchantAppVersion': json['merchantAppVersion'] == null ? undefined : json['merchantAppVersion'],
         'terminalType': json['terminalType'],

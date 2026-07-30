@@ -54,10 +54,11 @@ export interface BankAccountInquiryRequestAdditionalInfo {
     beneficiaryAccountName?: string;
     /**
      * Additional information of account type
+     * 
      * @type {string}
      * @memberof BankAccountInquiryRequestAdditionalInfo
      */
-    accountType?: string;
+    accountType?: BankAccountInquiryRequestAdditionalInfoAccountTypeEnum;
     /**
      * Contains customer token, which has been obtained from binding process, refer to Account Binding & Unbinding documentation<br>
      * If request is coming from user interaction, this field is mandatory. If not, just filled customerNumber
@@ -77,6 +78,16 @@ export const BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = {
     Merchant: 'MERCHANT'
 } as const;
 export type BankAccountInquiryRequestAdditionalInfoChargeTargetEnum = typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum[keyof typeof BankAccountInquiryRequestAdditionalInfoChargeTargetEnum] | '';
+
+/**
+ * @export
+ */
+export const BankAccountInquiryRequestAdditionalInfoAccountTypeEnum = {
+    MerchantDepositAccount: 'MERCHANT_DEPOSIT_ACCOUNT',
+    SettlementAccount: 'SETTLEMENT_ACCOUNT',
+    DivisionDepositAccount: 'DIVISION_DEPOSIT_ACCOUNT'
+} as const;
+export type BankAccountInquiryRequestAdditionalInfoAccountTypeEnum = typeof BankAccountInquiryRequestAdditionalInfoAccountTypeEnum[keyof typeof BankAccountInquiryRequestAdditionalInfoAccountTypeEnum] | '';
 
 
 /**

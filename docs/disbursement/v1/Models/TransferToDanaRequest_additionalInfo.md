@@ -4,7 +4,7 @@
 | Name | Type | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
 | **extendInfo** | **String** |  | Additional information of extend |
-| **accountType** | **String** |  | Additional information of account type |
+| **accountType** | **String** |  | Additional information of account type  |
 | **fundType** | **String** | ☑️ | Additional information of transfer to DANA fund type, i.e.<br> AGENT_TOPUP_FOR_USER_SETTLE  |
 | **externalDivisionId** | **String** |  | Additional information of external division identifier. This parameter only used for Transfer to DANA subMerchant (fundType : AGENT_TOPUP_FOR_USER_SETTLE)<br> Notes:<br> The required of this parameter is Optional, but if \"additionalInfo.chargeTarget\" has value DIVISION then the required of this parameter will be changed to Mandatory  |
 | **chargeTarget** | **String** |  | Additional information of charge target. This parameter only used for Transfer to DANA subMerchant. The value are:<br> • null<br> • DIVISION<br> • MERCHANT<br> if the value is DIVISION, externalDivisionId will be Mandatory  |

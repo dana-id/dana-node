@@ -164,15 +164,46 @@ export class WidgetApi extends runtime.BaseAPI {
         runtime.DanaHeaderUtil.populateSnapAccountB2B2CScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, accessToken, endUserIpAddress, deviceId, latitude, longitude);
 
 
-        const response = await this.request({
+        let response;
+        try {
+            response = await this.request({
             path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: AccountUnbindingRequestToJSON(accountUnbindingRequest),
         }, initOverrides);
+        } catch (error: any) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(accountUnbindingRequest, error);
+                }
+                if (customValidationModule?.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(accountUnbindingRequest, error);
+                }
+            } catch (enrichError: any) {
+                if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => AccountUnbindingResponseFromJSON(jsonValue)).value();
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => AccountUnbindingResponseFromJSON(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.customValidationResponse) {
+                    customValidationModule.customValidationResponse(accountUnbindingRequest, __danaApiResult);
+                }
+            } catch (hookError: any) {
+                if (hookError?.code !== 'MODULE_NOT_FOUND' && !hookError?.message?.includes('Cannot find module')) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 
     /**
@@ -227,15 +258,46 @@ export class WidgetApi extends runtime.BaseAPI {
         runtime.DanaHeaderUtil.populateSnapAccountB2B2CScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, accessToken, endUserIpAddress, deviceId, latitude, longitude);
 
 
-        const response = await this.request({
+        let response;
+        try {
+            response = await this.request({
             path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: ApplyOTTRequestToJSON(applyOTTRequest),
         }, initOverrides);
+        } catch (error: any) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(applyOTTRequest, error);
+                }
+                if (customValidationModule?.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(applyOTTRequest, error);
+                }
+            } catch (enrichError: any) {
+                if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApplyOTTResponseFromJSON(jsonValue)).value();
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => ApplyOTTResponseFromJSON(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.customValidationResponse) {
+                    customValidationModule.customValidationResponse(applyOTTRequest, __danaApiResult);
+                }
+            } catch (hookError: any) {
+                if (hookError?.code !== 'MODULE_NOT_FOUND' && !hookError?.message?.includes('Cannot find module')) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 
     /**
@@ -282,15 +344,46 @@ export class WidgetApi extends runtime.BaseAPI {
         runtime.DanaHeaderUtil.populateSnapApplyTokenScenarioHeader(headerParameters, this.privateKey, this.partnerId);
 
 
-        const response = await this.request({
+        let response;
+        try {
+            response = await this.request({
             path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: ApplyTokenRequestToJSON(applyTokenRequest),
         }, initOverrides);
+        } catch (error: any) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(applyTokenRequest, error);
+                }
+                if (customValidationModule?.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(applyTokenRequest, error);
+                }
+            } catch (enrichError: any) {
+                if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApplyTokenResponseFromJSON(jsonValue)).value();
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => ApplyTokenResponseFromJSON(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.customValidationResponse) {
+                    customValidationModule.customValidationResponse(applyTokenRequest, __danaApiResult);
+                }
+            } catch (hookError: any) {
+                if (hookError?.code !== 'MODULE_NOT_FOUND' && !hookError?.message?.includes('Cannot find module')) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 
     /**
@@ -345,15 +438,46 @@ export class WidgetApi extends runtime.BaseAPI {
         runtime.DanaHeaderUtil.populateSnapAccountB2B2CScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, accessToken, endUserIpAddress, deviceId, latitude, longitude);
 
 
-        const response = await this.request({
+        let response;
+        try {
+            response = await this.request({
             path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: BalanceInquiryRequestToJSON(balanceInquiryRequest),
         }, initOverrides);
+        } catch (error: any) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(balanceInquiryRequest, error);
+                }
+                if (customValidationModule?.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(balanceInquiryRequest, error);
+                }
+            } catch (enrichError: any) {
+                if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => BalanceInquiryResponseFromJSON(jsonValue)).value();
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => BalanceInquiryResponseFromJSON(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.customValidationResponse) {
+                    customValidationModule.customValidationResponse(balanceInquiryRequest, __danaApiResult);
+                }
+            } catch (hookError: any) {
+                if (hookError?.code !== 'MODULE_NOT_FOUND' && !hookError?.message?.includes('Cannot find module')) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 
     /**
@@ -407,15 +531,46 @@ export class WidgetApi extends runtime.BaseAPI {
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
 
 
-        const response = await this.request({
+        let response;
+        try {
+            response = await this.request({
             path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: CancelOrderRequestToJSON(cancelOrderRequest),
         }, initOverrides);
+        } catch (error: any) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(cancelOrderRequest, error);
+                }
+                if (customValidationModule?.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(cancelOrderRequest, error);
+                }
+            } catch (enrichError: any) {
+                if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CancelOrderResponseFromJSON(jsonValue)).value();
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => CancelOrderResponseFromJSON(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.customValidationResponse) {
+                    customValidationModule.customValidationResponse(cancelOrderRequest, __danaApiResult);
+                }
+            } catch (hookError: any) {
+                if (hookError?.code !== 'MODULE_NOT_FOUND' && !hookError?.message?.includes('Cannot find module')) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 
     /**
@@ -469,15 +624,46 @@ export class WidgetApi extends runtime.BaseAPI {
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
 
 
-        const response = await this.request({
+        let response;
+        try {
+            response = await this.request({
             path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: QueryPaymentRequestToJSON(queryPaymentRequest),
         }, initOverrides);
+        } catch (error: any) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(queryPaymentRequest, error);
+                }
+                if (customValidationModule?.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(queryPaymentRequest, error);
+                }
+            } catch (enrichError: any) {
+                if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => QueryPaymentResponseFromJSON(jsonValue)).value();
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => QueryPaymentResponseFromJSON(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.customValidationResponse) {
+                    customValidationModule.customValidationResponse(queryPaymentRequest, __danaApiResult);
+                }
+            } catch (hookError: any) {
+                if (hookError?.code !== 'MODULE_NOT_FOUND' && !hookError?.message?.includes('Cannot find module')) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 
     /**
@@ -546,15 +732,46 @@ export class WidgetApi extends runtime.BaseAPI {
         }
 
         runtime.DanaHeaderUtil.populateOpenApiScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.clientSecret, this.partnerId, functionName, accessToken);
-        const response = await this.request({
+        let response;
+        try {
+            response = await this.request({
             path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: requestBody,
         }, initOverrides);
+        } catch (error: any) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(queryUserProfileRequest, error);
+                }
+                if (customValidationModule?.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(queryUserProfileRequest, error);
+                }
+            } catch (enrichError: any) {
+                if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => QueryUserProfileResponseFromJSON(jsonValue)).value();
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => QueryUserProfileResponseFromJSON(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.customValidationResponse) {
+                    customValidationModule.customValidationResponse(queryUserProfileRequest, __danaApiResult);
+                }
+            } catch (hookError: any) {
+                if (hookError?.code !== 'MODULE_NOT_FOUND' && !hookError?.message?.includes('Cannot find module')) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 
     /**
@@ -608,15 +825,46 @@ export class WidgetApi extends runtime.BaseAPI {
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
 
 
-        const response = await this.request({
+        let response;
+        try {
+            response = await this.request({
             path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: RefundOrderRequestToJSON(refundOrderRequest),
         }, initOverrides);
+        } catch (error: any) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(refundOrderRequest, error);
+                }
+                if (customValidationModule?.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(refundOrderRequest, error);
+                }
+            } catch (enrichError: any) {
+                if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => RefundOrderResponseFromJSON(jsonValue)).value();
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => RefundOrderResponseFromJSON(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.customValidationResponse) {
+                    customValidationModule.customValidationResponse(refundOrderRequest, __danaApiResult);
+                }
+            } catch (hookError: any) {
+                if (hookError?.code !== 'MODULE_NOT_FOUND' && !hookError?.message?.includes('Cannot find module')) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 
     /**
@@ -670,15 +918,46 @@ export class WidgetApi extends runtime.BaseAPI {
         runtime.DanaHeaderUtil.populateSnapB2BScenarioHeader(headerParameters, 'POST', endpointUrl, requestBody, this.privateKey, this.origin, this.partnerId, enableDebugMode);
 
 
-        const response = await this.request({
+        let response;
+        try {
+            response = await this.request({
             path: endpointUrl,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: WidgetPaymentRequestToJSON(widgetPaymentRequest),
         }, initOverrides);
+        } catch (error: any) {
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.enrichCreateOrderError) {
+                    throw customValidationModule.enrichCreateOrderError(widgetPaymentRequest, error);
+                }
+                if (customValidationModule?.enrichTransferToDanaError) {
+                    throw customValidationModule.enrichTransferToDanaError(widgetPaymentRequest, error);
+                }
+            } catch (enrichError: any) {
+                if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
+                    throw enrichError;
+                }
+            }
+            throw error;
+        }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => WidgetPaymentResponseFromJSON(jsonValue)).value();
+        {
+            const __danaApiResult = await new runtime.JSONApiResponse(response, (jsonValue) => WidgetPaymentResponseFromJSON(jsonValue)).value();
+            try {
+                const customValidationModule = require('../CustomValidation');
+                if (customValidationModule?.customValidationResponse) {
+                    customValidationModule.customValidationResponse(widgetPaymentRequest, __danaApiResult);
+                }
+            } catch (hookError: any) {
+                if (hookError?.code !== 'MODULE_NOT_FOUND' && !hookError?.message?.includes('Cannot find module')) {
+                    throw hookError;
+                }
+            }
+            return __danaApiResult;
+        }
     }
 
 }

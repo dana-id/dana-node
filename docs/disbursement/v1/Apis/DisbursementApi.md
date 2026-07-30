@@ -234,6 +234,14 @@ In this example the **DanaAccountInquiryRequestAdditionalInfo** is the parent mo
 | `Merchant` |  |
 
 
+## BankAccountInquiryRequestAdditionalInfoAccountTypeEnum (accountType)
+| Value | Description |
+|-------|-------------|
+| `MerchantDepositAccount` |  |
+| `SettlementAccount` |  |
+| `DivisionDepositAccount` |  |
+
+
 ## DanaAccountInquiryRequestAdditionalInfoChargeTargetEnum (chargeTarget)
 | Value | Description |
 |-------|-------------|
@@ -254,6 +262,14 @@ In this example the **DanaAccountInquiryRequestAdditionalInfo** is the parent mo
 | `07` | Not found |
 
 
+## TransferToBankRequestAccountTypeEnum (accountType)
+| Value | Description |
+|-------|-------------|
+| `MerchantDepositAccount` | Merchant deposit account |
+| `SettlementAccount` | Settlement account |
+| `DivisionDepositAccount` | Division deposit account |
+
+
 ## TransferToBankRequestAdditionalInfoChargeTargetEnum (chargeTarget)
 | Value | Description |
 |-------|-------------|
@@ -272,6 +288,14 @@ In this example the **DanaAccountInquiryRequestAdditionalInfo** is the parent mo
 | `05` | Cancelled |
 | `06` | Failed |
 | `07` | Not found |
+
+
+## TransferToDanaRequestAdditionalInfoAccountTypeEnum (accountType)
+| Value | Description |
+|-------|-------------|
+| `MerchantDepositAccount` |  |
+| `SettlementAccount` |  |
+| `DivisionDepositAccount` |  |
 
 
 ## TransferToDanaRequestAdditionalInfoChargeTargetEnum (chargeTarget)
