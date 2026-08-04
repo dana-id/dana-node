@@ -16,7 +16,7 @@ export declare function customValidation(request: any): void;
  */
 export declare function customValidationResponse(request: any, response: any): void;
 /**
- * Enrich Disbursement HTTP errors in sandbox (keeps error; updates rawResponse message).
+ * Enrich Disbursement HTTP errors in sandbox (keeps error; updates rawResponse / message).
  */
 export declare function enrichDisbursementError(request: any, error: any): any;
 /**

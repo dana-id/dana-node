@@ -286,9 +286,10 @@ function customValidationResponse(request, response) {
     applySandboxDisbursementHints(request, response);
 }
 /**
- * Enrich Disbursement HTTP errors in sandbox (keeps error; updates rawResponse message).
+ * Enrich Disbursement HTTP errors in sandbox (keeps error; updates rawResponse / message).
  */
 function enrichDisbursementError(request, error) {
+    var _a;
     if (!isSandbox() || request == null || error == null) {
         return error;
     }
@@ -301,7 +302,19 @@ function enrichDisbursementError(request, error) {
         responseMessage: raw.responseMessage != null ? String(raw.responseMessage) : '',
         partnerReferenceNo: raw.partnerReferenceNo != null ? String(raw.partnerReferenceNo) : '',
     };
+    const originalMsg = response.responseMessage;
     customValidationResponse(request, response);
+    if (response.responseMessage && response.responseMessage !== originalMsg) {
+        const status = (_a = error.status) !== null && _a !== void 0 ? _a : '';
+        Object.defineProperty(error, 'message', {
+            value: `${status}: ${response.responseMessage}`,
+            writable: true,
+            configurable: true,
+        });
+        if (error.errorMessage !== undefined) {
+            error.errorMessage = response.responseMessage;
+        }
+    }
     error.rawResponse = Object.assign(Object.assign({}, raw), { responseCode: response.responseCode || raw.responseCode, responseMessage: response.responseMessage, partnerReferenceNo: response.partnerReferenceNo || raw.partnerReferenceNo });
     return error;
 }

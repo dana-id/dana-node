@@ -337,7 +337,7 @@ export function customValidationResponse(request: any, response: any): void {
 }
 
 /**
- * Enrich Disbursement HTTP errors in sandbox (keeps error; updates rawResponse message).
+ * Enrich Disbursement HTTP errors in sandbox (keeps error; updates rawResponse / message).
  */
 export function enrichDisbursementError(request: any, error: any): any {
     if (!isSandbox() || request == null || error == null) {
@@ -352,7 +352,22 @@ export function enrichDisbursementError(request: any, error: any): any {
         responseMessage: raw.responseMessage != null ? String(raw.responseMessage) : '',
         partnerReferenceNo: raw.partnerReferenceNo != null ? String(raw.partnerReferenceNo) : '',
     };
+
+    const originalMsg = response.responseMessage;
     customValidationResponse(request, response);
+
+    if (response.responseMessage && response.responseMessage !== originalMsg) {
+        const status = error.status ?? '';
+        Object.defineProperty(error, 'message', {
+            value: `${status}: ${response.responseMessage}`,
+            writable: true,
+            configurable: true,
+        });
+        if (error.errorMessage !== undefined) {
+            error.errorMessage = response.responseMessage;
+        }
+    }
+
     error.rawResponse = {
         ...raw,
         responseCode: response.responseCode || raw.responseCode,
