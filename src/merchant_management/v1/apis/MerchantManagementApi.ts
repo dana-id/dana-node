@@ -193,8 +193,8 @@ export class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(createDivisionRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(createDivisionRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(createDivisionRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -301,8 +301,8 @@ export class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(createShopRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(createShopRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(createShopRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -409,8 +409,8 @@ export class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryAssetCardListRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryAssetCardListRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryAssetCardListRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -517,8 +517,8 @@ export class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryDivisionRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryDivisionRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryDivisionRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -625,8 +625,8 @@ export class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryMerchantInfoRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryMerchantInfoRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryMerchantInfoRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -733,8 +733,8 @@ export class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryMerchantResourceRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryMerchantResourceRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryMerchantResourceRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -841,8 +841,8 @@ export class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryShopRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryShopRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryShopRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -949,8 +949,8 @@ export class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(updateDivisionRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(updateDivisionRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(updateDivisionRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -1057,8 +1057,8 @@ export class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(updateShopRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(updateShopRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(updateShopRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {

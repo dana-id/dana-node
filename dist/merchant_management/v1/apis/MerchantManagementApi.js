@@ -110,8 +110,8 @@ class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(createDivisionRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(createDivisionRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(createDivisionRequest, error);
                 }
             }
             catch (enrichError) {
@@ -204,8 +204,8 @@ class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(createShopRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(createShopRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(createShopRequest, error);
                 }
             }
             catch (enrichError) {
@@ -298,8 +298,8 @@ class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryAssetCardListRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryAssetCardListRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryAssetCardListRequest, error);
                 }
             }
             catch (enrichError) {
@@ -392,8 +392,8 @@ class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryDivisionRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryDivisionRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryDivisionRequest, error);
                 }
             }
             catch (enrichError) {
@@ -486,8 +486,8 @@ class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryMerchantInfoRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryMerchantInfoRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryMerchantInfoRequest, error);
                 }
             }
             catch (enrichError) {
@@ -580,8 +580,8 @@ class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryMerchantResourceRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryMerchantResourceRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryMerchantResourceRequest, error);
                 }
             }
             catch (enrichError) {
@@ -674,8 +674,8 @@ class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryShopRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryShopRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryShopRequest, error);
                 }
             }
             catch (enrichError) {
@@ -768,8 +768,8 @@ class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(updateDivisionRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(updateDivisionRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(updateDivisionRequest, error);
                 }
             }
             catch (enrichError) {
@@ -862,8 +862,8 @@ class MerchantManagementApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(updateShopRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(updateShopRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(updateShopRequest, error);
                 }
             }
             catch (enrichError) {

@@ -12,9 +12,13 @@
  */
 export declare function customValidation(request: any): void;
 /**
- * Augment TransferToDana responses in sandbox on business errors.
+ * Augment Disbursement responses in sandbox with account/amount guidance.
  */
 export declare function customValidationResponse(request: any, response: any): void;
+/**
+ * Enrich Disbursement HTTP errors in sandbox (keeps error; updates rawResponse message).
+ */
+export declare function enrichDisbursementError(request: any, error: any): any;
 /**
  * Enrich TransferToDana HTTP errors in sandbox (keeps error; updates rawResponse message).
  */

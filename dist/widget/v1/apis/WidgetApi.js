@@ -99,8 +99,8 @@ class WidgetApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(accountUnbindingRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(accountUnbindingRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(accountUnbindingRequest, error);
                 }
             }
             catch (enrichError) {
@@ -182,8 +182,8 @@ class WidgetApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(applyOTTRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(applyOTTRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(applyOTTRequest, error);
                 }
             }
             catch (enrichError) {
@@ -259,8 +259,8 @@ class WidgetApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(applyTokenRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(applyTokenRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(applyTokenRequest, error);
                 }
             }
             catch (enrichError) {
@@ -342,8 +342,8 @@ class WidgetApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(balanceInquiryRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(balanceInquiryRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(balanceInquiryRequest, error);
                 }
             }
             catch (enrichError) {
@@ -424,8 +424,8 @@ class WidgetApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(cancelOrderRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(cancelOrderRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(cancelOrderRequest, error);
                 }
             }
             catch (enrichError) {
@@ -506,8 +506,8 @@ class WidgetApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryPaymentRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryPaymentRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryPaymentRequest, error);
                 }
             }
             catch (enrichError) {
@@ -600,8 +600,8 @@ class WidgetApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryUserProfileRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryUserProfileRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryUserProfileRequest, error);
                 }
             }
             catch (enrichError) {
@@ -682,8 +682,8 @@ class WidgetApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(refundOrderRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(refundOrderRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(refundOrderRequest, error);
                 }
             }
             catch (enrichError) {
@@ -764,8 +764,8 @@ class WidgetApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(widgetPaymentRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(widgetPaymentRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(widgetPaymentRequest, error);
                 }
             }
             catch (enrichError) {

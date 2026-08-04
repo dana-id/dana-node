@@ -19,10 +19,6 @@ import type {
     TransferToDanaRequest,
 } from './models/index';
 
-const SANDBOX_BENEFICIARY_ACCOUNT_NUMBER = '2460888509';
-const SANDBOX_BENEFICIARY_BANK_CODE = '014';
-/** Sandbox maximum amount (major units) for Disbursement. */
-const SANDBOX_MAX_AMOUNT = 20000000;
 const ALLOWED_ACCOUNT_TYPES = new Set<string>([
     'MERCHANT_DEPOSIT_ACCOUNT',
     'SETTLEMENT_ACCOUNT',
@@ -32,32 +28,6 @@ const ALLOWED_ACCOUNT_TYPES = new Set<string>([
 function isSandbox(): boolean {
     const env = (process.env.DANA_ENV || process.env.ENV || 'sandbox').toLowerCase();
     return env === 'sandbox';
-}
-
-function validateSandboxAmount(request: any): void {
-    if (request === null || request === undefined || !isSandbox()) {
-        return;
-    }
-    const amount = request.amount;
-    if (amount === null || amount === undefined) {
-        return;
-    }
-    const value = amount.value;
-    if (typeof value !== 'string' || value.trim() === '') {
-        return;
-    }
-    const parsed = Number(value);
-    if (Number.isNaN(parsed)) {
-        return;
-    }
-    if (parsed > SANDBOX_MAX_AMOUNT) {
-        throw new ValidationError([
-            {
-                field: 'amount.value',
-                message: `in sandbox, amount.value must not exceed ${SANDBOX_MAX_AMOUNT}; got ${value}`,
-            },
-        ]);
-    }
 }
 
 function requireNonEmpty(value: unknown, fieldPath: string): void {
@@ -162,63 +132,6 @@ function validateAccountTypeTransferToDana(request: TransferToDanaRequest): void
     validateAccountTypeValue(current.trim(), 'additionalInfo.accountType');
 }
 
-/** In sandbox, beneficiaryAccountNumber must be 2460888509 and beneficiaryBankCode must be 014. */
-function validateSandboxBeneficiaryBankAccountInquiry(request: BankAccountInquiryRequest): void {
-    if (!isSandbox() || request === null || request === undefined) {
-        return;
-    }
-    const contexts: any[] = [];
-    const accountNumber = typeof request.beneficiaryAccountNumber === 'string'
-        ? request.beneficiaryAccountNumber.trim()
-        : '';
-    if (accountNumber !== SANDBOX_BENEFICIARY_ACCOUNT_NUMBER) {
-        contexts.push({
-            field: 'beneficiaryAccountNumber',
-            message: `in sandbox, beneficiaryAccountNumber must be ${SANDBOX_BENEFICIARY_ACCOUNT_NUMBER}; got ${request.beneficiaryAccountNumber}`,
-        });
-    }
-    const bankCode = typeof request.additionalInfo?.beneficiaryBankCode === 'string'
-        ? request.additionalInfo.beneficiaryBankCode.trim()
-        : '';
-    if (bankCode !== SANDBOX_BENEFICIARY_BANK_CODE) {
-        contexts.push({
-            field: 'additionalInfo.beneficiaryBankCode',
-            message: `in sandbox, additionalInfo.beneficiaryBankCode must be ${SANDBOX_BENEFICIARY_BANK_CODE}; got ${request.additionalInfo?.beneficiaryBankCode}`,
-        });
-    }
-    if (contexts.length > 0) {
-        throw new ValidationError(contexts);
-    }
-}
-
-function validateSandboxBeneficiaryTransferToBank(request: TransferToBankRequest): void {
-    if (!isSandbox() || request === null || request === undefined) {
-        return;
-    }
-    const contexts: any[] = [];
-    const accountNumber = typeof request.beneficiaryAccountNumber === 'string'
-        ? request.beneficiaryAccountNumber.trim()
-        : '';
-    if (accountNumber !== SANDBOX_BENEFICIARY_ACCOUNT_NUMBER) {
-        contexts.push({
-            field: 'beneficiaryAccountNumber',
-            message: `in sandbox, beneficiaryAccountNumber must be ${SANDBOX_BENEFICIARY_ACCOUNT_NUMBER}; got ${request.beneficiaryAccountNumber}`,
-        });
-    }
-    const bankCode = typeof request.beneficiaryBankCode === 'string'
-        ? request.beneficiaryBankCode.trim()
-        : '';
-    if (bankCode !== SANDBOX_BENEFICIARY_BANK_CODE) {
-        contexts.push({
-            field: 'beneficiaryBankCode',
-            message: `in sandbox, beneficiaryBankCode must be ${SANDBOX_BENEFICIARY_BANK_CODE}; got ${request.beneficiaryBankCode}`,
-        });
-    }
-    if (contexts.length > 0) {
-        throw new ValidationError(contexts);
-    }
-}
-
 function validateRequiredAdditionalInfoNotEmptyBankAccountInquiry(request: BankAccountInquiryRequest): void {
     if (request === null || request === undefined || !request.additionalInfo) {
         return;
@@ -252,26 +165,20 @@ const validationRegistry: { [key: string]: Array<(request: any) => void> } = {
     BankAccountInquiryRequest: [
         stripSandboxIgnoredFieldsBankAccountInquiry,
         validateAccountTypeBankAccountInquiry,
-        validateSandboxBeneficiaryBankAccountInquiry,
-        validateSandboxAmount,
         validateRequiredAdditionalInfoNotEmptyBankAccountInquiry,
     ],
     TransferToBankRequest: [
         stripSandboxIgnoredFieldsTransferToBank,
         validateAccountTypeTransferToBank,
-        validateSandboxBeneficiaryTransferToBank,
-        validateSandboxAmount,
         validateRequiredAdditionalInfoNotEmptyTransferToBank,
     ],
     TransferToDanaRequest: [
         stripSandboxIgnoredFieldsTransferToDana,
         validateAccountTypeTransferToDana,
-        validateSandboxAmount,
         validateRequiredAdditionalInfoNotEmptyTransferToDana,
     ],
     DanaAccountInquiryRequest: [
         stripSandboxIgnoredFieldsDanaAccountInquiry,
-        validateSandboxAmount,
         validateRequiredAdditionalInfoNotEmptyDanaAccountInquiry,
     ],
 };
@@ -333,6 +240,16 @@ export function customValidation(request: any): void {
     }
 }
 
+const SANDBOX_POSITIVE_BENEFICIARY_ACCOUNT_NUMBER = '2460888509';
+const SANDBOX_POSITIVE_BENEFICIARY_BANK_CODE = '014';
+const SANDBOX_MAX_AMOUNT = 20000000;
+
+const SANDBOX_POSITIVE_BANK_HINT =
+    `For testing positive case in sandbox use beneficiaryAccountNumber ${SANDBOX_POSITIVE_BENEFICIARY_ACCOUNT_NUMBER} and beneficiaryBankCode ${SANDBOX_POSITIVE_BENEFICIARY_BANK_CODE}`;
+
+const SANDBOX_AMOUNT_MAX_HINT =
+    `In sandbox, amount.value must not exceed ${SANDBOX_MAX_AMOUNT}`;
+
 const SANDBOX_DANA_BALANCE_LIMIT_HINT =
     'Make sure DANA balance not exceeding limit of 21000000 after topup';
 
@@ -357,40 +274,73 @@ function appendSandboxHint(
     return `${msg}. ${hint}`;
 }
 
-function isBusinessErrorResponse(responseCode: any): boolean {
-    const code = String(responseCode ?? '').trim();
-    return code === '' || !code.startsWith('200');
+function isBankTransferRequest(request: any): boolean {
+    return instanceOfBankAccountInquiryRequest(request) || instanceOfTransferToBankRequest(request);
+}
+
+function shouldAppendPositiveBankHint(responseCode: any): boolean {
+    return String(responseCode ?? '').trim().startsWith('500');
+}
+
+function shouldAppendDanaBalanceHint(responseCode: any, responseMessage: any): boolean {
+    const msg = String(responseMessage ?? '').toLowerCase();
+    if (msg.includes('exceed') || msg.includes('melebihi')) {
+        return true;
+    }
+    return String(responseCode ?? '').trim() === '4033802';
+}
+
+function shouldAppendAmountMaxHint(responseMessage: any): boolean {
+    const msg = String(responseMessage ?? '').toLowerCase();
+    return msg.includes('exceed') || msg.includes('melebihi');
+}
+
+function applySandboxDisbursementHints(request: any, response: any): void {
+    if (response == null) {
+        return;
+    }
+    const responseCode = response.responseCode;
+    const responseMessage = response.responseMessage;
+
+    let updated = String(responseMessage ?? '');
+
+    if (isBankTransferRequest(request) && shouldAppendPositiveBankHint(responseCode)) {
+        updated = appendSandboxHint(
+            updated,
+            SANDBOX_POSITIVE_BANK_HINT,
+            SANDBOX_POSITIVE_BENEFICIARY_ACCOUNT_NUMBER,
+            `beneficiarybankcode ${SANDBOX_POSITIVE_BENEFICIARY_BANK_CODE}`,
+        );
+    }
+
+    if (instanceOfTransferToDanaRequest(request)) {
+        if (shouldAppendDanaBalanceHint(responseCode, responseMessage)) {
+            updated = appendSandboxHint(updated, SANDBOX_DANA_BALANCE_LIMIT_HINT, '21000000', 'after topup');
+        }
+    } else if (shouldAppendAmountMaxHint(responseMessage)) {
+        updated = appendSandboxHint(updated, SANDBOX_AMOUNT_MAX_HINT, String(SANDBOX_MAX_AMOUNT));
+    }
+
+    if (updated !== String(responseMessage ?? '')) {
+        response.responseMessage = updated;
+    }
 }
 
 /**
- * Augment TransferToDana responses in sandbox on business errors.
+ * Augment Disbursement responses in sandbox with account/amount guidance.
  */
 export function customValidationResponse(request: any, response: any): void {
     if (!isSandbox() || request == null || response == null) {
         return;
     }
-    if (!instanceOfTransferToDanaRequest(request)) {
-        return;
-    }
-    if (!isBusinessErrorResponse(response?.responseCode)) {
-        return;
-    }
-    response.responseMessage = appendSandboxHint(
-        response.responseMessage,
-        SANDBOX_DANA_BALANCE_LIMIT_HINT,
-        '21000000',
-        'after topup'
-    );
+    applySandboxDisbursementHints(request, response);
 }
 
 /**
- * Enrich TransferToDana HTTP errors in sandbox (keeps error; updates rawResponse message).
+ * Enrich Disbursement HTTP errors in sandbox (keeps error; updates rawResponse message).
  */
-export function enrichTransferToDanaError(request: any, error: any): any {
+export function enrichDisbursementError(request: any, error: any): any {
     if (!isSandbox() || request == null || error == null) {
-        return error;
-    }
-    if (!instanceOfTransferToDanaRequest(request)) {
         return error;
     }
     const raw = error.rawResponse;
@@ -410,4 +360,11 @@ export function enrichTransferToDanaError(request: any, error: any): any {
         partnerReferenceNo: response.partnerReferenceNo || raw.partnerReferenceNo,
     };
     return error;
+}
+
+/**
+ * Enrich TransferToDana HTTP errors in sandbox (keeps error; updates rawResponse message).
+ */
+export function enrichTransferToDanaError(request: any, error: any): any {
+    return enrichDisbursementError(request, error);
 }

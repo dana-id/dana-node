@@ -554,9 +554,9 @@ function customValidation(request) {
         throw err;
     }
 }
-const SANDBOX_QRIS_GUIDANCE_HINT_SUCCESS = 'If you want to use QRIS and it is not showing in payment methods, make sure you already fill externalStoreId. See https://dashboard.dana.id/sandbox/submerchants in the external shop id section.';
+const SANDBOX_QRIS_GUIDANCE_HINT_SUCCESS = 'If you want to use QRIS and it is not showing in payment methods, make sure you already fill externalStoreId. See https://dashboard.dana.id/sandbox/submerchants in the external shop id section. For QRIS, partnerReferenceNo max is 25 chars.';
 const SANDBOX_QRIS_GUIDANCE_HINT_ERROR = 'If you want to use QRIS, make sure you fill externalStoreId. See https://dashboard.dana.id/sandbox/submerchants in the external shop id section. For QRIS, partnerReferenceNo max is 25 chars.';
-const SANDBOX_SUB_MERCHANT_ID_GUIDANCE_HINT = 'Make sure your subMerchantId exists. You can see it at https://dashboard.dana.id/sandbox/submerchants in the External Division ID section.';
+const SANDBOX_NOT_FOUND_STORE_GUIDANCE_HINT = 'If you are using QRIS / making order for your store / submerchant, make sure externalStoreId / subMerchant exists. See https://dashboard.dana.id/sandbox/submerchants external shop id section for external store id and external division id section for submerchant';
 function appendSandboxHint(responseMessage, hint, ...alreadyPresentMarkers) {
     const msg = (responseMessage !== null && responseMessage !== void 0 ? responseMessage : '').trim();
     const lowerMsg = msg.toLowerCase();
@@ -573,9 +573,26 @@ function appendSandboxHint(responseMessage, hint, ...alreadyPresentMarkers) {
     }
     return `${msg}. ${hint}`;
 }
-function isBusinessErrorResponse(responseCode) {
+function isSuccessfulSnapResponse(responseCode) {
+    return String(responseCode !== null && responseCode !== void 0 ? responseCode : '').trim().startsWith('200');
+}
+function shouldAppendStoreSubmerchantHint(responseCode, responseMessage) {
+    const msg = String(responseMessage !== null && responseMessage !== void 0 ? responseMessage : '').toLowerCase().trim();
+    if (msg.includes('invalid merchant')) {
+        return true;
+    }
+    return String(responseCode !== null && responseCode !== void 0 ? responseCode : '').trim() === '4045408';
+}
+function shouldAppendQrisErrorHint(responseCode, responseMessage) {
     const code = String(responseCode !== null && responseCode !== void 0 ? responseCode : '').trim();
-    return code === '' || !code.startsWith('200');
+    if (code.startsWith('500')) {
+        return true;
+    }
+    if (!code.startsWith('400')) {
+        return false;
+    }
+    const msg = String(responseMessage !== null && responseMessage !== void 0 ? responseMessage : '').toLowerCase();
+    return ['reference', 'store', 'merchant'].some((marker) => msg.includes(marker));
 }
 /**
  * True redirect Create Order only (not API).
@@ -592,26 +609,37 @@ function isCreateOrderByRedirectKind(request) {
     return (0, index_1.instanceOfCreateOrderByRedirectRequest)(request)
         || (request.partnerReferenceNo !== undefined && request.urlParams !== undefined);
 }
+function applySandboxCreateOrderHints(request, response) {
+    var _a;
+    if (response == null) {
+        return;
+    }
+    const code = String((_a = response.responseCode) !== null && _a !== void 0 ? _a : '').trim();
+    if (isSuccessfulSnapResponse(code)) {
+        if (isCreateOrderByRedirectKind(request)) {
+            const externalStoreId = request.externalStoreId;
+            if (!(typeof externalStoreId === 'string' && externalStoreId.trim() !== '')) {
+                response.responseMessage = appendSandboxHint(response.responseMessage, SANDBOX_QRIS_GUIDANCE_HINT_SUCCESS, 'externalstoreid', 'partnerreferenceno');
+            }
+        }
+        return;
+    }
+    if (shouldAppendStoreSubmerchantHint(code, response.responseMessage)) {
+        response.responseMessage = appendSandboxHint(response.responseMessage, SANDBOX_NOT_FOUND_STORE_GUIDANCE_HINT, 'externalstoreid', 'submerchant', 'external division id', 'external shop id');
+        return;
+    }
+    if (shouldAppendQrisErrorHint(code, response.responseMessage)) {
+        response.responseMessage = appendSandboxHint(response.responseMessage, SANDBOX_QRIS_GUIDANCE_HINT_ERROR, 'externalstoreid', 'partnerreferenceno');
+    }
+}
 /**
- * Augment CreateOrder responses in sandbox (QRIS / subMerchantId guidance).
+ * Augment CreateOrder responses in sandbox with code-specific tips.
  */
 function customValidationResponse(request, response) {
     if (!isSandbox() || request == null || response == null) {
         return;
     }
-    // SUCCESS QRIS externalStoreId hint is Redirect-only (not CreateOrderApi).
-    if (isCreateOrderByRedirectKind(request)) {
-        const externalStoreId = request.externalStoreId;
-        if (!(typeof externalStoreId === 'string' && externalStoreId.trim() !== '')) {
-            response.responseMessage = appendSandboxHint(response.responseMessage, SANDBOX_QRIS_GUIDANCE_HINT_SUCCESS, 'externalstoreid');
-        }
-    }
-    const subMerchantId = request === null || request === void 0 ? void 0 : request.subMerchantId;
-    if (typeof subMerchantId === 'string' && subMerchantId.trim() !== '') {
-        if (isBusinessErrorResponse(response === null || response === void 0 ? void 0 : response.responseCode)) {
-            response.responseMessage = appendSandboxHint(response.responseMessage, SANDBOX_SUB_MERCHANT_ID_GUIDANCE_HINT, 'submerchantid', 'externaldivisionid');
-        }
-    }
+    applySandboxCreateOrderHints(request, response);
 }
 /**
  * Enrich CreateOrder HTTP errors in sandbox (keeps error; updates rawResponse / message).
@@ -631,21 +659,17 @@ function enrichCreateOrderError(request, error) {
         responseMessage: raw.responseMessage != null ? String(raw.responseMessage) : '',
         partnerReferenceNo: raw.partnerReferenceNo != null ? String(raw.partnerReferenceNo) : '',
     };
-    customValidationResponse(request, response);
-    // ERROR QRIS hint (incl. partnerReferenceNo max 25) is Redirect-only.
-    if (isCreateOrderByRedirectKind(request)) {
-        const externalStoreId = request.externalStoreId;
-        if (!(typeof externalStoreId === 'string' && externalStoreId.trim() !== '')) {
-            const hinted = appendSandboxHint('', SANDBOX_QRIS_GUIDANCE_HINT_ERROR, 'externalstoreid', 'partnerreferenceno');
-            const status = (_a = error.status) !== null && _a !== void 0 ? _a : '';
-            Object.defineProperty(error, 'message', {
-                value: `${status}: ${hinted}`,
-                writable: true,
-                configurable: true,
-            });
-            if (error.errorMessage !== undefined) {
-                error.errorMessage = hinted;
-            }
+    const originalMsg = response.responseMessage;
+    applySandboxCreateOrderHints(request, response);
+    if (response.responseMessage && response.responseMessage !== originalMsg) {
+        const status = (_a = error.status) !== null && _a !== void 0 ? _a : '';
+        Object.defineProperty(error, 'message', {
+            value: `${status}: ${response.responseMessage}`,
+            writable: true,
+            configurable: true,
+        });
+        if (error.errorMessage !== undefined) {
+            error.errorMessage = response.responseMessage;
         }
     }
     // Keep enriched response on the error for callers that inspect rawResponse.

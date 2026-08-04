@@ -15,7 +15,7 @@
  */
 export declare function customValidation(request: any): void;
 /**
- * Augment CreateOrder responses in sandbox (QRIS / subMerchantId guidance).
+ * Augment CreateOrder responses in sandbox with code-specific tips.
  */
 export declare function customValidationResponse(request: any, response: any): void;
 /**

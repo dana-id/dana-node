@@ -87,8 +87,8 @@ class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(cancelOrderRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(cancelOrderRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(cancelOrderRequest, error);
                 }
             }
             catch (enrichError) {
@@ -169,8 +169,8 @@ class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(consultPayRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(consultPayRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(consultPayRequest, error);
                 }
             }
             catch (enrichError) {
@@ -251,8 +251,8 @@ class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(createOrderRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(createOrderRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(createOrderRequest, error);
                 }
             }
             catch (enrichError) {
@@ -333,8 +333,8 @@ class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryPaymentRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryPaymentRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryPaymentRequest, error);
                 }
             }
             catch (enrichError) {
@@ -415,8 +415,8 @@ class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(refundOrderRequest, error);
                 }
-                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(refundOrderRequest, error);
+                if (customValidationModule === null || customValidationModule === void 0 ? void 0 : customValidationModule.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(refundOrderRequest, error);
                 }
             }
             catch (enrichError) {

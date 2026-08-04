@@ -146,8 +146,8 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(cancelOrderRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(cancelOrderRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(cancelOrderRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -239,8 +239,8 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(consultPayRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(consultPayRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(consultPayRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -332,8 +332,8 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(createOrderRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(createOrderRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(createOrderRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -425,8 +425,8 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(queryPaymentRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(queryPaymentRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(queryPaymentRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
@@ -518,8 +518,8 @@ export class PaymentGatewayApi extends runtime.BaseAPI {
                 if (customValidationModule?.enrichCreateOrderError) {
                     throw customValidationModule.enrichCreateOrderError(refundOrderRequest, error);
                 }
-                if (customValidationModule?.enrichTransferToDanaError) {
-                    throw customValidationModule.enrichTransferToDanaError(refundOrderRequest, error);
+                if (customValidationModule?.enrichDisbursementError) {
+                    throw customValidationModule.enrichDisbursementError(refundOrderRequest, error);
                 }
             } catch (enrichError: any) {
                 if (enrichError?.code !== 'MODULE_NOT_FOUND' && !enrichError?.message?.includes('Cannot find module')) {
